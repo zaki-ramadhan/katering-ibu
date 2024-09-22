@@ -5,4 +5,3 @@ Riwayat/progress capain belajar github saya :
 - hapus repo
 - edit file
 - lihat riwayat perubahan file
-- paham tanda + untuk menandakan perubahan berupa penambahan isi file
