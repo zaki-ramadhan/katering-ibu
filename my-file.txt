@@ -1,0 +1,4 @@
+Riwayat/progress capain belajar github saya :
+- buat repository
+- buat file readme
+- buat file txt
