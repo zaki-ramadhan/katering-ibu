@@ -1,4 +1,4 @@
-# PROYEK 2 - Katering Ibu (Laravel)
+# Proyek 2 - Katering Ibu
 Tim:
 - Dwi Rizky Fathurohman 2303090
 - Fiqry Omar Atala 2303092
