@@ -1,5 +1,7 @@
 List rencana tahun ini
 * Belajar Laravel
 * Belajar Tailwind
+* Langganan Youtube
+* Beli Keyboard wired
 * Beli laptop baru budget 7jt
 * Langganan gpt
