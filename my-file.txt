@@ -1,7 +1,20 @@
-Riwayat/progress capain belajar github saya :
-- buat repository
-- buat file readme
-- buat file txt
-- hapus repo
-- edit file
-- lihat riwayat perubahan file
+Fitur yang akan dikembangkan di websitenya :
+- Admin
+1. Login and register (kalo perlu)
+2. Baca data client, produk, ulasan, pesanan, pembayaran
+3. Akses kelola (insert, update, delete) data client, produk, pesananan , pembayaran (statusnya mungkin)
+
+- Client
+1. Register dan Login
+2. Edit dan hapus informasi akun
+3. Check-out pesanan
+4. Browsing/searching menu
+5. Edit dan hapus riwayat pesanan
+6. Kirim ulasan
+7. Browsing/searching menu
+
+-----------------------------------------------------------------------------
+Fitur yang harus ada di proyek 2 :
+1. Pencarian menu dari sisi client
+2. Filter Laporan pendapatan/pemasukan (misalkan bulan september saja)
+3 Bisa print laporan dalam bentuk pdf (katanya sih)
