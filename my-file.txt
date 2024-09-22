@@ -3,3 +3,4 @@ Riwayat/progress capain belajar github saya :
 - buat file readme
 - buat file txt
 - hapus repo
+- edit file
