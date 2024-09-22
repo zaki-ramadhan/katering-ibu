@@ -2,4 +2,5 @@ List rencana tahun ini
 * Belajar Laravel
 * Belajar Tailwind
 * Beli laptop baru budget 7jt
+* Pake ekstensi adblock
 * Langganan gpt
