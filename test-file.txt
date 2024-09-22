@@ -2,6 +2,4 @@ List rencana tahun ini
 * Belajar Laravel
 * Belajar Tailwind
 * Beli laptop baru budget 7jt
-* Belajar figma
-* Belajar uiux
 * Langganan gpt
