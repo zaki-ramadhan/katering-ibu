@@ -1,0 +1,9 @@
+Rencana penambahan dan pengembangan fitur
+1. Notifikasi melalui whatsApp / Pemberitahuan Pesanan Real-time melalui WhatsApp
+2. Konfirmasi Pesanan Detail via Email/sms
+3. Pembayaran menggunakan midtrans
+4. Pemesanan Multi-Menu dalam Satu Transaksi
+5. Keranjang Belanja
+6. Tracking pesanan (melacak status pesanan pelanaggan, apakah sedang diproses, sudah atau belum)
+7. Penjadwalan Pesanan, kapan pesanan akan dikirim
+8. Filter/kategori menu, bisa memfilter menu berdasarkan jenis makanan(vegetarian atau non-vegetarian) atau memfilter berdasarkan paket menu (makanan harian,paket pesta)
