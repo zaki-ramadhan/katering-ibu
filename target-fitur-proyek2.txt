@@ -1,0 +1,4 @@
+Fitur yang harus ada di proyek 2:
+1. Pencarian menu dari sisi client
+2. Filter Laporan pendapatan/pemasukan (misalkan bulan september saja)
+3 Bisa print laporan dalam bentuk pdf (katanya sih)
