@@ -1,0 +1,9 @@
+#definisikan routing
+#tambahkan routing di => routes/web.php
+
+#BERIKUT ADALAH KODENYA :
+--------------------------------------------------------------------------
+use App\Http\Controllers\ProductController;
+
+Route::get('/products', [ProductController::class, 'index']);
+-------------------------------------------------------------------------
