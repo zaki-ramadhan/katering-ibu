@@ -1,0 +1,37 @@
+#buat file view untuk menampilkan produk
+#buat file di => resources/views/products/index.blade.php
+
+#BERIKUT ADALAH KODENYA :
+------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Katering Ibu</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Menu Katering Ibu</h1>
+    </header>
+
+    <main>
+        <h2>Daftar Produk</h2>
+        <ul>
+            @foreach ($products as $product)
+                <li>{{ $product->name }} - Rp{{ number_format($product->price, 2) }}</li>
+            @endforeach
+        </ul>
+
+        <button id="alertButton">Klik Saya!</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Katering Ibu. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ asset('js/scripts.js') }}"></script>
+</body>
+</html>
+--------------------------------------------------------------------------------------------
