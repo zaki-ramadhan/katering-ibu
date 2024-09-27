@@ -1,0 +1,17 @@
+#membuat model
+php artisan make:model Product -m
+
+#setelah membuat file model, buka di database/migrations dan tambahkan kode berikut :
+------------------------------------------------------------------------------------
+public function up()
+{
+    Schema::create('products', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->decimal('price', 8, 2);
+        $table->timestamps();
+    });
+}
+
+#kemudian, jalankan migration
+php artisan migrate
