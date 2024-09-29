@@ -1,2 +1,2 @@
 # For Learning Purpose Only
-You can do anythin here, it's just random folder
+You can do anything in here, it's just random folder
