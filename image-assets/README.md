@@ -1,2 +1,2 @@
-# ABOUT THIS FOLDER
-Ini adalah asset image yang digunakan pada proyek sebelumnya untuk pengembangan website Katering Ibu
+# Folder Aset
+Ini adalah folder tempat menyimpan asest-aset yang diperlukan untuk pengembangan website Katering-ibu
