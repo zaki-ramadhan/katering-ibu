@@ -5,14 +5,15 @@ This repository contains the source code for Katering Ibu, a Laravel-based web a
 ## Details Project:
 ### Project:
 Katering Ibu website
+
+### Purpose:
+To provide a platform for ordering catering services
+
 ### Contributors / Development Team :
 - Dwi Rizki Fathurohman (2303090)
 - Fiqry Omar Atala (2303092)
 - Rosanti (2303103)
 - Zaki Ramadhan (2303108)
-
-### Purpose:
-To provide a platform for ordering catering services
 
 ### Technologies:
 - Laravel
