@@ -1,9 +1,0 @@
-Plan list for this year :
-* Learning framework laravel
-* Learning Library TailwindCSS
-* Subscription youtube account
-* Using adblock extension for chrome
-* Subscription gpt account
-* Find and get new device
-* Repair my device's both casing
-* Create new interface for katering-ibu's website
