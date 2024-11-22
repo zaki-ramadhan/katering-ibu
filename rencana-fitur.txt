@@ -1,7 +1,7 @@
 Rencana penambahan dan pengembangan fitur
 1. Notifikasi melalui whatsApp / Pemberitahuan Pesanan Real-time melalui WhatsApp
 2. Konfirmasi Pesanan Detail via Email/sms
-3. Pembayaran menggunakan midtrans
+3. Pembayaran dengan cara bayar dan upload bukti pembayaran (sepert proyek kemarin)
 4. Pemesanan Multi-Menu dalam Satu Transaksi
 5. Keranjang Belanja
 6. Tracking pesanan (melacak status pesanan pelanaggan, apakah sedang diproses, sudah atau belum)
