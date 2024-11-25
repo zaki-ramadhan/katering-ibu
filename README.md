@@ -20,6 +20,7 @@ To provide a platform for ordering catering services
 - MySQL
 - TailwindCSS
 - JQuery
+- DaisyUI
 
 ## Partner Information:
 Katering Ibu is the partner for this project, which is part of a course assignment. The website will be developed for Katering Ibu to facilitate their catering service orders.
