@@ -123,6 +123,5 @@
                 </form>
             </div>
         </main>
-        <h1>INI ADALAH PERUBAHAN TERBARU</h1>
     </body>
 </html>
