@@ -16,7 +16,7 @@
                         @break
 
                     @case('customer.order-history')
-                        Riwayat Pesanan  Saya
+                        Riwayat Pesanan
                         @break
 
                     @default

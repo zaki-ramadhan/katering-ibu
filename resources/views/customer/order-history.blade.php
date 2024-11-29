@@ -155,20 +155,17 @@ $data = [
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-tertiary md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-white md:bg-primary-600">
 
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
 
         <main id="main-section" class="container min-h-[100vh] px-8 flex flex-col gap-6 pb-16">
-            <section id="hero-section" class="py-8">
-                <div class="text-wrapper text-center flex flex-col items-center gap-4">
-                    <h1 class="font-semibold text-primary text-4xl w-5/6 leading-10">Riwayat pesanan Anda, semuanya tertata rapih.</h1>
-                    <p class="text-sm w-80 leading-6">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
-                </div>
-                <img src="{{asset('images/order-cust.svg')}}" alt="order cust hero section" class="w-96 place-self-center">
+            <section id="hero-section" class="container  py-10">
+                <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan Anda,<br>semuanya tertata rapih.</h1>
+                <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
             </section>
-            <div class="relative overflow-x-auto shadow-md shadow-slate-200 rounded-2xl">
+            <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -205,7 +202,7 @@ $data = [
                         @foreach ($data as $order)
                             <tr class="bg-white border-b hover:bg-gray-50 ">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $order['created_date'] }}
+                                    {{ $order['created_date'] }}    
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ implode(', ', $order['menus']) }}
