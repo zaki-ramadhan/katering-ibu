@@ -16,11 +16,13 @@ To provide a platform for ordering catering services
 - Zaki Ramadhan (2303108)
 
 ### Technologies:
-- Laravel
-- MySQL
-- TailwindCSS
-- JQuery
-- DaisyUI
+- <a href="https://laravel.com/">Laravel</a>
+- <a href="https://getcomposer.org/">Composer</a>
+- <a href="https://nodejs.org/en">Node.JS</a>
+- <a href="https://www.mysql.com/">MySQL</a>
+- <a href="https://tailwindcss.com/">TailwindCSS</a>
+- <a href="https://jquery.com/">JQuery/</a>
+- <a href="https://daisyui.com/">DaisyUI/</a>
 
 ## Partner Information:
 Katering Ibu is the partner for this project, which is part of a course assignment. The website will be developed for Katering Ibu to facilitate their catering service orders.
