@@ -127,7 +127,7 @@ $data = [
         <title>Riwayat Pesanan saya</title>
         
         {{-- scripts --}}
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar.js', 'resources/js/components/header-cust.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
 
         <!-- Load JavaScript libraries -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

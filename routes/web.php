@@ -57,10 +57,6 @@ Route::get('/about-us', function() {
     return view('about-us');
 })->name('about-us');
 
-// about-us page
-Route::get('/about-us', function() {
-    return view('about-us');
-})->name('about-us');
 
 // home page
 Route::get('/home', function() {
@@ -70,32 +66,28 @@ Route::get('/home', function() {
 // menu page
 Route::get('/menu', function() {
     return view('menu');
-    
 })->name('menu');
 
 // order now page
 Route::get('/order-now', function() {
     return view('order-now');
-    
 })->name('order-now');
 
 // contact us page
 Route::get('/contact-us', function() {
     return view('contact-us');
-    
 })->name('contact-us');
 
 // service page
 Route::get('/service', function() {
     return view('service');
-    
 })->name('service');
 
 
 require __DIR__.'/auth.php';
 
 // !
-route::get('admin/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
+route::get('admin/dashboard-admin', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
 
 
 // ! ini cuman iseng nampilin data ga make db, hapus aja kalo ga kepake, dr gpt
@@ -103,6 +95,17 @@ Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
 
+
+// logika akan terpental setelah login ke halaman mana
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dashboard-admin', function () {
+        return view('admin.dashboard-admin'); // Buat file `resources/views/admin/dashboard.blade.php`
+    })->name('admin.dashboard-admin');
+
+    Route::get('/customer/dashboard', function () {
+        return view('customer.dashboard'); // Buat file `resources/views/customer/dashboard.blade.php`
+    })->name('customer.dashboard');
+});
 
 // customer
 Route::get('/dashboard', function () {
@@ -119,9 +122,9 @@ Route::get('/order-history', action: function () {
 
 
 // admin
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+Route::get('/admin/dashboard-admin', function () {
+    return view('admin.dashboard-admin');
+})->name('admin.dashboard-admin');
 
 
 

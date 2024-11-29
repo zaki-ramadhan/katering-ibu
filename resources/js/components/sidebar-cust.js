@@ -1,4 +1,4 @@
-const sidebarWrapper = $('#sidebar-wrapper');
+const sidebarWrapper = $('#sidebar-cust-wrapper');
 const sidebar = $('.sidebar');
 
 // open sidebar
