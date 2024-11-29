@@ -120,12 +120,12 @@ $topMenus = $menus->take(4);
                 </div>
                 <div class="text-button-group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center content-center gap-4 text-center">
                     <h1 class="text-5xl font-semibold w-max">Buat hidangan acaramu<br>jadi lebih berkualitas.</h1>
-                    <p class="text-sm">dengan Katering Ibu - Solusi Kebutuhan Katering Anda.</p>
+                    <p class="text-sm -mt-2">dengan Katering Ibu - Solusi Kebutuhan Katering Anda.</p>
                     @auth
                         <a href="{{ route('menu') }}">
                             <button id="btn-order-now" class="group ps-2 pe-4 py-2 rounded-full bg-primary hover:bg-gradient-to-r hover:from-primaryHovered hover:to-primary hover:scale-[1.01] duration-200 text-xs text-white/60 hover:text-white active:bg-primary flex items-center content-center gap-2 mt-3">
                                 <iconify-icon icon="akar-icons:shopping-bag" class="text-lg p-2 bg-primary-600 rounded-full group-hover:bg-primary duration-200"></iconify-icon>
-                                Ayo mulai memesan
+                                {{ auth()->check() ? 'Pesan Sekarang' : 'Buat Pesanan Pertama Anda' }}
                                 <iconify-icon icon="fluent:arrow-right-20-filled" class="text-lg group-hover:ms-6 duration-200"></iconify-icon>
                             </button>
                         </a>

@@ -3,14 +3,23 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
-    return view(view: 'home');
+    return redirect('/home');  // Redirect ke /home
 });
+
+// Tambahkan route untuk /home
+Route::get('/home', function () {
+    return view('home');  // Ganti 'home' dengan view yang sesuai
+});
+
+
+
+// Route::get('/', function () {
+//     return view(view: 'home');
+// });
 
 // Route::get('\home', action: function(){
 //     return view('home');

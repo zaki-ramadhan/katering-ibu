@@ -23,7 +23,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Akun Saya - Dashboard</title>
+        <title>Dashboard Pengguna - Akun Saya</title>
         
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar.js', 'resources/js/components/header-cust.js'])
@@ -60,6 +60,8 @@
         <x-modal-logout></x-modal-logout>
 
         <main id="main-section" class="container px-8 flex flex-col gap-6 pb-16">
+
+            {{-- hero section --}}
             <section id="hero-section" class="container px-4 py-6 flex items-center gap-8 rounded-xl bg-white">
                 <img src="{{ asset('images/hello-cust.svg') }}" alt="" class="w-72 -translate-x-6">
                 <div class="text-wrapper flex flex-col gap-4 items-center justify-start -translate-x-12">
@@ -67,7 +69,20 @@
                     <p class="text-sm leading-6">Periksa informasi akun, notifikasi pesanan, dan pemberitahuan lainnya terkait Akun Anda disini.</p>
                 </div>
             </section>
+
             <section id="secondary-section" class="container grid grid-cols-2 gap-4">
+                <div class="step-progress col-span-2 px-4 py-8 bg-white rounded-xl flex flex-col gap-2">
+                    <h2 class="text-center text-primary font-semibold text-xl">Anda semakin dekat!</h2>
+                    <p class="text-center text-sm w-80 self-center">Tahap ini adalah langkah Anda berikutnya untuk menyelesaikan data akun Anda.</p>
+                    <ul class="steps mt-5 text-sm">
+                        <li class="step step-primary">Buat akun</li>
+                        <li class="step step-primary">Isi data Username</li>
+                        <li class="step">Isi data Email</li>
+                        <li class="step">Isi data Password</li>
+                        <li class="step">Isi data No HP</li>
+                      </ul>
+                </div>
+                {{-- data customer --}}
                 <div class="card profile-card  bg-white p-6 rounded-lg flex flex-col gap-4">
                     <h2 class="font-semibold text-primary text-base">Informasi data pribadi Anda saat ini</h2>
                     <img src="{{asset('images/Me/jas jae.jpg')}}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
@@ -79,6 +94,8 @@
                         </a>
                     </div>
                 </div>
+
+                {{-- orderhistory card --}}
                 <div class="card orderhistory-card bg-white p-6 rounded-lg flex flex-col gap-4">
                     <h2 class="font-semibold text-primary text-base">Riwayat transaksi terbaru Anda</h2>
                     <div class="items-wrapper flex flex-col gap-4 max-h-[17.3rem] overflow-y-scroll ">

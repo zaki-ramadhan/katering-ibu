@@ -1,20 +1,121 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+{{-- ? sampel data saja ini --}}
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
+<?php
+// Data array (Contoh data)
+$data = [
+    [
+        "created_date" => "2024-11-29",
+        "name" => "John Doe",
+        "menus" => ["Nasi Goreng", "Ayam Bakar"],
+        "portions" => [2, 1],
+        "total_price" => 500000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Merdeka No. 10, Jakarta",
+        "payment_method" => "Transfer",
+        "status" => "Menunggu"
+    ],
+    [
+        "created_date" => "2024-11-28",
+        "name" => "Jane Smith",
+        "menus" => ["Sate Ayam", "Gado-Gado"],
+        "portions" => [3, 2],
+        "total_price" => 350000,
+        "pickup_method" => "Ambil",
+        "address" => "-",
+        "payment_method" => "Cash",
+        "status" => "Selesai"
+    ],
+    [
+        "created_date" => "2024-11-27",
+        "name" => "James Brown",
+        "menus" => ["Mie Goreng", "Soto Ayam"],
+        "portions" => [1, 1],
+        "total_price" => 200000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Sudirman No. 20, Bandung",
+        "payment_method" => "Transfer",
+        "status" => "Dalam Antrian"
+    ],
+    [
+        "created_date" => "2024-11-26",
+        "name" => "Emily Davis",
+        "menus" => ["Burger", "Kentucky Fried Chicken"],
+        "portions" => [1, 2],
+        "total_price" => 400000,
+        "pickup_method" => "Ambil",
+        "address" => "-",
+        "payment_method" => "Cash",
+        "status" => "Diproses"
+    ],
+    [
+        "created_date" => "2024-11-25",
+        "name" => "Michael Johnson",
+        "menus" => ["Pizza", "Pasta"],
+        "portions" => [2, 1],
+        "total_price" => 600000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Kuningan No. 15, Jakarta",
+        "payment_method" => "Transfer",
+        "status" => "Selesai"
+    ],
+    [
+        "created_date" => "2024-11-24",
+        "name" => "Sarah Lee",
+        "menus" => ["Nasi Goreng", "Mie Ayam"],
+        "portions" => [1, 1],
+        "total_price" => 250000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Sumeru No. 12, Yogyakarta",
+        "payment_method" => "Transfer",
+        "status" => "Menunggu"
+    ],
+    [
+        "created_date" => "2024-11-23",
+        "name" => "David Kim",
+        "menus" => ["Sushi", "Ramen"],
+        "portions" => [2, 1],
+        "total_price" => 450000,
+        "pickup_method" => "Ambil",
+        "address" => "-",
+        "payment_method" => "Cash",
+        "status" => "Diproses"
+    ],
+    [
+        "created_date" => "2024-11-22",
+        "name" => "Anna White",
+        "menus" => ["Tacos", "Burritos"],
+        "portions" => [2, 3],
+        "total_price" => 350000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Raya No. 18, Bali",
+        "payment_method" => "Transfer",
+        "status" => "Selesai"
+    ],
+    [
+        "created_date" => "2024-11-21",
+        "name" => "Chris Green",
+        "menus" => ["Kebab", "Falafel"],
+        "portions" => [1, 2],
+        "total_price" => 300000,
+        "pickup_method" => "Ambil",
+        "address" => "-",
+        "payment_method" => "Cash",
+        "status" => "Dalam Antrian"
+    ],
+    [
+        "created_date" => "2024-11-20",
+        "name" => "Laura Black",
+        "menus" => ["Curry", "Rice"],
+        "portions" => [1, 1],
+        "total_price" => 220000,
+        "pickup_method" => "Kirim",
+        "address" => "Jl. Anggrek No. 22, Jakarta",
+        "payment_method" => "Transfer",
+        "status" => "Sedang Dalam Pengiriman"
+    ]
+];
+
+?>
 
 {{-- ! alternatif soalnya tailwindnya ga jalan --}}
 <!DOCTYPE html>
@@ -23,7 +124,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Akun Saya - Dashboard</title>
+        <title>Riwayat Pesanan saya</title>
         
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar.js', 'resources/js/components/header-cust.js'])
@@ -59,50 +160,79 @@
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
 
-        <main id="main-section" class="container px-8 flex flex-col gap-6 pb-16">
-            <section id="hero-section" class="container px-4 py-6 flex items-center gap-8 rounded-xl bg-white">
-                <img src="{{ asset('images/hello-cust.svg') }}" alt="" class="w-72 -translate-x-6">
-                <div class="text-wrapper flex flex-col gap-4 items-center justify-start -translate-x-12">
-                    <h1 class="font-bold text-4xl w-full grow text-primary ">Lihat dan pantau perkembangan akun Anda.</h1>
-                    <p class="text-sm leading-6">Periksa informasi akun, notifikasi pesanan, dan pemberitahuan lainnya terkait Akun Anda disini.</p>
-                </div>
+        <main id="main-section" class="container min-h-[100vh] px-8 flex flex-col gap-6 pb-16">
+            <section id="hero-section">
+                <h1></h1>
             </section>
-            <section id="secondary-section" class="container grid grid-cols-2 gap-4">
-                <div class="card profile-card  bg-white p-6 rounded-lg flex flex-col gap-4">
-                    <h2 class="font-semibold text-primary text-base">Informasi data pribadi Anda saat ini</h2>
-                    <img src="{{asset('images/Me/jas jae.jpg')}}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
-                    <div class="customer-data-wrapper flex flex-col gap-1 text-center">
-                        <h3 class="customer-name font-semibold text-primary">Zaki Rmdhn</h3>
-                        <p class="customer-email text-sm font-normal">zakiram4dhan@gmail.com</p>
-                        <a href="{{route('customer.profile')}}">
-                            <button class="py-4 px-5 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary active:scale-95 transition-transform duration-150 text-white text-xs font-medium mt-2">Lihat selengkapnya</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="card orderhistory-card bg-white p-6 rounded-lg flex flex-col gap-4">
-                    <h2 class="font-semibold text-primary text-base">Riwayat transaksi terbaru Anda</h2>
-                    <div class="items-wrapper flex flex-col gap-4 max-h-[17.3rem] overflow-y-scroll ">
-                        <div class="item p-4 rounded-xl bg-yellow-100 text-yellow-500 flex flex-col gap-1">
-                            <p class="order-date-created text-xs">2024-11-28</p>
-                            <p class="total-bill font-bold text-xl">Rp. 980,000</p>
-                            <p class="order-status text-xs">Dalam Pengiriman</p>
-                        </div>
-                        <div class="item p-4 rounded-xl bg-emerald-100 text-emerald-500 flex flex-col gap-1">
-                            <p class="order-date-created text-xs">2024-11-19</p>
-                            <p class="total-bill font-bold text-xl">Rp. 720,000</p>
-                            <p class="order-status text-xs">Selesai</p>
-                        </div>
-                        <div class="item p-4 rounded-xl bg-emerald-100 text-emerald-500 flex flex-col gap-1">
-                            <p class="order-date-created text-xs">2024-11-03</p>
-                            <p class="total-bill font-bold text-xl">Rp. 360,000</p>
-                            <p class="order-status text-xs">Selesai</p>
-                        </div>
-                    </div>
-                    <a href="{{route('customer.order-history')}}" class="self-center">
-                        <button class="py-4 px-5 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary active:scale-95 transition-transform duration-150 text-white text-xs font-medium mt-2">Lihat selengkapnya</button>
-                    </a>
-                </div>
-            </section>
+            <div class="relative overflow-x-auto shadow-md shadow-slate-200 sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Tanggal memesan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Menu yang Dipesan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Porsi
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Total Harga
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Metode Pengambilan
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Alamat
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Metode Pembayaran
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Aksi
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $order)
+                            <tr class="bg-white border-b hover:bg-gray-50 ">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order['created_date'] }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ implode(', ', $order['menus']) }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ implode(', ', $order['portions']) }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ number_format($order['total_price'], 0, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    {{ $order['pickup_method'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['pickup_method'] == 'Kirim' ? $order['address'] : '-' }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['payment_method'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['status'] }}
+                                </td>
+                                <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400  hover:bg-amber-300 active:bg-amber-400">Edit</a>
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </main>
     </body>
 </html>

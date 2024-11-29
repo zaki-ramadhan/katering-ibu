@@ -25,6 +25,7 @@ $('.profile-btn').on('click', function(e){
 // Menutup dropdown jika klik di luar area dropdown
 $(document).on('click', function(e) {
     if (!$(e.target).closest('.dropdown-logout, .profile-btn').length) {
+        $(".profile-btn").removeClass('bg-slate-200');
         $(dropdownLogout).hide();
         $(usernameCust).addClass('w-6').removeClass('w-20')
     }

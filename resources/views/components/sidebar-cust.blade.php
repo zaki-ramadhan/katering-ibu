@@ -1,7 +1,7 @@
 <section id="sidebar-wrapper" class="absolute hidden top-0 left-0 w-full h-full bg-black/60 z-20 backdrop-blur-sm">
     <div class="sidebar absolute top-0 -translate-x-full w-60 py-6 px-8 h-full bg-white flex flex-col gap-6 duration-200 ease-in-out">
         <div class="logo-menuBtn flex justify-between items-center gap-3">
-            <h2 class="font-medium text-primary">Katering Ibu</h2>
+            <a href="home" title="Home" class="font-medium text-primary">Katering Ibu</a>
             <button id="side-menu-btn" title="Menu" class="w-10 aspect-square grid place-content-center translate-y-[1px] hover:bg-tertiary hover:text-primary text-2xl active:ring-1 rounded-lg active:ring-slate-300">
                 <iconify-icon icon="lucide:menu" class=""></iconify-icon>
             </button>

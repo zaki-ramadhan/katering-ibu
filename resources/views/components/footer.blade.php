@@ -1,4 +1,4 @@
-<footer class="w-full relative text-white px-12 pb-12 pt-32 bg-primary mt-28 flex flex-col text-center gap-10">
+<footer class="w-full relative text-white px-12 {{ auth()->check() ? 'py-12' : 'pb-12 pt-32' }} bg-primary mt-28 flex flex-col text-center gap-10">
     @guest               
     <section id="ads-section" class="container px-4 absolute -top-20 left-1/2 -translate-x-1/2">
         <div class="ads-wrapper relative w-full bg-white px-6 py-8 rounded-lg flex text-primary shadow-xl shadow-slate-700/30 overflow-hidden">
