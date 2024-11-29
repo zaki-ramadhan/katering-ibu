@@ -22,7 +22,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Akun Saya - Dashboard</title>
+        <title>Informasi Akun Saya</title>
         
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/customer/profile.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar.js', 'resources/js/components/header-cust.js'])
@@ -33,7 +33,6 @@
 
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
         
-
         <style>
             input[type="search"]::-webkit-search-cancel-button {
                 -webkit-appearance: none;
@@ -67,12 +66,14 @@
                     </div>
                 </div>
             </div>
+
             <div class="field-data-cust-wrapper container h-auto aspect-square mt-8 text-center bg-white px-16 pt-12 rounded-3xl">
                 <h1 class="username text-primary text-2xl mb-3 font-semibold">Zaki Rmdhn</h1>
                 <div class="decoration-wrapper flex justify-center gap-2 text-xs font-normal">
                     <span class="role-user p-2 pe-4 ps-6 rounded-full bg-slate-200 text-slate-500 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-slate-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">ID User : 16688034762</span>
                     <span class="id-user p-2 pe-4 ps-6 rounded-full bg-emerald-100 text-emerald-400 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-emerald-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">Pelanggan</span>
                 </div>
+                
                 <form action="" method="post" class="mt-14 w-full mx-auto flex flex-col items-center justify-center gap-7">
                     <header class="head-form flex w-full justify-between items-center mt-4 -mb-2">
                         <h2 class="font-medium text-primary">Informasi Pribadi Anda :</h2>
@@ -83,18 +84,24 @@
                             </button>
                         </a>
                     </header>
+
+                    {{-- username --}}
                     <div class="username-input w-full flex gap-3">
                         <label for="username" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                             <iconify-icon icon="bxs:user"></iconify-icon>
                         </label>
                         <input readonly disabled type="text" name="username" id="username" value="Zaki Ramadhan" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
                     </div>
+
+                    {{-- email --}}
                     <div class="email-input w-full flex gap-3">
                         <label for="email" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                             <iconify-icon icon="dashicons:email"></iconify-icon>
                         </label>
                         <input readonly disabled type="email" name="email" id="email" value="zakiram4dhan@gmail.com" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
                     </div>
+
+                    {{-- password --}}
                     <div class="password-input w-full flex gap-3 relative">
                         <label for="password" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                             <iconify-icon icon="bxs:lock"></iconify-icon>
@@ -105,6 +112,8 @@
                             <iconify-icon icon="mdi:eye-off" class="closed-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
                         </div>
                     </div>
+
+                    {{-- notelp --}}
                     <div class="notelp-input w-full flex gap-3">
                         <label for="notelp" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                             <iconify-icon icon="carbon:phone-filled"></iconify-icon>
@@ -114,5 +123,6 @@
                 </form>
             </div>
         </main>
+        <span>AJG BGT SIH LU</span>
     </body>
 </html>
