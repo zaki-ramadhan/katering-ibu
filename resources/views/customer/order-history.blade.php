@@ -161,10 +161,14 @@ $data = [
         <x-modal-logout></x-modal-logout>
 
         <main id="main-section" class="container min-h-[100vh] px-8 flex flex-col gap-6 pb-16">
-            <section id="hero-section">
-                <h1></h1>
+            <section id="hero-section" class="py-8">
+                <div class="text-wrapper text-center flex flex-col items-center gap-4">
+                    <h1 class="font-semibold text-primary text-4xl w-5/6 leading-10">Riwayat pesanan Anda, semuanya tertata rapih.</h1>
+                    <p class="text-sm w-80 leading-6">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
+                </div>
+                <img src="{{asset('images/order-cust.svg')}}" alt="order cust hero section" class="w-96 place-self-center">
             </section>
-            <div class="relative overflow-x-auto shadow-md shadow-slate-200 sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md shadow-slate-200 rounded-2xl">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
