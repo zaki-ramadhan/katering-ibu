@@ -11,13 +11,25 @@
                         Dashboard
                         @break
 
-                    {{-- @case('admin.profile')
-                        Informasi pribadi
+                    @case('admin.data-penjualan')
+                        Data Penjualan
                         @break
 
-                    @case('admin.order-history')
-                        Riwayat Pesanan
-                        @break --}}
+                    @case('admin.data-pesanan')
+                        Data Pesanan
+                        @break
+
+                    @case('admin.data-pelanggan')
+                        Data Pelanggan
+                        @break
+
+                    @case('admin.data-menu')
+                        Data Menu
+                        @break
+
+                    @case('admin.data-ulasan')
+                        Data Ulasan
+                        @break
 
                     @default
                         Halaman Tidak Diketahui

@@ -49,7 +49,7 @@
 
         <main id="main-section" class="container px-8 flex flex-col gap-6 pb-16">
             <div class="sub-header-content container text-center  bg-primary rounded-lg py-4 ">
-                <h1 class="text-base font-medium text-white">Selamat datang kembali Admin</h1>
+                <h1 class="text-base text-white">Selamat datang kembali Admin</h1>
             </div>
             {{-- hero section --}}
             <section id="hero-section" class="container px-4 py-6 flex items-center gap-8 rounded-xl bg-white">

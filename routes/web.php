@@ -126,5 +126,25 @@ Route::get('/admin/dashboard-admin', function () {
     return view('admin.dashboard-admin');
 })->name('admin.dashboard-admin');
 
+Route::get('/admin/data-penjualan', function () {
+    return view('admin.data-penjualan');
+})->name('admin.data-penjualan');
+
+Route::get('/admin/data-pelanggan', function () {
+    return view('admin.data-pelanggan');
+})->name('admin.data-pelanggan');
+
+Route::get('/admin/data-pesanan', function () {
+    return view('admin.data-pesanan');
+})->name('admin.data-pesanan');
+
+Route::get('/admin/data-menu', action: function () {
+    return view('admin.data-menu');
+})->name('admin.data-menu');
+
+Route::get('/admin/data-ulasan', action: function () {
+    return view('admin.data-ulasan');
+})->name('admin.data-ulasan');
+
 
 

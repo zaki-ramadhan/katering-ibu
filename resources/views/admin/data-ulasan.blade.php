@@ -1,5 +1,3 @@
-{{-- ? sampel data saja ini --}}
-
 <?php
 // Data array (Contoh data)
 $data = [
@@ -123,10 +121,17 @@ $data = [
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Riwayat Pesanan saya</title>
+        <title>Dashboard Admin</title>
+        
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/css/uikit.min.css" />
+
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit-icons.min.js"></script>
         
         {{-- scripts --}}
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin/dashboard-admin.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-admin.js', 'resources/js/components/header-admin.js'])
 
         <!-- Load JavaScript libraries -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -154,16 +159,12 @@ $data = [
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-white md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-tertiary md:bg-primary-600">
 
-        <x-header-cust></x-header-cust>
+        <x-header-admin></x-header-admin>
         <x-modal-logout></x-modal-logout>
 
-        <main id="main-section" class="container min-h-[100vh] px-8 flex flex-col gap-6 pb-16">
-            <section id="hero-section" class="container  py-10">
-                <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan Anda,<br>semuanya tertata rapih.</h1>
-                <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
-            </section>
+        <main id="main-section" class="container px-8 flex flex-col gap-6 pb-16">
             <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
