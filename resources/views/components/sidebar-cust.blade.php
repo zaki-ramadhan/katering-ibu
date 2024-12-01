@@ -1,4 +1,4 @@
-<aside id="sidebar-admin-wrapper" class="absolute hidden top-0 left-0 w-full h-full bg-black/60 z-20 backdrop-blur-sm">
+<aside id="sidebar-cust-wrapper" class="absolute hidden top-0 left-0 w-full h-full bg-black/60 z-20 backdrop-blur-sm">
     <div class="sidebar absolute top-0 -translate-x-full w-60 py-6 px-8 h-full bg-white flex flex-col gap-6 duration-200 ease-in-out">
         <div class="logo-menuBtn flex justify-between items-center gap-3">
             <a href="home" title="Home" class="font-bold text-primary">Katering Ibu</a>

@@ -22,7 +22,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Informasi Akun Saya</title>
+        <title>Informasi Pribadi</title>
         
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/customer/profile.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
