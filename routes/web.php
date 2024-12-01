@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MenuController;
 
 Route::get('/', function () {
     return redirect('/home');  // Redirect ke /home
@@ -142,9 +142,20 @@ Route::get('/admin/data-menu', action: function () {
     return view('admin.data-menu');
 })->name('admin.data-menu');
 
+Route::get('admin.data-menu', [MenuController::class, 'index'])->name('menu.index');
+
+
 Route::get('/admin/data-ulasan', action: function () {
     return view('admin.data-ulasan');
 })->name('admin.data-ulasan');
 
+
+
+// crud menu
+Route::get('/menu/create', function () {
+    return view('admin.create-menu');
+})->name('menu.create');
+
+Route::post('/menu/store', [MenuController::class, 'store'])->name('menu.store');
 
 

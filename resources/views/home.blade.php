@@ -170,9 +170,9 @@ $topMenus = $menus->take(4);
             <section id="top-menu-section" class="container px-4">
                 <div class="top-menu-wrapper w-full p-6 bg-white mt-6 rounded-xl">
                     <h2 class=" text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
-                    <div class="content-container group flex flex-wrap gap-4 pt-6 text-primary hover:text-secondary ">
+                    <div class="card-wrapper group grid grid-cols-2 gap-4 pt-6 text-primary hover:text-secondary ">
                         @foreach ( $topMenus as $menu)
-                        <figure class="card relative flex-1 min-w-52 max-w-[16.7rem] hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
+                        <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
                             <div class="img-container aspect-square rounded-lg overflow-hidden">
                                 <img src="{{ $menu['img'] }}" alt="{{ $menu['img'] }}" class="w-full h-full object-cover brightness-100 duration-200">
                                 <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">
@@ -210,9 +210,9 @@ $topMenus = $menus->take(4);
             <section id="menu-section" class="container px-4">
                 <div class="menu-wrapper w-full px-6 bg-white mt-6 py-6 rounded-xl">
                     <h2 class=" text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Semua <span class="font-bold">Menu (7)</span></h2>
-                    <div class="content-container group flex flex-wrap gap-4 pt-6 text-primary hover:text-secondary ">
+                    <div class="card-wrapper group grid grid-cols-2 gap-4 pt-6 text-primary hover:text-secondary ">
                         @foreach ( $topMenus as $menu)
-                        <figure class="card relative flex-1 min-w-52 max-w-[16.7rem] hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
+                        <figure class="card relative flex-1 hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
                             <div class="img-container aspect-square rounded-lg overflow-hidden">
                                 <img src="{{ $menu['img'] }}" alt="{{ $menu['img'] }}" class="w-full h-full object-cover brightness-100 duration-200">
                                 <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">

@@ -122,7 +122,7 @@
                     @auth
                     <button class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
                     @else
-                    <button disabled class="w-max bg-secondary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+                    <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
                     @endauth
                 </form>
             </section>
