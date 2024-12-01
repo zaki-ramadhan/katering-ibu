@@ -44,7 +44,7 @@
         <div class="btn-wrapper flex gap-6">
             <div class="profile-dropdown-wrapper relative">
                 <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-300/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
-                    <img src="{{asset('images/Me/smoking-x.jpg')}}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
+                    <img src="{{asset('images/admin.png')}}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
                     <p class="admin-name truncate duration-200">Administrator</p>
                     <iconify-icon icon="bxs:down-arrow" class="down-arrow-icon scale-90"></iconify-icon>
                     <iconify-icon icon="bxs:up-arrow" class="up-arrow-icon hidden scale-90"></iconify-icon>
@@ -53,7 +53,7 @@
                 {{-- dropdown after clicked profile --}}
                 <div class="dropdown-logout absolute hidden -bottom-[3.7rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg shadow-slate-600/10 border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
                     <div class="helper-flex-display text-xs font-medium flex flex-col items-start ">
-                        <button id="logoutBtn" class="w-full flex items-center justify-center gap-2 py-3 pe-3 ps-12 font-medium text-red-400 hover:bg-red-500 active:bg-red-600 hover:text-white duration-150 rounded-lg">
+                        <button id="logoutBtn" class="w-full flex items-center justify-center gap-2 py-3 pe-3 ps-16 font-medium text-red-400 hover:bg-red-500 active:bg-red-600 hover:text-white duration-150 rounded-lg">
                             Logout
                             <iconify-icon icon="tabler-logout" class="text-xl"></iconify-icon>
                         </button>

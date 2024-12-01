@@ -123,7 +123,7 @@ $data = [
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Riwayat Pesanan saya</title>
+        <title>Riwayat Pesanan Saya</title>
         
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
@@ -161,7 +161,7 @@ $data = [
 
         <main id="main-section" class="container min-h-[100vh] px-8 flex flex-col gap-6 pb-16">
             <section id="hero-section" class="container  py-10">
-                <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan Anda,<br>semuanya tertata rapih.</h1>
+                <h1 class="font-semibold text-primary text-4xl leading-10">Kelola dan pantau riwayat pesanan Anda dengan mudah.</h1>
                 <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
             </section>
             <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">

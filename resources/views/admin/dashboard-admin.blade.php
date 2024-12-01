@@ -55,15 +55,15 @@
             <section id="hero-section" class="container px-4 py-6 flex items-center gap-8 rounded-xl bg-white">
                 <img src="{{ asset('images/admin.svg') }}" alt="" class="w-72">
                 <div class="text-wrapper flex flex-col gap-4 items-center justify-start">
-                    <h1 class="font-bold sm:text-3xl md:text-4xl grow text-primary">Kelola dan pantau seluruh kegiatan bisnis Anda</h1>
-                    <p class="text-sm leading-6">Cek status pesanan, kelola pelanggan, dan optimalkan operasional bisnis Anda dalam satu tempat.</p>
+                    <h1 class="font-bold sm:text-3xl md:text-4xl grow text-primary">Pantau dan kelola semua data dan pengaturan</h1>
+                    <p class="text-sm leading-6">Kelola status pesanan, pelanggan, dan operasional bisnis Anda dalam satu dashboard.</p>
                 </div>
             </section>
 
             <section id="dashboard-stats-section" class="container">
-                <div class="card-wrapper grid grid-cols-2 gap-3" uk-sortable>
+                <div class="card-wrapper grid grid-cols-2 gap-3 " uk-sortable>
                     <div class="card userData-card flex flex-col gap-3 p-5 rounded-2xl bg-white shadow-md shadow-slate-200">
-                        <p class="data-title">Data Pelanggan</p>
+                        <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-red-500">Data Pelanggan</p>
                         <h3 class="data-count text-2xl font-bold">0</h3>
                         <a href="" class="w-max hover:text-primary hover:no-underline">
                             <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
@@ -73,7 +73,7 @@
                         </a>
                     </div>
                     <div class="card menuData-card flex flex-col gap-3 p-5 rounded-2xl bg-white shadow-md shadow-slate-200">
-                        <p class="data-title">Data Menu</p>
+                        <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-emerald-500">Data Menu</p>
                         <h3 class="data-count text-2xl font-bold">0</h3>
                         <a href="" class="w-max hover:text-primary hover:no-underline">
                             <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
@@ -83,7 +83,7 @@
                         </a>
                     </div>
                     <div class="card orderData-card flex flex-col gap-3 p-5 rounded-2xl bg-white shadow-md shadow-slate-200">
-                        <p class="data-title">Data Pesanan</p>
+                        <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-blue-500">Data Pesanan</p>
                         <h3 class="data-count text-2xl font-bold">0</h3>
                         <a href="" class="w-max hover:text-primary hover:no-underline">
                             <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
@@ -93,7 +93,7 @@
                         </a>
                     </div>
                     <div class="card feedbackData-card flex flex-col gap-3 p-5 rounded-2xl bg-white shadow-md shadow-slate-200">
-                        <p class="data-title">Data Ulasan</p>
+                        <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-yellow-500">Data Ulasan</p>
                         <h3 class="data-count text-2xl font-bold">0</h3>
                         <a href="" class="w-max hover:text-primary hover:no-underline">
                             <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">

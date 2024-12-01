@@ -1,7 +1,6 @@
 const sidebarWrapper = $('#sidebar-cust-wrapper');
 const sidebar = $('.sidebar');
 
-// open sidebar
 // Open sidebar
 $('#up-menu-btn').on('click', function() {
     // Gulir halaman ke atas
