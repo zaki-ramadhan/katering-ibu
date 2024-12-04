@@ -71,7 +71,7 @@
                 </div>
             </section>
             
-            <section id="form-section" class="container px-4 py-32 flex flex-col gap-20 text-primary bg-tertiary">
+            <section id="form-section" class="container px-4 lg:px-10 py-32 flex flex-col lg:grid lg:grid-cols-2 gap-20 lg:gap-6 text-primary bg-tertiary">
                 <div class="detail-info-group flex flex-col gap-3 mx-8">
                     <h1 class="font-medium text-2xl">Mari terhubung!</h1>
                     <p class="text-secondary font-light">Butuh informasi lebih lanjut? Anda bisa menghubungi Kami melalui detail di bawah ini. Kami siap menjawab setiap pertanyaan Anda!</p>
@@ -128,7 +128,7 @@
             </section>
 
         </main>
-        <button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150">
+        <button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150 z-50">
             <iconify-icon icon="mdi:arrow-top" class="group-active:-translate-y-2 duration-200"></iconify-icon>
         </button>
         

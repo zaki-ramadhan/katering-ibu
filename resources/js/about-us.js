@@ -1,4 +1,21 @@
 // ! scroll button to top
+// Sembunyikan tombol pada awalnya
+$('.btn-scroll-top').hide();
+
+// Fungsi untuk memantau scroll
+$(window).scroll(function() {
+    // Mendapatkan tinggi viewport
+    let vh = $(window).height();
+    
+    // Memeriksa apakah scroll sudah mencapai 100% dari tinggi viewport
+    if ($(window).scrollTop() >= vh) {
+        $('.btn-scroll-top').fadeIn(600);
+    } else {
+        $('.btn-scroll-top').fadeOut(600);
+    }
+});
+
+// scroll ke halaman teratas
 $('.btn-scroll-top').on('click',()=> {
     $('html, body').animate({ scrollTop: 0 }, 600); // Atur kecepatan scroll
     return false; // Mencegah perilaku default dari tombol

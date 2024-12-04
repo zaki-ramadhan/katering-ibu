@@ -1,5 +1,5 @@
 {{-- header --}}
-<header class="container p-5 flex justify-between items-center font-semibold">
+<header class="container p-5 lg:px-6 flex justify-between items-center font-semibold">
     <a href="{{ route('home') }}" title="Home" class="logo-group flex items-center gap-3 text-primary">
         <img src="{{ asset('images/logo_fix.png') }}" alt="logo katering ibu" class="w-12">
         <span id="mitra-name" class="text-md">Katering Ibu</span>
@@ -27,18 +27,39 @@
             </div>
             @else
             <a href="{{ route('login') }}">
-                <button id="login-btn" class="px-5 py-3 rounded-full bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-normal text-xs lg:text-sm">Ayo Login!</button>
+                <button id="login-btn" class="px-5 py-3 rounded-full bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-normal text-xs lg:text-xs">Ayo Login!</button>
             </a>
             @endauth
             
             {{-- this will display on large screen --}}
             <nav>
-                <ul class="hidden lg:flex items-center justify-center translate-y-3 gap-12 text-center font-normal text-sm text-secondary">
-                    <li><a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}">Home</a></li>
-                    <li><a href=" {{ route('about-us') }} " class="{{ Route::currentRouteName() == 'about-us' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Tentang Kami</a></li>
-                    <li><a href=" {{ route('service') }} " class="{{ Route::currentRouteName() == 'service' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Pelayanan</a></li>
-                    <li><a href="{{ route('menu') }}" class="{{ Route::currentRouteName() == 'menu' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Menu</a></li>
-                    <li><a href="{{ route('contact-us') }}" class="{{ Route::currentRouteName() == 'contact-us' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Hubungi Kami</a></li>
+                <ul class="hidden lg:flex items-center justify-center translate-y-3 gap-8 text-center font-normal text-sm text-secondary">
+                    <li><a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
+                        <iconify-icon icon="mingcute:home-4-fill" class="text-xl {{ Route::currentRouteName() == 'home' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <span>
+                            Home
+                        </span>
+                    </a></li>
+                    <li><a href=" {{ route('about-us') }} " class="{{ Route::currentRouteName() == 'about-us' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <iconify-icon icon="mdi:information-variant-circle" class="text-xl {{ Route::currentRouteName() == 'about-us' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <span>Tentang kami</span>
+                    </a></li>
+                    <li><a href=" {{ route('service') }} " class="{{ Route::currentRouteName() == 'service' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <iconify-icon icon="ri:service-fill" class="text-xl {{ Route::currentRouteName() == 'service' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        Pelayanan
+                    </a></li>
+                    <li><a href="{{ route('menu') }}" class="{{ Route::currentRouteName() == 'menu' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <iconify-icon icon="ic:round-fastfood" class="text-xl {{ Route::currentRouteName() == 'menu' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <span>
+                            Menu
+                        </span>
+                    </a></li>
+                    <li><a href="{{ route('contact-us') }}" class="{{ Route::currentRouteName() == 'contact-us' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <iconify-icon icon="tdesign:service-filled" class="text-xl {{ Route::currentRouteName() == 'contact-us' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <span>
+                            Hubungi Kami
+                        </span>
+                        </a></li>
                 </ul>
             </nav>
         </div>

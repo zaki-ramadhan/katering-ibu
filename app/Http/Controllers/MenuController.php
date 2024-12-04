@@ -6,6 +6,7 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon; //untuk memformat timestamp 
 
 class MenuController extends Controller {
     public function index(){
@@ -22,6 +23,11 @@ class MenuController extends Controller {
     public function showMenu () {
         // Mengambil semua data menu dari database
         $menu = Menu::all();
+
+        // Memformat tanggal menggunakan Carbon
+        foreach ($menu as $item) {
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+        }
         
         // Mengirim data menu ke view
         return view('menu', compact('menu'));    

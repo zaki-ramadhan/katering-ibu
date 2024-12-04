@@ -193,7 +193,7 @@ $topMenus = $items->take(4);
                                 <figcaption class="card-content mt-4 flex flex-col gap-1 text-primary">
                                     <p class="time-created font-normal text-[.6rem] text-secondary flex items-center justify-start gap-1 bg-tertiary w-max p-2 rounded-full">
                                         <iconify-icon icon="zondicons:time"></iconify-icon>
-                                        November, 10 2024.
+                                        {{ $item->formatted_date }}
                                     </p>
                                     <h3 class="menu-name font-medium text-lg line-clamp-1">{{ $item->nama_menu }}</h3>
                                     <h4 class="title-desc-menu text-xs font-medium mt-2 mb-1 text-primary/70">Deskripsi Menu :</h4>
@@ -229,7 +229,7 @@ $topMenus = $items->take(4);
             </section>
 
         </main>
-        <button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150">
+        <button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150 z-50">
             <iconify-icon icon="mdi:arrow-top" class="group-active:-translate-y-2 duration-200"></iconify-icon>
         </button>
         
