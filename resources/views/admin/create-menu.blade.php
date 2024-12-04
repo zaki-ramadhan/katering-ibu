@@ -9,13 +9,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin/create-menu.js'])
 </head>
 <body class="flex flex-col md:flex-row gap-4 items-center justify-center min-h-screen py-8 bg-tertiary">
-    @if(session('success'))
+    {{-- @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-    @endif
+    @endif --}}
 
-    <form action="{{ route('menu.store') }}" method="POST" enctype="multipart/form-data" class="max-w-[80%] w-full bg-white p-8 pt-12 rounded-2xl shadow-md my-2">
+    <form action="{{ route('admin.store-menu') }}" method="POST" enctype="multipart/form-data" class="max-w-[80%] w-full bg-white p-8 pt-12 rounded-2xl shadow-md my-2">
         @csrf
         <h1 class="font-semibold text-2xl md:text-3xl text-primary leading-8 text-center mb-16">Lengkapi data berikut untuk menambah menu.</h1>
         {{-- <section class="hero-section flex flex-col items-center justify-center gap-5 mb-20">
@@ -98,7 +98,6 @@
             </div>
         </div>
     </form>
-    
     
 </body>
 </html>
