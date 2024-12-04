@@ -64,7 +64,7 @@
                 <div class="card-wrapper grid grid-cols-2 gap-3 " uk-sortable>
                     <div class="card userData-card flex flex-col gap-3 p-5 rounded-2xl bg-white shadow-md shadow-slate-200">
                         <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-red-500">Data Pelanggan</p>
-                        {{-- <h3 class="data-count text-2xl font-bold">{{ $jumlahMenu }}</h3> --}}
+                        <h3 class="data-count text-2xl font-bold">{{ $jumlahMenu }}</h3>
                         <a href="" class="w-max hover:text-primary hover:no-underline">
                             <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
                                 Lihat selengkapnya

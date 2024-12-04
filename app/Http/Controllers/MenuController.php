@@ -18,6 +18,14 @@ class MenuController extends Controller {
         // Mengirim data menu ke view
         return view('admin.data-menu', compact('menu', 'jumlahMenu'));
     }
+    
+    public function showMenu () {
+        // Mengambil semua data menu dari database
+        $menu = Menu::all();
+        
+        // Mengirim data menu ke view
+        return view('menu', compact('menu'));    
+    }
 
     public function create() {
         return view('admin.create-menu');

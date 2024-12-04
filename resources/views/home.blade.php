@@ -16,67 +16,6 @@
     </div>
 </x-app-layout> --}}
 
-{{-- ? ini conthoh kode dr gpt, belum make database ini --}}
-@php
-$menus = collect([
-    [
-        'name' => 'Baso Ikan',
-        'price' => 20000,
-        'img' => asset('images/baso ikan.jpg'),
-        'details' => 'Baso ikan segar dengan kuah kaldu istimewa.',
-        'rating' => 4,
-    ],
-    [
-        'name' => 'Nasi Ayam',
-        'price' => 12000,
-        'img' => asset('images/nasi ayam.jpg'),
-        'details' => 'Nasi ayam dengan toping ayam kecap yang gurih.',
-        'rating' => 5,
-    ],
-    [
-        'name' => 'Nasi Bakar',
-        'price' => 15000,
-        'img' => asset('images/nasi bakar.jpg'),
-        'details' => 'Nasi bakar dengan toping ayam kecap yang gurih.',
-        'rating' => 4,
-    ],
-    [
-        'name' => 'Nasi Kuning',
-        'price' => 8000,
-        'img' => asset('images/nasi kuning.jpg'),
-        'details' => 'Nasi kuning dengan toping ayam kecap yang gurih.',
-        'rating' => 5,
-    ],
-    [
-        'name' => 'Nasi Liwet',
-        'price' => 17000,
-        'img' => asset('images/nasi liwet.jpg'),
-        'details' => 'Nasi liwet dengan toping ayam kecap yang gurih.',
-        'rating' => 3,
-    ],
-    [
-        'name' => 'Paket Nasi Kuning Tampahan',
-        'price' => 45000,
-        'img' => asset('images/paket nasi kuning tampahan.jpeg'),
-        'details' => 'Paket Nasi kuning tampahan dengan toping ayam kecap yang gurih.',
-        'rating' => 4,
-    ],
-    [
-        'name' => 'Paket Nasi Liwet Tampahan',
-        'price' => 55000,
-        'img' => asset('images/paket nasi liwet tampahan.jpeg'),
-        'details' => 'Paket Nasi Liwet Tampahan dengan toping ayam kecap yang gurih.',
-        'rating' => 4,
-    ],
-]);
-
-
-// menggunakan collect dan take untuk mengambil jumlah data yang diinginkan, tidak semua
-$topMenus = $menus->take(4);
-
-
-@endphp
-
 {{-- ! alternatif soalnya tailwindnya ga jalan --}}
 <!DOCTYPE html>
 <html lang="en">
@@ -168,7 +107,7 @@ $topMenus = $menus->take(4);
             </section>
 
             {{-- top-menu-section --}}
-            <section id="top-menu-section" class="container px-4">
+            {{-- <section id="top-menu-section" class="container px-4">
                 <div class="top-menu-wrapper w-full p-6 bg-white md:bg-transparent mt-6 rounded-xl">
                     <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
                     <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-5">
@@ -209,7 +148,7 @@ $topMenus = $menus->take(4);
                         @endforeach
                     </div>
                 </div>
-            </section>
+            </section> --}}
             
             {{-- menu-section --}}
             <section id="menu-section" class="container px-4">
@@ -220,18 +159,18 @@ $topMenus = $menus->take(4);
                         <p>Jelajahi berbagai menu lainnya, termasuk yang paling sering dipesan.</p>
                     </div>
                     <div class="card-wrapper group grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-6 text-primary hover:text-secondary ">
-                        @foreach ( $topMenus as $menu)
+                        @foreach ( $menu as $item)
                         <figure class="card relative flex-1 hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
                             <div class="img-container aspect-square rounded-lg overflow-hidden">
-                                <img src="{{ $menu['img'] }}" alt="{{ $menu['img'] }}" class="w-full h-full object-cover brightness-100 duration-200">
-                                <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">
+                                <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="w-full h-full object-cover brightness-100 duration-200">
+                                {{-- <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">
                                     <iconify-icon icon="ri:star-fill" class="text-sm -translate-y-[1px] text-yellow-400"></iconify-icon>
-                                    {{ $menu['rating'] }}
-                                </div>
+                                    {{ $item['rating'] }}
+                                </div> --}}
                             </div>
                             <figcaption class="card-content mt-4 flex flex-col gap-1">
-                                <h3 class="menu-name font-normal text-md">{{ $menu['name'] }}</h3>
-                                <p class="menu-price font-bold text-lg before:content-['Rp']"> {{ number_format($menu['price'], 0, ',', '.') }} </p>
+                                <h3 class="menu-name font-normal text-md">{{ $item->nama_menu }}</h3>
+                                <p class="menu-price font-bold text-lg before:content-['Rp']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
                                 @auth    
                                 <a href="{{ route('order-now') }}" class="w-full">
                                     <button class="btn-order w-full bg-orderDeactive hover:bg-orderHovered active:bg-orderClicked text-white mt-4 py-3 text-xs lg:text-sm flex items-center justify-center gap-1 rounded-lg duration-150">

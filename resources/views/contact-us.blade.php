@@ -43,7 +43,7 @@
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-white md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-white">
 
         <x-header></x-header>
         <x-modal-logout></x-modal-logout>
@@ -52,15 +52,15 @@
 
             {{-- hero-section --}}
             <section id font-light="hero-section" class="container px-4 py-12 relative text-primary flex flex-col-reverse justify-between items-center">
-                    <img src="{{ asset('images/contact-us.svg') }}" alt="hero img" class="w-96 -ms-5 mt-6">
+                    <img src="{{ asset('images/contact-us.svg') }}" alt="hero img" class="w-96 lg:w-[36rem] -ms-5 mt-6">
                 <div class="text-btn-wrapper flex flex-col gap-4 pe-8 items-center text-center">
-                    <h2 class="font-medium text-primary-600">Punya pertanyaan terkait Katering Ibu?</h2>
-                    <h1 class="w-[34rem] font-bold text-4xl leading-[1.2]">Kami selalu siap mendengar & menjawab keluhan Anda.</h1>
-                    <p class="font-light text-sm text-secondary leading-6">Anda bisa tanyakan apapun terkait Katering Ibu,<br>
+                    <h2 class="font-medium lg:text-lg text-primary-600">Punya pertanyaan terkait Katering Ibu?</h2>
+                    <h1 class="w-[34rem] lg:w-[45rem] font-bold text-4xl lg:text-5xl leading-[1.2]">Kami selalu siap mendengar & menjawab keluhan Anda.</h1>
+                    <p class="font-light text-sm lg:taxt-base lg:text-base text-secondary leading-6">Anda bisa tanyakan apapun terkait Katering Ibu,<br>
                         Kami akan dengan senang hati menjawab pertanyaan Anda.</p>
                     @auth
                     <a href="#contact-form" class="scroll-to">
-                        <button class="w-max py-4 px-5 mt-3 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-xs">Kirimkan pertanyaan Anda</button>
+                        <button class="w-max py-4 px-5 mt-3 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-xs lg:text-sm">Kirimkan pertanyaan Anda</button>
                     </a>
                         
                     @else

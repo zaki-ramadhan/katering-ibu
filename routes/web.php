@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 
@@ -10,18 +11,7 @@ Route::get('/', function () {
     return redirect('/home');  // Redirect ke /home
 });
 
-// Tambahkan route untuk /home
-Route::get('/home', function () {
-    return view('home');  // Ganti 'home' dengan view yang sesuai
-});
-
-
-
-// Route::get('/', function () {
-//     return view(view: 'home');
-// });
-
-// Route::get('\home', action: function(){
+// Route::get('/home', action: function(){
 //     return view('home');
 // })->name('home');
 
@@ -59,9 +49,11 @@ Route::get('/about-us', function() {
 
 
 // home page
-Route::get('/home', function() {
-    return view('home');
-})->name('home');
+// Route::get('/home', function() {
+//     return view('home');
+// })->name('home');
+
+Route::resource('home', HomeController::class)->name('index', 'home');
 
 // menu page
 Route::get('/menu', function() {
@@ -159,9 +151,10 @@ Route::get('/admin/data-ulasan', action: function () {
 // Route::post('/menu/store', [MenuController::class, 'store'])->name('menu.store');
 
 Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');
+Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
 Route::resource('admin/create-menu', MenuController::class)->name('create', 'admin.create-menu');
 Route::post('admin/create-menu', [MenuController::class, 'store'])->name('admin.store-menu');
 
 // Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
-
+Route::resource('admin/dashboard-admin', DashboardAdminController::class)->name('index', "admin.dashboard-admin");
 
