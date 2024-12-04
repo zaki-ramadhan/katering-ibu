@@ -184,8 +184,8 @@ $topMenus = $items->take(4);
             <section id="menu-section" class="container px-4">
                 <div class="menu-wrapper w-full px-6 bg-white mt-6 py-6 rounded-xl">
                     <h2 class=" text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Semua <span class="font-bold">Menu (7)</span></h2>
-                    <div class="card-wrapper grid grid-cols-2 gap-4 pt-6 text-primary ">
-                        {{-- @foreach ( $menu as $item)                            
+                    <div class="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-6 text-primary ">
+                        @foreach ( $menu as $item)                            
                             <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
                                 <div class="img-container aspect-square rounded-lg overflow-hidden">
                                     <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="w-full h-full object-cover brightness-100 duration-200">
@@ -223,7 +223,7 @@ $topMenus = $items->take(4);
                                     </div>
                                 </figcaption>
                             </figure>
-                        @endforeach --}}
+                        @endforeach
                     </div>
                 </div>
             </section>
