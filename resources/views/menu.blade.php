@@ -210,6 +210,7 @@ $topMenus = $items->take(4);
                                         </div> --}}
                                     </footer>
                                     <div class="button-wrapper w-full flex gap-1">
+                                        @auth
                                         <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
                                             <button class="btn-order">
                                                 <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
@@ -220,6 +221,14 @@ $topMenus = $items->take(4);
                                             <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
                                             <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
                                         </button>
+                                        @else
+                                        <a href="{{ route('login')}}" class="grow bg-secondary text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150 cursor-default">
+                                            <button class="btn-order cursor-default">
+                                                <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
+                                                Pesan Sekarang
+                                            </button>
+                                        </a>                                                                                
+                                        @endauth
                                     </div>
                                 </figcaption>
                             </figure>
