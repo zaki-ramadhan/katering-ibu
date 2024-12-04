@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
 
 Route::get('/', function () {
@@ -64,6 +65,9 @@ Route::get('/menu', function() {
 Route::get('/order-now', function() {
     return view('order-now');
 })->name('order-now');
+
+Route::resource('order-now', OrderController::class);
+
 
 // contact us page
 Route::get('/contact-us', function() {

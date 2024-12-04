@@ -93,12 +93,12 @@
               </div>
             <section id="detail-menu-section" class="mt-4 p-4 rounded-xl bg-white text-primary">
                 <figure class="w-full flex gap-6">
-                    <img src="{{ asset('images/baso ikan.jpg') }}" alt="baso ikan img" class="w-56 h-56 object-cover rounded-xl">
+                    <img src="{{ Storage::url($menu->foto_menu) }}" alt="Foto {{ $menu->nama_menu }}" class="w-56 h-56 object-cover rounded-xl">
                     <figcaption class="flex-auto flex flex-col gap-1">
                         <p class="head-figure-menu text-center bg-primary
                         text-white rounded-md py-3 text-xs mb-3">Detail menu</p>
-                        <h2 class="menu-name text-lg">Baso Ikan</h2>
-                        <p class="menu-price text-xl font-semibold before:content-['Rp.'] after:content-['/porsi'] after:text-sm after:font-medium after:ms-2 after:tracking-wide"> 16.000</p>
+                        <h2 class="menu-name text-lg">{{ $menu->nama_menu }}</h2>
+                        <p class="menu-price text-xl font-semibold before:content-['Rp.'] after:content-['/porsi'] after:text-sm after:font-medium after:ms-2 after:tracking-wide"> {{ number_format($menu->harga, 0, ',', '.') }}</p>
                         <div class="rating-menu flex gap-1 text-lg text-yellow-400 mt-2 after:content-['(4)'] after:text-secondary-300 after:font-medium after:-translate-y-[1px] after:ms-1 after:text-base">
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="description-menu-wrapper flex flex-col gap-1 text-justify text-sm mt-3">
                             <h4 class="title-desc-menu font-medium text-primary/80">Deskripsi Menu :</h4>
-                            <p class="menu-description text-secondary font-light leading-6 line-clamp-4 text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci eos quidem eligendi corrupti praesentium repellat esse est quo sit ab harum, incidunt exercitationem ducimus at suscipit illo. Facilis laboriosam doloremque nam esse! Nesciunt similique unde, quia aspernatur rerum expedita libero doloribus, eligendi ab voluptatem voluptatibus quibusdam est, facilis sed ipsa laudantium dolores. Officiis voluptates tenetur nesciunt totam quisquam, consequuntur aspernatur tempore fugit expedita laboriosam quos eum voluptatibus quidem cumque suscipit!</p>
+                            <p class="menu-description text-secondary font-light leading-6 line-clamp-4 text-sm">{{ $menu->deskripsi }}</p>
                         </div>
                         <hr class="border-[1px] mt-3 mb-2">
                         <button class="read-more-btn flex items-center justify-center gap-2 text-xs text-primary hover:text-primaryHovered cursor-pointer mt-1">
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="price-of-total-wrapper flex flex-col gap-2">
                                     <h2 class="text-sm">Harga total menu :</h2>
-                                    <p class="font-semibold text-lg before:content-['Rp.']"> 16,000</p>
+                                    <p class="font-semibold text-lg before:content-['Rp.']"> {{ number_format($menu->harga, 0, ',', '.') }}</p>
                                 </div>
                                 <div class="button-wrapper w-full flex gap-1 -mt-3">
                                     <a href="" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
@@ -157,42 +157,17 @@
             <section id="suggestion-menu-section" class="mt-6 p-4 rounded-xl bg-white text-primary flex flex-col gap-6">
                 <h1 class="font-medium ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Rekomendasi menu lainnya :</h1>
                 <div class="suggestion-menu-wrapper w-full grid grid-cols-2 gap-y-4 gap-x-2">
-                    <a href="">
-                        <figure class="card-suggestMenu p-3 bg-white rounded-lg border border-transparent hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40 duration-150">
-                            <img src="{{ asset('images/nasi ayam.jpg') }}" class="item aspect-square bg-tertiary rounded-lg">
-                            <figcaption class="py-3 flex flex-col gap-1">
-                                <h3 class="name-suggestMenu text-sm line-clamp-1">Nasi Ayam</h3>
-                                <p class="price-suggestMenu font-semibold before:content-['Rp.']"> 11,000</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                    <a href="">
-                        <figure class="card-suggestMenu p-3 bg-white rounded-lg border border-transparent hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40 duration-150">
-                            <img src="{{ asset('images/nasi bakar.jpg') }}" class="item aspect-square bg-tertiary rounded-lg">
-                            <figcaption class="py-3 flex flex-col gap-1">
-                                <h3 class="name-suggestMenu text-sm line-clamp-1">Nasi Bakar</h3>
-                                <p class="price-suggestMenu font-semibold before:content-['Rp.']"> 18,000</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                    <a href="">
-                        <figure class="card-suggestMenu p-3 bg-white rounded-lg border border-transparent hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40 duration-150">
-                            <img src="{{ asset('images/nasi kuning.jpg') }}" class="item aspect-square bg-tertiary rounded-lg">
-                            <figcaption class="py-3 flex flex-col gap-1">
-                                <h3 class="name-suggestMenu text-sm line-clamp-1">Nasi Kuning</h3>
-                                <p class="price-suggestMenu font-semibold before:content-['Rp.']"> 21,000</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                    <a href="">
-                        <figure class="card-suggestMenu p-3 bg-white rounded-lg border border-transparent hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40 duration-150">
-                            <img src="{{ asset('images/paket nasi liwet tampahan.jpeg') }}" class="item aspect-square bg-tertiary rounded-lg">
-                            <figcaption class="py-3 flex flex-col gap-1">
-                                <h3 class="name-suggestMenu text-sm line-clamp-1">Paket Nasi Liwet Tampahan</h3>
-                                <p class="price-suggestMenu font-semibold before:content-['Rp.']"> 16,000</p>
-                            </figcaption>
-                        </figure>
-                    </a>
+                    @foreach ($recommendedMenu as $item)
+                        <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}">
+                            <figure class="card-suggestMenu p-3 bg-white rounded-lg border border-transparent hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/40 duration-150">
+                                <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="item aspect-square bg-tertiary rounded-lg">
+                                <figcaption class="py-3 flex flex-col gap-1">
+                                    <h3 class="name-suggestMenu text-sm line-clamp-1">{{ $item->nama_menu }}</h3>
+                                    <p class="price-suggestMenu font-semibold before:content-['Rp.']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
+                                </figcaption>
+                            </figure>
+                        </a>
+                    @endforeach
                 </div>
             </section>
         </main>

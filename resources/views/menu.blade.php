@@ -203,19 +203,19 @@ $topMenus = $items->take(4);
                                     <hr class="border my-2">
                                     <footer class="card-footer flex justify-between">
                                         <p class="before:content-['Rp.'] after:content-['/porsi'] font-medium text-sm"> {{ number_format($item->harga, 0, ',', '.') }} </p>
-                                        <div class="rating-menu flex gap-1 text-md text-yellow-400">
+                                        {{-- <div class="rating-menu flex gap-1 text-md text-yellow-400">
                                             @for ($i = 0; $i < $item['rating']; $i++)
                                                 <iconify-icon icon="ri:star-fill"></iconify-icon>
                                             @endfor
-                                        </div>
+                                        </div> --}}
                                     </footer>
                                     <div class="button-wrapper w-full flex gap-1">
-                                        <a href="{{ route('order-now', ['menu' => $item['name']]) }}" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                        <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
                                             <button class="btn-order">
                                                 <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
                                                 Pesan Sekarang
                                             </button>
-                                        </a>                                        
+                                        </a>                                                                                
                                         <button class="btn-add-to-cart flex-none  w-12 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
                                             <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
                                             <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
