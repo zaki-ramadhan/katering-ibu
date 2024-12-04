@@ -1,17 +1,3 @@
-<?php
-// Data array (Contoh data)
-$data = [
-    [
-        "id_menu" => "John Doe",
-        "image" => ["Nasi Goreng", "Ayam Bakar"],
-        "name" => [2, 1],
-        "description" => 500000,
-        "price" => "Kirim",
-    ],
-];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -62,13 +48,19 @@ $data = [
         <x-modal-logout></x-modal-logout>
 
         <main id="main-section" class="container px-8 flex flex-col gap-6 pb-16">
+            <div class="head-btn-wrapper flex justify-between items-center px-3 mt-8">
+                {{-- <h1 class="font-medium text-lg text-primary">Jumlah data menu saat ini : {{ $jumlahMenu }}</h1> --}}
+                <a href="{{ route('admin.create-menu') }}" class="w-max text-sm rounded-lg py-3 px-6 bg-emerald-500 hover:bg-emerald-600 text-white hover:text-white">
+                    <button>Tambah Menu</button>
+                </a>
+            </div>
             <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 Id Menu
-                            </th>
+                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Foto Menu
                             </th>
@@ -87,35 +79,52 @@ $data = [
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $menu)
-                            <tr class="bg-white border-b hover:bg-gray-50 ">
-                                {{-- <td class="px-6 py-4">
-                                    {{ implode(', ', $menu['menus']) }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ implode(', ', $menu['portions']) }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ number_format($menu['total_price'], 0, ',', '.') }}
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    {{ $menu['pickup_method'] }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $menu['pickup_method'] == 'Kirim' ? $menu['address'] : '-' }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $menu['payment_method'] }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $menu['status'] }}
-                                </td> --}}
-                                <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400  hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @foreach ($menu as $item)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <!-- Menampilkan nama_menu -->
+                            <td class="px-6 py-4">
+                                {{ $item->id }}
+                            </td>
+                            <!-- Menampilkan foto_menu -->
+                            <td class="px-6 py-4">
+                                <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto Menu" class="min-w-32 aspects-square object-cover rounded-2xl">
+                            </td>
+
+                            <!-- Menampilkan nama_menu -->
+                            <td class="px-6 py-4">
+                                {{ $item->nama_menu }}
+                            </td>
+
+                            <!-- Menampilkan deskripsi -->
+                            <td class="px-6 py-4 min-w-60">
+                                {{ Str::limit($item->deskripsi, 50) }} <!-- Menampilkan deskripsi dengan batasan 50 karakter -->
+                            </td>
+
+                            <!-- Menampilkan harga -->
+                            <td class="px-6 py-4">
+                                {{ number_format($item->harga, 0, ',', '.') }} <!-- Format harga dengan pemisah ribuan -->
+                            </td>
+
+                            <!-- Kolom aksi (Edit dan Hapus) -->
+                            <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
+                                <!-- Tombol Edit -->
+                                {{-- {{ route('menu.edit', $item->id) }} --}}
+                                <a href="" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">
+                                    Edit
+                                </a>
+
+                                <!-- Tombol Hapus -->
+                                {{-- {{ route('menu.destroy', $item->id) }} --}}
+                                <form action="" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

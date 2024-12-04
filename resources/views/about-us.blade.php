@@ -1,22 +1,3 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
-
-{{-- ! alternatif soalnya tailwindnya ga jalan --}}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,7 +27,7 @@
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-white md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-white">
 
         <x-header></x-header>
         <x-modal-logout></x-modal-logout>
@@ -57,15 +38,15 @@
             <section id="hero-section" class="container px-4 py-12 relative text-primary flex flex-col-reverse justify-between items-center font-light">
                 <div class="text-btn-wrapper flex flex-col gap-6 pe-8 items-center text-center">
                     {{-- <h2 class="font-medium text-primary-600">Punya pertanyaan terkait Katering Ibu?</h2> --}}
-                    <p class="label py-2 px-4 bg-tertiary text-secondary text-xs rounded-full">Tentang Kami</p>
-                    <h1 class="w-[30rem] font-bold text-5xl leading-[1.2] -mt-2">
-                        Ketahui <span class="bg-clip-text bg-gradient-to-r from-slate-200 to-slate-600 to-90% text-transparent">inf<span><iconify-icon icon="mingcute:search-ai-fill" class="text-primary translate-y-3"></iconify-icon></span>rmasi</span> lengkap mengenai 
+                    <p class="label py-2 px-4 lg:px-5 bg-tertiary text-secondary text-xs lg:text-sm rounded-full">Tentang Kami</p>
+                    <h1 class="w-[30rem] lg:w-4/5 font-bold text-5xl lg:text-6xl leading-[1.2] -mt-2">
+                        Ketahui <span class="bg-clip-text bg-gradient-to-r from-slate-300 to-slate-700 to-80% text-transparent">inf<span><iconify-icon icon="mingcute:search-ai-fill" class="text-primary translate-y-3"></iconify-icon></span>rmasi</span> lengkap mengenai 
                         K<span class="font-medium italic">ate</span>ring Ibu.
                     </h1>
-                    <p class="w-[70vw] text-sm text-secondary leading-6 first-letter:italic">
-                        Ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan terpercaya untuk layanan katering profesional.
+                    <p class="w-[70vw] lg:w-full text-sm lg:text-base text-secondary leading-6">
+                        ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan terpercaya untuk layanan katering profesional.
                     </p>
-                    <div class="btn-wrapper flex gap-3 text-xs font-medium">
+                    <div class="btn-wrapper flex gap-3 lg:gap-4 text-xs lg:text-sm font-medium">
                         <button id="historyBtn" class="active min-w-32 w-max px-6 py-4 bg-primary hover:bg-primary-600 hover:-translate-y-[3px] hover:shadow-md hover:shadow-slate-400 hover:border active:bg-primary active:translate-y-[3px] active:shadow-sm active:shadow-slate-100 duration-200 text-white rounded-full">Sejarah berdiri</button>
                         <button id="locationBtn" class="min-w-32 w-max px-6 py-4 bg-slate-100 hover:bg-slate-200/70 hover:-translate-y-[3px] hover:shadow-md hover:shadow-slate-300 active:bg-slate-100 active:translate-y-[3px] active:shadow-sm active:shadow-slate-100 duration-200 rounded-full">Lokasi</button>
                     </div>
@@ -75,21 +56,21 @@
             <section id="history-location-content" class="container px-6 py-6 rounded-lg flex flex-col gap-4 items-start justify-center">
                 <div class="img-wrapper relative w-full rounded-3xl overflow-hidden">
                     <div class="overlay absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-white/90"></div>
-                    <img src="{{ asset('images/search-aboutus.svg') }}" alt="search about-us svg" class="-translate-y-32 -mb-[12rem] w-full">
+                    <img src="{{ asset('images/search-aboutus.svg') }}" alt="search about-us svg" class="-translate-y-32 lg:translate-x-44 -mb-[12rem] w-full max-w-[48rem]">
 
                     {{-- s\chat bubble --}}
-                    <div class="bubblechat-e-wrapper absolute top-[3rem] left-7 animate-bounce-up-down">
+                    <div class="bubblechat-e-wrapper absolute top-[3rem] md:top-[6rem] lg:top-[8rem] left-7 md:left-20 lg:left-48 animate-bounce-up-down">
                         <div class="chat chat-end">
-                            <div class="chat-bubble text-tertiary text-sm text-wrap pe-1 pb-4">
+                            <div class="chat-bubble text-tertiary text-sm lg:text-lg text-wrap pe-1 pb-4">
                                 <p class="translate-y-1">
                                     What an incredible story!
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="bubblechat-s-wrapper absolute top-28 right-3 animate-bounce-up-down-delay">
+                    <div class="bubblechat-s-wrapper absolute top-28 md:top-48 right-3 md:right-6 lg:right-7 lg:top-52 xl:right-60 animate-bounce-up-down-delay">
                         <div class="chat chat-start">
-                            <div class="chat-bubble bg-slate-200 text-primaryHovered font-medium text-sm text-wrap pe-1 pb-4">
+                            <div class="chat-bubble bg-slate-200 text-primaryHovered font-medium text-sm lg:text-lg text-wrap pe-1 pb-4">
                                 <p class="translate-y-1">
                                     Wait, there’s more to this?
                                 </p>

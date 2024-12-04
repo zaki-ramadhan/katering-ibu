@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@fontsource/inter": "^5.1.0",
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "sweetalert2": "^11.14.5"
     }
 }

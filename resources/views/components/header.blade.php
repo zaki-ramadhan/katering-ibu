@@ -1,14 +1,14 @@
 {{-- header --}}
 <header class="container p-5 flex justify-between items-center font-semibold">
     <a href="{{ route('home') }}" title="Home" class="logo-group flex items-center gap-3 text-primary">
-        <iconify-icon icon="game-icons:knife-fork" class="text-xl"></iconify-icon>
+        <img src="{{ asset('images/logo_fix.png') }}" alt="logo katering ibu" class="w-12">
         <span id="mitra-name" class="text-md">Katering Ibu</span>
     </a>
 
     {{-- mobile screen --}}
-    <div class="flex items-end justify-center gap-5">
-        <div class="btn-wrapper flex gap-6">
-            <button id="menu-btn" title="Menu" class="translate-y-1">
+    <div class="flex items-end lg:items-center justify-center gap-5">
+        <div class="btn-wrapper flex flex-row-reverse gap-6 lg:gap-8">
+            <button id="menu-btn" title="Menu" class="lg:hidden translate-y-1">
                 <iconify-icon icon="lucide:menu" class="text-secondary hover:text-primary text-2xl"></iconify-icon>
             </button>
             @auth
@@ -16,6 +16,8 @@
                 <button title="Akun saya" id="profile-btn" class="text-2xl font-normal text-secondary hover:text-primary translate-y-1">
                     <iconify-icon icon="bxs:user"></iconify-icon>
                 </button>
+
+                {{-- dropdown button --}}
                 <div class="dropdown-profile-menu hidden absolute -bottom-[7rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
                     <div class="helper-flex-display text-xs font-medium flex flex-col items-start ">
                         <a href="{{ route('customer.dashboard') }}" class="py-3 ps-4 pe-12 hover:bg-slate-100 rounded-lg">Akun saya</a>
@@ -25,9 +27,20 @@
             </div>
             @else
             <a href="{{ route('login') }}">
-                <button id="login-btn" class="px-5 py-3 rounded-full bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-normal text-xs">Ayo Login!</button>
+                <button id="login-btn" class="px-5 py-3 rounded-full bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-normal text-xs lg:text-sm">Ayo Login!</button>
             </a>
             @endauth
+            
+            {{-- this will display on large screen --}}
+            <nav>
+                <ul class="hidden lg:flex items-center justify-center translate-y-3 gap-12 text-center font-normal text-sm text-secondary">
+                    <li><a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}">Home</a></li>
+                    <li><a href=" {{ route('about-us') }} " class="{{ Route::currentRouteName() == 'about-us' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Tentang Kami</a></li>
+                    <li><a href=" {{ route('service') }} " class="{{ Route::currentRouteName() == 'service' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Pelayanan</a></li>
+                    <li><a href="{{ route('menu') }}" class="{{ Route::currentRouteName() == 'menu' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Menu</a></li>
+                    <li><a href="{{ route('contact-us') }}" class="{{ Route::currentRouteName() == 'contact-us' ? 'text-primary font-semibold' : 'text-secondary hover:text-primary' }}" >Hubungi Kami</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
     
