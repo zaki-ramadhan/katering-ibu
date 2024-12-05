@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon; // untuk memformat timestamp 
 
+
 class MenuController extends Controller {
     public function index() {
         // Mengambil semua data menu dari database
@@ -21,7 +22,7 @@ class MenuController extends Controller {
     
     public function showMenu(Request $request) {
         // Mengambil query pencarian jika ada
-        $query = $request->input('query');
+        $query = $request->input('find');
     
         // Jika ada query pencarian, lakukan pencarian, jika tidak ambil semua data
         if ($query) {

@@ -21,7 +21,7 @@
                     <label for="search-menu" class="text-lg absolute top-1/2 left-4 -translate-y-1/2 text-secondary hover:text-primary">
                         <iconify-icon icon="akar-icons:search" id="search-label" class="translate-y-[3px]"></iconify-icon>
                     </label>
-                    <input type="search" name="query" id="search-menu" placeholder="Cari menu favoritmu disini..." autocomplete="off" value="{{ request()->input('query') }}"    required class="w-72 lg:w-[30rem] truncate rounded-md text-sm py-3 ps-12 pe-9 text-primary focus:outline-none focus:ring-0 border-0 focus:border-transparent">
+                    <input type="search" name="find" id="search-menu" placeholder="Cari menu favoritmu disini..." autocomplete="off" value="{{ request()->input('query') }}"    required class="w-72 lg:w-[30rem] truncate rounded-md text-sm py-3 ps-12 pe-9 text-primary focus:outline-none focus:ring-0 border-0 focus:border-transparent">
                     <iconify-icon icon="ic:outline-clear" id="clear-btn" class="hidden absolute top-1/2 right-32 -translate-y-1/2 text-secondary hover:text-primary cursor-pointer"></iconify-icon>
                     <button type="submit" class="bg-primary hover:bg-primaryHovered active:bg-primary duration-150 px-6 py-[.9rem] text-xs rounded-md">Cari Menu</button>
                 </form>
@@ -80,11 +80,18 @@
     {{-- menu-section --}}
     <section id="menu-section" class="container px-4">
         <div class="menu-wrapper w-full px-6 bg-white mt-6 py-6 rounded-xl">
-            @if(isset($query) && $query != '')
-                <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full"> Hasil Menu <span class="font-bold">Terkait ({{ $jumlahMenu }})</span> </h2>
+            @if(isset($query) && $query != '' && $menu->isEmpty())
+                <div class="not-found-content-wrapper flex flex-col lg:flex-row items-center justify-center gap-4 lg:translate-y-12">
+                    <img src="{{ asset('images/empty.svg') }}" alt="img-empty" class="max-w-[30rem]">
+                    <div class="text-wrapper text-center lg:text-left flex flex-col gap-3 max-w-[32rem] ">
+                        <h2 class="font-bold text-2xl lg:text-4xl text-primary">Ups! Menu {{ $query }} tidak tersedia.</h2>
+                        <p class="w-80 md:w-[90%] md:ms-6 lg:ms-0 lg:w-full leading-7 lg:leading-8 text-sm lg:text-base">Maaf, kami tidak dapat menemukan menu yang cocok dengan pencarian Anda. Silakan coba kata kunci yang berbeda.</p>
+                    </div>
+                </div>
             @else
                 <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full"> Semua <span class="font-bold">Menu ({{ $jumlahMenu }})</span> </h2>
             @endif
+
         
             <div class="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-8 pt-6 text-primary">
                 @foreach ($menu as $item)                            
