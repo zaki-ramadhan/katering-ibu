@@ -3,7 +3,7 @@
 @section('title', 'Tentang Katering Ibu') 
 
 @section('vite') 
-    @vite(['resources/js/about-us.js'])
+    @vite([ 'resources/js/components/header.js', 'resources/js/about-us.js'])
 @endsection
 
 @section('style')
@@ -13,6 +13,9 @@
             }
     </style>
 @endsection
+
+<x-header></x-header>
+<x-modal-logout></x-modal-logout>
 
 @section('content')
     {{-- hero-section --}}
@@ -105,4 +108,11 @@
             </div>
         </div>                
     </section>
+    
+    {{-- button scroll to top --}}
+    <button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150 z-50">
+        <iconify-icon icon="mdi:arrow-top" class="group-active:-translate-y-2 duration-200"></iconify-icon>
+    </button>
+    
+    <x-footer></x-footer>
 @endsection

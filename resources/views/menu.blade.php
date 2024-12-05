@@ -3,8 +3,11 @@
 @section('title', 'Menu Katering Ibu') 
 
 @section('vite') 
-    @vite(['resources/js/menu.js'])
+    @vite([ 'resources/js/components/header.js', 'resources/js/menu.js'])
 @endsection
+
+<x-header></x-header>
+<x-modal-logout></x-modal-logout>
 
 @section('content')
     {{-- hero-section --}}
@@ -84,7 +87,7 @@
                 <div class="not-found-content-wrapper flex flex-col lg:flex-row items-center justify-center gap-4 lg:translate-y-12">
                     <img src="{{ asset('images/empty.svg') }}" alt="img-empty" class="max-w-[30rem]">
                     <div class="text-wrapper text-center lg:text-left flex flex-col gap-3 max-w-[32rem] ">
-                        <h2 class="font-bold text-2xl lg:text-4xl text-primary">Ups! Menu "{{ $query }}" tidak tersedia.</h2>
+                        <h2 class="font-bold text-2xl lg:text-4xl text-primary">Ups! menu "{{ $query }}" tidak tersedia.</h2>
                         <p class="w-80 md:w-[90%] md:ms-6 lg:ms-0 lg:w-full leading-7 lg:leading-8 text-sm lg:text-base">Maaf, kami tidak dapat menemukan menu yang cocok dengan pencarian Anda. Silakan coba kata kunci yang berbeda.</p>
                     </div>
                 </div>
@@ -139,6 +142,12 @@
                 @endforeach
             </div>
         </div>
-        
 </section>
+
+{{-- button scroll to top --}}
+<button class="btn-scroll-top group fixed right-5 bottom-5 w-12 h-auto aspect-square rounded-full bg-primary text-white text-2xl border border-tertiary grid place-content-center hover:shadow-lg hover:-translate-y-[3px] hover:bg-primary-600 active:bg-primary duration-150 z-50">
+    <iconify-icon icon="mdi:arrow-top" class="group-active:-translate-y-2 duration-200"></iconify-icon>
+</button>
+
+<x-footer></x-footer>
 @endsection
