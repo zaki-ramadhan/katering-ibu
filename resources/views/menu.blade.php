@@ -84,7 +84,7 @@
                 <div class="not-found-content-wrapper flex flex-col lg:flex-row items-center justify-center gap-4 lg:translate-y-12">
                     <img src="{{ asset('images/empty.svg') }}" alt="img-empty" class="max-w-[30rem]">
                     <div class="text-wrapper text-center lg:text-left flex flex-col gap-3 max-w-[32rem] ">
-                        <h2 class="font-bold text-2xl lg:text-4xl text-primary">Ups! Menu {{ $query }} tidak tersedia.</h2>
+                        <h2 class="font-bold text-2xl lg:text-4xl text-primary">Ups! Menu "{{ $query }}" tidak tersedia.</h2>
                         <p class="w-80 md:w-[90%] md:ms-6 lg:ms-0 lg:w-full leading-7 lg:leading-8 text-sm lg:text-base">Maaf, kami tidak dapat menemukan menu yang cocok dengan pencarian Anda. Silakan coba kata kunci yang berbeda.</p>
                     </div>
                 </div>
