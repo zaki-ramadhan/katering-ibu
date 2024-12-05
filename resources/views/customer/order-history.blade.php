@@ -154,7 +154,7 @@ $data = [
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-white md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-white md:bg-white">
 
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>

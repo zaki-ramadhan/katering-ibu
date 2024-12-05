@@ -61,12 +61,15 @@ Route::get('/menu', function() {
     return view('menu');
 })->name('menu');
 
-// order now page
-Route::get('/order-now', function() {
-    return view('order-now');
-})->name('order-now');
+Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
+Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
 
-Route::resource('order-now', OrderController::class);
+// order now page
+// Route::get('/order-now', function() {
+//     return view('order-now');
+// })->name('order-now');
+
+Route::resource('order-now', OrderController::class)->name('index', 'order-now');
 
 
 // contact us page
@@ -84,12 +87,6 @@ require __DIR__.'/auth.php';
 
 // !
 route::get('admin/dashboard-admin', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
-
-
-// ! ini cuman iseng nampilin data ga make db, hapus aja kalo ga kepake, dr gpt
-// Route::get('/menu', function () {
-//     return view('menu');
-// })->name('menu');
 
 
 // logika akan terpental setelah login ke halaman mana
@@ -155,7 +152,6 @@ Route::get('/admin/data-ulasan', action: function () {
 // Route::post('/menu/store', [MenuController::class, 'store'])->name('menu.store');
 
 Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');
-Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
 Route::resource('admin/create-menu', MenuController::class)->name('create', 'admin.create-menu');
 Route::post('admin/create-menu', [MenuController::class, 'store'])->name('admin.store-menu');
 

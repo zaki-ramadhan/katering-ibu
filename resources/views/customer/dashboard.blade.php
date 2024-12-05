@@ -54,7 +54,7 @@
         </style>
 
     </head>
-    <body class="font-inter bg-red-500 sm:bg-tertiary md:bg-primary-600">
+    <body class="font-inter bg-red-500 sm:bg-tertiary lg:bg-white">
 
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
@@ -71,7 +71,7 @@
             </section>
 
             <section id="secondary-section" class="container grid grid-cols-2 gap-4">
-                <div class="step-progress col-span-2 px-4 py-8 bg-white rounded-xl flex flex-col gap-2">
+                {{-- <div class="step-progress col-span-2 px-4 py-8 bg-white rounded-xl flex flex-col gap-2">
                     <h2 class="text-center text-primary font-semibold text-xl">Anda semakin dekat!</h2>
                     <p class="text-center text-sm w-80 self-center">Tahap ini adalah langkah Anda berikutnya untuk menyelesaikan data akun Anda.</p>
                     <ul class="steps mt-5 text-sm">
@@ -81,7 +81,7 @@
                         <li class="step">Isi data Password</li>
                         <li class="step">Isi data No HP</li>
                       </ul>
-                </div>
+                </div> --}}
                 {{-- data customer --}}
                 <div class="card profile-card  bg-white p-6 rounded-lg flex flex-col gap-4">
                     <h2 class="font-semibold text-primary text-base">Informasi data pribadi Anda saat ini</h2>

@@ -6,6 +6,9 @@ const $dropdown = $('.dropdown-profile-menu');
 $profileBtn.on('click', function (e) {
     e.stopPropagation(); // Mencegah klik pada tombol memicu event `document`
     $dropdown.toggle(); // Tampilkan atau sembunyikan dropdown
+
+    $('html, body').animate({ scrollTop: 0 }, 300); // Dengan animasi selama 300ms
+
 });
 
 // Tutup dropdown jika klik di mana saja di luar dropdown atau tombol

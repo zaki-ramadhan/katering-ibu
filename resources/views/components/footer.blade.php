@@ -1,4 +1,4 @@
-<footer class="w-full relative text-white px-12 {{ auth()->check() ? 'py-12' : 'pb-12 pt-32 lg:pt-48' }} bg-primary mt-28 lg:mt-52 flex flex-col text-center gap-10">
+<footer class="w-full relative text-white px-12 {{ auth()->check() ? 'py-12' : 'pb-12 pt-32 lg:pt-48' }} bg-primary {{ Route::currentRouteName() == 'contact-us' ? 'mt-2' : 'mt-28 lg:mt-52'}} flex flex-col text-center gap-10">
     @guest               
     <section id="ads-section" class="container px-4 absolute -top-20 left-1/2 -translate-x-1/2">
         <div class="ads-wrapper relative w-full lg:h-48 bg-white lg:border-t lg:border-t-slate-300 px-6 py-8 rounded-lg lg:rounded-2xl flex text-primary shadow-xl shadow-slate-700/30 overflow-hidden">
