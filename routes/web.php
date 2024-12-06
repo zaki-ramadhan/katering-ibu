@@ -115,6 +115,12 @@ Route::get('/profile', action: function () {
     return view('customer.profile');
 })->name('customer.profile');
 
+Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
+
+
+
+
 Route::get('/order-history', action: function () {
     return view('customer.order-history');
 })->name('customer.order-history');

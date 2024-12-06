@@ -23,7 +23,7 @@
                     </label>
                     <input type="search" name="find" id="search-menu" placeholder="Cari menu favoritmu disini..." autocomplete="off" value="{{ request()->input('query') }}"    required class="w-72 lg:w-[30rem] truncate rounded-md text-sm py-3 ps-12 pe-9 text-primary focus:outline-none focus:ring-0 border-0 focus:border-transparent">
                     <iconify-icon icon="ic:outline-clear" id="clear-btn" class="hidden absolute top-1/2 right-32 -translate-y-1/2 text-secondary hover:text-primary cursor-pointer"></iconify-icon>
-                    <button type="submit" class="bg-primary hover:bg-primaryHovered active:bg-primary duration-150 px-6 py-[.9rem] text-xs rounded-md">Cari Menu</button>
+                    <button type="submit" class="bg-primary hover:bg-primaryHovered active:bg-primary duration-150 px-6 py-[.93rem] text-xs rounded-md">Cari Menu</button>
                 </form>
             </div>
         </div>

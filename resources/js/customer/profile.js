@@ -4,5 +4,4 @@ $('.opened-eye').on('click', function(){
 
 $('.closed-eye').on('click', function(){
     alert('closed eye')
-    
-})
+});

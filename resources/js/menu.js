@@ -126,8 +126,18 @@ $(window).scroll(function() {
     }
 });
 
-// scroll ke halaman teratas
-$('.btn-scroll-top').on('click',()=> {
-    $('html, body').animate({ scrollTop: 0 }, 600); // Atur kecepatan scroll
-    return false; // Mencegah perilaku default dari tombol
+// ! pindah halaman dari ordernow ke halaman menu
+$(document).ready(function () {
+    // Cek jika URL memiliki hash (contoh: #form-section)
+    if (window.location.hash) {
+        const target = $(window.location.hash); // Ambil elemen dengan ID dari hash
+        if (target.length) {
+            $('html, body').animate(
+                { scrollTop: target.offset().top - 250}, // Scroll ke elemen target
+                600 // Durasi animasi (dalam ms)
+            );
+        }
+    }
+    $('#search-menu').on('focus');
 });
+

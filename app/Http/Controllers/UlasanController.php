@@ -21,6 +21,6 @@ class UlasanController extends Controller
             'pesan' => $request->input('pesan'),
         ]);
 
-        return redirect()->back()->with('success', 'Ulasan berhasil dikirim.');
+        return redirect()->back()->with('success', 'Ulasan Anda berhasil dikirim!');
     }
 }

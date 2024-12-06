@@ -3,7 +3,7 @@
 @section('title', 'Informasi Pribadi Saya') 
 
 @section('vite') 
-    @vite('resources/js/profile.js')
+    @vite('resources/js/customer/profile.js')
 @endsection
 
 @section('style')
@@ -34,20 +34,18 @@
     </div>
 
     <div class="field-data-cust-wrapper container h-auto aspect-square mt-8 text-center bg-white px-16 pt-12 rounded-3xl">
-        <h1 class="username text-primary text-2xl mb-3 font-semibold">Zaki Rmdhn</h1>
+        <h1 class="username text-primary text-2xl mb-3 font-semibold">{{ auth()->user()->name }}</h1>
         <div class="decoration-wrapper flex justify-center gap-2 text-xs font-normal">
             <span class="role-user p-2 pe-4 ps-6 rounded-full bg-slate-200 text-slate-500 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-slate-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">ID User : 16688034762</span>
             <span class="id-user p-2 pe-4 ps-6 rounded-full bg-emerald-100 text-emerald-400 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-emerald-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">Pelanggan</span>
         </div>
         
-        <form action="" method="post" class="mt-14 w-full mx-auto flex flex-col items-center justify-center gap-7">
+        <form action=" "  class="mt-14 w-full mx-auto flex flex-col items-center justify-center gap-7">
             <header class="head-form flex w-full justify-between items-center mt-4 -mb-2">
                 <h2 class="font-medium text-primary">Informasi Pribadi Anda :</h2>
-                <a>
-                    <button type="submit" name="updateBtn" class=" text-white text-xs flex items-center justify-center gap-2 p-3 rounded-lg bg-primary hover:bg-primaryHovered hover:text-white active:scale-95 border border-inherit active:border-slate-300 duration-150">
+                <a href="{{ route('profile.edit') }}" class=" text-white text-xs flex items-center justify-center gap-2 p-3 rounded-lg bg-primary hover:bg-primaryHovered hover:text-white active:scale-95 border border-inherit active:border-slate-300 duration-150">
                         <iconify-icon icon="ix:pen-filled" class="text-base"></iconify-icon>
                         Perbarui data saya
-                    </button>
                 </a>
             </header>
 
@@ -56,7 +54,7 @@
                 <label for="username" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="bxs:user"></iconify-icon>
                 </label>
-                <input readonly disabled type="text" name="username" id="username" value="Zaki Ramadhan" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="text" name="username" id="username" value="{{ auth()->user()->name }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
 
             {{-- email --}}
@@ -64,7 +62,7 @@
                 <label for="email" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="dashicons:email"></iconify-icon>
                 </label>
-                <input readonly disabled type="email" name="email" id="email" value="zakiram4dhan@gmail.com" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
 
             {{-- password --}}
@@ -72,7 +70,7 @@
                 <label for="password" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="bxs:lock"></iconify-icon>
                 </label>
-                <input readonly disabled type="password" name="password" id="password" value="081214772370" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="password" name="password" id="password" value="{{ auth()->user()->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
                 <div class="eyes-icon-wrapper text-xl absolute top-1/2 right-5 -translate-y-1/2">
                     <iconify-icon icon="bi:eye-fill" class="opened-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
                     <iconify-icon icon="mdi:eye-off" class="closed-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
@@ -84,7 +82,7 @@
                 <label for="notelp" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="carbon:phone-filled"></iconify-icon>
                 </label>
-                <input readonly disabled type="telp" name="notelp" id="notelp" value="081214772370" class="w-full border-0 focus:ring-0 focus:ring-offset-0  border-primary border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="telp" name="notelp" id="notelp" value="{{ auth()->user()->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0  border-primary border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
         </form>
     </div>

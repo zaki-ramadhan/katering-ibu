@@ -6,6 +6,15 @@
     @vite('resources/js/contact-us.js')
 @endsection
 
+{{-- alert berhasil --}}
+@if (session('success'))
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+        <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
+        {{ session('success') }}
+    </div>
+@endif
+
+
 @section('content')
     {{-- hero-section --}}
     <section id font-light="hero-section" class="container px-4 py-12 relative text-primary flex flex-col-reverse justify-between items-center">
@@ -28,7 +37,7 @@
         </div>
     </section>
 
-    <section id="form-section" class="container px-4 lg:px-10 py-32 flex flex-col lg:grid lg:grid-cols-2 gap-20 lg:gap-6 text-primary bg-tertiary">
+    <section id="form-section" class="container px-4 lg:px-10 py-32 flex flex-col lg:grid lg:grid-cols-2 gap-20 lg:gap-6 text-primary bg-tertiary scroll-pt-5">
         <div class="detail-info-group flex flex-col gap-3 mx-8">
             <h1 class="font-medium text-2xl">Mari terhubung!</h1>
             <p class="text-secondary font-light">Butuh informasi lebih lanjut? Anda bisa menghubungi Kami melalui detail di bawah ini. Kami siap menjawab setiap pertanyaan Anda!</p>
@@ -71,7 +80,7 @@
             </div>
             <div class="emailInput-wrapper flex flex-col gap-2">
                 <label for="email" class="text-sm ">Alamat Email<span class="text-red-400 ms-[2px]">*</span></label>
-                <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" readonly class="text-secondary rounded-md focus:ring-0 text-sm">
+                <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" readonly class="text-secondary rounded-md hover:ring-0 focus:ring-inset focus:ring-0 focus:border-primary text-sm cursor-default">
             </div>
             <div class="messageInput-wrapper flex flex-col gap-2">
                 <label for="message" class="text-sm ">Isi Pesan<span class="text-red-400 ms-[2px]">*</span></label>

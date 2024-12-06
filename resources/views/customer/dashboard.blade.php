@@ -48,8 +48,8 @@
             <h2 class="font-semibold text-primary text-base">Informasi data pribadi Anda saat ini</h2>
             <img src="{{asset('images/Me/jas jae.jpg')}}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
             <div class="customer-data-wrapper flex flex-col gap-1 text-center">
-                <h3 class="customer-name font-semibold text-primary">Zaki Rmdhn</h3>
-                <p class="customer-email text-sm font-normal">zakiram4dhan@gmail.com</p>
+                <h3 class="customer-name font-semibold text-primary">{{ auth()->user()->name }}</h3>
+                <p class="customer-email text-sm font-normal">{{ auth()->user()->email }}</p>
                 <a href="{{route('customer.profile')}}">
                     <button class="py-4 px-5 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary active:scale-95 transition-transform duration-150 text-white text-xs font-medium mt-2">Lihat selengkapnya</button>
                 </a>

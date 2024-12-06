@@ -7,16 +7,17 @@
 
     {{-- mobile screen --}}
     <div class="flex items-end lg:items-center justify-center gap-5">
-        <div class="btn-wrapper flex flex-row-reverse gap-6 lg:gap-8">
+        <div class="btn-wrapper flex flex-row-reverse gap-6 lg:gap-7">
             <button id="menu-btn" title="Menu" class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }} lg:hidden translate-y-1">
                 <iconify-icon icon="lucide:menu" class="text-secondary hover:text-primary text-2xl"></iconify-icon>
             </button>
+            
             @auth
             <div class="profile-dropdown-wrapper relative">
                 <button title="Akun saya" id="profile-btn" class="text-2xl font-normal text-secondary hover:text-primary translate-y-1">
                     <iconify-icon icon="bxs:user"></iconify-icon>
                 </button>
-
+                
                 {{-- dropdown button --}}
                 <div class="dropdown-profile-menu hidden absolute -bottom-[7rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
                     <div class="helper-flex-display text-xs font-medium flex flex-col items-start ">
@@ -30,6 +31,21 @@
                 <button id="login-btn" class="px-6 py-3 rounded-lg bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-medium text-xs lg:text-xs">Ayo Login!</button>
             </a>
             @endauth
+
+            <div class="btn-tooltip-wrapper relative group {{ request()->is('order-now/*') ? 'block' : 'hidden' }}">
+
+                {{-- tooltip --}}
+                <div class="tooltip w-max hidden group-hover:inline group-active:bg-slate-500 duration-200 absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-2 rounded-lg bg-primary-600 text-white text-[.7rem]">
+                    Cari menu
+                </div>
+
+                {{-- btn --}}
+                <a href="{{ route('menu') }}#search-menu">
+                    <button id="serachToMenuPageBtn" class="px-2 text-lg text-secondary hover:text-primary">
+                        <iconify-icon icon="akar-icons:search" class="translate-y-[3px]"></iconify-icon>
+                    </button>
+                </a>
+            </div>
             
             {{-- this will display on large screen --}}
             <nav class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }}">

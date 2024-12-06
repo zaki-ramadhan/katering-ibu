@@ -54,3 +54,10 @@ $('.decrease-btn').on('click', function() {
     // Set nilai baru ke input
     $('#total-menu').val(inputValue);
 });
+
+
+//! tombol searching ke halaman menu
+$('#searchToMenuPageBtn').on('click', function() {
+    window.location.href = '/menu?search=true';
+});
+

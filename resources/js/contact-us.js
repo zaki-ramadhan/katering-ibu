@@ -12,6 +12,16 @@ $(document).ready(function () {
     }
 });
 
+// ! alternatif scroll ke form section biar pas ke tengah
+$('a.scroll-to').on('click', function(e) {
+    e.preventDefault();
+    const target = $(this.getAttribute('href'));
+    if(target.length) {
+        $('html, body').stop().animate({ scrollTop: target.offset().top - 50 // Sesuaikan nilai offset (100) dengan kebutuhan Anda
+                },600); // Durasi animasi dalam milidetik (1000 = 1 detik) } });
+            }
+        }
+    )
 // ! scroll button to top
 // Sembunyikan tombol pada awalnya
 $('.btn-scroll-top').hide();
@@ -33,4 +43,10 @@ $(window).scroll(function() {
 $('.btn-scroll-top').on('click',()=> {
     $('html, body').animate({ scrollTop: 0 }, 600); // Atur kecepatan scroll
     return false; // Mencegah perilaku default dari tombol
+});
+
+
+// ! pesan / alert ulasan
+$(document).ready(function() {
+    $('#alert').css('top', '-50px').show().animate({ top: '50px' }, 500).delay(2000).fadeOut(500);
 });

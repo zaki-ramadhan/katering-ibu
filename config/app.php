@@ -123,6 +123,12 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => [
+    // Alias lainnya...
+    'View' => Illuminate\Support\Facades\View::class,
+    ],
+
+
     'providers' => [
         // Provider lainnya
         App\Providers\ViewServiceProvider::class,

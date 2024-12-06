@@ -28,13 +28,15 @@
 
 @section('content')
     <main class="main-content-wrapper container px-4 lg:px-8 lg:-mb-12">
-        <div class="breadcrumbs text-sm ps-4">
-            <ul>
-                <li class="active:text-primary-600"><a href="{{ route('home') }}">Home</a></li>
-                <li class="active:text-primary-600"><a href="{{ route('menu') }}">Menu</a></li>
-                <li class="text-primary font-semibold">Pesan Sekarang</li>
-            </ul>
-        </div>
+        <header class="sub-header container flex justify-between items-center">
+            <div class="breadcrumbs text-sm ps-4">
+                <ul>
+                    <li class="active:text-primary-600"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="active:text-primary-600"><a href="{{ route('menu') }}">Menu</a></li>
+                    <li class="text-primary font-semibold">Pesan Sekarang</li>
+                </ul>
+            </div>
+        </header>
         <div class="helper lg:grid lg:grid-cols-3 gap-3">
             <section id="detail-menu-section" class="mt-4 p-4 lg:col-span-2 rounded-xl bg-white text-primary">
                 <figure class="w-full flex lg:flex-row gap-6">
