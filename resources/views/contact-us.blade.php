@@ -62,25 +62,26 @@
                 </li>
             </ul>
         </div>
-        <form id="contact-form" action="" class="flex flex-col gap-3 p-8 rounded-2xl bg-white">
+        <form id="contact-form" action="{{ route('ulasan.store') }}" method="POST" class="flex flex-col gap-3 p-8 rounded-2xl bg-white">
+            @csrf
             <h1 class="font-medium text-xl mb-3">Kirim Pesan</h1>
             <div class="nameInput-wrapper flex flex-col gap-2">
                 <label for="name" class="text-sm ">Nama Lengkap Anda<span class="text-red-400 ms-[2px]">*</span></label>
-                <input type="text" name="name" id="name" autocomplete="off" required class="rounded-md focus:ring-0 text-sm">
+                <input type="text" name="nama_pelanggan" id="name" autocomplete="off" value="{{ auth()->user() ? auth()->user()->name : '' }}" required class="rounded-md focus:ring-0 text-sm">
             </div>
             <div class="emailInput-wrapper flex flex-col gap-2">
                 <label for="email" class="text-sm ">Alamat Email<span class="text-red-400 ms-[2px]">*</span></label>
-                <input type="email" name="email" id="email" autocomplete="off" required class="rounded-md focus:ring-0 text-sm">
+                <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" readonly class="text-secondary rounded-md focus:ring-0 text-sm">
             </div>
             <div class="messageInput-wrapper flex flex-col gap-2">
                 <label for="message" class="text-sm ">Isi Pesan<span class="text-red-400 ms-[2px]">*</span></label>
-                <textarea name="message" id="message" autocomplete="off" required cols="30" rows="5" class="resize-none rounded-md focus:ring-0 text-sm"></textarea>
+                <textarea name="pesan" id="message" autocomplete="off" required cols="30" rows="5" class="resize-none rounded-md focus:ring-0 text-sm"></textarea>
             </div>
             @auth
-            <button class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+            <button type="submit" class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
             @else
             <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
             @endauth
-        </form>
+        </form>        
     </section>
 @endsection

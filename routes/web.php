@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UlasanController;
 
 Route::get('/', function () {
     return redirect('/home');  // Redirect ke /home
@@ -72,6 +73,10 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 
 Route::resource('order-now', OrderController::class)->name('index', 'order-now');
 
+
+// ulasan
+// Route::resource('ulasan', UlasanController::class);
+Route::post('/contact-us', [UlasanController::class, 'store'])->name('ulasan.store');
 
 // contact us page
 Route::get('/contact-us', function() {
