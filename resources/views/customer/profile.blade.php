@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.cust')
 
 @section('title', 'Informasi Pribadi Saya') 
 
 @section('vite') 
-    @vite(['resources/js/profile.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
+    @vite('resources/js/profile.js')
 @endsection
 
 @section('style')
@@ -13,9 +13,6 @@
         }
     </style>
 @endsection
-
-<x-header-cust></x-header-cust>
-<x-modal-logout></x-modal-logout>
 
 @section('content')
     <div class="profile-cover relative w-full h-52 px-6">

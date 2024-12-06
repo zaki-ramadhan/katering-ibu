@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.cust')
 
 @section('title', 'Riwayat Pesanan Saya') 
 
@@ -14,16 +14,13 @@
     </style>
 @endsection
 
-<x-header-cust></x-header-cust>
-<x-modal-logout></x-modal-logout>
-
 @section('content')
-    <section id="hero-section" class="container  py-10">
+    <section id="hero-section" class="container px-10 py-16">
         <h1 class="font-semibold text-primary text-4xl leading-10">Kelola dan pantau riwayat pesanan Anda dengan mudah.</h1>
         <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
     </section>
     <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        {{-- <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -89,6 +86,6 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
     </div>
 @endsection

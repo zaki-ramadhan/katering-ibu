@@ -19,7 +19,7 @@
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/components/header.js', 'resources/js/components/modal-logout.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js', 'resources/js/components/modal-logout.js'])
         @yield('vite')
 
         {{-- css --}}
@@ -35,7 +35,7 @@
 
     <body class="font-inter bg-red-500 sm:bg-tertiary lg:bg-white">
 
-        <x-header></x-header>
+        <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
 
             <!-- Page Content -->

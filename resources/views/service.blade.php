@@ -3,11 +3,8 @@
 @section('title', 'Pelayanan Katering Ibu') 
 
 @section('vite') 
-    @vite([ 'resources/js/components/header.js', 'resources/js/service.js'])
+    @vite('resources/js/service.js')
 @endsection
-
-<x-header></x-header>
-<x-modal-logout></x-modal-logout>
 
 @section('content')
     {{-- hero-section --}}

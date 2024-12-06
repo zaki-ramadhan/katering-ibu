@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.cust')
 
 @section('title', 'Dashboard Akun Pelanggan') 
 
 @section('vite') 
-    @vite(['resources/js/dashboard.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
+    @vite('resources/js/dashboard.js')
 @endsection
 
 @section('style')
@@ -19,9 +19,6 @@
         }
     </style>
 @endsection
-
-<x-header-cust></x-header-cust>
-<x-modal-logout></x-modal-logout>
 
 @section('content')
     {{-- hero section --}}
