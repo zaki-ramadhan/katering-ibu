@@ -26,29 +26,25 @@
     </section>
     @endguest
     <div class="navigation-link-wrapper flex flex-col gap-3">
-        <h2 class="font-medium">Navigasi</h2>
+        <h2 class="font-medium">Navigasi Halaman</h2>
         <nav>
-            <ul class="text-sm text-secondary flex flex-col gap-3 hover:text-secondary/30">
-                <li><a href="{{ route('home') }}" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Home</a></li>
-                <li><a href=" {{ route('about-us') }}" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Tentang kami</a></li>
-                <li><a href=" {{ route('service') }} " class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Pelayanan</a></li>
-                <li><a href="{{ route('menu') }}" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Menu</a></li>
-                <li><a href="{{ route('contact-us') }}" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Hubungi Kami</a></li>
+            <ul class="text-sm text-secondary flex flex-col gap-4 hover:text-secondary/30">
+                <li><a href="{{ route('home') }}" class="inline-block w-full hover:text-white hover:bg-primary duration-150">Home</a></li>
+                <li><a href=" {{ route('about-us') }}" class="inline-block w-full hover:text-white hover:bg-primary duration-150">Tentang kami</a></li>
+                <li><a href=" {{ route('service') }} " class="inline-block w-full hover:text-white hover:bg-primary duration-150">Pelayanan</a></li>
+                <li><a href="{{ route('menu') }}" class="inline-block w-full hover:text-white hover:bg-primary duration-150">Menu</a></li>
+                <li><a href="{{ route('contact-us') }}" class="inline-block w-full hover:text-white hover:bg-primary duration-150">Hubungi Kami</a></li>
             </ul>
         </nav>
     </div>
     <div class="menu-link-wrapper flex flex-col gap-3">
         <h2 class="font-medium">Menu - menu</h2>
         <nav>
-            <ul class="text-sm text-secondary flex flex-col gap-3 hover:text-secondary/30">
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Baso Ikan</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Nasi Ayam</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Nasi Bakar</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Nasi Kuning</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Nasi Liwet</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Paket Nasi Liwet Tampahan</a></li>
-                <li><a href="" class="inline-block w-full py-1 hover:text-white hover:bg-primary duration-150">Paket Nasi Kuning Tampahan</a></li>
-            </ul>
+            <ul class="text-sm text-secondary flex flex-col gap-4 hover:text-secondary/30">
+                @foreach ($menu as $item)
+                    <li><a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="inline-block w-full hover:text-white hover:bg-primary duration-150">{{ $item->nama_menu }}</a></li>
+                @endforeach
+            </ul>            
         </nav>
         <div class="detail-profile-info-wrapper">
             

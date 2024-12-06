@@ -1,5 +1,5 @@
 {{-- header --}}
-<header class="container p-5 lg:px-6 flex justify-between items-center font-semibold">
+<header class="container {{ request()->is('order-now/*') ? 'hidde p-5 px-6 lg:px-12' : ' p-5 lg:px-6' }} flex justify-between items-center font-semibold">
     <a href="{{ route('home') }}" title="Home" class="logo-group flex items-center gap-3 text-primary">
         <img src="{{ asset('images/logo_fix.png') }}" alt="logo katering ibu" class="w-12">
         <span id="mitra-name" class="text-md">Katering Ibu</span>
@@ -8,7 +8,7 @@
     {{-- mobile screen --}}
     <div class="flex items-end lg:items-center justify-center gap-5">
         <div class="btn-wrapper flex flex-row-reverse gap-6 lg:gap-8">
-            <button id="menu-btn" title="Menu" class="lg:hidden translate-y-1">
+            <button id="menu-btn" title="Menu" class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }} lg:hidden translate-y-1">
                 <iconify-icon icon="lucide:menu" class="text-secondary hover:text-primary text-2xl"></iconify-icon>
             </button>
             @auth
@@ -32,7 +32,7 @@
             @endauth
             
             {{-- this will display on large screen --}}
-            <nav>
+            <nav class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }}">
                 <ul class="hidden lg:flex items-center justify-center {{ auth()->check() ? 'translate-y-2' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
                     <li>
                         <a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">

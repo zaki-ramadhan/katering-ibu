@@ -42,6 +42,14 @@ class MenuController extends Controller {
         // Mengirim data menu dan query ke view
         return view('menu', compact('menu', 'jumlahMenu', 'query'));
     }
+
+    public function showMenuFooter() {
+        // Mengambil semua data menu dari database
+        $menu = Menu::all();
+        
+        // Mengirim data menu ke view
+        return view('footer', compact('menu'));
+    }
     
 
     public function create() {

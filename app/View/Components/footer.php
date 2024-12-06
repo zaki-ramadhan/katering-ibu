@@ -2,24 +2,19 @@
 
 namespace App\View\Components;
 
-use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Menu;
 
 class footer extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+    public $menu;
+
     public function __construct()
     {
-        //
+        $this->menu = Menu::all();
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
+    public function render()
     {
         return view('components.footer');
     }

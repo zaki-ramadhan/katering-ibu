@@ -62,6 +62,7 @@ Route::get('/menu', function() {
 })->name('menu');
 
 Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
+// Route::get('/footer', [MenuController::class, 'showMenuFooter'])->name('footer');
 Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
 
 // order now page
