@@ -11,18 +11,29 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        {{-- icon --}}
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/login.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
+
+        {{-- alert berhasil --}}
+        @if (session('success'))
+        <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+            <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
+            {{ session('success') }}
+        </div>
+        @endif
+
         <div class="min-h-screen flex flex-col lg:flex-row">
             <!-- Left side - Registration Form -->
             <div class="w-full lg:w-1/2 p-8 lg:p-16 bg-white">
                 <div class="max-w-md mx-auto">
-                    <div class="flex items-center mb-8">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+                    <div class="flex items-center gap-1 mb-8">
+                        <img src="{{asset('images/logo_fix.png')}}" alt="logo katering ibu" class="w-10">
                         <span class="text-xl font-semibold">Katering Ibu</span>
                     </div>
 

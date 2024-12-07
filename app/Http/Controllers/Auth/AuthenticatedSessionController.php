@@ -32,11 +32,11 @@ class AuthenticatedSessionController extends Controller
     if ($request->user()->role === 'admin') {
         return redirect()->route('admin.dashboard-admin'); // Pastikan route ini ada
     } elseif ($request->user()->role === 'customer') {
-        return redirect()->route('customer.dashboard'); // Pastikan route ini ada
+        return redirect()->route('customer.dashboard')->with('success', 'Anda berhasil login!'); // Pastikan route ini ada
     }
 
-        return redirect()->intended(route('home'));
-    }
+    return redirect()->route('home')->with('success', 'Anda berhasil login!');
+}
 
     /**
      * Destroy an authenticated session.
@@ -49,6 +49,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('login');
+        return redirect('login')->with('success', 'Anda berhasil logout!');
     }
 }

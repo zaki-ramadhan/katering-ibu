@@ -34,9 +34,9 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-2">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <a class="underline text-sm me-3 text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif 
@@ -46,7 +46,7 @@
             </x-primary-button>
         </div>
     </form>
-    <p class="mt-6 text-center text-sm text-gray-600">
+    <p class="mt-5 lg:mt-2 lg:translate-y-[4rem] text-center text-sm text-gray-600">
         Belum memiliki akun? Silahkan <a href="{{ route('register') }}" class="text-blue-600 font-medium">Buat Akun</a> terlebih dahulu.
     </p>
 </div>
@@ -75,10 +75,8 @@
         </a>
     </div>
     <div>
-        <div class="flex items-center mb-2">
-            <svg class="w-10 h-10 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
+        <div class="flex items-center gap-2 mb-2">
+            <img src="{{asset('images/logo_fix.png')}}" alt="logo katering ibu" class="w-10">
             <h2 class="text-3xl font-bold">Katering Ibu</h2>
         </div>
         <p class="text-xl">Belanja Katering Anti Ribet</p>
