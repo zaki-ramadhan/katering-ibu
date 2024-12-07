@@ -15,7 +15,7 @@
         <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit-icons.min.js"></script>
         
         {{-- scripts --}}
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/components/modal-logout.js', 'resources/js/components/modal-delete-data.js', 'resources/js/components/sidebar-admin.js', 'resources/js/components/header-admin.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-admin.js', 'resources/js/components/header-admin.js'])
         @yield('vite')
 
         <!-- Load JavaScript libraries -->
@@ -41,13 +41,11 @@
 
     </head>
 
-    <body class="font-inter bg-red-500 sm:bg-tertiary">
+    <body class="font-inter bg-red-500 sm:bg-tertiary min-h-screen">
 
         
         <x-header-admin></x-header-admin>
         <x-modal-logout></x-modal-logout>
-        
-        <x-modal-delete-data></x-modal-delete-data>
 
             <!-- Page Content -->
         <main class="container px-8 flex flex-col gap-6 pb-16">

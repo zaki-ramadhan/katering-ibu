@@ -50,7 +50,6 @@ class MenuController extends Controller {
         // Mengirim data menu ke view
         return view('footer', compact('menu'));
     }
-    
 
     public function create() {
         return view('admin.create-menu');
@@ -65,7 +64,11 @@ class MenuController extends Controller {
         ]);
     
         // Upload foto
-        $file = $request->file('foto_menu')->store('menu_images', 'public');
+        if($request->hasFile('foto_menu')) { 
+            $file = $request->file('foto_menu')->store('menu_images', 'public'); 
+        } else { 
+            return back()->with('error', 'File tidak ditemukan');
+        }
     
         // Simpan data ke database
         Menu::create([
@@ -76,12 +79,54 @@ class MenuController extends Controller {
         ]);
     
         // Redirect ke daftar menu dengan pesan sukses
-        return redirect()->route('admin.data-menu')->with('message', 'Data berhasil ditambahkan!');
+        return redirect()->route('admin.data-menu')->with('success', 'Menu baru berhasil ditambahkan!');
     }
     
 
     public function search(Request $request) {
         return $this->showMenu($request);
     }
+
+    public function destroy($id)
+    {
+    $menu = Menu::findOrFail($id);
+    $menu->delete();
+
+    return back()->with('success', 'Data menu berhasil dihapus!');
+    }
+
+    public function edit($id)
+{
+    $menu = Menu::findOrFail($id);
+    return view('admin.edit-menu', compact('menu'));
+}
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'foto_menu' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
+            'nama_menu' => 'required|string|max:255',
+            'deskripsi' => 'required',
+            'harga' => 'required|numeric',
+        ]);
+
+        $menu = Menu::findOrFail($id);
+
+        // Perbarui foto jika ada file baru
+        if($request->hasFile('foto_menu')) {
+            $file = $request->file('foto_menu')->store('menu_images', 'public');
+            $menu->foto_menu = $file;
+        }
+
+        // Perbarui data
+        $menu->nama_menu = $request->nama_menu;
+        $menu->deskripsi = $request->deskripsi;
+        $menu->harga = $request->harga;
+        $menu->save();
+
+        // Redirect ke daftar menu dengan pesan sukses
+        return redirect()->route('admin.data-menu')->with('success', 'Data menu berhasil diperbarui!');
+    }
+
 
 }

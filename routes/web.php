@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return redirect('/home');  // Redirect ke /home
@@ -170,4 +171,16 @@ Route::post('admin/create-menu', [MenuController::class, 'store'])->name('admin.
 // Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
 Route::resource('admin/dashboard-admin', DashboardAdminController::class)->name('index', "admin.dashboard-admin");
 Route::resource('admin/data-ulasan', UlasanController::class)->name('index', "admin.data-ulasan");
+
 Route::delete('/admin/data-ulasan/{id}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
+
+// edit menu
+Route::get('/admin/data-menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+Route::put('/admin/data-menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+
+// hapus menu
+Route::delete('/admin/data-menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+
+// data pelangggan
+Route::resource('/admin/data-pelanggan', UserController::class)->name('index', 'admin.data-pelanggan');
