@@ -27,7 +27,7 @@ $logoutBtn.on('click', function(){
 
 
 // modal popup konfirmasi logout
-const $modalAndOverlay = $('.overlay-modal');
+const $modalAndOverlay = $('.overlay-modal-logout');
 const $cardModal = $('#modal-confirm-logout');
 const $closeBtn = $('.close-modal-btn');
 const $cancelBtn = $('#cancelLogoutBtn');

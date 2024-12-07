@@ -83,4 +83,5 @@ class MenuController extends Controller {
     public function search(Request $request) {
         return $this->showMenu($request);
     }
+
 }

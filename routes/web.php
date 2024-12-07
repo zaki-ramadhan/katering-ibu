@@ -170,3 +170,4 @@ Route::post('admin/create-menu', [MenuController::class, 'store'])->name('admin.
 // Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
 Route::resource('admin/dashboard-admin', DashboardAdminController::class)->name('index', "admin.dashboard-admin");
 Route::resource('admin/data-ulasan', UlasanController::class)->name('index', "admin.data-ulasan");
+Route::delete('/admin/data-ulasan/{id}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');

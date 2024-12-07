@@ -34,4 +34,12 @@ class UlasanController extends Controller
 
         return redirect()->back()->with('success', 'Ulasan Anda berhasil dikirim!');
     }
+
+    public function destroy($id)
+    {
+    $ulasan = Ulasan::findOrFail($id);
+    $ulasan->delete();
+
+    return back()->with('success', 'Data ulasan berhasil dihapus!');
+    }
 }
