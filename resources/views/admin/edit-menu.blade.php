@@ -33,8 +33,9 @@
             </div>
 
 
-            <div class="flex items-center justify-end">
-                <button type="submit" class="px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-700">Perbarui Menu</button>
+            <div class="flex items-center justify-end gap-2">
+                <button type="button" onclick="window.history.back();" class="px-4 py-2 border rounded-lg hover:text-primary hover:border-secondary hover:bg-tertiary">Batalkan</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-700">Perbarui Menu</button>
             </div>
         </form>
     </div>

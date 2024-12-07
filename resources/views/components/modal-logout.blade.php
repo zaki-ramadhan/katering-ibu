@@ -7,7 +7,18 @@
             <div class="text-wrapper flex flex-col gap-4">
                 <h2 class="text-primary-600 text-medium">Pemberitahuan!</h2>
                 <h1 class="text-2xl font-semibold">Apakah Anda yakin ingin<br>melakukan <span class="text-red-500 font-semibold"> logout?</span></h1>
-                <p class="text-sm font-light text-slate-500">Ketika Anda sudah logout, Anda <span class="text-red-400">tidak akan</span>  bisa melakukan pemesanan apapun.</p>
+                <p class="text-sm font-light text-slate-500">Setelah Anda sudah logout, Anda <span class="text-red-400">tidak akan</span>  bisa
+
+                    {{-- pengkondisian jika url ada unsur adminnya maka isi modal logout akan berbeda --}}
+                    @php
+                        $url = url()->current();
+                    @endphp
+                    @if (str_contains($url, '/admin'))
+                        mengakses fitur admin
+                    @else
+                        melakukan pemesanan apapun
+                    @endif
+                    hingga Anda login kembali.</p>
             </div>
             <div class="button-wrapper flex gap-2 text-xs font-normal text-primary">
                 <button id="cancelLogoutBtn" class="py-3 px-6 rounded-md text-primary bg-slate-100 hover:bg-slate-200 hover:border-slate-200 active:bg-slate-100 duration-150">Batalkan</button>

@@ -32,12 +32,12 @@
                         @break
 
                     @default
-                        Halaman Tidak Diketahui
+                        
                 @endswitch
             </h1>
         </div>
 
-        {{-- component sidebar --}}
+    {{-- component sidebar --}}
         <x-sidebar-admin></x-sidebar-admin>
 
         {{-- profile on the right corner --}}

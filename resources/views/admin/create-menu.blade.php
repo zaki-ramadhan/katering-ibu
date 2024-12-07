@@ -88,16 +88,13 @@
     
                 <!-- Submit Button -->
                 <div class="btn-wrapper w-full grid grid-cols-3 gap-3 text-sm">
-                    <a href="{{route('admin.data-menu')}}" class="text-center bg-tertiary-50 hover:bg-tertiary hover:border text-secondary  rounded-md py-3">
-                        <button type="button">Batalkan</button>
-                    </a>
-                    <button type="submit" class="col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-[.5px] focus:ring-blue-500">
+                    <button type="button" onclick="window.history.back();" class="border rounded-lg hover:text-primary hover:border-secondary hover:bg-tertiary">Batalkan</button>
+                    <button type="submit" class="col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-[.5px] focus:ring-blue-500">
                         Tambahkan Menu
                     </button>
                 </div>
             </div>
         </div>
     </form>
-    
 </body>
 </html>
