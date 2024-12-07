@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Ulasan;
 use Illuminate\Http\Request;
+use Carbon\Carbon; // untuk memformat timestamp 
+
 
 class UlasanController extends Controller
 {
+    public function index() {
+        $ulasan = Ulasan::all();
+        
+        foreach ($ulasan as $item) {
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+        }
+        
+        return view('admin.data-ulasan', compact('ulasan'));
+    }
     public function store(Request $request)
     {
         $request->validate([

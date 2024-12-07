@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+Use App\Models\User;
+use App\Models\Ulasan;
 
 class DashboardAdminController extends Controller
 {
@@ -13,11 +15,14 @@ class DashboardAdminController extends Controller
     public function index()
     {
         //mengirim data untuk ditampilkan ke halaman dashboard admin
-        $jumlahMenu = Menu::count();
+        $jmlMenu = Menu::count();
+        $jmlPelanggan = User::where('role', 'customer')->count();
+        $jmlUlasan = Ulasan::count();
 
-        return view('admin.dashboard-admin', compact('jumlahMenu'));
+        return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan'));
 
     }
+
 
     /**
      * Show the form for creating a new resource.

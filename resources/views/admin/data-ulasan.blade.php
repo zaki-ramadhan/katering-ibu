@@ -1,120 +1,3 @@
-<?php
-// Data array (Contoh data)
-$data = [
-    [
-        "created_date" => "2024-11-29",
-        "name" => "John Doe",
-        "menus" => ["Nasi Goreng", "Ayam Bakar"],
-        "portions" => [2, 1],
-        "total_price" => 500000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Merdeka No. 10, Jakarta",
-        "payment_method" => "Transfer",
-        "status" => "Menunggu"
-    ],
-    [
-        "created_date" => "2024-11-28",
-        "name" => "Jane Smith",
-        "menus" => ["Sate Ayam", "Gado-Gado"],
-        "portions" => [3, 2],
-        "total_price" => 350000,
-        "pickup_method" => "Ambil",
-        "address" => "-",
-        "payment_method" => "Cash",
-        "status" => "Selesai"
-    ],
-    [
-        "created_date" => "2024-11-27",
-        "name" => "James Brown",
-        "menus" => ["Mie Goreng", "Soto Ayam"],
-        "portions" => [1, 1],
-        "total_price" => 200000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Sudirman No. 20, Bandung",
-        "payment_method" => "Transfer",
-        "status" => "Dalam Antrian"
-    ],
-    [
-        "created_date" => "2024-11-26",
-        "name" => "Emily Davis",
-        "menus" => ["Burger", "Kentucky Fried Chicken"],
-        "portions" => [1, 2],
-        "total_price" => 400000,
-        "pickup_method" => "Ambil",
-        "address" => "-",
-        "payment_method" => "Cash",
-        "status" => "Diproses"
-    ],
-    [
-        "created_date" => "2024-11-25",
-        "name" => "Michael Johnson",
-        "menus" => ["Pizza", "Pasta"],
-        "portions" => [2, 1],
-        "total_price" => 600000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Kuningan No. 15, Jakarta",
-        "payment_method" => "Transfer",
-        "status" => "Selesai"
-    ],
-    [
-        "created_date" => "2024-11-24",
-        "name" => "Sarah Lee",
-        "menus" => ["Nasi Goreng", "Mie Ayam"],
-        "portions" => [1, 1],
-        "total_price" => 250000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Sumeru No. 12, Yogyakarta",
-        "payment_method" => "Transfer",
-        "status" => "Menunggu"
-    ],
-    [
-        "created_date" => "2024-11-23",
-        "name" => "David Kim",
-        "menus" => ["Sushi", "Ramen"],
-        "portions" => [2, 1],
-        "total_price" => 450000,
-        "pickup_method" => "Ambil",
-        "address" => "-",
-        "payment_method" => "Cash",
-        "status" => "Diproses"
-    ],
-    [
-        "created_date" => "2024-11-22",
-        "name" => "Anna White",
-        "menus" => ["Tacos", "Burritos"],
-        "portions" => [2, 3],
-        "total_price" => 350000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Raya No. 18, Bali",
-        "payment_method" => "Transfer",
-        "status" => "Selesai"
-    ],
-    [
-        "created_date" => "2024-11-21",
-        "name" => "Chris Green",
-        "menus" => ["Kebab", "Falafel"],
-        "portions" => [1, 2],
-        "total_price" => 300000,
-        "pickup_method" => "Ambil",
-        "address" => "-",
-        "payment_method" => "Cash",
-        "status" => "Dalam Antrian"
-    ],
-    [
-        "created_date" => "2024-11-20",
-        "name" => "Laura Black",
-        "menus" => ["Curry", "Rice"],
-        "portions" => [1, 1],
-        "total_price" => 220000,
-        "pickup_method" => "Kirim",
-        "address" => "Jl. Anggrek No. 22, Jakarta",
-        "payment_method" => "Transfer",
-        "status" => "Sedang Dalam Pengiriman"
-    ]
-];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -170,28 +53,19 @@ $data = [
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Tanggal memesan
+                                id
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Menu yang Dipesan
+                                Nama Pengulas
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Porsi
+                                Email Pengulas
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Total Harga
+                                Isi Pesan
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Metode Pengambilan
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Alamat
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Metode Pembayaran
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Status
+                                Tanggal dibuat
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Aksi
@@ -199,34 +73,24 @@ $data = [
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $order)
+                        @foreach ($ulasan as $item)
                             <tr class="bg-white border-b hover:bg-gray-50 ">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $order['created_date'] }}    
-                                </th>
                                 <td class="px-6 py-4">
-                                    {{ implode(', ', $order['menus']) }}
+                                    {{ $item->id }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ implode(', ', $order['portions']) }}
+                                    {{ $item->nama_pelanggan }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ number_format($order['total_price'], 0, ',', '.') }}
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    {{ $order['pickup_method'] }}
+                                    {{ $item->email }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $order['pickup_method'] == 'Kirim' ? $order['address'] : '-' }}
+                                    {{ $item->pesan }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $order['payment_method'] }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $order['status'] }}
+                                    {{ $item->formatted_date }}
                                 </td>
                                 <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400  hover:bg-amber-300 active:bg-amber-400">Edit</a>
                                     <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
                                 </td>
                             </tr>
