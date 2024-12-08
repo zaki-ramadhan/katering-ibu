@@ -30,11 +30,12 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-6 border-e">no</th>
-                    <th scope="col" class="px-6 py-6">id pelanggan</th>
-                    <th scope="col" class="px-6 py-6">nama pelanggan</th>
-                    <th scope="col" class="px-6 py-6">email pelanggan</th>
-                    <th scope="col" class="px-6 py-6">tanggal registrasi akun</th>
+                    <th scope="col" class="px-6 py-6 border-e">No</th>
+                    <th scope="col" class="px-6 py-6">ID</th>
+                    <th scope="col" class="px-6 py-6">Nama Pelanggan</th>
+                    <th scope="col" class="px-6 py-6">Email Pelanggan</th>
+                    <th scope="col" class="px-6 py-6">No. Telepon</th> <!-- Kolom Nomor Telepon -->
+                    <th scope="col" class="px-6 py-6">Tanggal Registrasi Akun</th>
                     <th scope="col" class="text-center px-6 py-6">Aksi</th>
                 </tr>
             </thead>
@@ -44,19 +45,20 @@
                     <td class="px-6 py-4 border-e">{{ $index + 1 }}</td>
                     <td class="px-6 py-4">{{ $item->id }}</td>
                     <td class="px-6 py-4">{{ $item->name }}</td>
-                    <td class="px-6 py-4">{{ $item->email }}</td> 
-                    <td class="px-6 py-4">{{ $item->formatted_date }}</td>  
-                    <td class="px-6 py-4 flex justify-center gap-2"> 
-                        <!-- Tombol Aksi (Edit dan Hapus) --> 
-                        <a href="" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a> 
+                    <td class="px-6 py-4 max-w-60 truncate">{{ $item->email }}</td>
+                    <td class="px-6 py-4">{{ $item->notelp ?: '-' }}</td> <!-- Menampilkan No. Telepon atau '-' jika kosong -->
+                    <td class="px-6 py-4">{{ $item->formatted_date }}</td>
+                    <td class="px-6 py-4 flex justify-center gap-2">
+                        <!-- Tombol Aksi (Edit dan Hapus) -->
+                        <a href="" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a>
 
-                        <form action="" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');"> 
-                            @csrf 
-                            @method('DELETE') 
-                            <button type="submit" class="delete-btn font-medium px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">Hapus</button> 
+                        <form action="" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-btn font-medium px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">Hapus</button>
                         </form>
-                    </td> 
-                </tr> 
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

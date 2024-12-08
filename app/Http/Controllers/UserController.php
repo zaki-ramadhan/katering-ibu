@@ -4,73 +4,69 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Carbon\carbon;
+use Carbon\Carbon;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-{
-    // Mendapatkan pengguna dengan peran "customer"
-    $pelanggan = User::where('role', 'customer')->get();
-    $jumlahPelanggan = User::where('role', 'customer')->get()->count();
+    {
+        $pelanggan = User::where('role', 'customer')->get();
+        $jumlahPelanggan = User::where('role', 'customer')->get()->count();
 
-    foreach ($pelanggan as $item) {
-        $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+        foreach ($pelanggan as $item) {
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+        }
+
+        return view('admin.data-pelanggan', compact('pelanggan', 'jumlahPelanggan'));
     }
 
-    // Mengirim data ke view
-    return view('admin.data-pelanggan', compact('pelanggan', 'jumlahPelanggan'));
-}
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function edit(Request $request): View
     {
-        //
+        return view('customer.profile-edit', [
+            'user' => $request->user(),
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(ProfileUpdateRequest $request, $id): RedirectResponse
     {
-        //
+        $user = User::findOrFail($id);
+        $user->fill($request->except('password')); // Isi semua kecuali password
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Profil berhasil diperbarui!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(Request $request): RedirectResponse
     {
-        //
-    }
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $user = $request->user();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }

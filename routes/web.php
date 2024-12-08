@@ -116,9 +116,12 @@ Route::get('/profile', action: function () {
     return view('customer.profile');
 })->name('customer.profile');
 
-Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update/{id}', [UserController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/destroy', [UserController::class, 'destroy'])->name('profile.destroy');
+});
 
 
 
