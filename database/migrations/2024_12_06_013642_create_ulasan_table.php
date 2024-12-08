@@ -15,20 +15,17 @@ class CreateUlasanTable extends Migration
     {
         Schema::create('ulasan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pelanggan'); // Kolom untuk nama pelanggan
-            $table->string('email'); // Kolom untuk email pelanggan
-            $table->text('pesan'); // Kolom untuk isi pesan
+            $table->unsignedBigInteger('id_customer'); // Ganti dari nama_pelanggan ke id_customer
+            $table->text('pesan');
             $table->timestamps();
+
+            $table->foreign('id_customer')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
-    /**
-     * Balikkan migrasi.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('ulasan');
-    }
+}
+
 }

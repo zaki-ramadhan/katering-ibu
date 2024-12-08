@@ -6,40 +6,41 @@ use App\Models\Ulasan;
 use Illuminate\Http\Request;
 use Carbon\Carbon; // untuk memformat timestamp 
 
-
 class UlasanController extends Controller
 {
-    public function index() {
-        $ulasan = Ulasan::all();
+    public function index()
+    {
+        $ulasan = Ulasan::with('user')->get();
+        $jumlahUlasan = $ulasan->count();
         
         foreach ($ulasan as $item) {
             $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
         }
-        
-        return view('admin.data-ulasan', compact('ulasan'));
+
+        return view('admin.data-ulasan', compact('ulasan', 'jumlahUlasan'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pelanggan' => 'required|string|max:255',
-            'email' => 'required|email|max:50',
+            'id_customer' => 'required|exists:users,id',
             'pesan' => 'required|string',
         ]);
 
         Ulasan::create([
-            'nama_pelanggan' => $request->input('nama_pelanggan'),
-            'email' => $request->input('email'),
+            'id_customer' => $request->input('id_customer'),
             'pesan' => $request->input('pesan'),
         ]);
 
         return redirect()->back()->with('success', 'Ulasan Anda berhasil dikirim!');
     }
 
+
     public function destroy($id)
     {
-    $ulasan = Ulasan::findOrFail($id);
-    $ulasan->delete();
+        $ulasan = Ulasan::findOrFail($id);
+        $ulasan->delete();
 
-    return back()->with('success', 'Data ulasan berhasil dihapus!');
+        return back()->with('success', 'Data ulasan berhasil dihapus!');
     }
 }

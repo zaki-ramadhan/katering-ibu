@@ -74,6 +74,7 @@
         <form id="contact-form" action="{{ route('ulasan.store') }}" method="POST" class="flex flex-col gap-3 p-8 rounded-2xl bg-white">
             @csrf
             <h1 class="font-medium text-xl mb-3">Kirim Pesan</h1>
+            <input type="hidden" name="id_customer" value="{{ auth()->user() ? auth()->user()->id : '' }}"> <!-- Tambahkan ID pengguna -->
             <div class="nameInput-wrapper flex flex-col gap-2">
                 <label for="name" class="text-sm ">Nama Lengkap Anda<span class="text-red-400 ms-[2px]">*</span></label>
                 <input type="text" name="nama_pelanggan" id="name" autocomplete="off" value="{{ auth()->user() ? auth()->user()->name : '' }}" required class="rounded-md focus:ring-0 text-sm">
@@ -91,6 +92,6 @@
             @else
             <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
             @endauth
-        </form>        
+        </form>                
     </section>
 @endsection

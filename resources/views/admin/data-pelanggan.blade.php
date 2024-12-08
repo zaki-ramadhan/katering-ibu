@@ -14,30 +14,34 @@
 @endif
 
 @section('content')
-    <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl mt-3">
+    <div class="head-btn-wrapper flex justify-between items-end px-3 mt-8">
+        <h1 class="font-medium text-base text-primary">Total data pelanggan saat ini : {{ $jumlahPelanggan }}</h1>
+        {{-- <a href="{{ route('admin.create-menu') }}" class="w-max text-sm rounded-lg py-3 px-6 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-500 text-white hover:text-white">
+            <button>Tambah Menu</button>
+        </a> --}}
+    </div>
+    <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
+        @if($pelanggan->isEmpty())
+        <div class="py-5 px-6 flex items-center justify-start gap-2 bg-yellow-200 text-primary rounded-sm text-sm">
+            <iconify-icon icon="mingcute:warning-line" class="text-2xl"></iconify-icon>
+            <span>Tidak ada data pelanggan yang tersedia.</span>
+          </div>
+        @else
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-6">
-                        id
-                    </th>
-                    <th scope="col" class="px-6 py-6">
-                        nama pelanggan
-                    </th>
-                    <th scope="col" class="px-6 py-6">
-                        email pelanggan
-                    </th>
-                    <th scope="col" class="px-6 py-6">
-                        tanggal registrasi akun
-                    </th>
-                    <th scope="col" class="text-center px-6 py-6">
-                        Aksi
-                    </th>
+                    <th scope="col" class="px-6 py-6 border-e">no</th>
+                    <th scope="col" class="px-6 py-6">id pelanggan</th>
+                    <th scope="col" class="px-6 py-6">nama pelanggan</th>
+                    <th scope="col" class="px-6 py-6">email pelanggan</th>
+                    <th scope="col" class="px-6 py-6">tanggal registrasi akun</th>
+                    <th scope="col" class="text-center px-6 py-6">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pelanggan as $item)
+                @foreach ($pelanggan as $index => $item)
                 <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 border-e">{{ $index + 1 }}</td>
                     <td class="px-6 py-4">{{ $item->id }}</td>
                     <td class="px-6 py-4">{{ $item->name }}</td>
                     <td class="px-6 py-4">{{ $item->email }}</td> 
@@ -56,5 +60,6 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 @endsection

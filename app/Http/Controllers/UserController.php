@@ -15,13 +15,14 @@ class UserController extends Controller
 {
     // Mendapatkan pengguna dengan peran "customer"
     $pelanggan = User::where('role', 'customer')->get();
+    $jumlahPelanggan = User::where('role', 'customer')->get()->count();
 
     foreach ($pelanggan as $item) {
         $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
     }
 
     // Mengirim data ke view
-    return view('admin.data-pelanggan', compact('pelanggan'));
+    return view('admin.data-pelanggan', compact('pelanggan', 'jumlahPelanggan'));
 }
 
 
