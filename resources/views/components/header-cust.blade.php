@@ -20,7 +20,14 @@
                         @break
 
                     @default
-                        Halaman Tidak Diketahui
+                        @php
+                            $url = url()->current();
+                        @endphp
+                        @if (str_contains($url, '/profile'))
+                            Perbarui Informasi Pribadi Saya
+                        @else
+                            Halaman Tidak Diketahui
+                        @endif
                 @endswitch
             </h1>
         </div>

@@ -54,7 +54,7 @@
                 <label for="username" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="bxs:user"></iconify-icon>
                 </label>
-                <input readonly disabled type="text" name="username" id="username" value="{{ auth()->user()->name }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="text" name="username" id="username" value="{{ $user->name }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
 
             {{-- email --}}
@@ -62,7 +62,7 @@
                 <label for="email" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="dashicons:email"></iconify-icon>
                 </label>
-                <input readonly disabled type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="email" name="email" id="email" value="{{ $user->email }}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
 
             {{-- password --}}
@@ -70,7 +70,7 @@
                 <label for="password" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="bxs:lock"></iconify-icon>
                 </label>
-                <input readonly disabled type="password" name="password" id="password" value="{{ auth()->user()->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="password" name="password" id="password" value="{{ $user->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
                 <div class="eyes-icon-wrapper text-xl absolute top-1/2 right-5 -translate-y-1/2">
                     <iconify-icon icon="bi:eye-fill" class="opened-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
                     <iconify-icon icon="mdi:eye-off" class="closed-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
@@ -82,7 +82,7 @@
                 <label for="notelp" class="p-2 rounded-lg rounded-es-none bg-slate-100 text-xl w-10 aspect-square grid place-content-center outline-none focus:ring-0">
                     <iconify-icon icon="carbon:phone-filled"></iconify-icon>
                 </label>
-                <input readonly disabled type="telp" name="notelp" id="notelp" value="{{ auth()->user()->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0  border-primary border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
+                <input readonly disabled type="telp" name="notelp" id="notelp" value="{{ $user->notelp}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0  border-primary border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
             </div>
         </form>
     </div>

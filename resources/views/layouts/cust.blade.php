@@ -33,13 +33,13 @@
 
     </head>
 
-    <body class="font-inter bg-red-500 sm:bg-tertiary lg:bg-white">
+    <body class="font-inter bg-red-500 sm:bg-tertiary {{ Route::currentRouteName() == 'profile.edit' ? 'lg:bg-tertiary' : 'lg:bg-white' }} min-h-screen">
 
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
 
             <!-- Page Content -->
-        <main class="container">
+        <main class="container {{ Route::currentRouteName() == 'profile.edit' ? 'w-[78%] pb-20' : '' }}">
             @yield('content')
         </main>
 

@@ -28,7 +28,6 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-6 border-b border-e">No</th> <!-- Kolom Nomor Urut -->
-                        <th scope="col" class="px-6 py-6 border-b">ID Ulasan</th>
                         <th scope="col" class="px-6 py-6 border-b">Nama Pengulas</th>
                         <th scope="col" class="px-6 py-6 border-b">Email</th>
                         <th scope="col" class="px-6 py-6 border-b">Isi Pesan</th>
@@ -40,7 +39,6 @@
                     @foreach ($ulasan as $index => $item)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-6 py-4 border-e">{{ $index + 1 }}</td> <!-- Menampilkan Nomor Urut -->
-                        <td class="px-6 py-4">{{ $item->id }}</td>
                         <td class="px-6 py-4">{{ $item->user->name }}</td>
                         <td class="px-6 py-4">{{ $item->user->email }}</td>
                         <td class="px-6 py-4">{{ $item->pesan }}</td>

@@ -33,9 +33,9 @@
                     <th scope="col" class="px-6 py-6 border-e">No</th>
                     <th scope="col" class="px-6 py-6">ID</th>
                     <th scope="col" class="px-6 py-6">Nama Pelanggan</th>
-                    <th scope="col" class="px-6 py-6">Email Pelanggan</th>
-                    <th scope="col" class="px-6 py-6">No. Telepon</th> <!-- Kolom Nomor Telepon -->
-                    <th scope="col" class="px-6 py-6">Tanggal Registrasi Akun</th>
+                    <th scope="col" class="px-6 py-6">Email</th>
+                    <th scope="col" class="px-6 py-6">No telp</th> <!-- Kolom Nomor Telepon -->
+                    <th scope="col" class="px-6 py-6">tgl Regist Akun</th>
                     <th scope="col" class="text-center px-6 py-6">Aksi</th>
                 </tr>
             </thead>

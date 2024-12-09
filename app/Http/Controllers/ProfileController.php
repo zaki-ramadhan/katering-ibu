@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    public function index(Request $request) { 
+        return view('customer.profile', ['user' => $request->user()]);
+    }
     /**
      * Display the user's profile form.
      */
@@ -26,23 +29,21 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-{
-    $request->user()->fill($request->validated());
+    {
+        $request->user()->fill($request->validated());
 
-    if ($request->user()->isDirty('email')) {
-        $request->user()->email_verified_at = null;
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        if ($request->filled('password')) {
+            $request->user()->password = Hash::make($request->input('password'));
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Data Informasi Pribadi Anda telah berhasil diperbarui');
     }
-
-    if ($request->filled('password')) {
-        $request->user()->password = Hash::make($request->input('password'));
-    }
-
-    $request->user()->save();
-
-    return Redirect::route('profile.edit')->with('status', 'profile-updated');
-}
-
-
 
     /**
      * Delete the user's account.

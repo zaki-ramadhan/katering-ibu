@@ -101,16 +101,18 @@
                                     </div>
                                 </div>
                                 <div class="button-wrapper w-full flex gap-1 -mt-3">
-                                    <a href="" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                        <button class="btn-order ">
-                                            <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
-                                            Pesan Sekarang
+                                    <form action="">
+                                        <a href="" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                            <button class="btn-order ">
+                                                <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
+                                                Pesan Sekarang
+                                            </button>
+                                        </a>
+                                        <button class="btn-add-to-cart flex-none  w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                            <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
+                                            <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
                                         </button>
-                                    </a>
-                                    <button class="btn-add-to-cart flex-none  w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                        <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
-                                        <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
-                                    </button>
+                                    </form>
                                 </div>
                             </form>
                         </div>
