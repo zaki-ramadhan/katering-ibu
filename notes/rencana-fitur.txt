@@ -1,0 +1,6 @@
+Rencana penambahan dan pengembangan fitur
+3. Pembayaran dengan cara bayar dan upload bukti pembayaran (sepert proyek kemarin)
+4. Pemesanan Multi-Menu(banyak menu) dalam Satu Transaksi
+5. Opsi Langsung Pesan atau di Stak di Keranjang Belanja
+7. Penjadwalan Pesanan, kapan pesanan akan dikirim
+8. Filter/kategori menu, berdasarkan terlaris dan non-terlaris dilihat dari banyaknya porsi yang terjual

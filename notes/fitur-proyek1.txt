@@ -1,0 +1,17 @@
+Fitur yang akan dikembangkan di websitenya :
+- Admin
+1. Login (karena admin cuma butuh 1, data dibuat sendiri di phpMyAdmin)
+2. CRUD data pelanggan
+3. CRUD data menu
+4. CRUD data pesanan
+5. CRUD data ulasan
+6. CRUD data penjualan pesanan
+
+- Client
+1. Register dan Login
+2. EDIT & DELETE informasi akun profil
+3. Check-out pesanan
+4. SEARCHING menu di halaman menu
+5. CRUD riwayat pesanan
+6. Kirim ulasan
+8. Unggah bukti pembayaran
