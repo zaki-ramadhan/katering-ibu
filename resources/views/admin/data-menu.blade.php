@@ -31,7 +31,6 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-6 border-b border-e">no</th>
-                    <th scope="col" class="px-6 py-6 border-b">Id</th>
                     <th scope="col" class="px-6 py-6 border-b">Foto Menu</th>
                     <th scope="col" class="px-6 py-6 border-b">Nama Menu</th>
                     <th scope="col" class="px-6 py-6 border-b">Deskripsi</th>
@@ -44,9 +43,6 @@
                 <tr class="bg-white border-b hover:bg-gray-50">
                     <td class="px-6 py-2 border-e">
                         {{ $index + 1 }}
-                    </td>
-                    <td class="px-6 py-2">
-                        {{ $item->id }}
                     </td>
                     <td class="px-6 py-2">
                         <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto Menu" class="max-w-16 aspects-square object-cover rounded-lg">
@@ -74,4 +70,5 @@
         </table>
         @endif
     </div>
+    {{ $menu->links() }}
 @endsection

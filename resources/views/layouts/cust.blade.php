@@ -18,6 +18,9 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
+        {{-- ajax --}}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js', 'resources/js/components/modal-logout.js'])
         @yield('vite')

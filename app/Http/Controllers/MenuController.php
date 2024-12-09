@@ -11,7 +11,7 @@ use Carbon\Carbon; // untuk memformat timestamp
 class MenuController extends Controller {
     public function index() {
         // Mengambil semua data menu dari database
-        $menu = Menu::all();
+        $menu = Menu::paginate(2);
 
         // Menghitung jumlah data menu
         $jumlahMenu = $menu->count();

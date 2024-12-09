@@ -64,4 +64,5 @@
         </table>
         @endif
     </div>
+    {{ $pelanggan->links() }}
 @endsection
