@@ -25,7 +25,11 @@
     <div class="profile-cover relative w-full h-52 px-6">
         <div class="cover w-full h-full rounded-2xl"></div>
         <div class="img-profile-wrapper w-40 absolute top-0 -translate-x-1/2 left-1/2 translate-y-28">
-            <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="ring-4 ring-tertiary rounded-full aspect-square object-cover object-[50%_20%]">
+            @if(auth()->user()->foto_profile)
+                <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="ring-4 ring-tertiary rounded-full aspect-square object-cover object-[50%_20%]">
+            @else
+                <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="customer profile" class="ring-4 ring-tertiary rounded-full aspect-square object-cover object-[50%_20%]">
+            @endif
             <div class="btn-tooltip-wrapper relative group">
                 <a href="{{ route('contact-us') }}#contact-form">
                     <button class="contact-us-btn absolute right-0 bottom-0 w-12 aspect-square rounded-full bg-primary hover:bg-primary-600 active:bg-slate-500 text-white text-lg active:textarea-md duration-200 border-2 border-tertiary grid place-content-center">
@@ -40,7 +44,7 @@
         </div>
     </div>
 
-    <div class="field-data-cust-wrapper container h-auto aspect-square mt-8 text-center bg-white px-16 pt-12 rounded-3xl">
+    <div class="field-data-cust-wrapper container max-h-screen aspect-square mt-8 text-center bg-white px-16 pt-12 rounded-3xl">
         <h1 class="username text-primary text-2xl mb-3 font-semibold">{{ $user->name }}</h1>
         <div class="decoration-wrapper flex justify-center gap-2 text-xs font-normal">
             <span class="role-user p-2 pe-4 ps-6 rounded-full bg-slate-200 text-slate-500 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-slate-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">Id : {{ $user->id }}</span>

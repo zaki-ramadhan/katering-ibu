@@ -27,9 +27,9 @@
             <p class="text-sm lg:text-lg -mt-2 lg:mt-2">dengan Katering Ibu - Solusi Kebutuhan Katering Anda.</p>
             @auth
                 <a href="{{ route('menu') }}">
-                    <button id="btn-order-now" class="group ps-2 pe-4 py-2 lg:pe-5 rounded-full bg-primary hover:bg-gradient-to-r hover:from-primaryHovered hover:to-primary hover:scale-[1.01] duration-200 text-xs lg:text-base text-white/60 hover:text-white active:bg-primary flex items-center content-center gap-2 lg:gap-3 mt-3">
+                    <button id="btn-order-now" class="group ps-2 pe-4 py-2 lg:pe-5 rounded-full bg-primary hover:bg-gradient-to-r hover:from-primaryHovered hover:to-primary hover:scale-[1.01] duration-200 text-xs lg:text-sm text-white/60 hover:text-white active:bg-primary flex items-center content-center gap-2 lg:gap-3 mt-3">
                         <iconify-icon icon="akar-icons:shopping-bag" class="text-lg lg:text-2xl p-2 bg-primary-600 rounded-full group-hover:bg-primary duration-200"></iconify-icon>
-                        {{ auth()->check() ? 'Pesan Sekarang' : 'Buat Pesanan Pertama Anda' }}
+                        {{ auth()->check() ? 'Pesan sekarang' : 'Buat Pesanan Pertama Anda' }}
                         <iconify-icon icon="fluent:arrow-right-20-filled" class="text-lg lg:text-xl group-hover:ms-6 duration-200"></iconify-icon>
                     </button>
                 </a>
@@ -231,59 +231,27 @@
                 <h2 class="text-4xl text-primary font-semibold">Apa kata mereka?</h2>
                 <p>Kepuasan pelanggan adalah prioritas kami. Berikut beberapa testimoni dari mereka.</p>
             </div>
-            <div class="card-wrapper flex flex-col lg:grid lg:grid-cols-2 gap-4 mt-8 cursor-default">
-                <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
-                    <img src="https://images.unsplash.com/photo-1515202913167-d9a698095ebf?w=1,000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D" 
-                        alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover">         
-                    <div class="text-wrapper flex flex-col gap-2">
-                        <h4 class="username font-semibold">Sophia Hayes</h4>
-                        <p class="email-user text-xs lg:text-sm text-secondary/50">s*******s@gmail.com</p>
-                        <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">
-                            Pesan di Katering Ibu benar-benar pengalaman yang menyenangkan! Menu makanan bervariasi dan semuanya terasa homemade. 
-                            Saya sempat bingung soal pengiriman, tapi adminnya responsif banget, jawabannya cepat dan ramah. Layanan antar juga tepat waktu. 
-                            Overall puas banget, jadi langganan bulanan deh!
-                        </p>
-                        <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">11 Oktober 2024</p>
-                    </div>
+            @if($ulasan->isEmpty())
+                <div class="py-5 px-6 flex items-center justify-start gap-2 bg-yellow-200 text-primary rounded-sm text-sm">
+                    <iconify-icon icon="mingcute:warning-line" class="text-2xl"></iconify-icon>
+                    <span>Tidak ada ulasan pelanggan yang tersedia.</span>
                 </div>
-                
-                <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
-                    <img src="https://plus.unsplash.com/premium_photo-1675129522693-bd62ffe5e015?w=1,000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover float-start">
-                    <div class="text-wrapper flex flex-col gap-2">
-                        <h4 class="username font-semibold">Ethan Collins</h4>
-                        <p class="email-user text-xs lg:text-sm text-secondary/50">e*******s@gmail.com</p>
-                        <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">Ini pertama kalinya pesan katering untuk acara keluarga, dan gak nyesel coba Katering Ibu. Makanan sampai dalam keadaan masih hangat, dan porsinya pas buat semua tamu. Hanya saja, ada sedikit keterlambatan di pengiriman, mungkin karena hari itu lagi ramai. Tapi adminnya kasih update terus jadi saya gak terlalu khawatir. Good job!</p>
-                        <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">27 Januari 2024</p>
-                    </div>
+            @else
+                <div class="card-wrapper flex flex-col lg:grid lg:grid-cols-2 gap-4 mt-8 cursor-default">
+                    @foreach ($ulasan as $item)
+                        <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
+                            <img src="{{ $item->user->foto_profile ? asset('storage/' . $item->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover">
+                            <div class="text-wrapper flex flex-col gap-2">
+                                <h4 class="username font-semibold">{{ $item->user->name }}</h4>
+                                {{-- <p class="email-user text-xs lg:text-sm text-secondary/50">{{ str_replace(substr($item->user->email, 1, 8), '******', $item->user->email) }}</p> --}}
+                                <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">{{ $item->pesan }}</p>
+                                <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">{{ $item->formatted_date }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
-                    <img src="https://images.unsplash.com/photo-1533636721434-0e2d61030955?w=1,000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D" alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover float-start">
-                    <div class="text-wrapper flex flex-col gap-2">
-                        <h4 class="username font-semibold">Liam Foster</h4>
-                        <p class="email-user text-xs lg:text-sm text-secondary/50">l*******r@gmail.com</p>
-                        <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">Suka banget sama pilihan menunya, ada banyak makanan khas nusantara yang enak-enak! Favorit saya rendangnya, bumbunya mantap. Adminnya juga super helpful, saya minta custom menu buat acara kantor, dan mereka siap bantu sampai detailnya. Rasa, pelayanan, dan antaran semuanya bagus. Recommended banget buat yang butuh katering praktis!</p>
-                        <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">9 Agustus 2023</p>
-                    </div>
-                </div>
-                <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
-                    <img src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?w=1,000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover float-start">
-                    <div class="text-wrapper flex flex-col gap-2">
-                        <h4 class="username font-semibold">Lucas Bennett</h4>
-                        <p class="email-user text-xs lg:text-sm text-secondary/50">l*******t@gmail.com</p>
-                        <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">Udah beberapa kali pesan di Katering Ibu, dan setiap kali selalu puas. Kualitas makanannya konsisten enak dan terjaga. Satu hal yang aku suka adalah selalu dikasih tahu estimasi waktu pengiriman. Pernah sekali ada sedikit keterlambatan karena cuaca, tapi dikabari terus sama admin. Secara keseluruhan pelayanan mereka sangat profesional!</p>
-                        <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">27 Mei 2023</p>
-                    </div>
-                </div>
-                <div class="card rating-card text-primary flex flex-row p-4 gap-4 bg-tertiary rounded-xl hover:bg-primary duration-300 hover:text-white hover:shadow-lg hover:shadow-slate-400">
-                    <img src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=1,000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt="profile user image" class="profile-user rounded-full border-2 border-secondary/50 w-16 lg:w-[5rem] h-max aspect-square object-cover float-start">
-                    <div class="text-wrapper flex flex-col gap-2">
-                        <h4 class="username font-semibold">Isabella Monroe</h4>
-                        <p class="email-user text-xs lg:text-sm text-secondary/50">i*******e@gmail.com</p>
-                        <p class="message-rating text-xs lg:text-sm leading-5 lg:leading-6 text-secondary line-clamp-3">Katering Ibu nggak pernah gagal bikin keluarga saya happy. Anak-anak suka banget sama ayam bakarnya, dan saya sendiri suka sama aneka sayurannya, fresh dan rasanya pas. Adminnya cepat tanggap dan sabar banget waktu saya ubah pesanan dadakan. Pengirimannya juga rapi, semua sampai dengan kondisi baik. Terima kasih Katering Ibu, pasti pesan lagi!</p>
-                        <p class="rating-created-at text-xs text-secondary/50 mt-3 text-right">14 Maret 2023</p>
-                    </div>
-                </div>
-            </div>
+            @endif
+
         </div>
     </section>
 @endsection

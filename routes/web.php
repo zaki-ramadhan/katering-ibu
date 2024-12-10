@@ -123,3 +123,4 @@ Route::delete('/admin/data-ulasan/{id}', [UlasanController::class, 'destroy'])->
 
 // data pelangggan
 Route::resource('/admin/data-pelanggan', UserController::class)->name('index', 'admin.data-pelanggan');
+Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');

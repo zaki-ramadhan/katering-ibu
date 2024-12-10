@@ -16,9 +16,6 @@
 @section('content')
     <div class="head-btn-wrapper flex justify-between items-end px-3 mt-8">
         <h1 class="font-medium text-base text-primary">Total data pelanggan saat ini : {{ $jumlahPelanggan }}</h1>
-        {{-- <a href="{{ route('admin.create-menu') }}" class="w-max text-sm rounded-lg py-3 px-6 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-500 text-white hover:text-white">
-            <button>Tambah Menu</button>
-        </a> --}}
     </div>
     <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
         @if($pelanggan->isEmpty())
@@ -31,7 +28,8 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-6 border-e">No</th>
-                    <th scope="col" class="px-6 py-6">ID</th>
+                    {{-- <th scope="col" class="px-6 py-6">ID</th> --}}
+                    <th scope="col" class="px-6 py-6">Foto Profile</th>
                     <th scope="col" class="px-6 py-6">Nama Pelanggan</th>
                     <th scope="col" class="px-6 py-6">Email</th>
                     <th scope="col" class="px-6 py-6">No telp</th> <!-- Kolom Nomor Telepon -->
@@ -43,7 +41,14 @@
                 @foreach ($pelanggan as $index => $item)
                 <tr class="bg-white border-b hover:bg-gray-50">
                     <td class="px-6 py-4 border-e">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4">{{ $item->id }}</td>
+                    {{-- <td class="px-6 py-4">{{ $item->id }}</td> --}}
+                    <td class="px-6 py-4">
+                        @if($item->foto_profile)
+                            <img src="{{ asset('storage/' . $item->foto_profile) }}" alt="Foto Profil" class="rounded-full min-w-10 max-w-16 aspect-square object-cover">
+                        @else
+                            <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Foto Profil Default" class="rounded-full min-w-10 max-w-16 aspect-square object-cover">
+                        @endif
+                    </td>
                     <td class="px-6 py-4">{{ $item->name }}</td>
                     <td class="px-6 py-4 max-w-60 truncate">{{ $item->email }}</td>
                     <td class="px-6 py-4">{{ $item->notelp ?: '-' }}</td> <!-- Menampilkan No. Telepon atau '-' jika kosong -->

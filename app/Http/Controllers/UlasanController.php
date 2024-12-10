@@ -20,6 +20,7 @@ class UlasanController extends Controller
         return view('admin.data-ulasan', compact('ulasan', 'jumlahUlasan'));
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
