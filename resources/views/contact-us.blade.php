@@ -90,7 +90,12 @@
             @auth
             <button type="submit" class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
             @else
-            <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+            <div class="btn-wrapper relative group w-max">
+                <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+                <div class="tooltip hidden w-max group-hover:inline-block absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs px-3 py-2 rounded-md bg-primary text-white">
+                    Login terlebih dahulu
+                </div>
+            </div>
             @endauth
         </form>                
     </section>

@@ -55,14 +55,14 @@
                     <td class="px-6 py-4">{{ $item->formatted_date }}</td>
                     <td class="px-6 py-4 flex justify-center gap-2">
                         <!-- Tombol Aksi (Edit dan Hapus) -->
-                        <a href="" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a>
-
-                        <form action="" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
+                        <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a>
+                    
+                        <form action="{{ route('admin.data-pelanggan.destroy', $item->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="delete-btn font-medium px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">Hapus</button>
                         </form>
-                    </td>
+                    </td>                    
                 </tr>
                 @endforeach
             </tbody>
