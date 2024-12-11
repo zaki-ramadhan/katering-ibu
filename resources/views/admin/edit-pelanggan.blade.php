@@ -35,7 +35,7 @@
                         <img id="profile-image" src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Foto Profil Default" class="rounded-full aspect-square object-cover group-hover:brightness-90 ring-2 ring-secondary ring-offset-1">
                         @endif
                     </div>
-                    <label for="foto_profile" class="hidden font-normal px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-[15%] text-sm -translate-y-1/2 z-20 group-hover:inline-block hover:bg-black/20 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
+                    <label for="foto_profile" class="hidden w-max font-normal px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 text-sm -translate-x-1/2 -translate-y-1/2 z-20 group-hover:inline-block hover:bg-black/20 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
                 </label>
 
                 <div class="flex flex-col gap-2 my-2">

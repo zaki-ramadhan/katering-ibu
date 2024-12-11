@@ -7,19 +7,18 @@
             </button>
         </div>
 
-        <nav class=" flex flex-col gap-6">
+        <nav class="flex flex-col gap-6">
             <div class="settings-nav-wrapper flex flex-col gap-3">
                 <h3 class="text-sm font-semibold text-primary flex items-center gap-1">
-                    {{-- <iconify-icon icon="uil:setting" class="text-lg"></iconify-icon> --}}
                     Navigasi Halaman
                 </h3>
                 <ul class="w-full flex flex-col font-normal text-xs">
-                    <li><a href="{{ route('admin.dashboard-admin') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.dashboard-admin' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Dashboard</a></li>
-                    <li><a href="{{ route('admin.data-penjualan') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.data-penjualan' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Penjualan</a></li>
-                    <li><a href="{{ route('admin.data-pesanan') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.data-pesanan' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Pesanan</a></li>
-                    <li><a href="{{ route('admin.data-pelanggan') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.data-pelanggan' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Pelanggan</a></li>
-                    <li><a href="{{ route('admin.data-menu') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.data-menu' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Menu</a></li>
-                    <li><a href="{{ route('admin.data-ulasan') }}" class="hover:no-underline {{ Route::currentRouteName() == 'admin.data-ulasan' ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Ulasan</a></li>
+                    <li><a href="{{ route('admin.dashboard-admin') }}" class="hover:no-underline {{ Request::is('admin/dashboard-admin*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Dashboard</a></li>
+                    <li><a href="{{ route('admin.data-penjualan') }}" class="hover:no-underline {{ Request::is('admin/data-penjualan*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Penjualan</a></li>
+                    <li><a href="{{ route('admin.data-pesanan') }}" class="hover:no-underline {{ Request::is('admin/data-pesanan*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Pesanan</a></li>
+                    <li><a href="{{ route('admin.data-pelanggan') }}" class="hover:no-underline {{ Request::is('admin/data-pelanggan*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Pelanggan</a></li>
+                    <li><a href="{{ route('admin.data-menu') }}" class="hover:no-underline {{ Request::is('admin/data-menu*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Menu</a></li>
+                    <li><a href="{{ route('admin.data-ulasan') }}" class="hover:no-underline {{ Request::is('admin/data-ulasan*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Ulasan</a></li>
                 </ul>
             </div>
         </nav>
