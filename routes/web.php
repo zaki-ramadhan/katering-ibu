@@ -109,4 +109,9 @@ Route::delete('/admin/data-ulasan/{id}', [UlasanController::class, 'destroy'])->
 
 // Data pelanggan
 Route::resource('/admin/data-pelanggan', UserController::class)->name('index', 'admin.data-pelanggan');
+Route::get('/admin/data-pelanggan/{id}/edit', [UserController::class, 'edit'])->name('admin.edit-pelanggan');
+Route::put('/admin/data-pelanggan/{id}', [UserController::class, 'update'])->name('admin.update-pelanggan');
+Route::delete('/admin/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
+
+
 Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');

@@ -26,47 +26,46 @@ class UserController extends Controller
         return view('admin.data-pelanggan', compact('pelanggan', 'jumlahPelanggan'));
     }
 
-    public function edit(Request $request): View
+    public function edit($id)
     {
-        return view('customer.profile-edit', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    public function update(ProfileUpdateRequest $request, $id): RedirectResponse
-    {
-        $user = User::findOrFail($id);
-        $user->fill($request->except('password')); // Isi semua kecuali password
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
-
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('success', 'Profil berhasil diperbarui!');
+        $pelanggan = User::findOrFail($id);
+        return view('admin.edit-pelanggan', compact('pelanggan'));
     }
 
 
-    public function destroy(Request $request): RedirectResponse
+    public function update(Request $request, $id)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'notelp' => 'nullable|string|max:15',
+            'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = $request->user();
+        $pelanggan = User::findOrFail($id);
+        $pelanggan->name = $request->name;
+        $pelanggan->email = $request->email;
+        $pelanggan->notelp = $request->notelp;
 
-        Auth::logout();
+        if ($request->hasFile('foto_profile')) {
+            $file = $request->file('foto_profile');
+            $path = $file->store('profile_photos', 'public');
+            $pelanggan->foto_profile = $path;
+        }
 
-        $user->delete();
+        $pelanggan->save();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return redirect()->route('admin.data-pelanggan')->with('success', 'Data pelanggan berhasil diperbarui.');
     }
+
+
+
+    public function destroy($id)
+    {
+        $pelanggan = User::findOrFail($id);
+        $pelanggan->delete();
+
+        return redirect()->route('admin.data-pelanggan.index')->with('success', 'Data pelanggan berhasil dihapus.');
+    }
+
 }
