@@ -16,15 +16,15 @@
 
     <div class="card mt-8 bg-white px-8 py-6 shadow-md rounded-2xl flex flex-col gap-7">
         <h1 class="font-semibold text-primary text-2xl mt-2">Edit Data Pelanggan</h1>
-        <div class="content-wrapper grid grid-cols-3 gap-7">
+        <div class="content-wrapper grid grid-cols-3 gap-10">
             <div class="img-wrapper col-span-2">
-                <img src="{{asset('images/update-acc.svg')}}" alt="unsplash img" class="max-w-xl rounded-2xl object-cover">
+                <img src="https://images.unsplash.com/photo-1556740720-776b84291f8e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGN1c3RvbWVyfGVufDB8MHwwfHx8MA%3D%3D" alt="unsplash img" class="w-full aspect-video rounded-2xl object-cover">
             </div>
             <form action="{{ route('admin.update-pelanggan', $pelanggan->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-3">
                 @csrf
                 @method('PUT')
-                <label for="foto_profile" class="form-label text-sm text-primary font-medium">Foto Profil</label>
-                <label for="foto_profile" class="form-label text-sm text-primary font-medium relative group">
+                <label for="foto_profile" class="form-label text-sm text-primary font-medium mb-6">Foto profil pelanggan {{$pelanggan -> name}}</label>
+                <label for="foto_profile" class="form-label text-sm text-primary font-medium place-self-center relative group">
                     <div class="img-wrapper w-60 duration-150">
                         <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                             <input type="file" name="foto_profile" id="foto_profile" class="form-control opacity-0 rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none">

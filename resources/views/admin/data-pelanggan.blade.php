@@ -53,7 +53,7 @@
                     <td class="px-6 py-4 max-w-60 truncate">{{ $item->email }}</td>
                     <td class="px-6 py-4">{{ $item->notelp ?: '-' }}</td> <!-- Menampilkan No. Telepon atau '-' jika kosong -->
                     <td class="px-6 py-4">{{ $item->formatted_date }}</td>
-                    <td class="px-6 py-4 flex justify-center gap-2">
+                    <td class="px-6 py-4 flex justify-center gap-2 translate-y-3">
                         <!-- Tombol Aksi (Edit dan Hapus) -->
                         <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a>
                     
