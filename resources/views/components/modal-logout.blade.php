@@ -21,11 +21,14 @@
                     hingga Anda login kembali.</p>
             </div>
             <div class="button-wrapper flex gap-2 text-xs font-normal text-primary">
-                <button id="cancelLogoutBtn" class="py-3 px-6 rounded-md text-primary bg-slate-100 hover:bg-slate-200 hover:border-slate-200 active:bg-slate-100 duration-150">Batalkan</button>
+                <button id="cancelLogoutBtn" class="h-max py-3 px-6 rounded-md text-primary bg-slate-100 hover:bg-slate-200 hover:border-slate-200 active:bg-slate-100 duration-150">Batalkan</button>
+
+                {{-- form logout --}}
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="py-3 px-6 rounded-md bg-red-300 hover:bg-red-500 active:bg-red-300 text-white duration-150">Ya, Saya ingin logout</button>
                 </form>   
+
             </div>
         </div>
     </div>

@@ -50,11 +50,15 @@
                 </div>
 
                 {{-- dropdown after clicked profile --}}
-                <div class="dropdown-logout absolute hidden -bottom-[3.7rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg shadow-slate-600/10 border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
-                    <div class="helper-flex-display text-xs font-medium flex flex-col items-start ">
-                        <button id="logoutBtn" class="w-full flex items-center justify-center gap-2 py-3 pe-3 ps-12 font-medium text-red-400 hover:bg-red-500 active:bg-red-600 hover:text-white duration-150 rounded-lg">
+                <div class="dropdown-logout absolute hidden -bottom-[7.3rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg shadow-slate-600/10 border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
+                    <div class="helper-flex-display text-xs font-medium flex flex-col justify-start items-start ">
+                        <button id="logoutBtn" class="w-full flex items-center justify-between gap-2 py-3 pe-3 ps-4 font-medium text-red-400 hover:bg-slate-100 active:bg-slate-50 duration-150">
                             Logout
                             <iconify-icon icon="tabler-logout" class="text-xl"></iconify-icon>
+                        </button>
+                        <button id="deleteAccBtn" class="w-max text-left flex items-center justify-between gap-6 py-3 pe-3 ps-4 font-medium bg-red-500 hover:bg-red-600 active:bg-red-500 text-white hover:text-white duration-150">
+                            Logout dan<br>Hapus Akun
+                            <iconify-icon icon="fluent:person-delete-16-filled" class="text-2xl"></iconify-icon>
                         </button>
                     </div>
                 </div>

@@ -114,4 +114,5 @@ Route::put('/admin/data-pelanggan/{id}', [UserController::class, 'update'])->nam
 Route::delete('/admin/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
 
 
-Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
+// Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
+Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');

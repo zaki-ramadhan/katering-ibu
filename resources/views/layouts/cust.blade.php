@@ -22,7 +22,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js', 'resources/js/components/modal-logout.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js', 'resources/js/components/modal-logout.js', 'resources/js/components/modal-delete-account.js'])
         @yield('vite')
 
         {{-- css --}}
@@ -40,6 +40,7 @@
 
         <x-header-cust></x-header-cust>
         <x-modal-logout></x-modal-logout>
+        <x-modal-delete-account></x-modal-delete-account>
 
             <!-- Page Content -->
         <main class="container {{ Route::currentRouteName() == 'profile.edit' ? 'w-[78%] pb-20' : '' }}">

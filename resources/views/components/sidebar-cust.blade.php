@@ -11,6 +11,7 @@
             <div class="settings-nav-wrapper flex flex-col gap-3">
                 <h3 class="text-sm font-semibold text-primary flex items-center gap-1">
                     {{-- <iconify-icon icon="uil:setting" class="text-lg"></iconify-icon> --}}
+                    {{-- <iconify-icon icon="ri:settings-3-fill" width="24" height="24"></iconify-icon> --}}
                     Pengaturan
                 </h3>
                 <ul class="w-full flex flex-col font-normal text-xs">

@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Carbon\Carbon;
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
     public function index()
     {
         $pelanggan = User::where('role', 'customer')->paginate(10);
-        $jumlahPelanggan = User::where('role', 'customer')->get()->count();
+        $jumlahPelanggan = User::where('role', 'customer')->count();
 
         foreach ($pelanggan as $item) {
             $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
@@ -31,7 +29,6 @@ class UserController extends Controller
         $pelanggan = User::findOrFail($id);
         return view('admin.edit-pelanggan', compact('pelanggan'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -58,8 +55,6 @@ class UserController extends Controller
         return redirect()->route('admin.data-pelanggan')->with('success', 'Data pelanggan berhasil diperbarui.');
     }
 
-
-
     public function destroy($id)
     {
         $pelanggan = User::findOrFail($id);
@@ -68,4 +63,18 @@ class UserController extends Controller
         return redirect()->route('admin.data-pelanggan.index')->with('success', 'Data pelanggan berhasil dihapus.');
     }
 
+    public function deleteAccount(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            // Log out the user
+            Auth::logout();
+            // Delete the user account
+            DB::table('users')->where('id', $user->id)->delete();
+
+            return redirect('login')->with('success', 'Akun Anda telah dihapus dan Anda telah logout.');
+        } else {
+            return redirect('/')->with('error', 'Tidak dapat menemukan akun pengguna.');
+        }
+    }
 }
