@@ -7,8 +7,8 @@
             </button>
         </div>
 
-        <nav class="flex flex-col gap-6">
-            <div class="settings-nav-wrapper flex flex-col gap-3">
+        <nav class="flex flex-col justify-between h-full gap-6">
+            <div class="page-nav-wrapper flex flex-col gap-3">
                 <h3 class="text-sm font-semibold text-primary flex items-center gap-1">
                     Navigasi Halaman
                 </h3>
@@ -21,6 +21,10 @@
                     <li><a href="{{ route('admin.data-ulasan') }}" class="hover:no-underline {{ Request::is('admin/data-ulasan*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Data Ulasan</a></li>
                 </ul>
             </div>
+            <a href="{{route('setting.index')}}" class="hover:no-underline {{ Request::is('admin/setting-admin*') ? 'text-white hover:text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} flex justify-start items-center gap-2 font-normal text-xs w-full p-3 rounded-md duration-100 place-self-end">
+                <iconify-icon icon="proicons:settings" class="text-xl"></iconify-icon>
+                Pengaturan Akun
+            </a>
         </nav>
     </div>
 </aside>

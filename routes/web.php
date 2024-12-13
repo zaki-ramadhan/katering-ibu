@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return redirect('/home');  // Redirect ke /home
@@ -59,6 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
+
 
     Route::get('/order-history', function () {
         return view('customer.order-history');
@@ -113,6 +117,6 @@ Route::get('/admin/data-pelanggan/{id}/edit', [UserController::class, 'edit'])->
 Route::put('/admin/data-pelanggan/{id}', [UserController::class, 'update'])->name('admin.update-pelanggan');
 Route::delete('/admin/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
 
+Route::resource('setting', AdminController::class);
 
 // Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
-Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');

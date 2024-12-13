@@ -76,11 +76,11 @@
             <h1 class="font-medium text-xl mb-3">Kirim Pesan</h1>
             <input type="hidden" name="id_customer" value="{{ auth()->user() ? auth()->user()->id : '' }}"> <!-- Tambahkan ID pengguna -->
             <div class="nameInput-wrapper flex flex-col gap-2">
-                <label for="name" class="text-sm ">Nama Lengkap Anda<span class="text-red-400 ms-[2px]">*</span></label>
+                <label for="name" class="text-sm ">Nama Anda<span class="text-red-400 ms-[2px]">*</span></label>
                 <input type="text" name="nama_pelanggan" id="name" autocomplete="off" value="{{ auth()->user() ? auth()->user()->name : '' }}" required class="rounded-md focus:ring-0 text-sm">
             </div>
             <div class="emailInput-wrapper flex flex-col gap-2">
-                <label for="email" class="text-sm ">Alamat Email<span class="text-red-400 ms-[2px]">*</span></label>
+                <label for="email" class="text-sm ">Email Anda<span class="text-red-400 ms-[2px]">*</span></label>
                 <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" readonly class="text-secondary rounded-md hover:ring-0 focus:ring-inset focus:ring-0 focus:border-primary text-sm cursor-default">
             </div>
             <div class="messageInput-wrapper flex flex-col gap-2">

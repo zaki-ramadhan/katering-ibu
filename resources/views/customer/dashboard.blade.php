@@ -53,7 +53,13 @@
         {{-- data customer --}}
         <div class="card profile-card  bg-white p-6 rounded-lg flex flex-col gap-4">
             <h2 class="font-semibold text-primary text-base">Informasi data pribadi Anda saat ini</h2>
-            <img src="{{asset('images/Me/jas jae.jpg')}}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
+            
+            @if(auth()->user()->foto_profile)
+            <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
+            @else
+            <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="customer profile" class="aspect-square object-cover object-[50%_10%] rounded-full border-4">
+            @endif
+            
             <div class="customer-data-wrapper flex flex-col gap-1 text-center">
                 <h3 class="customer-name font-semibold text-primary">{{ auth()->user()->name }}</h3>
                 <p class="customer-email text-sm font-normal">{{ auth()->user()->email }}</p>

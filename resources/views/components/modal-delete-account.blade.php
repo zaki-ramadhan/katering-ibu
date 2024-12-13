@@ -25,7 +25,7 @@
                 <form id="delete-account-form" action="{{ route('delete_account') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun ini?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="py-3 px-6 mt-[.8rem] rounded-md bg-red-500 hover:bg-red-700 active:bg-red-500 text-white duration-150">Hapus Akun dan Logout</button>
+                    <button type="submit" class="py-3 px-6 rounded-md bg-red-500 hover:bg-red-700 active:bg-red-500 text-white duration-150">Hapus Akun dan Logout</button>
                 </form>
             </div>
         </div>

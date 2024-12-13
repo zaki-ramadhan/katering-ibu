@@ -36,9 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($ulasan as $index => $item)
+                    @foreach ($ulasan as $item)
                     <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 border-e">{{ $index + 1 }}</td> <!-- Menampilkan Nomor Urut -->
+                        <td class="px-6 py-4 border-e">{{ $loop -> iteration }}</td> <!-- Menampilkan Nomor Urut -->
                         <td class="px-6 py-4">{{ $item->user->name }}</td>
                         <td class="px-6 py-4">{{ $item->user->email }}</td>
                         <td class="px-6 py-4">{{ $item->pesan }}</td>
