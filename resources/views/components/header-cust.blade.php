@@ -2,7 +2,7 @@
     {{-- mobile screen --}}
     <div class="w-full flex items-center justify-between gap-5">
         <div class="btn-title flex items-center gap-4">
-            <button id="up-menu-btn" title="Menu" class="translate-y-[3px]">
+            <button id="up-menu-btn" title="Menu" class="translate-y-[2px]">
                 <iconify-icon icon="lucide:menu" class="text-secondary p-2 rounded-lg hover:bg-slate-200 active:ring-1 active:ring-slate-300 text-2xl"></iconify-icon>
             </button>
             <h1 class="text-primary-600">

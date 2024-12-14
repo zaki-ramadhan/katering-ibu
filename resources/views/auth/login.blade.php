@@ -17,11 +17,13 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <div class="input-wrapper w-full relative">
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <div class="show-hide-btn absolute top-[.85rem] right-4 text-secondary">
+                    <iconify-icon icon="fluent:eye-32-filled" id="hide-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                </div>
+            </div>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -40,7 +42,6 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif 
-
             <x-primary-button class="ms-3">
                 {{ __('Masuk') }}
             </x-primary-button>
