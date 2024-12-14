@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         // Cek role pengguna setelah login
     if ($request->user()->role === 'admin') {
-        return redirect()->route('admin.dashboard-admin'); // Pastikan route ini ada
+        return redirect()->route('admin.dashboard-admin')->with('success', 'Anda berhasil login sebagai Admin'); // Pastikan route ini ada
     } elseif ($request->user()->role === 'customer') {
         return redirect()->route('customer.dashboard')->with('success', 'Anda berhasil login!'); // Pastikan route ini ada
     }

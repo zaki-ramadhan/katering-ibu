@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin.setting', AdminController::class)->name('show', 'admin.setting');
 });
 
+
 Route::get('/admin/data-penjualan', function () {
     return view('admin.data-penjualan');
 })->name('admin.data-penjualan');
@@ -118,6 +119,6 @@ Route::get('/admin/data-pelanggan/{id}/edit', [UserController::class, 'edit'])->
 Route::put('/admin/data-pelanggan/{id}', [UserController::class, 'update'])->name('admin.update-pelanggan');
 Route::delete('/admin/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
 
-Route::resource('admin/setting', AdminController::class);
+Route::resource('admin/setting-admin', AdminController::class);
 
 // Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
