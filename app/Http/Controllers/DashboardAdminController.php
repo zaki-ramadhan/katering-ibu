@@ -19,8 +19,11 @@ class DashboardAdminController extends Controller
         $jmlPelanggan = User::where('role', 'customer')->count();
         $jmlUlasan = Ulasan::count();
 
-        return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan'));
+        $pelangganTerbaru = User::where('role', 'customer')->orderBy('created_at', 'desc')->take(3)->get();
+        $menuTerbaru = Menu::orderBy('created_at', 'desc')->take(3)->get();
+        $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->take(3)->get();
 
+        return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan', 'pelangganTerbaru', 'menuTerbaru', 'ulasanTerbaru'));
     }
 
 

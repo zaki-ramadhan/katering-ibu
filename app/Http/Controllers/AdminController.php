@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) 
+    public function index() 
     { 
-        return view('admin.setting-admin');
+        $admin = Auth::user();
+        return view('admin.setting-admin', compact('admin'));
     }
 
     /**
@@ -36,7 +38,7 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**

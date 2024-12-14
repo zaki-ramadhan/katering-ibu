@@ -14,47 +14,42 @@
         </div>
     @endif
 
-    <div class="card mt-8 bg-white px-8 py-6 shadow-md rounded-2xl flex flex-col gap-7">
-        {{-- <h1 class="font-semibold text-primary text-2xl mt-2">Edit Menu {{$menu->nama_menu}}</h1>
-        <div class="content-wrapper grid grid-cols-3 gap-10">
-            <div class="img-wrapper col-span-2">
-                <img src="https://images.unsplash.com/photo-1536236397240-9b229a37a286?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1lbnV8ZW58MHwwfDB8fHww" alt="unsplash img" class="w-full aspect-video rounded-2xl object-cover">
+    <div class="cards-wrapper grid grid-cols-4 grid-flow-row-dense gap-4">
+        <div class="card left-card col-span-1 flex flex-col justify-center items-center text-center gap-2 bg-white px-8 py-12 shadow-md  shadow-slate-200/60 rounded-2xl">
+            <img src="{{ asset('images/admin.png') }}" alt="unsplash img" class="max-w-32 mb-3 aspect-square rounded-full object-cover">
+            <div class="username text-primary font-medium">
+                {{ $admin->name }}
             </div>
-            <form action="{{ route('menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-3">
-                @csrf
-                @method('PUT')
-                <label for="foto_menu" class="form-label text-sm text-primary font-medium mb-3">Foto Menu {{$menu->nama_menu}}</label>
-                <label for="foto_menu" class="form-label text-sm text-primary font-medium relative group">
-                    <div class="img-wrapper place-self-center w-60 duration-150">
-                        <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <input type="file" name="foto_menu" id="foto_menu" class="form-control opacity-0 rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none">
-                        </div>
-                        @if($menu->foto_menu)
-                        <img id="menu-image" src="{{ asset('storage/' . $menu->foto_menu) }}" alt="Foto Menu" class="rounded-full aspect-square object-cover group-hover:brightness-90 ring-2 ring-secondary ring-offset-1">
-                        @else
-                        <img id="menu-image" src="{{ asset('images/default-menu.png') }}" alt="Foto Menu Default" class="rounded-full aspect-square object-cover group-hover:brightness-90 ring-2 ring-secondary ring-offset-1">
-                        @endif
-                    </div>
-                    <label for="foto_menu" class="hidden font-normal px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 text-sm -translate-y-1/2 -translate-x-1/2 z-20 group-hover:inline-block hover:bg-black/10 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
-                </label>
-
-                <div class="flex flex-col gap-2 my-2">
-                    <label for="nama_menu" class="form-label text-sm text-primary font-medium">Nama Menu</label>
-                    <input type="text" name="nama_menu" id="nama_menu" class="form-control rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none" value="{{ old('nama_menu', $menu->nama_menu) }}" required>
+            <div class="username text-sm">
+                {{ $admin->email }}
+            </div>
+    </div>
+    <div class="card right-card col-span-3 flex flex-col gap-6 bg-white px-8 py-6 shadow-md  shadow-slate-200/60 rounded-2xl">
+        <h1 class="font-semibold text-2xl mb-3">Edit dan update pengaturan akun admin</h1>
+        <form action="" class="text-sm">
+            @csrf
+            <div class="grid grid-cols-2 gap-x-10 gap-y-5 ">
+                <div class="form-group flex flex-col gap-2">
+                    <label for="username">Username :</label>
+                    <input type="text" name="username" id="username" value="{{$admin->name}}" class="text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                 </div>
-                <div class="flex flex-col gap-2 mb-2">
-                    <label for="deskripsi" class="form-label text-sm text-primary font-medium">Deskripsi</label>
-                    <textarea name="deskripsi" id="deskripsi" rows="8" class="form-control rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none" required>{{ old('deskripsi', $menu->deskripsi) }}</textarea>
+                <div class="form-group flex flex-col gap-2">
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" id="email" class="text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                 </div>
-                <div class="flex flex-col gap-2 mb-2">
-                    <label for="harga" class="form-label text-sm text-primary font-medium">Harga</label>
-                    <input type="number" name="harga" id="harga" class="form-control rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none" value="{{ old('harga', $menu->harga) }}" required>
+                <div class="form-group flex flex-col gap-2">
+                    <label for="password">Password :</label>
+                    <input type="password" name="password" id="password" class="text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                 </div>
-                <div class="btn-wrapper w-full grid grid-cols-3 gap-3 text-sm">
-                    <button type="button" onclick="window.history.back();" class="border py-3 rounded-md hover:text-primary bg-tertiary-50 hover:border-secondary hover:bg-tertiary">Batalkan</button>
-                    <button type="submit" class="col-span-2 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-500 text-white py-3 rounded-md">Perbarui Menu</button>
+                <div class="form-group flex flex-col gap-2">
+                    <label for="confirm-password">Konfirmasi password :</label>
+                    <input type="password" name="confirm-password" id="confirm-password" class="text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                 </div>
-            </form> --}}
-        </div>
+            </div>
+            <div class="btn-wrapper flex gap-2 mt-8">
+                <button type="button" class="py-3 px-8 rounded-lg bg-slate-50 hover:bg-slate-100 active:bg-slate-50 border text-secondary">Batalkan</button>
+                <button class="py-3 px-8 rounded-lg bg-emerald-400 hover:bg-emerald-300 active:bg-emerald-400 text-white">Update</button>
+            </div>
+        </form>
     </div>
 @endsection
