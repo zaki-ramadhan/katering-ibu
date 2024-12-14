@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Menu;
 Use App\Models\User;
 use App\Models\Ulasan;
+use Illuminate\Http\Request;
 
 class DashboardAdminController extends Controller
 {
@@ -19,9 +20,23 @@ class DashboardAdminController extends Controller
         $jmlPelanggan = User::where('role', 'customer')->count();
         $jmlUlasan = Ulasan::count();
 
+        
         $pelangganTerbaru = User::where('role', 'customer')->orderBy('created_at', 'desc')->take(3)->get();
+        // Memformat tanggal menggunakan Carbon
+        foreach ($pelangganTerbaru as $items) {
+            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+        }        
+        
         $menuTerbaru = Menu::orderBy('created_at', 'desc')->take(3)->get();
+        foreach ($menuTerbaru as $items) {
+            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+        }
+
         $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->take(3)->get();
+        foreach ($ulasanTerbaru as $items) {
+            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+        }        
+        
 
         return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan', 'pelangganTerbaru', 'menuTerbaru', 'ulasanTerbaru'));
     }

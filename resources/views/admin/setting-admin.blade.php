@@ -15,7 +15,7 @@
     @endif
 
     <div class="cards-wrapper container grid grid-cols-4 grid-flow-row-dense gap-4">
-        <div class="card left-card col-span-1 flex flex-col justify-center items-center text-center gap-2 bg-white px-8 py-12 shadow-md  shadow-slate-200/60 rounded-2xl">
+        <div class="card left-card max-h-72 col-span-1 flex flex-col justify-center items-center text-center gap-2 bg-white px-8 py-12 shadow-md  shadow-slate-200/60 rounded-2xl">
             <img src="{{ asset('images/admin.png') }}" alt="unsplash img" class="max-w-32 mb-3 aspect-square rounded-full object-cover">
             <div class="username text-primary font-medium">
                 {{ $admin->name }}
@@ -33,7 +33,7 @@
                 <div class="grid grid-cols-1 gap-x-10 gap-y-5">
                     <div class="form-group flex flex-col gap-2 focus-within:text-primary">
                         <label for="username">Username :</label>
-                        <input type="text" name="username" id="username" value="{{ $admin->name }}" class="w-full max-w-96 text-sm py-3 rounded-md focus:border-0 focus:text-primary">
+                        <input type="text" name="username" id="username" value="{{ $admin->name }}" autocomplete="off" class="w-full max-w-96 text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                     </div>
                     <div class="form-group flex flex-col gap-2 focus-within:text-primary">
                         <label for="email">Email :</label>
@@ -51,7 +51,7 @@
                         <div id="passwordAlert" class="text-red-500 text-xs hidden">Password harus lebih dari 8 karakter.</div>
                     </div>
                 </div>
-                <div class="btn-wrapper flex gap-2 mt-8">
+                <div class="btn-wrapper text-sm flex gap-2 mt-8">
                     <button type="button" onclick="window.location.href='dashboard-admin'" class="py-3 px-8 rounded-lg bg-slate-50 hover:bg-slate-100 active:bg-slate-50 border text-secondary">Batalkan</button>
                     <button type="submit" class="py-3 px-8 rounded-lg bg-emerald-400 hover:bg-emerald-300 active:bg-emerald-400 text-white">Update</button>
                 </div>

@@ -75,7 +75,7 @@ class AdminController extends Controller
         // Simpan perubahan
         $admin->save();
 
-        return redirect()->route('admin.edit-pelanggan', $admin->id)->with('success', 'Data admin berhasil diperbarui.');
+        return redirect()->route('admin.dashboard-admin', $admin->id)->with('success', 'Data admin berhasil diperbarui.');
     }
 
     /**
