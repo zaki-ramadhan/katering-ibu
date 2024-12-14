@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -53,6 +54,11 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 
 // Order routes
 Route::resource('order-now', OrderController::class)->name('index', 'order-now');
+
+Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
+Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
+Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+
 
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {

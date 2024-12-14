@@ -81,7 +81,8 @@
 
                         <div class="form-priceDetail-wrapper bg-tertiary-50 text-primary mt-8 px-4 py-6 rounded-lg flex flex-col gap-6">
                             <h2 class="text-sm font-medium border-b border-b-slate-400 pb-4 pt-1 text-center">Detail total harga menu :</h2>
-                            <form action="" class="flex flex-col gap-7 mt-2">
+                            <form action="{{ route('keranjang.store') }}" method="POST" class="flex flex-col gap-7 mt-2">
+                                @csrf
                                 <div class="helper flex flex-col gap-7 md:flex-row md:justify-between md:items-center">
                                     <div class="input-total-wrapper flex flex-col gap-4">
                                         <h2 class="text-sm">Jumlah porsi menu :</h2>
@@ -89,7 +90,7 @@
                                             <button type="button" class="decrease-btn w-9 h-auto border aspect-square bg-secondary-300 hover:bg-secondary active:bg-secondary-300 text-white rounded-md duration-150">
                                                 <iconify-icon icon="raphael:minus" class="translate-y-[1.5px]"></iconify-icon>
                                             </button>
-                                            <input type="number" name="total-menu" id="total-menu" maxlength="3" min="1" max="999" value=1 class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md">
+                                            <input type="number" name="jumlah" id="total-menu" maxlength="3" min="1" max="999" value=1 class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md">
                                             <button type="button" class="increase-btn w-9 h-auto aspect-square bg-primary-600 hover:bg-primary active:bg-primary-600 hover:border text-white text-xs rounded-md duration-150">
                                                 <iconify-icon icon="subway:add-1"></iconify-icon>
                                             </button>
@@ -101,20 +102,17 @@
                                     </div>
                                 </div>
                                 <div class="button-wrapper w-full flex gap-1 -mt-3">
-                                    <form action="">
-                                        <a href="" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                            <button class="btn-order ">
-                                                <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
-                                                Pesan Sekarang
-                                            </button>
-                                        </a>
-                                        <button class="btn-add-to-cart flex-none  w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                            <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
-                                            <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
-                                        </button>
-                                    </form>
+                                    <button type="submit" class="btn-order grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                        <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
+                                        Pesan Sekarang
+                                    </button>
+                                    <button type="submit" class="btn-add-to-cart flex-none w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                        <iconify-icon icon="f7:cart-fill" class="text-base"></iconify-icon>
+                                        <iconify-icon icon="ooui:add" class="text-base -ms-1"></iconify-icon>
+                                    </button>
                                 </div>
-                            </form>
+                                <input type="hidden" name="menu_id" value="{{ $menu->id }}">
+                            </form>                            
                         </div>
                     </figcaption>
                 </figure>
