@@ -1,3 +1,10 @@
+@section('title', 'Registrasi Akun Katering Ibu')
+
+
+@section('vite')
+    @vite(['resources/js/register.js'])
+@endsection
+
 <x-guest-layout>
     <h1 class="text-3xl font-bold mb-2">Buat Akun Baru Anda.</h1>
     <p class="text-gray-600 mb-8">Silahkan lengkapi data Anda untuk membuat akun</p>
@@ -21,11 +28,14 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
+            <div class="input-wrapper w-full relative">
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                <div class="show-hide-btn absolute top-[.85rem] right-4 text-secondary">
+                    <iconify-icon icon="fluent:eye-32-filled" id="hide-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                </div>
+            </div>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -34,24 +44,29 @@
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <div class="input-wrapper w-full relative">
+                <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
 
+                <div class="show-hide-btn absolute top-[.85rem] right-4 text-secondary">
+                    <iconify-icon icon="fluent:eye-32-filled" id="hide-confirm-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-confirm-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                </div>
+            </div>
+                
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+            {{-- <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
-            </a>
+            </a> --}}
 
             <x-primary-button class="ms-4">
                 {{ __('Buat Akun') }}
             </x-primary-button>
         </div>
     </form>
-    <p class="mt-6 text-center text-sm text-gray-600">
+    <p class="mt-6 translate-y-9 text-center text-sm text-gray-600">
         Sudah memiliki akun? Silahkan <a href="{{route('login')}}" class="text-blue-600 font-medium">Login</a> disini.
     </p>
 </div>

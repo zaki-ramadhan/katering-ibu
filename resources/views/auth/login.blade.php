@@ -1,3 +1,9 @@
+@section('title', 'Login Katering Ibu')
+
+@section('vite')
+    @vite(['resources/js/login.js'])
+@endsection
+
 <x-guest-layout>
     <h1 class="text-3xl font-bold mb-2">Masuk ke Akun Anda.</h1>
     <p class="text-gray-600 mb-8">Silahkan lengkapi data Anda agar bisa masuk ke Akun yang sudah Anda buat sebelumnya.</p>
