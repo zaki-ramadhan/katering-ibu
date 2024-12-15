@@ -80,25 +80,25 @@
                         @endforeach
 
                         <div class="form-priceDetail-wrapper bg-tertiary-50 text-primary mt-8 px-4 py-6 rounded-lg flex flex-col gap-6">
-                            <h2 class="text-sm font-medium border-b border-b-slate-400 pb-4 pt-1 text-center">Detail total harga menu :</h2>
+                            <h2 class="text-sm font-medium border-b border-b-slate-400 pb-4 pt-1 text-center">Detail total harga menu:</h2>
                             <form action="{{ route('keranjang.store') }}" method="POST" class="flex flex-col gap-7 mt-2">
                                 @csrf
                                 <div class="helper flex flex-col gap-7 md:flex-row md:justify-between md:items-center">
                                     <div class="input-total-wrapper flex flex-col gap-4">
-                                        <h2 class="text-sm">Jumlah porsi menu :</h2>
+                                        <h2 class="text-sm">Jumlah porsi menu:</h2>
                                         <div class="input-btn-wrapper flex gap-1">
                                             <button type="button" class="decrease-btn w-9 h-auto border aspect-square bg-secondary-300 hover:bg-secondary active:bg-secondary-300 text-white rounded-md duration-150">
                                                 <iconify-icon icon="raphael:minus" class="translate-y-[1.5px]"></iconify-icon>
                                             </button>
-                                            <input type="number" name="jumlah" id="total-menu" maxlength="3" min="1" max="999" value=1 class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md">
+                                            <input type="number" name="jumlah" id="total-menu" maxlength="3" min="1" max="999" value="1" autocomplete="off" data-price="{{ $menu->harga }}" class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md">
                                             <button type="button" class="increase-btn w-9 h-auto aspect-square bg-primary-600 hover:bg-primary active:bg-primary-600 hover:border text-white text-xs rounded-md duration-150">
                                                 <iconify-icon icon="subway:add-1"></iconify-icon>
                                             </button>
                                         </div>
                                     </div>
                                     <div class="price-of-total-wrapper flex flex-col gap-2">
-                                        <h2 class="text-sm">Harga total menu :</h2>
-                                        <p class="font-semibold text-lg before:content-['Rp.']"> {{ number_format($menu->harga, 0, ',', '.') }}</p>
+                                        <h2 class="text-sm">Harga total menu:</h2>
+                                        <p class="font-semibold text-lg before:content-['Rp.']"><span id="total-price">{{ number_format($menu->harga, 0, ',', '.') }}</span></p>
                                     </div>
                                 </div>
                                 <div class="button-wrapper w-full flex gap-1 -mt-3">
@@ -112,8 +112,8 @@
                                     </button>
                                 </div>
                                 <input type="hidden" name="menu_id" value="{{ $menu->id }}">
-                            </form>                            
-                        </div>
+                            </form>
+                        </div>                        
                     </figcaption>
                 </figure>
             </section>

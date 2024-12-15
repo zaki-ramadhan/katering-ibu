@@ -35,25 +35,46 @@ $('.btn-scroll-top').on('click',()=> {
     return false; // Mencegah perilaku default dari tombol
 });
 
-// Increment total menu
+
+let price = parseFloat($('#total-menu').data('price'));
+
 $('.increase-btn').on('click', function() {
-    // Ambil nilai saat ini dari input
-    let inputValue = parseInt($('#total-menu').val()) || 0; // Jika kosong, set 0
-    // Tambahkan 1 ke nilai input
-    inputValue++;
-    // Set nilai baru ke input
-    $('#total-menu').val(inputValue);
+    let quantity = parseInt($('#total-menu').val());
+    $('#total-menu').val(quantity + 1);
+    updatePrice(quantity + 1, price);
 });
 
-// Decrement total menu
 $('.decrease-btn').on('click', function() {
-    // Ambil nilai saat ini dari input
-    let inputValue = parseInt($('#total-menu').val()) || 0; // Jika kosong, set 0
-    // Kurangi 1 dari nilai input, tetapi pastikan tidak negatif
-    inputValue = inputValue > 1 ? inputValue - 1 : 1;
-    // Set nilai baru ke input
-    $('#total-menu').val(inputValue);
+    let quantity = parseInt($('#total-menu').val());
+    if (quantity > 1) {
+        $('#total-menu').val(quantity - 1);
+        updatePrice(quantity - 1, price);
+    }
 });
+
+$('#total-menu').on('input', function() {
+    let quantity = parseInt($(this).val());
+    if (!isNaN(quantity) && quantity > 0) {
+        updatePrice(quantity, price);
+    }
+});
+
+function updatePrice(quantity, price) {
+    let totalPrice = quantity * price;
+    $('#total-price').text(totalPrice.toLocaleString('id-ID'));
+}
+
+$('#total-menu').on('input', function() {
+    let quantity = parseInt($(this).val());
+    if (!isNaN(quantity) && quantity > 0) {
+        updatePrice(quantity, price);
+    } else {
+        // Mengembalikan ke nilai awal jika kosong atau tidak valid
+        $(this).val(1);
+        updatePrice(1, price);
+    }
+});
+
 
 
 //! tombol searching ke halaman menu
