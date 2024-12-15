@@ -12,7 +12,9 @@ class KeranjangController extends Controller
 {
     public function index()
     {
-        $keranjang = Keranjang::where('user_id', Auth::id())->first();
+        $keranjang = Keranjang::where('user_id', Auth::id())->with('items.menu')->first();
+        // Debugging
+        // dd($keranjang);
         return view('keranjang', compact('keranjang'));
     }
 
