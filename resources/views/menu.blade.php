@@ -126,7 +126,7 @@
                                         <iconify-icon icon="ooui:add" class="text-base -ms-1"></iconify-icon>
                                     </button>
                                 @else
-                                    <a href="{{ route('login')}}" class="grow bg-secondary text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150 cursor-default">
+                                    <a href="{{ route('login')}}" class="grow bg-secondary-300 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150 cursor-default">
                                         <button class="btn-order cursor-default">
                                             <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
                                             Pesan Sekarang
