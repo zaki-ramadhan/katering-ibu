@@ -8,16 +8,26 @@ const passwordInput = $('#password');
 
 const showPwBtn = $('#show-password-btn'); //icon mata ketutup
 const hidePwBtn = $('#hide-password-btn');
-const showConfPwBtn = $('#show-confirm-password-btn'); //icon mata ketutup
-const hideConfPwBtn = $('#hide-confirm-password-btn');
 
 // Hide alert on blur
-$(passwordInput).on('blur', function () {
-    if($(this).attr('type', 'text')) {
-        $(hidePwBtn).hide();
+$(passwordInput).on('input', function() {
+    if($(this).val().length > 0) {
         $(showPwBtn).show();
+    } else {
+        $(showPwBtn).hide();
+    }
+})
 
-        $(this).attr('type', 'password');
+$(passwordInput).on('blur', function () {
+    if($(this).val().length < 1) {
+        $(showPwBtn).hide();
+    } else {
+        if($(this).attr('type', 'text')) {
+            $(hidePwBtn).hide();
+            $(showPwBtn).show();
+    
+            $(this).attr('type', 'password');
+        }
     }
 });
 

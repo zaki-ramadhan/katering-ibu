@@ -13,21 +13,45 @@ const showConfirmPwBtn = $('#show-confirm-password-btn'); //icon mata ketutup
 const hideConfirmPwBtn = $('#hide-confirm-password-btn');
 
 // Hide alert on blur
-$(passwordInput).on('blur', function () {
-    if($(this).attr('type', 'text')) {
-        $(hidePwBtn).hide();
+$(passwordInput).on('input', function(){
+    if($(this).val().length > 0) {
         $(showPwBtn).show();
+    } else {
+        $(showPwBtn).hide();
+    }
+})
 
-        $(this).attr('type', 'password');
+$(passwordInput).on('blur', function () {
+    if($(this).val().length < 1 ) {
+        $(showPwBtn).hide();
+    } else {   
+        if($(this).attr('type', 'text')) {
+            $(hidePwBtn).hide();
+            $(showPwBtn).show();
+            
+            $(this).attr('type', 'password');
+        }
     }
 });
 
-$(passwordConfirmInput).on('blur', function () {
-    if($(this).attr('type', 'text')) {
-        $(hideConfirmPwBtn).hide();
+$(passwordConfirmInput).on('input', function(){
+    if($(this).val().length > 0) {
         $(showConfirmPwBtn).show();
+    } else {
+        $(showConfirmPwBtn).hide();
+    }
+})
 
-        $(this).attr('type', 'password');
+$(passwordConfirmInput).on('blur', function () {
+    if($(this).val().length < 1) {
+        $(showConfirmPwBtn).hide();
+    } else {
+        if($(this).attr('type', 'text')) {
+            $(hideConfirmPwBtn).hide();
+            $(showConfirmPwBtn).show();
+    
+            $(this).attr('type', 'password');
+        }
     }
 });
 

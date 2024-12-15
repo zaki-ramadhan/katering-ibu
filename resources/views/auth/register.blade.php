@@ -33,7 +33,7 @@
 
                 <div class="show-hide-btn absolute top-[.85rem] right-4 text-secondary">
                     <iconify-icon icon="fluent:eye-32-filled" id="hide-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
-                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
 
                 <div class="show-hide-btn absolute top-[.85rem] right-4 text-secondary">
                     <iconify-icon icon="fluent:eye-32-filled" id="hide-confirm-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
-                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-confirm-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="fluent:eye-off-32-filled" id="show-confirm-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
                 </div>
             </div>
                 
