@@ -40,7 +40,10 @@
         <div class="helper lg:grid lg:grid-cols-3 gap-3">
             <section id="detail-menu-section" class="mt-4 p-4 lg:col-span-2 rounded-xl bg-white text-primary">
                 <figure class="w-full flex lg:flex-row gap-6">
-                    <img src="{{ Storage::url($menu->foto_menu) }}" alt="Foto {{ $menu->nama_menu }}" class="w-56 h-56 lg:h-64 object-cover rounded-xl">
+                    <div class="img-wrapper w-max">
+                        <img src="{{ Storage::url($menu->foto_menu) }}" alt="Foto {{ $menu->nama_menu }}" class="min-w-56 max-h-56 lg:h-64 object-cover rounded-xl mb-3">
+                        <span class="description-foto-menu text-xs leading-[.1rem]">Foto {{ $menu->nama_menu }}. Sumber: Katering Ibu.</span>
+                    </div>
                     <figcaption class="flex-auto flex flex-col gap-1">
                         <p class="head-figure-menu text-center bg-slate-100
                         text-primary rounded-md py-3 text-xs md:text-sm mb-3">Detail menu</p>
