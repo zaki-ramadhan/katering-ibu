@@ -39,7 +39,7 @@
         <x-modal-logout></x-modal-logout>
 
             <!-- Page Content -->
-        <main class="container">
+        <main class="container min-h-[87vh]">
             @yield('content')
         </main>
 
@@ -48,7 +48,10 @@
             <iconify-icon icon="mdi:arrow-top" class="group-active:-translate-y-2 duration-200"></iconify-icon>
         </button>
 
-        <x-footer></x-footer>
+        <!-- Kondisi untuk menampilkan footer --> 
+        @if (Request::path() !== 'keranjang') 
+            <x-footer></x-footer> 
+        @endif
 
     </body>
 </html>

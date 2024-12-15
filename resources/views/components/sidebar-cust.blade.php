@@ -17,6 +17,7 @@
                 <ul class="w-full flex flex-col font-normal text-xs">
                     <li><a href="{{ route('customer.dashboard') }}" class="{{ Route::currentRouteName() == 'customer.dashboard' ? 'text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Dashboard</a></li>
                     <li><a href="{{ route('customer.profile') }}" class="{{ (Route::currentRouteName() == 'customer.profile' || Route::currentRouteName() == 'profile.edit') ? 'text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Informasi Pribadi</a></li>
+                    <li><a href="{{ route('customer.keranjang') }}" class="{{ Route::currentRouteName() == 'customer.keranjang' ? 'text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Keranjang saya</a></li>
                     <li><a href="{{ route('customer.order-history') }}" class="{{ Route::currentRouteName() == 'customer.order-history' ? 'text-white font-semibold bg-primary hover:bg-primary-600 active:bg-primary' : 'text-secondary hover:text-primary hover:bg-tertiary active:bg-slate-200' }} block w-full p-3 rounded-md duration-100">Riwayat Pesanan</a></li>
                 </ul>
             </div>

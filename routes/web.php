@@ -55,28 +55,28 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 // Order routes
 Route::resource('order-now', OrderController::class)->name('index', 'order-now');
 
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
-Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
-Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
 
 
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {
+    Route::get('/customer/dashboard', function () {
+        return view('customer.dashboard');
+    })->name('customer.dashboard');
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
-
 
     Route::get('/order-history', function () {
         return view('customer.order-history');
     })->name('customer.order-history');
-
-    Route::get('/customer/dashboard', function () {
-        return view('customer.dashboard');
-    })->name('customer.dashboard');
+    
+    Route::get('customer/keranjang', [KeranjangController::class, 'index'])->name('customer.keranjang');
+    Route::post('customer/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::delete('customer/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
 });
 
 require __DIR__.'/auth.php';

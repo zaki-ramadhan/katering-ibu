@@ -1,8 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.cust')
+
+@section('title', 'Keranjang saya') 
+
+@section('vite') 
+    {{-- @vite(['resources/js/order-now.js']) --}}
+@endsection
 
 @section('content')
-<div class="container mx-auto my-8 px-4 lg:px-8">
-    <h2 class="text-2xl font-semibold mb-6">Keranjang Belanja</h2>
+<div class="container mx-auto mt-8 px-4 lg:px-8">
+    {{-- <h2 class="text-2xl font-semibold mx-auto">Keranjang Belanja</h2> --}}
 
     @if ($keranjang && $keranjang->items->count() > 0)
         <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
@@ -48,7 +54,14 @@
             <h3 class="text-lg font-semibold">Total: Rp{{ number_format($keranjang->total_harga, 0, ',', '.') }}</h3>
         </div>
     @else
-        <p class="text-center mt-8 text-gray-600">Keranjang Anda kosong.</p>
+        <div class="empty-cart-alert container w-full h-full flex justify-center items-center gap-10 translate-y-10">
+            <img src="{{asset('images/empty cart.svg')}}" alt="empty cart svg" class="max-w-96">
+            <div class="text-wrapper flex flex-col gap-2">
+                <p class="leading-7">Yahh...</p>
+                <h2 class="text-3xl font-semibold text-primary">Keranjang Anda masih kosong.</h2>
+                <p class="leading-7">Ayo buat pesanan pertama Anda sekarang. Klik "<a href="{{route('menu')}}" class="hover:underline hover:text-primary">Buat Pesanan</a>"<br> untuk memesan menu.</p>
+            </div>
+        </div>
     @endif
 </div>
 @endsection

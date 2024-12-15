@@ -15,7 +15,7 @@ class KeranjangController extends Controller
         $keranjang = Keranjang::where('user_id', Auth::id())->with('items.menu')->first();
         // Debugging
         // dd($keranjang);
-        return view('keranjang', compact('keranjang'));
+        return view('customer.keranjang', compact('keranjang'));
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class KeranjangController extends Controller
         $totalHarga = $keranjang->items->sum('total_harga_item');
         $keranjang->update(['total_harga' => $totalHarga]);
 
-        return redirect()->route('keranjang.index')->with('success', 'Item ditambahkan ke keranjang.');
+        return redirect()->route('customer.keranjang')->with('success', 'Item ditambahkan ke keranjang.');
     }
 
     public function destroy($id)
@@ -48,6 +48,6 @@ class KeranjangController extends Controller
         $totalHarga = $keranjang->items->sum('total_harga_item');
         $keranjang->update(['total_harga' => $totalHarga]);
 
-        return redirect()->route('keranjang.index')->with('success', 'Item dihapus dari keranjang.');
+        return redirect()->route('customer.keranjang')->with('success', 'Item dihapus dari keranjang.');
     }
 }
