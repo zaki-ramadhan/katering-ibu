@@ -13,8 +13,14 @@ const hidePwBtn = $('#hide-password-btn');
 $(passwordInput).on('input', function() {
     if($(this).val().length > 0) {
         $(showPwBtn).show();
+        if($(this).attr('type') === 'text') {
+            $(showPwBtn).hide();
+        } else {
+            $(showPwBtn).show();
+        }
     } else {
         $(showPwBtn).hide();
+        $(hidePwBtn).hide();
     }
 })
 
