@@ -1,15 +1,20 @@
 @extends('layouts.cust')
 
-@section('title', 'Keranjang saya') 
+@section('title', 'Keranjang Saya') 
 
 @section('vite') 
-    {{-- @vite(['resources/js/order-now.js']) --}}
+    @vite(['resources/js/customer/keranjang.js'])
 @endsection
+
+@if (session('success'))
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+        <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
+        {{ session('success') }}
+    </div>
+@endif
 
 @section('content')
 <div class="container mx-auto mt-8 px-4 lg:px-8">
-    {{-- <h2 class="text-2xl font-semibold mx-auto">Keranjang Belanja</h2> --}}
-
     @if ($keranjang && $keranjang->items->count() > 0)
         <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
             <table class="min-w-full bg-white">
@@ -53,7 +58,8 @@
         <div class="flex justify-end mt-6">
             <h3 class="text-lg font-semibold">Total: Rp{{ number_format($keranjang->total_harga, 0, ',', '.') }}</h3>
         </div>
-        <div class="flex justify-end mt-4">
+        <div class="flex justify-end mt-4 gap-4">
+            <a href="{{ route('menu') }}" class="px-4 py-2 bg-green-600 text-white rounded">Pilih Menu Lagi</a>
             <form action="{{ route('order.detail') }}" method="GET">
                 @csrf
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Checkout</button>
