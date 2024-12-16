@@ -77,6 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::get('customer/keranjang', [KeranjangController::class, 'index'])->name('customer.keranjang');
     Route::post('customer/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::delete('customer/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+
+    Route::get('/customer/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
+    Route::post('/customer/order-process', [OrderController::class, 'processOrder'])->name('order.process');
 });
 
 require __DIR__.'/auth.php';

@@ -53,6 +53,13 @@
         <div class="flex justify-end mt-6">
             <h3 class="text-lg font-semibold">Total: Rp{{ number_format($keranjang->total_harga, 0, ',', '.') }}</h3>
         </div>
+        <div class="flex justify-end mt-4">
+            <form action="{{ route('order.detail') }}" method="GET">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Checkout</button>
+            </form>
+        </div>
+        
     @else
         <div class="empty-cart-alert container w-full h-full flex justify-center items-center gap-10 translate-y-10">
             <img src="{{asset('images/empty cart.svg')}}" alt="empty cart svg" class="max-w-96">
