@@ -29,6 +29,8 @@
                         @endphp
                         @if (str_contains($url, '/profile'))
                             Perbarui Informasi Pribadi Saya
+                        @elseif (str_contains($url, '/pesanan'))
+                            Pesanan saya
                         @else
                             Halaman Tidak Diketahui
                         @endif
