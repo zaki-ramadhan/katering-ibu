@@ -115,13 +115,8 @@
             <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
                 <img src="{{ $pelanggan->foto_profile ? asset('storage/' . $pelanggan->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
                 <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-<<<<<<< HEAD
                     <h2 class="truncate  text-primary">{{$pelanggan->name}}</h2>
                     <p class="truncate text-xs">{{$pelanggan->email}}</p>
-=======
-                    <h2 class="truncate text-primary">{{$pelanggan->name}}</h2>
-                    <p class= truncate text-xs">{{$pelanggan->email}}</p>
->>>>>>> c495f1ebdca47381d166dbbf9d6dd5c5a1ffb0b4
                 </div>
                 <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
                     {{ $pelanggan->formatted_date }}

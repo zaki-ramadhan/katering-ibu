@@ -15,19 +15,19 @@
 
 @section('content')
 <div class="container mx-auto mt-8 px-4 lg:px-8">
-    <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
-        <h2 class="text-3xl font-bold text-center text-primary">Keranjang belanja saya.</h2>
-        <p>Detail pesanan yang siap untuk di-checkout, termasuk informasi pengiriman dan metode pembayaran yang dipilih.</p>
-    </div>
-
     @if ($keranjang && $keranjang->items->count() > 0)
+        <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
+            <h2 class="text-3xl font-bold text-center text-primary">Keranjang belanja saya.</h2>
+            <p>Detail pesanan yang siap untuk di-checkout, termasuk informasi pengiriman dan metode pembayaran yang dipilih.</p>
+        </div>
+        
         <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
             <table class="min-w-full bg-white">
                 <thead class="bg-slate-100 text-gray-700">
                     <tr>
                         <th class="py-3 px-4 text-left font-medium w-1/12">No.</th>
-                        <th class="py-3 px-4 text-left font-medium w-2/12">Item</th>
-                        <th class="py-3 px-4 text-left font-medium w-2/12">Foto</th>
+                        <th class="py-3 px-4 text-left font-medium w-2/12">Menu</th>
+                        <th class="py-3 px-4 text-left font-medium w-2/12">Foto menu</th>
                         <th class="py-3 px-4 text-center font-medium w-2/12">Jumlah</th>
                         <th class="py-3 px-4 text-right font-medium w-2/12">Harga</th>
                         <th class="py-3 px-4 text-right font-medium w-2/12">Total</th>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="flex justify-end mt-8 gap-2 text-sm">
-            <a href="{{ route('menu') }}" class="px-6 py-3 bg-slate-600 hover:bg-primary active:bg-slate-600 text-white rounded-lg">Pilih Menu Lagi</a>
+            <a href="{{ route('menu') }}" class="px-6 py-3 h-max bg-slate-600 hover:bg-primary active:bg-slate-600 text-white rounded-lg">Pilih Menu Lagi</a>
             <form action="{{ route('order.detail') }}" method="GET">
                 @csrf
                 <button type="submit" class="px-6 py-3 bg-green-400 hover:bg-green-500 active:bg-green-400 text-white rounded-lg">Checkout</button>

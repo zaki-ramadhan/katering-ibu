@@ -1,22 +1,33 @@
 // Function untuk menampilkan alert
 const showAlert = (element, message) => {
-    element.innerText = message;
-    element.classList.remove('hidden');
+    $(element).text(message).removeClass('hidden');
 };
 
 // Function untuk menyembunyikan alert
 const hideAlert = (element) => {
-    element.classList.add('hidden');
+    $(element).addClass('hidden');
 };
 
-const passwordInput = document.getElementById('password');
-const passwordAlert = document.getElementById('passwordAlert');
+const passwordInput = $('#password');
+const passwordAlert = $('#passwordAlert');
 
 const showPwBtn = $('#show-password-btn'); //icon mata ketutup
 const hidePwBtn = $('#hide-password-btn');
 
-passwordInput.addEventListener('input', function () {
-    let password = passwordInput.value;
+passwordInput.on('input', function () {
+    let password = passwordInput.val();
+    if($(this).val().length > 0) {
+        $(showPwBtn).show();
+        if($(this).attr('type') === 'text') {
+            $(showPwBtn).hide();
+            $(hidePwBtn).show();
+        } else {
+            $(showPwBtn).show();
+        }
+    } else {
+        $(showPwBtn).hide();
+        $(hidePwBtn).hide();
+    }
 
     // Validasi password panjang
     if (password.length < 8) {
@@ -26,28 +37,28 @@ passwordInput.addEventListener('input', function () {
     }
 });
 
-
-
-passwordInput.addEventListener('focus', function () {
-    if (passwordInput.value.length < 8) {
+passwordInput.on('focus', function () {
+    if (passwordInput.val().length < 8) {
         showAlert(passwordAlert, 'Password harus lebih dari 8 karakter.');
     }
 });
 
 // Hide alert on blur
-passwordInput.addEventListener('blur', function () {
+$(passwordInput).on('blur', function () {
     hideAlert(passwordAlert);
-
-    if($(passwordInput).attr('type', 'text')) {
-        $(hidePwBtn).hide();
-        $(showPwBtn).show();
-
-        $(passwordInput).attr('type', 'password');
+    if($(this).val().length < 1) {
+        $(showPwBtn).hide();
+    } else {
+        if($(this).attr('type', 'text')) {
+            $(hidePwBtn).hide();
+            $(showPwBtn).show();
+    
+            $(this).attr('type', 'password');
+        }
     }
 });
 
-
-// show hide pw
+    // switch eye btn
 $(showPwBtn).on('click', function() {
     $(this).hide();
     $(hidePwBtn).show();

@@ -45,7 +45,7 @@
                             <input type="password" name="password" id="password" class="min-w-96 text-sm py-3 rounded-md focus:border-0 focus:text-primary">
                             <div class="show-hide-btn absolute top-[.85rem] right-4">
                                 <iconify-icon icon="fluent:eye-32-filled" id="hide-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
-                                <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class=" text-xl hover:text-primary cursor-pointer"></iconify-icon>
+                                <iconify-icon icon="fluent:eye-off-32-filled" id="show-password-btn" class="hidden text-xl hover:text-primary cursor-pointer"></iconify-icon>
                             </div>
                         </div>
                         <div id="passwordAlert" class="text-red-500 text-xs hidden">Password harus lebih dari 8 karakter.</div>
