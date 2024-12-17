@@ -7,7 +7,7 @@
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md shadow-slate-200/50 text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -15,28 +15,31 @@
 
 @section('content')
 <div class="container mx-auto mt-8 px-4 py-6 lg:px-8">
-    <h2 class="text-3xl font-bold mb-16 text-center text-primary">Detail pesanan saya</h2>
+    <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
+        <h2 class="text-3xl font-bold text-center text-primary">Detail pesanan saya</h2>
+        <p>Periksa dan lengkapi data di bawah ini untuk melanjutkan ke proses pemesanan.</p>
+    </div>
 
     <div class="flex flex-wrap lg:flex-nowrap gap-8">
         <!-- Bagian Kiri: Detail Pesanan -->
-        <div class="card w-full lg:w-2/3 bg-white p-8 shadow-lg border border-slate-200 shadow-slate-200/50 rounded-3xl">
+        <div class="card w-full lg:w-2/3 max-h-max bg-white p-8 shadow-lg border border-slate-200 shadow-slate-200/50 rounded-3xl">
             <h3 class="text-lg font-medium text-primary mb-5">Keterangan Menu yang Dipesan</h3>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white rounded-lg text-sm">
-                    <thead class="bg-tertiary-100/60 text-primary">
+                    <thead class="bg-tertiary-100 text-primary">
                         <tr>
                             <th class="py-5 px-4 text-left font-semibold">No.</th>
                             <th class="py-5 px-4 text-left font-semibold">Foto</th>
                             <th class="py-5 px-4 text-left font-semibold">Menu</th>
                             <th class="py-5 px-4 text-center font-semibold">Jumlah porsi</th>
-                            <th class="py-5 px-4 text-right font-semibold">Harga</th>
+                            <th class="py-5 px-4 text-right font-semibold">Harga/porsi</th>
                             <th class="py-5 px-4 text-right font-semibold">Total</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
                         @foreach($cartItems as $index => $item)
                             @if($item->menu)
-                                <tr class="border-b">
+                                <tr class="border-b hover:bg-tertiary-50">
                                     <td class="p-4">{{ $index + 1 }}</td>
                                     <td class="p-4">
                                         <img src="{{ Storage::url($item->menu->foto_menu) }}" alt="{{ $item->menu->nama_menu }}" class="w-16 h-16 object-cover rounded-md">
@@ -55,14 +58,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                <h3 class="text-base font-semibold mb-2">Ongkos Kirim</h3>
-                <p id="shipping_cost">Rp. 0</p>
-            </div>
-            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                <h3 class="text-base font-semibold mb-2">Total Pesanan</h3>
-                <p id="total_cost">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }), 0, ',', '.') }}</p>
-                <input type="hidden" id="initial_total" value="{{ $cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) }}">
+            <div class="btn-alert-wrapper flex justify-end items-center gap-10 mt-6 group">
+                <p class=" hidden group-hover:block text-red-500 text-xs w-full ps-4 relative before:content-['**'] before:absolute before:top-0 before:left-0">Untuk menambahkan menu lainnya ke dalam pesanan, Anda akan menambahkan menu ke dalam keranjang terlebih dahulu. Lalu masuk kembali ke halaman ini.</p>
+                <a href="{{route('menu')}}" class="button min-w-max place-self-end p-4 bg-slate-600 hover:bg-slate-500 active:bg-slate-600 text-white rounded-lg text-xs font-medium">Tambahkan menu lainnya</a>
             </div>
         </div>
 
@@ -114,13 +112,33 @@
                 <!-- Alamat Pengiriman -->
                 <div class="mb-6 flex flex-col gap-2" id="delivery_address_section" style="display: none;">
                     <h3 class="block text-sm font-medium text-gray-700">Alamat Pengiriman</h3>
-                    <input type="text" name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm" autocomplete="off" placeholder="Masukkan Alamat Pengiriman" cols="10">
+                    <textarea name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm resize-none" autocomplete="off" cols="30" rows="3"></textarea>
+                </div>
+
+                <!-- Informasi Ongkos Kirim dan Total Harga -->
+                <div class="rincian-pesanan-wrapper flex flex-col gap-3 mt-16">
+                    <h2 class="block text-sm font-medium text-gray-700">Rincian Pesanan</h2>
+                    <div class="detail-wrapper flex flex-col gap-2 px-4 py-6 bg-tertiary-50 border border-slate-200 rounded-2xl">
+                        <div class="mb-6 flex justify-between">
+                            <h3 class="text-sm font-medium text-primary">Subtotal</h3>
+                            <p class="text-sm">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }), 0, ',', '.') }}</p>
+                        </div>
+                        <div class="mb-6 flex justify-between">
+                            <h3 class="text-sm font-medium text-primary">Ongkos Kirim</h3>
+                            <p id="shipping_cost" class="text-sm">Rp. 0</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <h3 class="text-sm font-medium text-primary">Total Pesanan</h3>
+                            <p id="total_cost" class="text-base font-bold text-primary">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) + 0, 0, ',', '.') }}</p>
+                            <input type="hidden" id="initial_total" value="{{ $cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) }}">
+                        </div>                        
+                    </div>
                 </div>
 
                 <!-- Tombol Proses Pesanan dan Batal -->
-                <div class="flex justify-center gap-4">
-                    <a href="{{ route('customer.keranjang') }}" class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700">Batal</a>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">Proses Pesanan</button>
+                <div class="flex justify-end text-sm gap-2 mt-4">
+                    <a href="{{ route('customer.keranjang') }}" class="px-6 py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 active:bg-red-500">Batal</a>
+                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 active:bg-blue-500">Proses Pesanan</button>
                 </div>
             </form>
         </div>
