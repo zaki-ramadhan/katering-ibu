@@ -17,7 +17,7 @@ class CreateItemPesananTable extends Migration
             $table->timestamps();
 
             $table->foreign('pesanan_id')->references('id')->on('pesanan')->onDelete('cascade');
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menu')->onDelete('cascade');
         });
     }
 

@@ -23,7 +23,7 @@
     <div class="flex flex-wrap lg:flex-nowrap gap-8">
         <!-- Bagian Kiri: Detail Pesanan -->
         <div class="card w-full lg:w-2/3 max-h-max bg-white p-8 shadow-lg border border-slate-200 shadow-slate-200/50 rounded-3xl">
-            <h3 class="text-lg font-medium text-primary mb-5">Keterangan Menu yang Dipesan</h3>
+            <h3 class="text-lg font-medium text-primary mb-5">Menu yang dipesan</h3>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white rounded-lg text-sm">
                     <thead class="bg-tertiary-100 text-primary">
@@ -68,6 +68,12 @@
         <div class="card-form w-full lg:w-1/3 bg-white border border-slate-200 p-6 shadow-lg shadow-slate-200/50 rounded-3xl">
             <form action="{{ route('order.process') }}" method="POST">
                 @csrf
+                <!-- Menambahkan input hidden untuk menu_id, quantity, dan price -->
+                @foreach($cartItems as $item)
+                    <input type="hidden" name="menu_id[]" value="{{ $item->menu_id }}">
+                    <input type="hidden" name="quantity[]" value="{{ $item->jumlah }}">
+                    <input type="hidden" name="price[]" value="{{ $item->menu->harga }}">
+                @endforeach
 
                 <!-- Informasi Pemesan -->
                 <div class="flex flex-col gap-3">
@@ -112,36 +118,37 @@
                 <!-- Alamat Pengiriman -->
                 <div class="mb-6 flex flex-col gap-2" id="delivery_address_section" style="display: none;">
                     <h3 class="block text-sm font-medium text-gray-700">Alamat Pengiriman</h3>
-                    <textarea name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm resize-none" autocomplete="off" cols="30" rows="3"></textarea>
+                    <textarea name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm resize-none" autocomplete="off" cols="30" rows="6"></textarea>
                 </div>
 
                 <!-- Informasi Ongkos Kirim dan Total Harga -->
-                <div class="rincian-pesanan-wrapper flex flex-col gap-3 mt-16">
-                    <h2 class="block text-sm font-medium text-gray-700">Rincian Pesanan</h2>
-                    <div class="detail-wrapper flex flex-col gap-2 px-4 py-6 bg-tertiary-50 border border-slate-200 rounded-2xl">
-                        <div class="mb-6 flex justify-between">
-                            <h3 class="text-sm font-medium text-primary">Subtotal</h3>
-                            <p class="text-sm">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }), 0, ',', '.') }}</p>
+                ... <!-- Rincian Pesanan Lanjutan -->
+                    <div class="rincian-pesanan-wrapper flex flex-col gap-3 mt-16">
+                        <h2 class="block text-sm font-medium text-gray-700">Rincian Pesanan</h2>
+                        <div class="detail-wrapper flex flex-col gap-2 px-4 py-6 bg-tertiary-50 border border-slate-200 rounded-2xl">
+                            <div class="mb-6 flex justify-between">
+                                <h3 class="text-sm font-medium text-primary">Subtotal</h3>
+                                <p class="text-sm">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }), 0, ',', '.') }}</p>
+                            </div>
+                            <div class="mb-6 flex justify-between">
+                                <h3 class="text-sm font-medium text-primary">Ongkos Kirim</h3>
+                                <p id="shipping_cost" class="text-sm">Rp. 0</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <h3 class="text-sm font-medium text-primary">Total Pesanan</h3>
+                                <p id="total_cost" class="text-base font-bold text-primary">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) + 0, 0, ',', '.') }}</p>
+                                <input type="hidden" id="initial_total" value="{{ $cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) }}">
+                            </div>                        
                         </div>
-                        <div class="mb-6 flex justify-between">
-                            <h3 class="text-sm font-medium text-primary">Ongkos Kirim</h3>
-                            <p id="shipping_cost" class="text-sm">Rp. 0</p>
-                        </div>
-                        <div class="flex justify-between">
-                            <h3 class="text-sm font-medium text-primary">Total Pesanan</h3>
-                            <p id="total_cost" class="text-base font-bold text-primary">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) + 0, 0, ',', '.') }}</p>
-                            <input type="hidden" id="initial_total" value="{{ $cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) }}">
-                        </div>                        
                     </div>
-                </div>
 
-                <!-- Tombol Proses Pesanan dan Batal -->
-                <div class="flex justify-end text-sm gap-2 mt-4">
-                    <a href="{{ route('customer.keranjang') }}" class="px-6 py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 active:bg-red-500">Batal</a>
-                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 active:bg-blue-500">Proses Pesanan</button>
-                </div>
-            </form>
+                    <!-- Tombol Proses Pesanan dan Batal -->
+                    <div class="flex justify-end text-sm gap-2 mt-4">
+                        <button type="button" onclick="window.history.back();" class="px-6 py-3 bg-red-400 text-white font-medium rounded-lg hover:bg-red-500 active:bg-red-600">Batalkan</button>
+                        <button type="submit" class="px-6 py-3 bg-blue-400 text-white font-medium rounded-lg hover:bg-blue-500 active:bg-blue-600">Proses Pesanan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection

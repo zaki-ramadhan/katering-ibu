@@ -58,11 +58,11 @@
         <div class="flex justify-end mt-6">
             <h3 class="text-lg font-semibold">Total: Rp{{ number_format($keranjang->total_harga, 0, ',', '.') }}</h3>
         </div>
-        <div class="flex justify-end mt-4 gap-4">
-            <a href="{{ route('menu') }}" class="px-4 py-2 bg-green-600 text-white rounded">Pilih Menu Lagi</a>
+        <div class="flex justify-end mt-4 gap-2 text-sm">
+            <a href="{{ route('menu') }}" class="px-6 py-3 bg-slate-600 hover:bg-primary active:bg-slate-600 text-white rounded-lg">Pilih Menu Lagi</a>
             <form action="{{ route('order.detail') }}" method="GET">
                 @csrf
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Checkout</button>
+                <button type="submit" class="px-6 py-3 bg-green-400 hover:bg-green-500 active:bg-green-400 text-white rounded-lg">Checkout</button>
             </form>
         </div>
         

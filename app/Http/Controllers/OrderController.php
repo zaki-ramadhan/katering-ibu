@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    // Menampilkan halaman detail menu
     public function show($id)
     {
         $menu = Menu::find($id);
@@ -46,6 +47,7 @@ class OrderController extends Controller
         return view('order-now', compact('menu', 'variantMenu', 'recommendedMenu'));
     }
 
+    // Menampilkan halaman pesanan detail
     public function showOrderDetail()
     {
         $keranjang = Keranjang::where('user_id', Auth::id())->with('items.menu')->first();
@@ -53,7 +55,7 @@ class OrderController extends Controller
         return view('customer.pesanan-detail', compact('cartItems'));
     }
 
-
+    // Memproses pesanan
     public function processOrder(Request $request)
     {
         $pesanan = new Pesanan();
@@ -79,6 +81,7 @@ class OrderController extends Controller
         return redirect()->route('customer.order-history')->with('success', 'Pesanan berhasil diproses.');
     }
 
+    // Menghitung total jumlah pesanan
     private function calculateTotalAmount($pesanan, $request)
     {
         $totalAmount = 0;

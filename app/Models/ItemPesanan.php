@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ItemPesanan extends Model
 {
     use HasFactory;
+    protected $table = 'item_pesanan'; // Penamaan tabel yang benar
 
     protected $fillable = [
         'pesanan_id', 'menu_id', 'quantity', 'price'
