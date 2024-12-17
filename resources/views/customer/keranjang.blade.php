@@ -38,8 +38,8 @@
                                 <img src="{{ Storage::url($item->menu->foto_menu) }}" alt="{{ $item->menu->nama_menu }}" class="w-16 h-16 object-cover rounded">
                             </td>
                             <td class="py-3 px-4 text-center">{{ $item->jumlah }}</td>
-                            <td class="py-3 px-4 text-right">Rp{{ number_format($item->harga, 0, ',', '.') }}</td>
-                            <td class="py-3 px-4 text-right">Rp{{ number_format($item->total_harga_item, 0, ',', '.') }}</td>
+                            <td class="py-3 px-4 text-right">Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+                            <td class="py-3 px-4 text-right">Rp. {{ number_format($item->total_harga_item, 0, ',', '.') }}</td>
                             <td class="py-3 px-4 text-center">
                                 <form action="{{ route('keranjang.destroy', $item->id) }}" method="POST" class="inline-block">
                                     @csrf

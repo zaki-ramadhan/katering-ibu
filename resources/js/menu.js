@@ -102,13 +102,6 @@ $(inputSearchMenu).on('blur', function () {
 });
 
 
-
-// btn add to cart
-$(".btn-add-to-cart").on('click', ()=> {
-    alert("Menu berhasil ditambahkan ke keranjang Anda\nPergi ke halaman 'Keranjang Saya'\nuntuk melihat menu yang sudah Anda tambahkan di keranjang Anda.")
-})
-
-
 // ! scroll button to top
 // Sembunyikan tombol pada awalnya
 $('.btn-scroll-top').hide();
@@ -141,3 +134,51 @@ $(document).ready(function () {
     $('#search-menu').on('focus');
 });
 
+
+
+// ? modal tombol keranjang
+$(document).ready(function() {
+    // Fungsi untuk memformat angka ke Rupiah
+    function formatRupiah(angka) {
+        return angka.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }).replace('IDR', 'Rp');
+    }
+
+    // Tampilkan modal saat tombol keranjang ditekan
+    $('.btn-add-to-cart').on('click', function() {
+        const menuId = $(this).data('menu-id'); // Ambil menu ID dari atribut data
+        const menuName = $(this).data('menu-name'); // Ambil nama menu dari atribut data
+        const menuPhoto = $(this).data('menu-photo'); // Ambil foto menu dari atribut data
+        const menuPrice = $(this).data('menu-price'); // Ambil harga menu dari atribut data
+
+        $('#menu_id').val(menuId); // Setel nilai menu ID di input hidden
+        $('#menu_nama').text(menuName); // Tampilkan nama menu di modal
+        $('#menu_foto').attr('src', menuPhoto); // Tampilkan foto menu di modal
+        $('#menu_harga').text(formatRupiah(menuPrice)).data('menu-price', menuPrice); // Tampilkan harga menu di modal dan simpan data harga
+
+        const jumlah = $('#jumlah').val(); // Ambil nilai input jumlah
+        const totalHarga = jumlah * menuPrice; // Hitung total harga
+        $('#total_harga').text('Total: ' + formatRupiah(totalHarga)); // Tampilkan total harga
+
+        $('#cartModal').removeClass('hidden'); // Tampilkan modal
+    });
+
+    // Update total harga saat jumlah porsi berubah
+    $('#jumlah').on('input', function() {
+        const jumlah = $(this).val();
+        const menuPrice = $('#menu_harga').data('menu-price'); // Ambil harga dari data yang disimpan
+        const totalHarga = jumlah * menuPrice;
+        $('#total_harga').text('Total: ' + formatRupiah(totalHarga));
+    });
+
+    // Tutup modal saat tombol batal ditekan
+    $('.modal-close').on('click', function() {
+        $('#cartModal').addClass('hidden'); // Sembunyikan modal
+    });
+
+    // Tutup modal saat klik di luar modal
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#cartModal')) {
+            $('#cartModal').addClass('hidden'); // Sembunyikan modal
+        }
+    });
+});

@@ -97,9 +97,9 @@
             <a href="{{ route('menu.edit', $menu->id) }}" class="hover:no-underline hover:text-current">
                 <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
                     <img src="{{ Storage::url($menu->foto_menu) }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                    <div class="text-wrapper text-sm flex flex-col gap-2">
-                        <h2 class="line-clamp-1  text-primary">{{$menu->nama_menu}}</h2>
-                        <p class="line-clamp-1 text-xs">{{$menu->deskripsi}}</p>
+                    <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
+                        <h2 class="truncate  text-primary">{{$menu->nama_menu}}</h2>
+                        <p class="truncate text-xs">{{$menu->deskripsi}}</p>
                     </div>
                     <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-emerald-50">
                         {{ $menu->formatted_date }}
@@ -114,9 +114,9 @@
             @foreach ($pelangganTerbaru as $pelanggan)
             <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
                 <img src="{{ $pelanggan->foto_profile ? asset('storage/' . $pelanggan->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                <div class="text-wrapper text-sm flex flex-col gap-2">
-                    <h2 class="line-clamp-1  text-primary">{{$pelanggan->name}}</h2>
-                    <p class="line-clamp-1 text-xs">{{$pelanggan->email}}</p>
+                <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
+                    <h2 class="truncate  text-primary">{{$pelanggan->name}}</h2>
+                    <p class="truncate text-xs">{{$pelanggan->email}}</p>
                 </div>
                 <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
                     {{ $pelanggan->formatted_date }}
@@ -130,9 +130,9 @@
             @foreach ($ulasanTerbaru as $ulasan)
             <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
                 <img src="{{ $ulasan->user->foto_profile ? asset('storage/' . $ulasan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                <div class="text-wrapper text-sm flex flex-col gap-2">
-                    <h2 class="line-clamp-1  text-primary">{{$ulasan->user->name}}</h2>
-                    <p class="line-clamp-1 text-xs">{{$ulasan->pesan}}</p>
+                <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
+                    <h2 class="truncate  text-primary">{{$ulasan->user->name}}</h2>
+                    <p class="truncate text-xs">{{$ulasan->pesan}}</p>
                 </div>
                 <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-amber-50">
                     {{ $ulasan->formatted_date }}

@@ -93,37 +93,37 @@
                 <!-- Metode Pembayaran -->
                 <div class="mb-6 mt-8 flex flex-col gap-2">
                     <h3 class="block text-sm font-medium text-gray-700">Metode Pembayaran</h3>
-                    <select name="payment_method" class="w-full text-sm p-2 border border-gray-300 rounded-md">
-                        <option value="credit_card">Kartu Kredit</option>
-                        <option value="bank_transfer">Transfer Bank</option>
-                        <option value="cash_on_delivery">Bayar di Tempat</option>
+                    <select name="payment_method" class="w-full text-sm p-2 border border-gray-300 rounded-md text-primary">
+                        <option value="credit_card" class="text-secondary">Kartu Kredit</option>
+                        <option value="bank_transfer" class="text-secondary">Transfer Bank</option>
+                        <option value="cash_on_delivery" class="text-secondary">Bayar di Tempat</option>
                     </select>
                 </div>
 
                 <!-- Metode Pengambilan -->
                 <div class="mb-6 flex flex-col gap-2">
                     <h3 class="block text-sm font-medium text-gray-700">Metode Pengambilan</h3>
-                    <select name="pickup_method" id="pickup_method" class="w-full text-sm p-2 border border-gray-300 rounded-md">
-                        <option value="pickup">Ambil di Tempat</option>
-                        <option value="delivery">Dikirim ke Lokasi</option>
+                    <select name="pickup_method" id="pickup_method" class="w-full text-sm p-2 border border-gray-300 rounded-md text-primary">
+                        <option value="pickup" class="text-secondary">Ambil di Tempat</option>
+                        <option value="delivery" class="text-secondary">Dikirim ke Lokasi</option>
                     </select>
                 </div>
 
                 <!-- Alamat Pengiriman -->
                 <div class="mb-6 flex flex-col gap-2" id="delivery_address_section" style="display: none;">
                     <h3 class="block text-sm font-medium text-gray-700">Alamat Pengiriman</h3>
-                    <textarea name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm resize-none" autocomplete="off" cols="30" rows="3"></textarea>
+                    <textarea name="delivery_address" class="w-full p-2 border border-gray-300 rounded-md text-sm text-primary resize-none" autocomplete="off" cols="30" rows="6"></textarea>
                 </div>
 
                 <!-- Informasi Ongkos Kirim dan Total Harga -->
                 <div class="rincian-pesanan-wrapper flex flex-col gap-3 mt-16">
                     <h2 class="block text-sm font-medium text-gray-700">Rincian Pesanan</h2>
-                    <div class="detail-wrapper flex flex-col gap-2 px-4 py-6 bg-tertiary-50 border border-slate-200 rounded-2xl">
-                        <div class="mb-6 flex justify-between">
+                    <div class="detail-wrapper flex flex-col gap-4 px-4 py-6 bg-tertiary-50 border border-slate-200 rounded-2xl">
+                        <div class="flex justify-between">
                             <h3 class="text-sm font-medium text-primary">Subtotal</h3>
                             <p class="text-sm">Rp. {{ number_format($cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }), 0, ',', '.') }}</p>
                         </div>
-                        <div class="mb-6 flex justify-between">
+                        <div class="flex justify-between">
                             <h3 class="text-sm font-medium text-primary">Ongkos Kirim</h3>
                             <p id="shipping_cost" class="text-sm">Rp. 0</p>
                         </div>
@@ -133,12 +133,15 @@
                             <input type="hidden" id="initial_total" value="{{ $cartItems->sum(function($item) { return $item->jumlah * $item->menu->harga; }) }}">
                         </div>                        
                     </div>
+                    <div class="warning-wrapper">
+                        <p class="text-xs text-slate-400 ps-2 relative before:content-['*'] before:absolute before:top-0 before:left-0">Jika Anda memesan dan melunasi pembayaran pada hari ini, maka pesanan akan selesai paling cepat <span class="text-primary font-semibold">7 hari</span>  setelah anda melunasi pembayaran.</p>
+                    </div>
                 </div>
 
                 <!-- Tombol Proses Pesanan dan Batal -->
-                <div class="flex justify-end text-sm gap-2 mt-4">
-                    <a href="{{ route('customer.keranjang') }}" class="px-6 py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 active:bg-red-500">Batal</a>
-                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 active:bg-blue-500">Proses Pesanan</button>
+                <div class="flex text-sm gap-2 mt-8">
+                    <a href="{{ route('customer.keranjang') }}" class="px-6 py-3 text-center bg-slate-100 text-primary font-medium rounded-lg hover:bg-slate-200/70 border active:bg-slate-100 flex-1">Batal</a>
+                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 active:bg-blue-500 grow">Proses Pesanan</button>
                 </div>
             </form>
         </div>

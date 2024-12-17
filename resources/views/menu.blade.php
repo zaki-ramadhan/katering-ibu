@@ -6,6 +6,42 @@
     @vite('resources/js/menu.js')
 @endsection
 
+{{-- Modal tombol keranjang --}}
+<div id="cartModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
+    <div id="modalContent" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto p-3 border w-full max-w-md shadow-lg rounded-xl bg-white">
+        <div class="mt-3 text-center">
+            <h3 class="text-xl leading-6 font-medium text-gray-900">Tambahkan ke Keranjang</h3>
+            <div class="mt-5 px-4 py-3 pb-0">
+                <div class="menu-detail flex items-start mb-6">
+                    <img id="menu_foto" src="" alt="Foto Menu" class="w-20 h-20 object-cover rounded-md mr-4">
+                    <div class="text-left">
+                        <p id="menu_nama" class="font-medium text-lg text-gray-900"></p>
+                        <p id="menu_harga" class="text-gray-700"></p>
+                    </div>
+                </div>
+                <form id="cartForm" action="{{ route('keranjang.store') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="menu_id" name="menu_id" value="">
+                    <div class="input-total-wrapper w-full flex items-end justify-between gap-20">
+                        <div class="input-wrapper flex flex-col mb-4 w-full group min-h-fit">
+                            <label for="jumlah" class="text-sm mb-2 text-left">Jumlah Porsi:</label>
+                            <input type="number" id="jumlah" name="jumlah" class="mt-1 p-2 border border-gray-300 rounded-md focus:text-primary" min="1" max="100" maxlength="3" value="1" autocomplete="off" required>
+                        </div>                        
+                        <div class="total-harga-wrapper mb-4 -translate-y-1">
+                            <p id="total_harga" class="text-right font-medium text-sm text-gray-900 w-max"></p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4 gap-2 text-sm">
+                        <button type="button" class="modal-close px-5 py-3 bg-slate-100 hover:bg-slate-200/70 active:bg-slate-100 text-primary border rounded-lg">Batal</button>
+                        <button type="submit" class="px-5 py-3 min-w-44 bg-emerald-400 text-white rounded-lg hover:bg-emerald-500 active:bg-emerald-400">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section('content')
     {{-- hero-section --}}
     <section id="hero-section" class="container px-4 relative text-white">
@@ -18,8 +54,8 @@
             <h1 class="w-[90vw] lg:w-[50vw] text-4xl lg:text-5xl text-center leading-tight font-semibold">Siap menemukan hidangan <span class="italic">favoritmu?</span> temukan disini!</h1>
             <div class="input-wrapper w-max relative flex items-center justify-center">
                 <form action="{{ route('menu.search') }}" method="GET">
-                    <label for="search-menu" class="text-lg absolute top-1/2 left-4 -translate-y-1/2 text-secondary hover:text-primary">
-                        <iconify-icon icon="akar-icons:search" id="search-label" class="translate-y-[3px]"></iconify-icon>
+                    <label for="search-menu" class="text-lg h-max absolute top-1/2 left-4 -translate-y-[1rem] text-secondary hover:text-primary">
+                        <iconify-icon icon="akar-icons:search" id="search-label" class=""></iconify-icon>
                     </label>
                     <input type="search" name="find" id="search-menu" placeholder="Cari menu favoritmu disini..." autocomplete="off" value="{{ request()->input('query') }}"    required class="w-72 lg:w-[30rem] truncate rounded-md text-sm py-3 ps-12 pe-9 text-primary focus:outline-none focus:ring-0 border-0 focus:border-transparent">
                     <iconify-icon icon="ic:outline-clear" id="clear-btn" class="hidden absolute top-1/2 right-32 -translate-y-1/2 text-secondary hover:text-primary cursor-pointer"></iconify-icon>
@@ -121,7 +157,7 @@
                                             Pesan Sekarang
                                         </button>
                                     </a>                                                                                
-                                    <button class="btn-add-to-cart flex-none w-12 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                    <button data-menu-id="{{ $item->id }}" data-menu-name="{{ $item->nama_menu }}" data-menu-photo="{{ Storage::url($item->foto_menu) }}" data-menu-price="{{ $item->harga }}" class="btn-add-to-cart flex-none w-12 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
                                         <iconify-icon icon="f7:cart-fill" class="text-base"></iconify-icon>
                                         <iconify-icon icon="ooui:add" class="text-base -ms-1"></iconify-icon>
                                     </button>
@@ -137,6 +173,8 @@
                         </figcaption>
                     </figure>
                 @endforeach
+
+
             </div>
         </div>
 </section>

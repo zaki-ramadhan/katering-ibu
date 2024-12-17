@@ -10,6 +10,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-admin.js', 'resources/js/components/header-admin.js'])
         @yield('vite')
 
+        <link rel="icon" href="{{ asset('images/logo_fix.png') }}">
+
         <!-- Load JavaScript libraries -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>

@@ -1,6 +1,5 @@
 @section('title', 'Registrasi Akun Katering Ibu')
 
-
 @section('vite')
     @vite(['resources/js/register.js'])
 @endsection

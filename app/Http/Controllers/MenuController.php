@@ -11,8 +11,7 @@ use Carbon\Carbon; // untuk memformat timestamp
 class MenuController extends Controller {
     public function index() {
         // Mengambil semua data menu dari database
-        $menu = Menu::paginate(10);
-
+        $menu = Menu::orderBy('nama_menu', 'asc')->paginate(10);
         // Menghitung jumlah data menu
         $jumlahMenu = $menu->count();
         
@@ -28,7 +27,7 @@ class MenuController extends Controller {
         if ($query) {
             $menu = Menu::where('nama_menu', 'LIKE', "%{$query}%")->get();
         } else {
-            $menu = Menu::all();
+            $menu = Menu::orderBy('nama_menu', 'asc')->get();
         }
     
         // Memformat tanggal menggunakan Carbon
@@ -44,12 +43,13 @@ class MenuController extends Controller {
     }
 
     public function showMenuFooter() {
-        // Mengambil semua data menu dari database
-        $menu = Menu::all();
+        // Mengambil semua data menu dari database dan mengurutkannya berdasarkan nama_menu
+        $menu = Menu::orderBy('nama_menu', 'asc')->get();
         
         // Mengirim data menu ke view
         return view('footer', compact('menu'));
     }
+    
 
     public function create() {
         return view('admin.create-menu');

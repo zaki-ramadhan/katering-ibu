@@ -25,14 +25,28 @@ class KeranjangController extends Controller
         $menu = Menu::find($request->menu_id);
         $jumlah = $request->jumlah;
 
-        $keranjangItem = KeranjangItem::create([
-            'keranjang_id' => $keranjang->id,
-            'menu_id' => $menu->id,
-            'jumlah' => $jumlah,
-            'harga' => $menu->harga,
-            'total_harga_item' => $menu->harga * $jumlah,
-        ]);
+        // Cari item yang sudah ada di keranjang
+        $keranjangItem = KeranjangItem::where('keranjang_id', $keranjang->id)
+                                    ->where('menu_id', $menu->id)
+                                    ->first();
 
+        if ($keranjangItem) {
+            // Jika item sudah ada, tambahkan jumlah dan perbarui total harga item
+            $keranjangItem->jumlah += $jumlah;
+            $keranjangItem->total_harga_item += $menu->harga * $jumlah;
+            $keranjangItem->save();
+        } else {
+            // Jika item belum ada, buat item baru
+            $keranjangItem = KeranjangItem::create([
+                'keranjang_id' => $keranjang->id,
+                'menu_id' => $menu->id,
+                'jumlah' => $jumlah,
+                'harga' => $menu->harga,
+                'total_harga_item' => $menu->harga * $jumlah,
+            ]);
+        }
+
+        // Perbarui total harga keranjang
         $totalHarga = $keranjang->items->sum('total_harga_item');
         $keranjang->update(['total_harga' => $totalHarga]);
 
