@@ -15,10 +15,15 @@
 
 @section('content')
 <div class="container mx-auto mt-8 px-4 lg:px-8">
+    <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
+        <h2 class="text-3xl font-bold text-center text-primary">Keranjang belanja saya.</h2>
+        <p>Detail pesanan yang siap untuk di-checkout, termasuk informasi pengiriman dan metode pembayaran yang dipilih.</p>
+    </div>
+
     @if ($keranjang && $keranjang->items->count() > 0)
         <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
             <table class="min-w-full bg-white">
-                <thead class="bg-gray-100 text-gray-700">
+                <thead class="bg-slate-100 text-gray-700">
                     <tr>
                         <th class="py-3 px-4 text-left font-medium w-1/12">No.</th>
                         <th class="py-3 px-4 text-left font-medium w-2/12">Item</th>
@@ -31,15 +36,15 @@
                 </thead>
                 <tbody class="text-gray-600">
                     @foreach ($keranjang->items as $index => $item)
-                        <tr class="border-b hover:bg-gray-50">
+                        <tr class="border-b hover:bg-slate-50">
                             <td class="py-3 px-4">{{ $index + 1 }}</td>
                             <td class="py-3 px-4">{{ $item->menu->nama_menu }}</td>
                             <td class="py-3 px-4">
                                 <img src="{{ Storage::url($item->menu->foto_menu) }}" alt="{{ $item->menu->nama_menu }}" class="w-16 h-16 object-cover rounded">
                             </td>
                             <td class="py-3 px-4 text-center">{{ $item->jumlah }}</td>
-                            <td class="py-3 px-4 text-right">Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
-                            <td class="py-3 px-4 text-right">Rp. {{ number_format($item->total_harga_item, 0, ',', '.') }}</td>
+                            <td class="py-3 px-4 text-right">{{ number_format($item->harga, 0, ',', '.') }}</td>
+                            <td class="py-3 px-4 text-right">{{ number_format($item->total_harga_item, 0, ',', '.') }}</td>
                             <td class="py-3 px-4 text-center">
                                 <form action="{{ route('keranjang.destroy', $item->id) }}" method="POST" class="inline-block">
                                     @csrf
@@ -51,14 +56,20 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr class="bg-slate-50">
+                        <td class="py-5 px-4"></td>
+                        <td class="py-5 px-4"></td>
+                        <td class="py-5 px-4"></td>
+                        <td class="py-5 px-4 text-center font-bold">{{ $keranjang->items->sum('jumlah') }}</td>
+                        <td class="py-5 px-4"></td>
+                        <td class="py-5 px-4 text-right font-bold">Rp. {{ number_format($keranjang->total_harga, 0, ',', '.') }}</td>
+                        <td class="py-5 px-4"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="flex justify-end mt-6">
-            <h3 class="text-lg font-semibold">Total: Rp{{ number_format($keranjang->total_harga, 0, ',', '.') }}</h3>
-        </div>
-        <div class="flex justify-end mt-4 gap-2 text-sm">
+        <div class="flex justify-end mt-8 gap-2 text-sm">
             <a href="{{ route('menu') }}" class="px-6 py-3 bg-slate-600 hover:bg-primary active:bg-slate-600 text-white rounded-lg">Pilih Menu Lagi</a>
             <form action="{{ route('order.detail') }}" method="GET">
                 @csrf

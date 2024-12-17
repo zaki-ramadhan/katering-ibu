@@ -17,7 +17,7 @@ $('#pickup_method').change(function() {
         totalCost.text('Rp. ' + (parseInt(initialTotal) + deliveryFee).toLocaleString('id-ID'));
     } else {
         deliveryAddressSection.hide();
-        shippingCost.text('Rp. 0');
+        shippingCost.text('-');
         totalCost.text('Rp. ' + parseInt(initialTotal).toLocaleString('id-ID'));
     }
 });
