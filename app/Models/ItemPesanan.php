@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ItemPesanan extends Model
 {
     use HasFactory;
-    protected $table = 'item_pesanan'; // Penamaan tabel yang benar
+    protected $table = 'item_pesanan';
 
     protected $fillable = [
         'pesanan_id', 'menu_id', 'quantity', 'price'
@@ -16,11 +16,11 @@ class ItemPesanan extends Model
 
     public function pesanan()
     {
-        return $this->belongsTo(Pesanan::class);
+        return $this->belongsTo(Pesanan::class, 'pesanan_id');
     }
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 }

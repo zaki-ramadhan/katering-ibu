@@ -14,11 +14,11 @@ class KeranjangItem extends Model
 
     public function keranjang()
     {
-        return $this->belongsTo(Keranjang::class);
+        return $this->belongsTo(Keranjang::class, 'keranjang_id');
     }
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 }
