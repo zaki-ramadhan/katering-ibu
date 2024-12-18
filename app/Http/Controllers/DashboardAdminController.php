@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Menu;
 Use App\Models\User;
 use App\Models\Ulasan;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class DashboardAdminController extends Controller
@@ -18,6 +19,7 @@ class DashboardAdminController extends Controller
         //mengirim data untuk ditampilkan ke halaman dashboard admin
         $jmlMenu = Menu::count();
         $jmlPelanggan = User::where('role', 'customer')->count();
+        $jmlPesanan = Pesanan::count();
         $jmlUlasan = Ulasan::count();
 
         
@@ -32,13 +34,17 @@ class DashboardAdminController extends Controller
             $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
         }
 
+        $pesananTerbaru = Pesanan::with(['user', 'items.menu'])->orderBy('created_at', 'desc')->take(3)->get();
+        foreach ($pesananTerbaru as $pesanan) {
+            $pesanan->formatted_date = Carbon::parse($pesanan->created_at)->translatedFormat('d M');
+        }
+
         $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->take(3)->get();
         foreach ($ulasanTerbaru as $items) {
             $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
         }        
-        
 
-        return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan', 'pelangganTerbaru', 'menuTerbaru', 'ulasanTerbaru'));
+        return view('admin.dashboard-admin', compact('jmlMenu', 'jmlPelanggan', 'jmlUlasan', 'jmlPesanan', 'pelangganTerbaru', 'menuTerbaru', 'ulasanTerbaru', 'pesananTerbaru'));
     }
 
 

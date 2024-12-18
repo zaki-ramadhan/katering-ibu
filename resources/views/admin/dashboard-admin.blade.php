@@ -51,7 +51,7 @@
             </div>
             <div class="card orderData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-blue-500">
                 <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-blue-500">Data Pesanan</p>
-                <h3 class="data-count text-2xl font-bold text-primary">0</h3>
+                <h3 class="data-count text-2xl font-bold text-primary">{{$jmlPesanan}}</h3>
                 <a href="{{ route('admin.data-pesanan') }}  " class="w-max hover:text-primary hover:no-underline">
                     <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
                         Lihat selengkapnya
@@ -109,21 +109,23 @@
             @endforeach
         </div>
         <div class="pesanan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2
-             after:aspect-square after:rounded-full after:bg-blue-500">Pelanggan terbaru</h1>
-            @foreach ($pelangganTerbaru as $pelanggan)
+            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2 after:aspect-square after:rounded-full after:bg-blue-500">Pesanan terbaru</h1>
+            @foreach ($pesananTerbaru as $pesanan)
             <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                <img src="{{ $pelanggan->foto_profile ? asset('storage/' . $pelanggan->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
+                <img src="{{ $pesanan->user->foto_profile ? asset('storage/' . $pesanan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
                 <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                    <h2 class="truncate  text-primary">{{$pelanggan->name}}</h2>
-                    <p class="truncate text-xs">{{$pelanggan->email}}</p>
+                    <h2 class="truncate text-primary">{{ $pesanan->user->name }}</h2>
+                    <p class="truncate text-xs">{{ $pesanan->user->email }}</p>
+                    @if ($pesanan->status == 'Pending')
+                        <span class="status text-xs text-yellow-500">Status: {{ $pesanan->status }}</span>
+                    @endif
                 </div>
                 <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
-                    {{ $pelanggan->formatted_date }}
+                    {{ $pesanan->formatted_date }}
                 </span>
             </div>
             @endforeach
-        </div>
+        </div>                
         <div class="ulasan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
             <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2
              after:aspect-square after:rounded-full after:bg-amber-400">Ulasan terbaru</h1>

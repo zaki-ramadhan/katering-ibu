@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-<div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
+<div class="relative overflow-x-auto">
     @if($data->isEmpty())
     <div class="p-6 text-center text-gray-500">
         <h3 class="text-lg font-medium">Belum ada pesanan</h3>
@@ -24,58 +24,68 @@
     </div>
     @else
     <section id="hero-section" class="container px-10 py-16">
-        <h1 class="font-semibold text-primary text-4xl leading-10">Kelola dan pantau riwayat pesanan Anda dengan mudah.</h1>
+        <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan saya.</h1>
         <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
     </section>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">Tanggal memesan</th>
-                        <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
-                        <th scope="col" class="px-6 py-3">Porsi</th>
-                        <th scope="col" class="px-6 py-3">Total Harga</th>
-                        <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
-                        <th scope="col" class="px-6 py-3">Alamat</th>
-                        <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
-                        <th scope="col" class="px-6 py-3">Status</th>
-                        <th scope="col" class="px-6 py-3">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data as $order)
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{ $order['created_date'] }}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ implode(', ', $order['menus']) }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ implode(', ', $order['portions']) }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ number_format($order['total_price'], 0, ',', '.') }}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                {{ $order['pickup_method'] }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $order['pickup_method'] == 'delivery' ? $order['address'] : '-' }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $order['payment_method'] }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $order['status'] }}
-                            </td>
-                            <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
-                                <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400  hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
-                            </td>
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="relative overflow-x-auto border rounded-2xl">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Tgl memesan</th>
+                            <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
+                            <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
+                            <th scope="col" class="px-6 py-3">Total Harga</th>
+                            <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
+                            <th scope="col" class="px-6 py-3">Alamat</th>
+                            <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $order)
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $order['created_date'] }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ implode(', ', $order['menus']) }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ implode(', ', $order['portions']) }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ number_format($order['total_price'], 0, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    @if ($order['pickup_method'] == 'pickup')
+                                        Ambil
+                                    @elseif ($order['pickup_method'] == 'delivery')
+                                        Kirim
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['pickup_method'] == 'delivery' ? $order['address'] : '-' }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['payment_method'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $order['status'] }}
+                                </td>
+                                <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>                
         @endif
     </div>
 @endsection

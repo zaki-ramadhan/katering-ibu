@@ -101,7 +101,7 @@ class OrderController extends Controller
     public function orderHistory()
     {
         $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
-
+        
         $data = $orders->map(function($order) {
             return [
                 'created_date' => $order->created_at->format('d M Y'),
@@ -114,7 +114,32 @@ class OrderController extends Controller
                 'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
             ];
         });
-
+        
         return view('customer.order-history', compact('data')); // Pastikan 'data' diteruskan ke view
     }
+
+    public function dataPesanan()
+    {
+        $jmlPesanan = Pesanan::count();
+        $orders = Pesanan::with('user', 'items.menu')->orderBy('created_at', 'desc')->get();
+        
+        $pesanan = $orders->map(function($order) {
+            return [
+                'created_date' => $order->created_at->format('d M Y'),
+                'name' => $order->user->name,
+                'foto_profile' => $order->user->foto_profile,
+                'email' => $order->user->email,
+                'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
+                'portions' => $order->items->pluck('quantity')->toArray(),
+                'total_price' => $order->total_amount,
+                'pickup_method' => $order->pickup_method,
+                'address' => $order->delivery_address,
+                'payment_method' => $order->payment_method,
+                'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+            ];
+        });
+
+        return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan')); // Pastikan 'data' diteruskan ke view
+    }
+
 }

@@ -97,9 +97,7 @@ Route::get('/admin/data-penjualan', function () {
     return view('admin.data-penjualan');
 })->name('admin.data-penjualan');
 
-Route::get('/admin/data-pesanan', function () {
-    return view('admin.data-pesanan');
-})->name('admin.data-pesanan');
+Route::get('/admin/data-pesanan', [OrderController::class, 'dataPesanan'])->name('admin.data-pesanan');
 
 Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');
 Route::resource('admin/create-menu', MenuController::class)->name('create', 'admin.create-menu');
