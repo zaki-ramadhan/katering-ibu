@@ -70,9 +70,7 @@ Route::middleware('auth')->group(function () {
     
     Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
 
-    Route::get('/order-history', function () {
-        return view('customer.order-history');
-    })->name('customer.order-history');
+    Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('customer.order-history');
     
     Route::get('customer/keranjang', [KeranjangController::class, 'index'])->name('customer.keranjang');
     Route::post('customer/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');

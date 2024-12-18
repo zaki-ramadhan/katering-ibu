@@ -88,4 +88,28 @@ class OrderController extends Controller
         }
         return $totalAmount + $pesanan->shipping_cost;
     }
+
+    // menampilkan riwayat pesanan
+    public function orderHistory()
+    {
+        $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
+
+        $data = $orders->map(function($order) {
+            return [
+                'created_date' => $order->created_at->format('d M Y'),
+                'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
+                'portions' => $order->items->pluck('quantity')->toArray(),
+                'total_price' => $order->total_amount,
+                'pickup_method' => $order->pickup_method,
+                'address' => $order->delivery_address,
+                'payment_method' => $order->payment_method,
+                'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+            ];
+        });
+
+        return view('customer.order-history', compact('data')); // Pastikan 'data' diteruskan ke view
+    }
+
+
+
 }
