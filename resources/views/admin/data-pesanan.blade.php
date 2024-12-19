@@ -32,6 +32,8 @@
                     <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                     <th scope="col" class="px-6 py-3">Alamat</th>
                     <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                    <th scope="col" class="px-6 py-3">Bukti Pembayaran</th>
+                    <th scope="col" class="px-6 py-3">Tanggal Pengiriman</th>
                     <th scope="col" class="px-6 py-3">Status</th>
                     <th scope="col" class="px-6 py-3">Aksi</th>
                 </tr>
@@ -73,6 +75,12 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{ $pesanan['payment_method'] }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            {{ $pesanan['payment_proof'] ? $pesanan['payment_proof'] : '-' }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            {{ $pesanan['delivery_date'] ? $pesanan['delivery_date'] : '-' }}
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{ $pesanan['status'] }}

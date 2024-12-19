@@ -137,11 +137,13 @@ class OrderController extends Controller
                 'pickup_method' => $order->pickup_method,
                 'address' => $order->delivery_address,
                 'payment_method' => $order->payment_method,
-                'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+                'status' => $order->status ?? 'Pending', // Kolom status
+                'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
             ];
         });
 
-        return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan')); // Pastikan 'data' diteruskan ke view
+        return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan'));
     }
 
     // ? update data pesanan
