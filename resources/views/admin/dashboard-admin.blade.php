@@ -111,19 +111,18 @@
         <div class="pesanan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
             <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2 after:aspect-square after:rounded-full after:bg-blue-500">Pesanan terbaru</h1>
             @foreach ($pesananTerbaru as $pesanan)
-            <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                <img src="{{ $pesanan->user->foto_profile ? asset('storage/' . $pesanan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                    <h2 class="truncate text-primary">{{ $pesanan->user->name }}</h2>
-                    <p class="truncate text-xs">{{ $pesanan->user->email }}</p>
-                    @if ($pesanan->status == 'Pending')
-                        <span class="status text-xs text-yellow-500">Status: {{ $pesanan->status }}</span>
-                    @endif
+            <a href="{{ route('pesanan.edit', $pesanan['id']) }}">
+                <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
+                    <img src="{{ $pesanan->user->foto_profile ? asset('storage/' . $pesanan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
+                    <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
+                        <h2 class="truncate text-primary">{{ $pesanan->user->name }}</h2>
+                        <p class="truncate text-xs">{{ $pesanan->user->email }}</p>
+                    </div>
+                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
+                        {{ $pesanan->formatted_date }}
+                    </span>
                 </div>
-                <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
-                    {{ $pesanan->formatted_date }}
-                </span>
-            </div>
+            </a>
             @endforeach
         </div>                
         <div class="ulasan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">

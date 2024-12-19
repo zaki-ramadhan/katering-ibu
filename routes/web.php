@@ -54,6 +54,7 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 
 // Order routes
 Route::resource('order-now', OrderController::class)->name('index', 'order-now');
+// routes/web.php
 
 
 
@@ -69,13 +70,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
-
+    
     Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('customer.order-history');
     
     Route::get('customer/keranjang', [KeranjangController::class, 'index'])->name('customer.keranjang');
     Route::post('customer/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::delete('customer/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
-
+    
     Route::get('/customer/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
     Route::post('/customer/order-process', [OrderController::class, 'processOrder'])->name('order.process');
 });
@@ -101,6 +102,7 @@ Route::get('/admin/data-pesanan', [OrderController::class, 'dataPesanan'])->name
 
 Route::get('/admin/pesanan/{pesanan}/edit', [OrderController::class, 'edit'])->name('pesanan.edit');
 Route::put('/admin/pesanan/{pesanan}', [OrderController::class, 'update'])->name('pesanan.update');
+Route::delete('/pesanan/{id}', [OrderController::class, 'destroy'])->name('pesanan.destroy');
 
 
 Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');

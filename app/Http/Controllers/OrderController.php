@@ -165,5 +165,14 @@ class OrderController extends Controller
 
         return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
+    
+    public function destroy($id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->delete();
+
+        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil dihapus.');
+    }
+
 
 }

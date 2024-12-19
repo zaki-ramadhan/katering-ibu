@@ -44,23 +44,27 @@
                     {{-- <td class="px-6 py-4">{{ $item->id }}</td> --}}
                     <td class="px-6 py-4">
                         @if($item->foto_profile)
-                            <img src="{{ asset('storage/' . $item->foto_profile) }}" alt="Foto Profil" class="rounded-full min-w-10 max-w-16 aspect-square object-cover">
+                            <img src="{{ asset('storage/' . $item->foto_profile) }}" alt="Foto Profil" class="rounded-full min-w-10 max-w-12 aspect-square object-cover">
                         @else
-                            <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Foto Profil Default" class="rounded-full min-w-10 max-w-16 aspect-square object-cover">
+                            <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Foto Profil Default" class="rounded-full min-w-10 max-w-12 aspect-square object-cover">
                         @endif
                     </td>
-                    <td class="px-6 py-4">{{ $item->name }}</td>
-                    <td class="px-6 py-4 max-w-60 truncate">{{ $item->email }}</td>
-                    <td class="px-6 py-4">{{ $item->notelp ?: '-' }}</td> <!-- Menampilkan No. Telepon atau '-' jika kosong -->
-                    <td class="px-6 py-4">{{ $item->formatted_date }}</td>
-                    <td class="px-6 py-4 flex justify-center gap-2 translate-y-3">
+                    <td class="px-6 py-4 text-sm">{{ $item->name }}</td>
+                    <td class="px-6 py-4 text-sm max-w-60 truncate">{{ $item->email }}</td>
+                    <td class="px-6 py-4 text-sm">{{ $item->notelp ?: '-' }}</td> <!-- Menampilkan No. Telepon atau '-' jika kosong -->
+                    <td class="px-6 py-4 text-sm">{{ $item->formatted_date }}</td>
+                    <td class="px-6 py-4 text-sm flex justify-center gap-2 translate-y-3">
                         <!-- Tombol Aksi (Edit dan Hapus) -->
-                        <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium px-5 py-2 rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">Edit</a>
+                        <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">
+                            <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
+                        </a>
                     
                         <form action="{{ route('admin.data-pelanggan.destroy', $item->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="delete-btn font-medium px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">Hapus</button>
+                            <button type="submit" class="delete-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">
+                                <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
+                            </button>
                         </form>
                     </td>                    
                 </tr>
