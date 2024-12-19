@@ -20,7 +20,7 @@
             <button>Tambah Menu</button>
         </a> --}}
     </div>
-    <div class="relative overflow-x-auto shadow-lg shadow-slate-200 border rounded-2xl">
+    <div class="relative overflow-x-auto shadow-lg shadow-slate-200  border rounded-2xl">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -68,7 +68,7 @@
                                 -
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4 text-left min-w-80">
                             {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
                         </td>
                         <td class="px-6 py-4 text-center">
@@ -78,7 +78,7 @@
                             {{ $pesanan['status'] }}
                         </td>
                         <td class="px-6 py-4 text-center flex flex-col items-center gap-2">
-                            <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
+                            <a href="{{ route('pesanan.edit', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
                             <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
                         </td>
                     </tr>

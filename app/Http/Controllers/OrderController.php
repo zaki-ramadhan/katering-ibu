@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\Pesanan;
 use App\Models\Keranjang;
-use App\Models\KeranjangItem;
 use App\Models\ItemPesanan;
 use Illuminate\Http\Request;
+use App\Models\KeranjangItem;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -125,6 +126,7 @@ class OrderController extends Controller
         
         $pesanan = $orders->map(function($order) {
             return [
+                'id' => $order->id,
                 'created_date' => $order->created_at->format('d M Y'),
                 'name' => $order->user->name,
                 'foto_profile' => $order->user->foto_profile,
@@ -140,6 +142,26 @@ class OrderController extends Controller
         });
 
         return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan')); // Pastikan 'data' diteruskan ke view
+    }
+
+    // ? update data pesanan
+    public function edit(Pesanan $pesanan)
+    {
+        $pesanan->load('user', 'items.menu');
+        return view('admin.edit-pesanan', compact('pesanan'));
+    }
+
+    public function update(Request $request, Pesanan $pesanan)
+    {
+        $request->validate([
+            'status' => 'required|string',
+        ]);
+
+        $pesanan->update([
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
 }

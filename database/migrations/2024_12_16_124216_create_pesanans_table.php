@@ -16,6 +16,7 @@ class CreatePesananTable extends Migration
             $table->string('delivery_address')->nullable();
             $table->decimal('shipping_cost', 10, 2);
             $table->decimal('total_amount', 10, 2);
+            $table->string('status')->default('Pending'); // Tambahkan kolom status di sini
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

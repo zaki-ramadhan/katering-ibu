@@ -99,6 +99,10 @@ Route::get('/admin/data-penjualan', function () {
 
 Route::get('/admin/data-pesanan', [OrderController::class, 'dataPesanan'])->name('admin.data-pesanan');
 
+Route::get('/admin/pesanan/{pesanan}/edit', [OrderController::class, 'edit'])->name('pesanan.edit');
+Route::put('/admin/pesanan/{pesanan}', [OrderController::class, 'update'])->name('pesanan.update');
+
+
 Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');
 Route::resource('admin/create-menu', MenuController::class)->name('create', 'admin.create-menu');
 
