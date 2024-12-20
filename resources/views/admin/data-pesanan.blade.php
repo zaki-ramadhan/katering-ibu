@@ -20,7 +20,7 @@
             <button>Tambah Menu</button>
         </a> --}}
     </div>
-    <div class="relative overflow-x-auto shadow-lg bg-white border rounded-2xl">
+    <div class="relative overflow-x-auto shadow-md shadow-slate-200/60 bg-white border rounded-2xl">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -113,7 +113,7 @@
                         </td>
                         <td class="px-6 py-4 text-center flex gap-1 items-center">
                             {{-- @if(!($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed' || $pesanan['status'] == 'Processed')) --}}
-                                <a href="{{ route('pesanan.edit', $pesanan['id']) }}" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">
+                                <a href="{{ route('pesanan.edit', $pesanan['id']) }}" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-300 hover:bg-amber-400 active:bg-amber-300">
                                     <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                                 </a>
                             {{-- @endif --}}
@@ -122,7 +122,7 @@
                                 <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan dengan id = {{$pesanan['id']}} ini?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500">
+                                    <button type="submit" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400">
                                         <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
                                     </button>
                                 </form>

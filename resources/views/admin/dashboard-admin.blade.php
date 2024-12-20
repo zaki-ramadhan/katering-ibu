@@ -36,8 +36,8 @@
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Harian</h3>
-                <span class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1 ">
-                    <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon> {{ abs($perubahanPenjualanHarian) }}%
+                <span class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanHarian > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon> {{ abs($perubahanPenjualanHarian) }}%
                 </span>
             </div>
             <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
@@ -48,8 +48,8 @@
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Mingguan</h3>
-                <span class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1">
-                    <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon>
+                <span class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1">
+                    <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanMingguan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
                     {{ abs($perubahanPenjualanMingguan) }}%
                 </span>
             </div>
@@ -61,8 +61,8 @@
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Bulanan</h3>
-                <span class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1 ">
-                    <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon> {{ abs($perubahanPenjualanBulanan) }}%
+                <span class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanBulanan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon> {{ abs($perubahanPenjualanBulanan) }}%
                 </span>
             </div>
             <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>

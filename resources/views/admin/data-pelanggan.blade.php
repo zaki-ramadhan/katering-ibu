@@ -55,14 +55,14 @@
                     <td class="px-6 py-4 text-sm">{{ $item->formatted_date }}</td>
                     <td class="px-6 py-4 text-sm flex justify-center gap-2 translate-y-3">
                         <!-- Tombol Aksi (Edit dan Hapus) -->
-                        <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400 hover:text-white hover:no-underline">
+                        <a href="{{ route('admin.edit-pelanggan', $item->id) }}" class="edit-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-300 hover:bg-amber-400 active:bg-amber-300 hover:text-white hover:no-underline">
                             <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                         </a>
                     
                         <form action="{{ route('admin.data-pelanggan.destroy', $item->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="delete-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-500 hover:bg-red-400 active:bg-red-500 hover:text-white hover:no-underline">
+                            <button type="submit" class="delete-btn font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400 hover:text-white hover:no-underline">
                                 <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
                             </button>
                         </form>

@@ -36,7 +36,7 @@
                             <th scope="col" class="px-6 py-3">Tgl memesan</th>
                             <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
                             <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
-                            <th scope="col" class="px-6 py-3">Total Harga</th>
+                            <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp.)</th>
                             <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                             <th scope="col" class="px-6 py-3">Alamat</th>
                             <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
@@ -54,13 +54,15 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $pesanan['created_date'] }}
                                 </td>
-                                <td class="px-6 py-4 min-w-40">
-                                    {{ implode(', ', $pesanan['menus']) }}
+                                <td class="px-6 py-4 min-w-60">
+                                    <div class="line-clamp-2">
+                                        {{ implode(', ', $pesanan['menus']) }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ implode(', ', $pesanan['portions']) }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 text-center">
                                     {{ number_format($pesanan['total_price'], 0, ',', '.') }}
                                 </td>
                                 <td class="px-6 py-4 text-center">
@@ -72,8 +74,10 @@
                                     -
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 min-w-60">
-                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
+                                <td class="px-6 py-4 min-w-72">
+                                    <div class="line-clamp-2 {{($pesanan['address'] == null ? 'text-center'  : '')}}">
+                                        {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : 'Tidak ada' }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $pesanan['payment_method'] }}
