@@ -24,6 +24,8 @@ export default {
 
             animation: {
                 'bounce-up-down': 'bounceUpDown 1s ease-in-out infinite',
+                'little-bounce-up-down': 'littleBounceUpDown 1s ease-in-out infinite',
+                'little-bounce-up-down-delay': 'littleBounceUpDown 1s ease-in-out 0.5s infinite',
                 'bounce-up-down-delay': 'bounceUpDown 1s ease-in-out 0.5s infinite', // Menambahkan delay 0.5 detik
                 'waving-hello': 'waving 1s ease-in-out infinite',
             },
@@ -34,9 +36,14 @@ export default {
                     '50%': { transform: 'translateY(-5px)' }, // Gerak naik 5px
                 },
 
+                littleBounceUpDown: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-2px)' }, // Gerak naik 5px
+                },
+
                 waving: {
                     '0%, 100%': { transform: 'rotate(0deg)' },
-                    '50%': { transform: 'rotate(30deg)' },
+                    '50%': { transform: 'rotate(-15deg)' },
                 }
             },
 

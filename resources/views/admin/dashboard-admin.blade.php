@@ -21,7 +21,10 @@
     <section id="hero-section" class="container px-10 py-6 flex items-center justify-center gap-20 rounded-2xl bg-white shadow-md shadow-slate-200/60">
         <img src="{{ asset('images/admin.svg') }}" alt="admin svg" class="w-72">
         <div class="text-wrapper flex flex-col gap-3 items-start justify-start">
-            <p class="text-base lg:text-xl lg:before:content-['👋🏼'] lg:before:animate-waving-hello lg:before:text-2xl lg:before:me-1 lg:-translate-x-4">Selamat datang kembali Admin</p>
+            <div class="text-wrapper flex items-center gap-2">
+                <span class="text-2xl animate-waving-hello">👋🏼</span>
+                <p class="text-base lg:text-xl">Selamat datang kembali Admin</p>
+            </div>
             <h1 class="font-bold sm:text-3xl md:text-4xl grow text-primary">Pantau dan kelola semua data dan pengaturan.</h1>
             <p class="text-sm lg:text-base leading-6 mt-2">Kelola status pesanan, pelanggan, dan operasional bisnis Anda dalam satu dashboard.</p>
         </div>
@@ -30,33 +33,40 @@
     <!-- Kartu Laporan Penjualan -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-2">
         <!-- Penjualan Harian -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h3 class="text-xl font-semibold">Penjualan Harian</h3>
-            <p class="text-gray-600">Rp {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
-            <p class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }}">
-                {{ $perubahanPenjualanHarian > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanHarian) }}%
-            </p>
-            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
+            <div class="head-card w-full flex justify-between">
+                <h3 class="text-base">Penjualan Harian</h3>
+                <span class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon> {{ abs($perubahanPenjualanHarian) }}%
+                </span>
+            </div>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
         </div>
 
         <!-- Penjualan Mingguan -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h3 class="text-xl font-semibold">Penjualan Mingguan</h3>
-            <p class="text-gray-600">Rp {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
-            <p class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }}">
-                {{ $perubahanPenjualanMingguan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanMingguan) }}%
-            </p>
-            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
+            <div class="head-card w-full flex justify-between">
+                <h3 class="text-base">Penjualan Mingguan</h3>
+                <span class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1">
+                    <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon>
+                    {{ abs($perubahanPenjualanMingguan) }}%
+                </span>
+            </div>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
         </div>
 
         <!-- Penjualan Bulanan -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h3 class="text-xl font-semibold">Penjualan Bulanan</h3>
-            <p class="text-gray-600">Rp {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
-            <p class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }}">
-                {{ $perubahanPenjualanBulanan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanBulanan) }}%
-            </p>
-            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
+            <div class="head-card w-full flex justify-between">
+                <h3 class="text-base">Penjualan Bulanan</h3>
+                <span class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500 animate-little-bounce-up-down' : 'text-red-500 animate-little-bounce-up-down-delay' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20"></iconify-icon> {{ abs($perubahanPenjualanBulanan) }}%
+                </span>
+            </div>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
         </div>
     </div>
 
