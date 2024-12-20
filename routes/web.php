@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\ProfileController;
@@ -134,4 +135,4 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
 });
 
-
+Route::get('/admin/data-penjualan', [ChartController::class, 'barChart'])->name('admin.data-penjualan');

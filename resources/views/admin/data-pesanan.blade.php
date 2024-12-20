@@ -3,7 +3,7 @@
 @section('title', 'Data Pesanan - Admin') 
 
 @section('vite') 
-    @vite('resources/js/admin/data-menu.js')
+    {{-- @vite('resources/js/admin/data-menu.js') --}}
 @endsection
 
 @if (session('success'))
