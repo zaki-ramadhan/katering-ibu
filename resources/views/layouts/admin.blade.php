@@ -9,6 +9,7 @@
         {{-- scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/components/modal-logout.js', 'resources/js/components/sidebar-admin.js', 'resources/js/components/header-admin.js'])
         @yield('vite')
+        @yield('script')
 
         <link rel="icon" href="{{ asset('images/logo_fix.png') }}">
 
@@ -48,3 +49,5 @@
 
     </body>
 </html>
+
+@yield('script')
