@@ -58,14 +58,14 @@
             </div>
             <div class="mb-8">
                 <label for="delivery_date" class="block text-sm font-medium text-gray-700">Tanggal Pengiriman</label>
-                <div class="flex items-center">
+                <div class="flex items-center gap-4">
                     <input type="text" id="delivery_date" name="delivery_date" value="{{ $pesanan->delivery_date ? $pesanan->delivery_date : '' }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-                    <button type="button" id="set-today" class="ml-2 px-4 py-2 bg-emerald-400 hover:bg-emerald-500 text-white rounded-md">Hari Ini</button>
+                    <button type="button" id="set-today" class="px-7 text-xs py-[.7rem] h-max min-w-max bg-slate-500 hover:bg-slate-600 active:bg-slate-500 text-white rounded-md">Hari Ini</button>
                 </div>
-                <x-flat-picker name="admission_date"></x-flat-picker>
             </div>
                        
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="window.history.back();" class="border py-2 px-4 rounded-md hover:text-primary bg-tertiary-50 hover:border-secondary hover:bg-tertiary">Batalkan</button>
                 <button type="submit" class="px-4 py-2 text-sm bg-emerald-400 hover:bg-emerald-500 active:bg-emerald-400 text-white rounded-md">Update Pesanan</button>
             </div>
         </form>

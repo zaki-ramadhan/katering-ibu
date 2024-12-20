@@ -1,13 +1,9 @@
-{{-- @extends('layouts.admin')
+@extends('layouts.admin')
 
-@section('title', 'Data Penjualan - Admin') 
+@section('title', 'Data Penjualan - Admin')
 
 @section('vite') 
     @vite('resources/js/admin/data-penjualan.js')
-@endsection
-
-@section('script')
-    <script src = "https://cdn.jsdelivr.net/npm/chart.js" > </script> 
 @endsection
 
 @if (session('success'))
@@ -20,23 +16,31 @@
 @section('content')
 <div class="container mx-auto px-4 sm:px-8">
     <h1 class="text-2xl font-semibold">Dashboard Penjualan</h1>
-
     <!-- Kartu Laporan Penjualan -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
         <div class="bg-white shadow-md rounded-lg p-6">
             <h3 class="text-xl font-semibold">Penjualan Harian</h3>
             <p class="text-gray-600">Rp {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
+            <p class="text-sm text-gray-500">Kemarin: Rp {{ number_format($penjualanHarianSebelumnya, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanHarian > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanHarian) }}%
+            </p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-6">
             <h3 class="text-xl font-semibold">Penjualan Mingguan</h3>
             <p class="text-gray-600">Rp {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
-            <p class="{{ $perubahanPenjualan > 0 ? 'text-green-500' : 'text-red-500' }}">
-                {{ $perubahanPenjualan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualan) }}%
+            <p class="text-sm text-gray-500">Minggu Lalu: Rp {{ number_format($penjualanMingguanSebelumnya, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanMingguan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanMingguan) }}%
             </p>
         </div>
         <div class="bg-white shadow-md rounded-lg p-6">
             <h3 class="text-xl font-semibold">Penjualan Bulanan</h3>
             <p class="text-gray-600">Rp {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
+            <p class="text-sm text-gray-500">Bulan Lalu: Rp {{ number_format($penjualanBulananSebelumnya, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanBulanan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanBulanan) }}%
+            </p>
         </div>
     </div>
 
@@ -83,50 +87,5 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Grafik Penjualan -->
-    <canvas id="salesChart" class="mt-6"></canvas>
 </div>
 @endsection
-
-@section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@endsection --}}
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bar Chart Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <div style="width: 80%; margin: auto;">
-        <canvas id="barChart"></canvas>
-    </div>
-
-    <script>
-        var ctx = document.getElementById('barChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: @json($data['labels']),
-                datasets: [{
-                    label: 'Data',
-                    data: @json($data['data']),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-    </body>
-</html>

@@ -135,4 +135,4 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
 });
 
-Route::get('/admin/data-penjualan', [ChartController::class, 'barChart'])->name('admin.data-penjualan');
+// Route::get('/admin/data-penjualan', [ChartController::class, 'barChart'])->name('admin.data-penjualan');

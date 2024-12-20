@@ -78,7 +78,7 @@
         </div>
         
     @else
-        <div class="empty-cart-alert container w-full h-full flex justify-center items-center gap-10 translate-y-10">
+        <div class="empty-cart-alert container w-full h-full flex justify-center items-center gap-10 translate-y-7">
             <img src="{{asset('images/empty cart.svg')}}" alt="empty cart svg" class="max-w-96">
             <div class="text-wrapper flex flex-col gap-2">
                 <p class="leading-7">Yahh...</p>

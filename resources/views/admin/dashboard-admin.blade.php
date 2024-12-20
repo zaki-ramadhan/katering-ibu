@@ -27,6 +27,40 @@
         </div>
     </section>
 
+    <!-- Kartu Laporan Penjualan -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-2">
+        <!-- Penjualan Harian -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold">Penjualan Harian</h3>
+            <p class="text-gray-600">Rp {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanHarian > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanHarian) }}%
+            </p>
+            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        </div>
+
+        <!-- Penjualan Mingguan -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold">Penjualan Mingguan</h3>
+            <p class="text-gray-600">Rp {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanMingguan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanMingguan) }}%
+            </p>
+            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        </div>
+
+        <!-- Penjualan Bulanan -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold">Penjualan Bulanan</h3>
+            <p class="text-gray-600">Rp {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
+            <p class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }}">
+                {{ $perubahanPenjualanBulanan > 0 ? '⬆️' : '⬇️' }} {{ abs($perubahanPenjualanBulanan) }}%
+            </p>
+            <a href="{{ route('admin.data-penjualan') }}" class="text-blue-500 hover:underline">Lihat Selengkapnya</a>
+        </div>
+    </div>
+
+
     <section id="dashboard-stats-section" class="container">
         <div class="card-wrapper grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 ">
             <div class="card userData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-red-500">

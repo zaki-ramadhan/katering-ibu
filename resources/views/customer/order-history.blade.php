@@ -32,6 +32,7 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                         <tr>
+                            <th scope="col" class="px-6 py-3">No</th>
                             <th scope="col" class="px-6 py-3">Tgl memesan</th>
                             <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
                             <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
@@ -39,42 +40,71 @@
                             <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                             <th scope="col" class="px-6 py-3">Alamat</th>
                             <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                            <th scope="col" class="px-6 py-3">Bukti Pembayaran</th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $order)
+                        @foreach ($data as $pesanan)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $order['created_date'] }}
+                                    {{$loop -> iteration}}
                                 </th>
-                                <td class="px-6 py-4">
-                                    {{ implode(', ', $order['menus']) }}
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $pesanan['created_date'] }}
+                                </td>
+                                <td class="px-6 py-4 min-w-40">
+                                    {{ implode(', ', $pesanan['menus']) }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ implode(', ', $order['portions']) }}
+                                    {{ implode(', ', $pesanan['portions']) }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ number_format($order['total_price'], 0, ',', '.') }}
+                                    {{ number_format($pesanan['total_price'], 0, ',', '.') }}
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    @if ($order['pickup_method'] == 'pickup')
+                                    @if ($pesanan['pickup_method'] == 'pickup')
                                         Ambil
-                                    @elseif ($order['pickup_method'] == 'delivery')
+                                    @elseif ($pesanan['pickup_method'] == 'delivery')
                                         Kirim
                                     @else
                                     -
                                     @endif
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ $order['pickup_method'] == 'delivery' ? $order['address'] : '-' }}
+                                <td class="px-6 py-4 min-w-60">
+                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $order['payment_method'] }}
+                                    {{ $pesanan['payment_method'] }}
+                                </td>
+                                <td class="px-6 py-4 text-center min-w-56">
+                                    @if($pesanan['payment_method'] !== 'cash' && !$pesanan['payment_proof'])
+                                            <div class="text-red-400">
+                                                Anda belum mengunggah bukti pembayaran.
+                                            </div>
+                                        @else
+                                            {{ $pesanan['payment_proof'] ? $pesanan['payment_proof'] : '-' }}
+                                        @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $order['status'] }}
+                                    @if($pesanan['status'] == 'Pending')
+                                        <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
+                                            {{ $pesanan['status'] }}
+                                        </span>
+                                        @elseif($pesanan['status'] == 'Processed')
+                                        <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-300">
+                                            {{ $pesanan['status'] }}
+                                        </span>
+                                        @elseif($pesanan['status'] == 'Completed')
+                                        <span class="py-2 px-3 rounded-full bg-blue-50 text-blue-300">
+                                            {{ $pesanan['status'] }}
+                                        </span>
+                                        @elseif($pesanan['status'] == 'Cancelled')
+                                        <span class="py-2 px-3 rounded-full bg-red-50 text-red-300">
+                                            {{ $pesanan['status'] }}
+                                        </span>
+                                        @endif
                                 </td>
                                 <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
                                     <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>

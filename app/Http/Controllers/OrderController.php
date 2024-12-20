@@ -8,21 +8,12 @@ use App\Models\Keranjang;
 use App\Models\ItemPesanan;
 use Illuminate\Http\Request;
 use App\Models\KeranjangItem;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 class OrderController extends Controller
 {
-    // Menampilkan daftar pesanan (index)
-    public function index()
-    {
-        $jmlPesanan = Pesanan::count();
-        $pesanan = Pesanan::with('user', 'items.menu')->orderBy('created_at', 'desc')->get();
-
-        return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan'));
-    }
-
-    // Menampilkan halaman detail menu (show)
+    // Menampilkan halaman detail menu
     public function show($id)
     {
         $menu = Menu::find($id);
@@ -66,8 +57,8 @@ class OrderController extends Controller
         return view('customer.pesanan-detail', compact('cartItems'));
     }
 
-    // Memproses pesanan (store)
-    public function store(Request $request)
+    // Memproses pesanan
+    public function processOrder(Request $request)
     {
         $keranjang = Keranjang::where('user_id', Auth::id())->first();
 
@@ -95,8 +86,8 @@ class OrderController extends Controller
 
         return redirect()->route('customer.order-history')->with('success', 'Pesanan berhasil diproses.');
     }
-
-    // Menghitung total jumlah pesanan (private method)
+    
+    // Menghitung total jumlah pesanan
     private function calculateTotalAmount($keranjang, $shippingCost)
     {
         $totalAmount = 0;
@@ -111,7 +102,7 @@ class OrderController extends Controller
     public function orderHistory()
     {
         $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
-
+        
         $data = $orders->map(function($order) {
             return [
                 'created_date' => $order->created_at->format('d M Y'),
@@ -122,40 +113,39 @@ class OrderController extends Controller
                 'address' => $order->delivery_address,
                 'payment_method' => $order->payment_method,
                 'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+                'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
             ];
         });
-
+        
         return view('customer.order-history', compact('data')); // Pastikan 'data' diteruskan ke view
     }
 
-    // Menampilkan halaman edit pesanan (edit)
-    public function edit(Pesanan $pesanan)
+    public function dataPesanan()
     {
-        $pesanan->load('user', 'items.menu');
-        return view('admin.edit-pesanan', compact('pesanan'));
-    }
+        $jmlPesanan = Pesanan::count();
+        $orders = Pesanan::with('user', 'items.menu')->orderBy('created_at', 'desc')->get();
+        
+        $pesanan = $orders->map(function($order) {
+            return [
+                'id' => $order->id,
+                'created_date' => $order->created_at->format('d M Y'),
+                'name' => $order->user->name,
+                'foto_profile' => $order->user->foto_profile,
+                'email' => $order->user->email,
+                'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
+                'portions' => $order->items->pluck('quantity')->toArray(),
+                'total_price' => $order->total_amount,
+                'pickup_method' => $order->pickup_method,
+                'address' => $order->delivery_address,
+                'payment_method' => $order->payment_method,
+                'status' => $order->status ?? 'Pending', // Kolom status
+                'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
+            ];
+        });
 
-    // Perbarui data pesanan (update)
-    public function update(Request $request, Pesanan $pesanan)
-    {
-        $request->validate([
-            'status' => 'required|string',
-        ]);
-
-        $pesanan->update([
-            'status' => $request->input('status'),
-        ]);
-
-        return redirect()->route('pesanan.index')->with('success', 'Status pesanan berhasil diperbarui.');
-    }
-
-    // Hapus data pesanan (destroy)
-    public function destroy($id)
-    {
-        $pesanan = Pesanan::findOrFail($id);
-        $pesanan->delete();
-
-        return redirect()->route('pesanan.index')->with('success', 'Pesanan berhasil dihapus.');
+        return view('admin.data-pesanan', compact('pesanan', 'jmlPesanan'));
     }
 
     // Menampilkan halaman data penjualan (penjualan)
@@ -167,26 +157,80 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Laporan penjualan
+        // Laporan penjualan harian
         $penjualanHarian = Pesanan::where('status', 'Completed')
             ->whereDate('created_at', today())
             ->sum('total_amount');
 
+        $penjualanHarianSebelumnya = Pesanan::where('status', 'Completed')
+            ->whereDate('created_at', today()->subDay())
+            ->sum('total_amount');
+
+        $perubahanPenjualanHarian = $penjualanHarianSebelumnya == 0 ? 
+            ($penjualanHarian > 0 ? 100 : 0) : 
+            round((($penjualanHarian - $penjualanHarianSebelumnya) / $penjualanHarianSebelumnya) * 100, 2) ;
+
+        // Laporan penjualan mingguan
         $penjualanMingguan = Pesanan::where('status', 'Completed')
             ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('total_amount');
 
-        $penjualanBulanan = Pesanan::where('status', 'Completed')
-            ->whereMonth('created_at', now()->month)
-            ->sum('total_amount');
-
-        // Peningkatan atau penurunan penjualan
         $penjualanMingguanSebelumnya = Pesanan::where('status', 'Completed')
             ->whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
             ->sum('total_amount');
 
-        $perubahanPenjualan = (($penjualanMingguan - $penjualanMingguanSebelumnya) / max($penjualanMingguanSebelumnya, 1)) * 100;
+        $perubahanPenjualanMingguan = $penjualanMingguanSebelumnya == 0 ? 
+            ($penjualanMingguan > 0 ? 100 : 0) : 
+            round((($penjualanMingguan - $penjualanMingguanSebelumnya) / $penjualanMingguanSebelumnya) * 100, 2) ;
 
-        return view('admin.data-penjualan', compact('pesananSelesai', 'penjualanHarian', 'penjualanMingguan', 'penjualanBulanan', 'perubahanPenjualan'));
+        // Laporan penjualan bulanan
+        $penjualanBulanan = Pesanan::where('status', 'Completed')
+            ->whereMonth('created_at', now()->month)
+            ->sum('total_amount');
+
+        $penjualanBulananSebelumnya = Pesanan::where('status', 'Completed')
+            ->whereMonth('created_at', now()->subMonth()->month)
+            ->sum('total_amount');
+
+        $perubahanPenjualanBulanan = $penjualanBulananSebelumnya == 0 ? 
+            ($penjualanBulanan > 0 ? 100 : 0) : 
+            round((($penjualanBulanan - $penjualanBulananSebelumnya) / $penjualanBulananSebelumnya) * 100, 2) ;
+
+        return view('admin.data-penjualan', compact(
+            'pesananSelesai', 
+            'penjualanHarian', 'penjualanHarianSebelumnya', 'perubahanPenjualanHarian',
+            'penjualanMingguan', 'penjualanMingguanSebelumnya', 'perubahanPenjualanMingguan',
+            'penjualanBulanan', 'penjualanBulananSebelumnya', 'perubahanPenjualanBulanan'
+        ));
+    }
+
+
+
+    // ? update data pesanan
+    public function edit(Pesanan $pesanan)
+    {
+        $pesanan->load('user', 'items.menu');
+        return view('admin.edit-pesanan', compact('pesanan'));
+    }
+
+    public function update(Request $request, Pesanan $pesanan)
+    {
+        $request->validate([
+            'status' => 'required|string',
+        ]);
+
+        $pesanan->update([
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
+    }
+    
+    public function destroy($id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->delete();
+
+        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil dihapus.');
     }
 }
