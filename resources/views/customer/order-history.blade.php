@@ -30,11 +30,14 @@
         <a href="{{ route('menu') }}" class="mt-4 inline-block px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark">Pesan Sekarang</a>
     </div>
     @else
-    <section id="hero-section" class="container px-10 py-16">
-        <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan saya.</h1>
-        <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
+    <section id="hero-section" class="container flex justify-between items-end px-10 py-16">
+        <div class="text-wrapper">
+            <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan saya.</h1>
+            <p class="text-sm leading-6 mt-2">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
+        </div>
+        <a href="{{route('menu')}}" class="px-4 py-3 rounded-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-500 text-xs">Buat Pesanan Lagi</a>
     </section>
-    <div class="container mx-auto px-4 lg:px-8">
+    <div class="container mx-auto px-4 lg:px-8 -mt-6">
         <div class="relative overflow-x-auto border rounded-2xl">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
@@ -90,15 +93,17 @@
                                 {{ $pesanan['payment_method'] }}
                             </td>
                             <td class="px-6 py-2 text-center min-w-56">
-                                @if($pesanan['payment_method'] !== 'cash' && !$pesanan['payment_proof'])
-                                    <div class="text-red-300 text-xs">
-                                        Anda belum mengunggah bukti pembayaran.
-                                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-500 hover:underline">Unggah Sekarang</a>
+                                @if($pesanan['payment_method'] == 'cash_on_delivery')
+                                    <span>-</span>
+                                @elseif(!$pesanan['payment_proof'])
+                                    <div class="text-red-400 text-xs">
+                                        Anda belum mengunggah bukti pembayaran.<br>
+                                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-400 hover:underline active:text-blue-500">Unggah Sekarang</a>
                                     </div>
                                 @else
                                     <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
                                 @endif
-                            </td>                                                                                    
+                            </td>                                                                                                                
                             <td class="px-6 py-4 text-xs">
                                 @if($pesanan['status'] == 'Pending')
                                     <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
@@ -119,8 +124,13 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
-                                <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                @if ($pesanan['status'] == 'Pending')
+                                    <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                @endif
+                                @if ($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed')
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

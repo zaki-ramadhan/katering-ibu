@@ -74,6 +74,8 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('order-now', OrderController::class)->name('index', 'order-now');
     Route::get('/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
+    Route::post('/order/process', [OrderController::class, 'processOrder'])->name('order.process');
+
 
     // Route untuk menampilkan halaman detail pembayaran
     Route::get('/pesanan/{id}/detail-pembayaran', [OrderController::class, 'payOrder'])->name('pesanan.payOrder');
