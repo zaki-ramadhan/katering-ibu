@@ -43,7 +43,7 @@
                         <th scope="col" class="px-6 py-3">Tgl memesan</th>
                         <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
                         <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
-                        <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp.)</th>
+                        <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp)</th>
                         <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                         <th scope="col" class="px-6 py-3">Alamat</th>
                         <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
@@ -83,7 +83,7 @@
                             </td>
                             <td class="px-6 py-4 min-w-72">
                                 <div class="line-clamp-2 {{ ($pesanan['address'] == null ? 'text-center' : '') }}">
-                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : 'Tidak ada' }}
+                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
@@ -96,14 +96,10 @@
                                         <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-500 hover:underline">Unggah Sekarang</a>
                                     </div>
                                 @else
-                                    @if(in_array(pathinfo($pesanan['payment_proof'], PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                        <img src="{{ asset('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
-                                    @else
-                                        <a href="{{ asset('payment_proofs/' . $pesanan['payment_proof']) }}" class="text-blue-500 hover:underline" target="_blank">{{ $pesanan['payment_proof'] }}</a>
-                                    @endif
+                                    <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
                                 @endif
-                            </td>                                                        
-                            <td class="px-6 py-4">
+                            </td>                                                                                    
+                            <td class="px-6 py-4 text-xs">
                                 @if($pesanan['status'] == 'Pending')
                                     <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
                                         {{ $pesanan['status'] }}

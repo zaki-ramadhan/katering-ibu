@@ -219,8 +219,7 @@ class OrderController extends Controller
 
         // Simpan file yang diunggah
         if ($request->hasFile('payment_proof')) {
-            $file = $request->file('payment_proof');
-            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file = $request->file('payment_proof')->store('payment_proofs', 'public');
 
             // Hapus bukti pembayaran lama jika ada
             $pesanan = Pesanan::findOrFail($id);
@@ -228,18 +227,16 @@ class OrderController extends Controller
                 Storage::delete('public/payment_proofs/' . $pesanan->payment_proof);
             }
 
-            // Pindahkan file baru ke folder yang sesuai
-            $file->move(public_path('payment_proofs'), $fileName);
-
             // Update database
-            $pesanan->payment_proof = $fileName;
+            $pesanan->payment_proof = basename($file);
             $pesanan->save();
 
-            return redirect()->route('pesanan.orderHistory')->with('success', 'Bukti pembayaran berhasil diunggah.');
+            return redirect()->route('customer.order-history')->with('success', 'Bukti pembayaran berhasil diunggah.');
         }
 
-        return redirect()->route('pesanan.orderHistory')->with('error', 'Gagal mengunggah bukti pembayaran.');
+        return redirect()->route('customer.order-history')->with('error', 'Gagal mengunggah bukti pembayaran.');
     }
+
 
 
     // ? update data pesanan

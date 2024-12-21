@@ -53,11 +53,6 @@ Route::get('/service', function() {
 Route::get('/menu', [MenuController::class, 'showMenu'])->name('menu');
 Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
 
-// Order routes
-// routes/web.php
-
-
-
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -79,11 +74,6 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('order-now', OrderController::class)->name('index', 'order-now');
     Route::get('/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
-    // Route::post('/pesanan/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])->name('pesanan.upload-payment-proof');
-    // Route::post('/customer/order-process', [OrderController::class, 'processOrder'])->name('order.process');
-
-    // Route untuk halaman riwayat pesanan
-    Route::get('/pesanan/order-history', [OrderController::class, 'orderHistory'])->name('pesanan.orderHistory');
 
     // Route untuk menampilkan halaman detail pembayaran
     Route::get('/pesanan/{id}/detail-pembayaran', [OrderController::class, 'payOrder'])->name('pesanan.payOrder');
