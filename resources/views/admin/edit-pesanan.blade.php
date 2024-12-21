@@ -38,33 +38,35 @@
                     </div>
                 </div>
                 <div>
-                    <h3 class="font-medium text-primary mt-8">Menu yang Dipesan :</h3>
-                    <ul class="list-disc list-inside text-sm mt-2">
-                        @foreach ($pesanan->items as $item)
-                            <li class="my-1">{{ $item->menu->nama_menu }} - {{ $item->quantity }} porsi</li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div>
                     <h3 class="font-medium text-primary mt-8">Bukti Pembayaran :</h3>
                     @if($pesanan->payment_method == 'cash_on_delivery')
                         <p>-</p>
                     @elseif($pesanan->payment_proof)
-                        <div id="paymentProofContainer" class="w-64 h-40 overflow-hidden mt-2">
+                        <div id="paymentProofContainer" class="w-72 h-auto aspect-video overflow-hidden mt-2 mb-3 cursor-pointer">
                             <img id="existingPaymentProof" src="{{ Storage::url('payment_proofs/' . $pesanan->payment_proof) }}" alt="Bukti Pembayaran" class="w-full h-full object-cover rounded-md border">
                         </div>
+                        <span class="text-xs mt-10 text-red-400">*Klik pada foto untuk melihat bukti pembayaran lebih jelas.</span>
                     @else
                         <p class="text-red-400 text-sm mt-2">Belum ada bukti pembayaran.</p>
                     @endif
+                </div>
+                
+                <!-- Modal -->
+                <div id="imageModal" class="fixed -top-5 py-7 left-0 w-full h-[101vh] bg-black/40 backdrop-blur-sm hidden justify-center items-center z-50">
+                    <iconify-icon icon="ic:baseline-close" width="28" height="28" id="iconCloseModal" class="absolute top-9 right-9 text-slate-200 hover:text-white active:text-slate-200 hover:scale-110 active:scale-90 cursor-pointer transition-all ease-in-out duration-150"></iconify-icon>
+                    <div class="relative bg-white rounded-lg shadow-lg p-4 max-w-xl w-full h-full max-h-screen overflow-auto">
+                        <img id="modalImage" src="" alt="Bukti Pembayaran" class="w-full h-auto">
+                    </div>
                 </div>                
-            </div>
+            </div>                
+
             <div class="space-y-4">
                 <form action="{{ route('pesanan.update', $pesanan->id) }}" method="POST" class="space-y-4">
                     @csrf
                     @method('PUT')
                     <div class="max-w-72">
                         <h3 class="font-medium text-primary">Status Pesanan</h3>
-                        <select id="status" name="status" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                        <select id="status" name="status" class="mt-1 block w-full px-3 py-2 focus:text-primary border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                             <option value="Pending" {{ $pesanan->status == 'Pending' ? 'selected' : '' }}>Pending</option>
                             <option value="Processed" {{ $pesanan->status == 'Processed' ? 'selected' : '' }}>Processed</option>
                             <option value="Completed" {{ $pesanan->status == 'Completed' ? 'selected' : '' }}>Completed</option>
