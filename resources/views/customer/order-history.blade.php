@@ -97,12 +97,12 @@
                                     </div>
                                 @else
                                     @if(in_array(pathinfo($pesanan['payment_proof'], PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                        <img src="{{ asset('uploads/payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
+                                        <img src="{{ asset('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
                                     @else
-                                        <a href="{{ asset('uploads/payment_proofs/' . $pesanan['payment_proof']) }}" class="text-blue-500 hover:underline" target="_blank">{{ $pesanan['payment_proof'] }}</a>
+                                        <a href="{{ asset('payment_proofs/' . $pesanan['payment_proof']) }}" class="text-blue-500 hover:underline" target="_blank">{{ $pesanan['payment_proof'] }}</a>
                                     @endif
                                 @endif
-                            </td>                            
+                            </td>                                                        
                             <td class="px-6 py-4">
                                 @if($pesanan['status'] == 'Pending')
                                     <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">

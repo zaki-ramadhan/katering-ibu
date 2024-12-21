@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\KeranjangItem;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -209,31 +210,36 @@ class OrderController extends Controller
         $pesanan = Pesanan::findOrFail($id);
         return view('customer.detail-pembayaran', compact('pesanan'));
     }
-    
+
     public function uploadPaymentProof(Request $request, $id)
-{
-    $request->validate([
-        'payment_proof' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
-    ]);
+    {
+        $request->validate([
+            'payment_proof' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+        ]);
 
-    // Simpan file yang diunggah
-    if ($request->hasFile('payment_proof')) {
-        $file = $request->file('payment_proof');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploads/payment_proofs'), $fileName);
+        // Simpan file yang diunggah
+        if ($request->hasFile('payment_proof')) {
+            $file = $request->file('payment_proof');
+            $fileName = time() . '_' . $file->getClientOriginalName();
 
-        // Update database
-        $pesanan = Pesanan::findOrFail($id);
-        $pesanan->payment_proof = $fileName;
-        $pesanan->save();
+            // Hapus bukti pembayaran lama jika ada
+            $pesanan = Pesanan::findOrFail($id);
+            if ($pesanan->payment_proof && Storage::exists('public/payment_proofs/' . $pesanan->payment_proof)) {
+                Storage::delete('public/payment_proofs/' . $pesanan->payment_proof);
+            }
 
-        return redirect()->route('pesanan.orderHistory')->with('success', 'Bukti pembayaran berhasil diunggah.');
+            // Pindahkan file baru ke folder yang sesuai
+            $file->move(public_path('payment_proofs'), $fileName);
+
+            // Update database
+            $pesanan->payment_proof = $fileName;
+            $pesanan->save();
+
+            return redirect()->route('pesanan.orderHistory')->with('success', 'Bukti pembayaran berhasil diunggah.');
+        }
+
+        return redirect()->route('pesanan.orderHistory')->with('error', 'Gagal mengunggah bukti pembayaran.');
     }
-
-    return redirect()->route('pesanan.orderHistory')->with('error', 'Gagal mengunggah bukti pembayaran.');
-}
-
-    
 
 
     // ? update data pesanan
