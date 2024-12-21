@@ -69,20 +69,24 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             {{ $pesanan->created_at->format('d M Y') }}
                         </td>
-                        <td class="px-6 py-4">
-                            {{ implode(', ', $pesanan->items->pluck('menu.nama_menu')->toArray()) }}
+                        <td class="px-6 py-4  min-w-60">
+                            <div class="line-clamp-2">
+                                {{ implode(', ', $pesanan->items->pluck('menu.nama_menu')->toArray()) }}
+                            </div> 
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 min-w-28">
                             {{ implode(', ', $pesanan->items->pluck('quantity')->toArray()) }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 min-w-40">
                             Rp {{ number_format($pesanan->total_amount, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-center">
                             {{ $pesanan->pickup_method }}
                         </td>
-                        <td class="px-6 py-4">
-                            {{ $pesanan->pickup_method == 'Kirim' ? $pesanan->delivery_address : '-' }}
+                        <td class="px-6 py-4 min-w-60{{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
+                            <div class="line-clamp-2">
+                                {{ $pesanan->pickup_method == 'Kirim' ? $pesanan->delivery_address : '-' }}
+                            </div>
                         </td>
                         <td class="px-6 py-4">
                             {{ $pesanan->payment_method }}

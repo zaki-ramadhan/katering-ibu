@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Pesanan Saya') 
 
 @section('vite') 
-    @vite(['resources/js/profile.js', 'resources/js/components/sidebar-cust.js', 'resources/js/components/header-cust.js'])
+    @vite('resources/js/customer/order-history.js')
 @endsection
 
 @section('style')
@@ -13,6 +13,13 @@
         }
     </style>
 @endsection
+
+@if (session('success'))
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+        <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
+        {{ session('success') }}
+    </div>
+@endif
 
 @section('content')
 <div class="relative overflow-x-auto">
@@ -27,99 +34,104 @@
         <h1 class="font-semibold text-primary text-4xl leading-10">Riwayat pesanan saya.</h1>
         <p class="text-sm leading-6 w-4/6 mt-4">Lihat semua pesanan Anda sebelumnya, pantau status terkini, dan kelola dengan mudah.</p>
     </section>
-        <div class="container mx-auto px-4 lg:px-8">
-            <div class="relative overflow-x-auto border rounded-2xl">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">No</th>
-                            <th scope="col" class="px-6 py-3">Tgl memesan</th>
-                            <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
-                            <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
-                            <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp.)</th>
-                            <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
-                            <th scope="col" class="px-6 py-3">Alamat</th>
-                            <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
-                            <th scope="col" class="px-6 py-3">Bukti Pembayaran</th>
-                            <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $pesanan)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{$loop -> iteration}}
-                                </th>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    {{ $pesanan['created_date'] }}
-                                </td>
-                                <td class="px-6 py-4 min-w-60">
-                                    <div class="line-clamp-2">
-                                        {{ implode(', ', $pesanan['menus']) }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ implode(', ', $pesanan['portions']) }}
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    {{ number_format($pesanan['total_price'], 0, ',', '.') }}
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    @if ($pesanan['pickup_method'] == 'pickup')
-                                        Ambil
-                                    @elseif ($pesanan['pickup_method'] == 'delivery')
-                                        Kirim
-                                    @else
+    <div class="container mx-auto px-4 lg:px-8">
+        <div class="relative overflow-x-auto border rounded-2xl">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">No</th>
+                        <th scope="col" class="px-6 py-3">Tgl memesan</th>
+                        <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
+                        <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
+                        <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp.)</th>
+                        <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
+                        <th scope="col" class="px-6 py-3">Alamat</th>
+                        <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                        <th scope="col" class="px-6 py-3">Bukti Pembayaran</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
+                        <th scope="col" class="px-6 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $pesanan)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{$loop->iteration}}
+                            </th>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {{ $pesanan['created_date'] }}
+                            </td>
+                            <td class="px-6 py-4 min-w-60">
+                                <div class="line-clamp-2">
+                                    {{ implode(', ', $pesanan['menus']) }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ implode(', ', $pesanan['portions']) }}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                {{ number_format($pesanan['total_price'], 0, ',', '.') }}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                @if ($pesanan['pickup_method'] == 'pickup')
+                                    Ambil
+                                @elseif ($pesanan['pickup_method'] == 'delivery')
+                                    Kirim
+                                @else
                                     -
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 min-w-72">
-                                    <div class="line-clamp-2 {{($pesanan['address'] == null ? 'text-center'  : '')}}">
-                                        {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : 'Tidak ada' }}
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 min-w-72">
+                                <div class="line-clamp-2 {{ ($pesanan['address'] == null ? 'text-center' : '') }}">
+                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : 'Tidak ada' }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $pesanan['payment_method'] }}
+                            </td>
+                            <td class="px-6 py-2 text-center min-w-56">
+                                @if($pesanan['payment_method'] !== 'cash' && !$pesanan['payment_proof'])
+                                    <div class="text-red-300 text-xs">
+                                        Anda belum mengunggah bukti pembayaran.
+                                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-500 hover:underline">Unggah Sekarang</a>
                                     </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pesanan['payment_method'] }}
-                                </td>
-                                <td class="px-6 py-4 text-center min-w-56">
-                                    @if($pesanan['payment_method'] !== 'cash' && !$pesanan['payment_proof'])
-                                            <div class="text-red-400">
-                                                Anda belum mengunggah bukti pembayaran.
-                                            </div>
-                                        @else
-                                            {{ $pesanan['payment_proof'] ? $pesanan['payment_proof'] : '-' }}
-                                        @endif
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if($pesanan['status'] == 'Pending')
-                                        <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
-                                            {{ $pesanan['status'] }}
-                                        </span>
-                                        @elseif($pesanan['status'] == 'Processed')
-                                        <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-300">
-                                            {{ $pesanan['status'] }}
-                                        </span>
-                                        @elseif($pesanan['status'] == 'Completed')
-                                        <span class="py-2 px-3 rounded-full bg-blue-50 text-blue-300">
-                                            {{ $pesanan['status'] }}
-                                        </span>
-                                        @elseif($pesanan['status'] == 'Cancelled')
-                                        <span class="py-2 px-3 rounded-full bg-red-50 text-red-300">
-                                            {{ $pesanan['status'] }}
-                                        </span>
-                                        @endif
-                                </td>
-                                <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>                
-        @endif
+                                @else
+                                    @if(in_array(pathinfo($pesanan['payment_proof'], PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
+                                        <img src="{{ asset('uploads/payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
+                                    @else
+                                        <a href="{{ asset('uploads/payment_proofs/' . $pesanan['payment_proof']) }}" class="text-blue-500 hover:underline" target="_blank">{{ $pesanan['payment_proof'] }}</a>
+                                    @endif
+                                @endif
+                            </td>                            
+                            <td class="px-6 py-4">
+                                @if($pesanan['status'] == 'Pending')
+                                    <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Processed')
+                                    <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-300">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Completed')
+                                    <span class="py-2 px-3 rounded-full bg-blue-50 text-blue-300">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Cancelled')
+                                    <span class="py-2 px-3 rounded-full bg-red-50 text-red-300">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
+                                <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
+                                <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
+    @endif
+</div>
 @endsection

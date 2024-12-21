@@ -23,25 +23,25 @@ class DashboardAdminController extends Controller
         $jmlUlasan = Ulasan::count();
 
         // Pelanggan terbaru
-        $pelangganTerbaru = User::where('role', 'customer')->orderBy('created_at', 'desc')->take(3)->get();
+        $pelangganTerbaru = User::where('role', 'customer')->orderBy('created_at', 'desc')->limit(3)->get();
         foreach ($pelangganTerbaru as $items) {
             $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
         }
 
         // Menu terbaru
-        $menuTerbaru = Menu::orderBy('created_at', 'desc')->take(3)->get();
+        $menuTerbaru = Menu::orderBy('created_at', 'desc')->limit(3)->get();
         foreach ($menuTerbaru as $items) {
             $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
         }
 
         // Pesanan terbaru
-        $pesananTerbaru = Pesanan::with(['user', 'items.menu'])->orderBy('created_at', 'desc')->take(3)->get();
+        $pesananTerbaru = Pesanan::with(['user', 'items.menu'])->orderBy('created_at', 'desc')->limit(3)->get();
         foreach ($pesananTerbaru as $pesanan) {
             $pesanan->formatted_date = Carbon::parse($pesanan->created_at)->translatedFormat('d M');
         }
 
         // Ulasan terbaru
-        $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->take(3)->get();
+        $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->limit(3)->get();
         foreach ($ulasanTerbaru as $items) {
             $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
         }

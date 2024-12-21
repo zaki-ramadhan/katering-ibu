@@ -60,26 +60,40 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {
-    Route::get('/customer/dashboard', function () {
+    Route::get('/dashboard', function () {
         return view('customer.dashboard');
     })->name('customer.dashboard');
     
-    Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('profile', [ProfileController::class, 'index'])->name('customer.profile');
+    Route::get('profile/edit-profile-saya', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
     
-    Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('customer.order-history');
+    Route::get('riwayat-pesanan', [OrderController::class, 'orderHistory'])->name('customer.order-history');
     
-    Route::get('customer/keranjang', [KeranjangController::class, 'index'])->name('customer.keranjang');
-    Route::post('customer/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
-    Route::delete('customer/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+    Route::get('cart', [KeranjangController::class, 'index'])->name('customer.keranjang');
+    Route::post('cart', [KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::delete('cart/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
     
     Route::resource('order-now', OrderController::class)->name('index', 'order-now');
-    Route::get('/customer/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
-    Route::post('/customer/order-process', [OrderController::class, 'processOrder'])->name('order.process');
+    Route::get('/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
+    // Route::post('/pesanan/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])->name('pesanan.upload-payment-proof');
+    // Route::post('/customer/order-process', [OrderController::class, 'processOrder'])->name('order.process');
+
+    // Route untuk halaman riwayat pesanan
+    Route::get('/pesanan/order-history', [OrderController::class, 'orderHistory'])->name('pesanan.orderHistory');
+
+    // Route untuk menampilkan halaman detail pembayaran
+    Route::get('/pesanan/{id}/detail-pembayaran', [OrderController::class, 'payOrder'])->name('pesanan.payOrder');
+
+    // Route untuk mengunggah bukti pembayaran
+    Route::post('/pesanan/{id}/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])->name('pesanan.upload-payment-proof');
+
+
+
+    
 });
 
 require __DIR__.'/auth.php';

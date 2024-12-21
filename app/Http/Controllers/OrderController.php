@@ -105,6 +105,7 @@ class OrderController extends Controller
         
         $data = $orders->map(function($order) {
             return [
+                'id' => $order->id,
                 'created_date' => $order->created_at->format('d M Y'),
                 'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
                 'portions' => $order->items->pluck('quantity')->toArray(),
@@ -204,6 +205,35 @@ class OrderController extends Controller
         ));
     }
 
+    public function payOrder($id) {
+        $pesanan = Pesanan::findOrFail($id);
+        return view('customer.detail-pembayaran', compact('pesanan'));
+    }
+    
+    public function uploadPaymentProof(Request $request, $id)
+{
+    $request->validate([
+        'payment_proof' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+    ]);
+
+    // Simpan file yang diunggah
+    if ($request->hasFile('payment_proof')) {
+        $file = $request->file('payment_proof');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/payment_proofs'), $fileName);
+
+        // Update database
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->payment_proof = $fileName;
+        $pesanan->save();
+
+        return redirect()->route('pesanan.orderHistory')->with('success', 'Bukti pembayaran berhasil diunggah.');
+    }
+
+    return redirect()->route('pesanan.orderHistory')->with('error', 'Gagal mengunggah bukti pembayaran.');
+}
+
+    
 
 
     // ? update data pesanan

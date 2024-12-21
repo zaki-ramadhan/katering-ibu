@@ -43,7 +43,7 @@
         {{-- profile on the right corner --}}
         <div class="btn-wrapper flex gap-6">
             <div class="profile-dropdown-wrapper relative">
-                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-300/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
+                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-100 hover:shadow-lg hover:shadow-slate-200/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
                     <img src="{{asset('images/admin.png')}}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
                     <p class="admin-name truncate duration-200">Administrator</p>
                     <iconify-icon icon="bxs:down-arrow" class="down-arrow-icon scale-90"></iconify-icon>
