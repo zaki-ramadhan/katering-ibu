@@ -15,19 +15,19 @@
 
 @section('content')
 <div class="container mx-auto mt-8 px-4 py-6 lg:px-8">  
+    <!-- Bagian Kiri: Detail Pesanan -->
+    @if($cartItems->isEmpty())
+    <div class="alert-empty w-full h-max py-20 text-center text-red-500 bg-red-100 border border-red-300 rounded-2xl shadow-md shadow-slate-200/30">
+        <h3 class="font-semibold text-lg">Pesanan Kosong</h3>
+        <p class="text-sm mt-2">Anda tidak memiliki menu dalam pesanan ini. Silakan tambahkan menu terlebih dahulu.</p>
+        <a href="{{ route('menu') }}" class="mt-5 text-sm inline-block bg-blue-500 hover:bg-blue-600 active:bg-blue-500 text-white font-medium py-[.7rem] px-4 rounded-md">Kembali ke Menu</a>
+    </div>
+    @else
+    <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
+        <h2 class="text-3xl font-bold text-center text-primary">Detail pesanan saya</h2>
+        <p>Periksa dan lengkapi data di bawah ini untuk melanjutkan ke proses pemesanan.</p>
+    </div>
     <div class="flex flex-wrap lg:flex-nowrap gap-8">
-        <!-- Bagian Kiri: Detail Pesanan -->
-        @if($cartItems->isEmpty())
-        <div class="alert-empty w-full h-max py-20 text-center text-red-500 bg-red-100 border border-red-300 rounded-2xl shadow-md shadow-slate-200/30">
-            <h3 class="font-semibold text-lg">Pesanan Kosong</h3>
-            <p class="text-sm mt-2">Anda tidak memiliki menu dalam pesanan ini. Silakan tambahkan menu terlebih dahulu.</p>
-            <a href="{{ route('menu') }}" class="mt-5 text-sm inline-block bg-blue-500 hover:bg-blue-600 active:bg-blue-500 text-white font-medium py-[.7rem] px-4 rounded-md">Kembali ke Menu</a>
-        </div>
-        @else
-        <div class="text-wrapper flex flex-col justify-center items-center gap-2 mb-16">
-            <h2 class="text-3xl font-bold text-center text-primary">Detail pesanan saya</h2>
-            <p>Periksa dan lengkapi data di bawah ini untuk melanjutkan ke proses pemesanan.</p>
-        </div>
             <div class="card w-full lg:w-2/3 max-h-max bg-white p-8 shadow-lg border border-slate-200 shadow-slate-200/50 rounded-3xl">
                 <h3 class="text-lg font-medium text-primary mb-5">Keterangan Menu yang Dipesan</h3>
                 <div class="overflow-x-auto">
@@ -102,19 +102,19 @@
                     <div class="mb-6 mt-8 flex flex-col gap-2">
                         <h3 class="block text-sm font-medium text-primary">Metode Pembayaran</h3>
                         <select id="payment_method" name="payment_method" class="w-full text-sm p-2 border border-gray-300 rounded-md text-primary">
-                            <option value="bank_transfer" class="text-secondary">Transfer </option>
-                            <option value="cash_on_delivery" class="text-secondary">Bayar Langsung</option>
+                            <option value="Transfer" class="text-secondary">Transfer </option>
+                            <option value="Cash" class="text-secondary">Bayar Langsung</option>
                         </select>
                         <div id="payment_instruction" class="hidden mt-2 text-sm text-primary">
                             <p>Silakan transfer ke salah satu rekening berikut:</p>
                             <div id="bank_bri_instruction" class="hidden mt-3 p-3 rounded-xl border bg-tertiary-50">
-                                <p class="font-medium">BANK BRI</p>
+                                <p class="font-medium">Bank BRI</p>
                                 <p class="mt-1 text-secondary">No. Rekening: 4194 01 039789 53 7</p>
                                 <p class="mt-1 text-secondary">Atas Nama: Fiqry Omar Atala</p>
                             </div>
                             <div id="dana_instruction" class="hidden my-3 p-3 rounded-xl border bg-tertiary-50">
                                 <p class="font-medium">DANA</p>
-                                <p class="mt-1 text-secondary">No. Rekening: 0987654321</p>
+                                <p class="mt-1 text-secondary">No. Virtual Account (VA): 085723702957</p>
                                 <p class="mt-1 text-secondary">Atas Nama: PT Dana</p>
                             </div>
                             {{-- <p>Unggah bukti pembayaran di bawah ini:</p> --}}
@@ -131,8 +131,8 @@
                 <div class="mb-6 flex flex-col gap-2">
                     <h3 class="block text-sm font-medium text-primary">Metode Pengambilan</h3>
                     <select name="pickup_method" id="pickup_method" class="w-full text-sm p-2 border border-gray-300 rounded-md text-primary">
-                        <option value="pickup" class="text-secondary">Ambil di Tempat</option>
-                        <option value="delivery" class="text-secondary">Dikirim ke Lokasi</option>
+                        <option value="Pickup" class="text-secondary">Ambil di Tempat</option>
+                        <option value="Delivery" class="text-secondary">Dikirim ke Lokasi</option>
                     </select>
                 </div>
 

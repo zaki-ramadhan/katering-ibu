@@ -14,7 +14,7 @@ class UlasanController extends Controller
         $jumlahUlasan = $ulasan->count();
         
         foreach ($ulasan as $item) {
-            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d M Y');
         }
 
         return view('admin.data-ulasan', compact('ulasan', 'jumlahUlasan'));

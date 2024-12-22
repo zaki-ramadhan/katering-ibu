@@ -93,10 +93,10 @@
                                 {{ $pesanan['payment_method'] }}
                             </td>
                             <td class="px-6 py-2 text-center min-w-56">
-                                @if($pesanan['payment_method'] == 'cash_on_delivery')
+                                @if($pesanan['payment_method'] == 'Cash')
                                     <span>-</span>
                                 @elseif(!$pesanan['payment_proof'])
-                                    <div class="text-red-400 text-xs">
+                                    <div class="text-red-500 text-xs">
                                         Anda belum mengunggah bukti pembayaran.<br>
                                         <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-400 hover:underline active:text-blue-500">Unggah Sekarang</a>
                                     </div>
@@ -126,10 +126,10 @@
                             <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
                                 @if ($pesanan['status'] == 'Pending')
                                     <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-5 active:bg-red-500">Hapus</a>
                                 @endif
                                 @if ($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed')
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-red-400 active:bg-red-500">Hapus</a>
+                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-5 active:bg-red-500">Hapus</a>
                                 @endif
                             </td>
                         </tr>

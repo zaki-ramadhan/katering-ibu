@@ -64,7 +64,7 @@
             </thead>
             <tbody>
                 @foreach ($pesananSelesai as $pesanan)
-                    <tr class="bg-white border-b hover:bg-gray-50">
+                    <tr class="bg-white border-b text-sm hover:bg-gray-50">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900">{{$loop->iteration}}</th>
                         <td class="px-6 py-4 whitespace-nowrap">
                             {{ $pesanan->created_at->format('d M Y') }}
@@ -74,30 +74,24 @@
                                 {{ implode(', ', $pesanan->items->pluck('menu.nama_menu')->toArray()) }}
                             </div> 
                         </td>
-                        <td class="px-6 py-4 min-w-28">
+                        <td class="px-6 py-4 min-w-28 text-center">
                             {{ implode(', ', $pesanan->items->pluck('quantity')->toArray()) }}
                         </td>
-                        <td class="px-6 py-4 min-w-40">
-                            Rp {{ number_format($pesanan->total_amount, 0, ',', '.') }}
+                        <td class="px-6 py-4 min-w-40 text-center">
+                            Rp. {{ number_format($pesanan->total_amount, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($pesanan['pickup_method'] == 'pickup')
-                                Ambil Langsung
-                            @elseif ($pesanan['pickup_method'] == 'delivery')
-                                Kirim ke Lokasi 
-                            @else
-                                -
-                            @endif
+                            {{$pesanan['pickup_method']}}
                         </td>
                         <td class="px-6 py-4 min-w-60 {{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
                             <div class="line-clamp-2 ">
-                                {{ $pesanan->pickup_method == 'Kirim' ? $pesanan->delivery_address : '-' }}
+                                {{ $pesanan->pickup_method == 'Delivery' ? $pesanan->delivery_address : '-' }}
                             </div>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($pesanan['payment_method'] == 'bank_transfer')
+                            @if ($pesanan['payment_method'] == 'Transfer')
                                 Transfer
-                            @elseif ($pesanan['payment_method'] == 'cash_on_delivery')
+                            @elseif ($pesanan['payment_method'] == 'Cash')
                                 Bayar langsung
                             @endif
                         </td>

@@ -43,7 +43,7 @@
         <x-modal-delete-account></x-modal-delete-account>
 
             <!-- Page Content -->
-        <main class="container {{ Route::currentRouteName() == 'profile.edit' ? 'w-[78%] pb-20' : '' }} {{Route::currentRouteName() == 'customer.keranjang' || Route::currentRouteName() == 'customer.order-history' ? 'pb-20' : ''}} ">
+        <main class="container {{ Route::currentRouteName() == 'profile.edit' ? 'w-[78%] pb-20' : '' }} {{Route::currentRouteName() == 'customer.keranjang' || Route::currentRouteName() == 'customer.order-history' || Route::currentRouteName() == 'customer.dashboard' ? 'pb-20' : ''}} ">
             @yield('content')
         </main>
 

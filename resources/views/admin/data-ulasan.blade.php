@@ -27,8 +27,8 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-6 border-b border-e text-center">No</th> <!-- Kolom Nomor Urut -->
-                        <th scope="col" class="px-6 py-6 border-b">Nama Pengulas</th>
+                        <th scope="col" class="px-3 py-6 border-b text-center">No</th> <!-- Kolom Nomor Urut -->
+                        <th scope="col" class="px-6 py-6 border-b">Pengulas</th>
                         <th scope="col" class="px-6 py-6 border-b">Email</th>
                         <th scope="col" class="px-6 py-6 border-b">Isi Pesan</th>
                         <th scope="col" class="px-6 py-6 border-b">Tanggal</th>
@@ -38,8 +38,11 @@
                 <tbody>
                     @foreach ($ulasan as $item)
                     <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-6 py-4 border-e text-center">{{ $loop -> iteration }}</td> <!-- Menampilkan Nomor Urut -->
-                        <td class="px-6 py-4">{{ $item->user->name }}</td>
+                        <td class="px-3 py-4 text-center">{{ $loop -> iteration }}</td> <!-- Menampilkan Nomor Urut -->
+                        <td class="px-6 py-4 flex items-center justify-start">
+                            <img src="{{ $item->user->foto_profile ? asset('storage/' . $item->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="w-10 h-10 object-cover rounded-full mr-3">
+                            {{ $item->user->name }}
+                        </td>                        
                         <td class="px-6 py-4">{{ $item->user->email }}</td>
                         <td class="px-6 py-4">{{ $item->pesan }}</td>
                         <td class="px-6 py-4">{{ $item->formatted_date }}</td>

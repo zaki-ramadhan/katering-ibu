@@ -55,9 +55,7 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('customer.dashboard');
-    })->name('customer.dashboard');
+    Route::get('/dashboard', [OrderController::class, 'dashboard'])->name('customer.dashboard');
     
     Route::get('profile', [ProfileController::class, 'index'])->name('customer.profile');
     Route::get('profile/edit-profile-saya', [ProfileController::class, 'edit'])->name('profile.edit');

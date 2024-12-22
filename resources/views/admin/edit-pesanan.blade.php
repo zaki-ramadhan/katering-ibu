@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <h3 class="font-medium text-primary mt-8">Bukti Pembayaran :</h3>
-                    @if($pesanan->payment_method == 'cash_on_delivery')
+                    @if($pesanan->payment_method == 'Cash')
                         <p>-</p>
                     @elseif($pesanan->payment_proof)
                         <div id="paymentProofContainer" class="w-72 h-auto aspect-video overflow-hidden mt-2 mb-3 cursor-pointer">
@@ -74,7 +74,7 @@
                         </select>
                     </div>
                     <div class="mb-8">
-                        @if ($pesanan['payment_method'] !== 'cash_on_delivery')
+                        @if ($pesanan['payment_method'] !== 'Cash')
                         <h3 class="font-medium text-primary">Tanggal Pengiriman</h3>
                         <div class="flex items-center gap-4">
                             <div class="flex items-center gap-4">

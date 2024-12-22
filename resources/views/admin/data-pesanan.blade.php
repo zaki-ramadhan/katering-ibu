@@ -29,7 +29,7 @@
                     <th scope="col" class="px-6 py-3">Nama Pelanggan</th>
                     <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
                     <th scope="col" class="px-6 py-3">Porsi</th>
-                    <th scope="col" class="px-6 py-3">Total Harga (Rp.)</th>
+                    <th scope="col" class="px-6 py-3">Total Harga</th>
                     <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                     <th scope="col" class="px-6 py-3">Alamat</th>
                     <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
@@ -62,34 +62,28 @@
                         <td class="px-6 py-4 text-center">
                             {{ implode(', ', $pesanan['portions']) }}
                         </td>
-                        <td class="px-6 py-4 text-center min-w-32">
-                            {{ number_format($pesanan['total_price'], 0, ',', '.') }}
+                        <td class="px-6 py-4 text-center min-w-40">
+                            Rp. {{ number_format($pesanan['total_price'], 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($pesanan['pickup_method'] == 'pickup')
-                                Ambil Langsung
-                            @elseif ($pesanan['pickup_method'] == 'delivery')
-                                Kirim ke Lokasi saya
-                            @else
-                                -
-                            @endif
+                            {{$pesanan['pickup_method']}}
                         </td>
-                        <td class="px-6 py-4 {{ $pesanan['pickup_method'] == 'delivery' ? 'text-left' : 'text-center'}} min-w-80">
-                            {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
+                        <td class="px-6 py-4 {{ $pesanan['pickup_method'] == 'Delivery' ? 'text-left' : 'text-center'}} min-w-80">
+                            {{ $pesanan['pickup_method'] == 'Delivery' ? $pesanan['address'] : '-' }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($pesanan['payment_method'] == 'bank_transfer')
+                            @if ($pesanan['payment_method'] == 'Transfer')
                                 Transfer
-                            @elseif ($pesanan['payment_method'] == 'cash_on_delivery')
+                            @elseif ($pesanan['payment_method'] == 'Cash')
                                 Bayar langsung
                             @endif
                         </td>
                         <td class="px-6 py-4 text-center min-w-44">
-                            @if($pesanan['payment_method'] !== 'cash_on_delivery' && !$pesanan['payment_proof'])
+                            @if($pesanan['payment_method'] !== 'Cash' && !$pesanan['payment_proof'])
                                 <div class="text-red-300">
                                     Bukti pembayaran belum dikirim.
                                 </div>
-                            @elseif($pesanan['payment_method'] === 'cash_on_delivery')
+                            @elseif($pesanan['payment_method'] === 'Cash')
                                 <p>-</p>
                             @else
                                 <div class="flex justify-center">
