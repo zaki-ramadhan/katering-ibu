@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Menu;
 use App\Models\Pesanan;
 use App\Models\Keranjang;
@@ -25,30 +26,38 @@ class OrderController extends Controller
 
         $baseMenuName = '';
 
+        // Mengatur nama dasar menu dan variasi
         if (strpos($menu->nama_menu, 'Nasi Liwet') !== false) {
             $baseMenuName = 'Nasi Liwet';
         } elseif (strpos($menu->nama_menu, 'Nasi Kuning') !== false) {
             $baseMenuName = 'Nasi Kuning';
         }
 
+        // Mengambil menu varian berdasarkan nama dasar menu
         if ($baseMenuName) {
             $variantMenu = Menu::where('nama_menu', 'like', '%' . $baseMenuName . '%')
-                               ->where('id', '!=', $id)
-                               ->take(4)
-                               ->get();
+                            ->where('id', '!=', $id)
+                            ->take(4)
+                            ->get();
         } else {
             $variantMenu = collect();
         }
 
+        // Mengambil menu rekomendasi yang tidak termasuk dalam varian menu
         $recommendedMenu = Menu::where('id', '!=', $id)
-                               ->when($baseMenuName, function ($query) use ($baseMenuName) {
-                                   return $query->where('nama_menu', 'not like', '%' . $baseMenuName . '%');
-                               })
-                               ->take(4)
-                               ->get();
+                            ->where('nama_menu', 'like', '%' . $baseMenuName . '%')
+                            ->orWhere(function ($query) use ($baseMenuName) {
+                                if ($baseMenuName) {
+                                    $query->where('nama_menu', 'not like', '%' . $baseMenuName . '%');
+                                }
+                            })
+                            ->take(4)
+                            ->get();
 
         return view('order-now', compact('menu', 'variantMenu', 'recommendedMenu'));
     }
+
+
 
     // Menampilkan halaman pesanan detail
     public function showOrderDetail()
@@ -85,7 +94,7 @@ class OrderController extends Controller
 
         KeranjangItem::where('keranjang_id', $keranjang->id)->delete();
 
-        return redirect()->route('customer.order-history')->with('success', 'Pesanan berhasil diproses.');
+        return redirect()->route('customer.order-history')->with('success', 'Pesanan berhasil ditambahkan.');
     }
     
     // Menghitung total jumlah pesanan
@@ -156,16 +165,16 @@ class OrderController extends Controller
         // Ambil pesanan dengan status 'Completed'
         $pesananSelesai = Pesanan::with('items.menu', 'user')
             ->where('status', 'Completed')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
 
         // Laporan penjualan harian
         $penjualanHarian = Pesanan::where('status', 'Completed')
-            ->whereDate('created_at', today())
+            ->whereDate('updated_at', today())
             ->sum('total_amount');
 
         $penjualanHarianSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereDate('created_at', today()->subDay())
+            ->whereDate('updated_at', today()->subDay())
             ->sum('total_amount');
 
         $perubahanPenjualanHarian = $penjualanHarianSebelumnya == 0 ? 
@@ -174,11 +183,11 @@ class OrderController extends Controller
 
         // Laporan penjualan mingguan
         $penjualanMingguan = Pesanan::where('status', 'Completed')
-            ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
+            ->whereBetween('updated_at', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('total_amount');
 
         $penjualanMingguanSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
+            ->whereBetween('updated_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
             ->sum('total_amount');
 
         $perubahanPenjualanMingguan = $penjualanMingguanSebelumnya == 0 ? 
@@ -187,11 +196,11 @@ class OrderController extends Controller
 
         // Laporan penjualan bulanan
         $penjualanBulanan = Pesanan::where('status', 'Completed')
-            ->whereMonth('created_at', now()->month)
+            ->whereMonth('updated_at', now()->month)
             ->sum('total_amount');
 
         $penjualanBulananSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereMonth('created_at', now()->subMonth()->month)
+            ->whereMonth('updated_at', now()->subMonth()->month)
             ->sum('total_amount');
 
         $perubahanPenjualanBulanan = $penjualanBulananSebelumnya == 0 ? 
@@ -250,14 +259,19 @@ class OrderController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
+            'delivery_date' => 'required|date',
         ]);
-
+    
         $pesanan->update([
             'status' => $request->input('status'),
+            'delivery_date' => Carbon::parse($request->input('delivery_date'))->format('Y-m-d'), // Format untuk MySQL
         ]);
-
+    
         return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
+    
+
+
     
     public function destroy($id)
     {

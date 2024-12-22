@@ -44,7 +44,7 @@
         {{-- profile on the right corner --}}
         <div class="btn-wrapper flex gap-6">
             <div class="profile-dropdown-wrapper relative">
-                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-300/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
+                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-50 hover:shadow-lg hover:shadow-slate-200/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
                     @if(auth()->user()->foto_profile)
                     <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
                     @else

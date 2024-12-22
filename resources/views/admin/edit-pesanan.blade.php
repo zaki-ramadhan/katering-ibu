@@ -74,15 +74,17 @@
                         </select>
                     </div>
                     <div class="mb-8">
+                        @if ($pesanan['payment_method'] !== 'cash_on_delivery')
                         <h3 class="font-medium text-primary">Tanggal Pengiriman</h3>
                         <div class="flex items-center gap-4">
                             <div class="flex items-center gap-4">
                                 <div class="flex items-center gap-4">
-                                    <input type="date" id="delivery_date" name="delivery_date" value="{{ $pesanan->delivery_date ? $pesanan->delivery_date : '' }}" class="mt-1 w-72 px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                    <input type="text" id="delivery_date" name="delivery_date" value="{{ $pesanan->delivery_date ? \Carbon\Carbon::parse($pesanan->delivery_date)->format('d-m-Y') : '' }}" class="mt-1 w-72 px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                                     <button type="button" id="set-today" class="px-7 text-xs py-[.7rem] h-max min-w-max bg-slate-500 hover:bg-slate-600 active:bg-slate-500 text-white rounded-md translate-y-[2px]">Hari Ini</button>
-                                </div>                                
+                                </div>                                                                
                             </div>                            
                         </div>
+                        @endif
                     </div>
                     <div class="flex justify-start gap-1 text-sm">
                         <button type="button" onclick="window.history.back();" class="px-6 py-[.7rem] mt-4 text-primary hover:text-primary bg-tertiary-50 hover:border-secondary hover:bg-tertiary border rounded-lg">Batalkan</button>

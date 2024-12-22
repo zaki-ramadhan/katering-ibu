@@ -81,15 +81,25 @@
                             Rp {{ number_format($pesanan->total_amount, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {{ $pesanan->pickup_method }}
+                            @if ($pesanan['pickup_method'] == 'pickup')
+                                Ambil Langsung
+                            @elseif ($pesanan['pickup_method'] == 'delivery')
+                                Kirim ke Lokasi 
+                            @else
+                                -
+                            @endif
                         </td>
-                        <td class="px-6 py-4 min-w-60{{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
-                            <div class="line-clamp-2">
+                        <td class="px-6 py-4 min-w-60 {{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
+                            <div class="line-clamp-2 ">
                                 {{ $pesanan->pickup_method == 'Kirim' ? $pesanan->delivery_address : '-' }}
                             </div>
                         </td>
-                        <td class="px-6 py-4">
-                            {{ $pesanan->payment_method }}
+                        <td class="px-6 py-4 text-center">
+                            @if ($pesanan['payment_method'] == 'bank_transfer')
+                                Transfer
+                            @elseif ($pesanan['payment_method'] == 'cash_on_delivery')
+                                Bayar langsung
+                            @endif
                         </td>
                     </tr>
                 @endforeach

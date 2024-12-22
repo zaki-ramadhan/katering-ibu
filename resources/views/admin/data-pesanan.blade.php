@@ -74,24 +74,32 @@
                                 -
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-left min-w-80">
+                        <td class="px-6 py-4 {{ $pesanan['pickup_method'] == 'delivery' ? 'text-left' : 'text-center'}} min-w-80">
                             {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {{ $pesanan['payment_method'] }}
+                            @if ($pesanan['payment_method'] == 'bank_transfer')
+                                Transfer
+                            @elseif ($pesanan['payment_method'] == 'cash_on_delivery')
+                                Bayar langsung
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-center min-w-44">
-                            @if($pesanan['payment_method'] !== 'cash' && !$pesanan['payment_proof'])
-                                    <div class="text-red-300">
-                                        Bukti pembayaran belum dikirim.
-                                    </div>
-                                @else
-                                    {{ $pesanan['payment_proof'] ? $pesanan['payment_proof'] : '-' }}
-                                @endif
-                        </td>
+                            @if($pesanan['payment_method'] !== 'cash_on_delivery' && !$pesanan['payment_proof'])
+                                <div class="text-red-300">
+                                    Bukti pembayaran belum dikirim.
+                                </div>
+                            @elseif($pesanan['payment_method'] === 'cash_on_delivery')
+                                <p>-</p>
+                            @else
+                                <div class="flex justify-center">
+                                    <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-24 h-24 object-cover rounded-md border">
+                                </div>
+                            @endif
+                        </td>                        
                         <td class="px-6 py-4 text-center">
-                            {{ $pesanan['delivery_date'] ? $pesanan['delivery_date'] : '-' }}
-                        </td>
+                            {{ $pesanan['delivery_date'] ? \Carbon\Carbon::parse($pesanan['delivery_date'])->format('d M Y') : '-' }}
+                        </td>                        
                         <td class="px-6 py-4 text-center">
                             @if($pesanan['status'] == 'Pending')
                             <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
@@ -111,21 +119,23 @@
                             </span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-center flex gap-1 items-center">
-                            {{-- @if(!($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed' || $pesanan['status'] == 'Processed')) --}}
+                        <td class="px-6 py-4">
+                            <div class="button-wrapper flex gap-1 items-center">
+                                {{-- @if(!($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed' || $pesanan['status'] == 'Processed')) --}}
                                 <a href="{{ route('pesanan.edit', $pesanan['id']) }}" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-300 hover:bg-amber-400 active:bg-amber-300">
                                     <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
                                 </a>
                             {{-- @endif --}}
-
+                            
                             {{-- @if(!($pesanan['status'] == 'Pending' || $pesanan['status'] == 'Processed')) --}}
-                                <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan dengan id = {{$pesanan['id']}} ini?');">
+                            <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan dengan id = {{$pesanan['id']}} ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400">
                                         <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
                                     </button>
                                 </form>
+                            </div>
                             {{-- @endif --}}
                         </td>                        
                     </tr>

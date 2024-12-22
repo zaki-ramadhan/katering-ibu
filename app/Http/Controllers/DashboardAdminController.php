@@ -23,36 +23,36 @@ class DashboardAdminController extends Controller
         $jmlUlasan = Ulasan::count();
 
         // Pelanggan terbaru
-        $pelangganTerbaru = User::where('role', 'customer')->orderBy('created_at', 'desc')->limit(3)->get();
+        $pelangganTerbaru = User::where('role', 'customer')->orderBy('updated_at', 'desc')->limit(3)->get();
         foreach ($pelangganTerbaru as $items) {
-            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+            $items->formatted_date = Carbon::parse($items->updated_at)->translatedFormat('d M');
         }
 
         // Menu terbaru
-        $menuTerbaru = Menu::orderBy('created_at', 'desc')->limit(3)->get();
+        $menuTerbaru = Menu::orderBy('updated_at', 'desc')->limit(3)->get();
         foreach ($menuTerbaru as $items) {
-            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+            $items->formatted_date = Carbon::parse($items->updated_at)->translatedFormat('d M');
         }
 
         // Pesanan terbaru
-        $pesananTerbaru = Pesanan::with(['user', 'items.menu'])->orderBy('created_at', 'desc')->limit(3)->get();
+        $pesananTerbaru = Pesanan::with(['user', 'items.menu'])->orderBy('updated_at', 'desc')->limit(3)->get();
         foreach ($pesananTerbaru as $pesanan) {
-            $pesanan->formatted_date = Carbon::parse($pesanan->created_at)->translatedFormat('d M');
+            $pesanan->formatted_date = Carbon::parse($pesanan->updated_at)->translatedFormat('d M');
         }
 
         // Ulasan terbaru
-        $ulasanTerbaru = Ulasan::orderBy('created_at', 'desc')->limit(3)->get();
+        $ulasanTerbaru = Ulasan::orderBy('updated_at', 'desc')->limit(3)->get();
         foreach ($ulasanTerbaru as $items) {
-            $items->formatted_date = Carbon::parse($items->created_at)->translatedFormat('d M');
+            $items->formatted_date = Carbon::parse($items->updated_at)->translatedFormat('d M');
         }
 
         // Penjualan Harian
         $penjualanHarian = Pesanan::where('status', 'Completed')
-            ->whereDate('created_at', today())
+            ->whereDate('updated_at', today())
             ->sum('total_amount');
 
         $penjualanHarianSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereDate('created_at', today()->subDay())
+            ->whereDate('updated_at', today()->subDay())
             ->sum('total_amount');
 
         $perubahanPenjualanHarian = $penjualanHarianSebelumnya == 0 ? 
@@ -61,11 +61,11 @@ class DashboardAdminController extends Controller
 
         // Penjualan Mingguan
         $penjualanMingguan = Pesanan::where('status', 'Completed')
-            ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
+            ->whereBetween('updated_at', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('total_amount');
 
         $penjualanMingguanSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereBetween('created_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
+            ->whereBetween('updated_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
             ->sum('total_amount');
 
         $perubahanPenjualanMingguan = $penjualanMingguanSebelumnya == 0 ? 
@@ -74,11 +74,11 @@ class DashboardAdminController extends Controller
 
         // Penjualan Bulanan
         $penjualanBulanan = Pesanan::where('status', 'Completed')
-            ->whereMonth('created_at', now()->month)
+            ->whereMonth('updated_at', now()->month)
             ->sum('total_amount');
 
         $penjualanBulananSebelumnya = Pesanan::where('status', 'Completed')
-            ->whereMonth('created_at', now()->subMonth()->month)
+            ->whereMonth('updated_at', now()->subMonth()->month)
             ->sum('total_amount');
 
         $perubahanPenjualanBulanan = $penjualanBulananSebelumnya == 0 ? 

@@ -11,8 +11,8 @@ $('.profile-btn').on('click', function(e){
     $(this).toggleClass('ring-thin ring-black')
     $(arrIcon).toggleClass('rotate-180')
     
-    if(!$(this).hasClass('bg-slate-200') || !$(usernameCust).hasClass('w-20')){
-        $(this).addClass('bg-slate-200');
+    if(!$(this).hasClass('bg-slate-100') || !$(usernameCust).hasClass('w-20')){
+        $(this).addClass('bg-slate-100');
         $(usernameCust).removeClass('w-6').addClass('w-20')
     } else {
         $(usernameCust).addClass('w-6').removeClass('w-20')
@@ -25,7 +25,7 @@ $('.profile-btn').on('click', function(e){
 // Menutup dropdown jika klik di luar area dropdown
 $(document).on('click', function(e) {
     if (!$(e.target).closest('.dropdown-logout, .profile-btn').length) {
-        $(".profile-btn").removeClass('bg-slate-200');
+        $(".profile-btn").removeClass('bg-slate-100');
         $(dropdownLogout).hide();
         $(usernameCust).addClass('w-6').removeClass('w-20')
     }

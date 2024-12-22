@@ -1,11 +1,17 @@
 $('#set-today').on('click', function() {
     var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    var day = String(today.getDate()).padStart(2, '0');
+    var month = String(today.getMonth() + 1).padStart(2, '0'); // Januari adalah 0!
+    var year = today.getFullYear();
+    var formattedDate = day + '-' + month + '-' + year; // Format ke DD-MM-YYYY
     $('#delivery_date').val(formattedDate);
 });
 
+
 $(function() {
-    $('#delivery_date').datepicker({ dateFormat: 'yy-mm-dd' }); // Format sesuai input type="date"
+    $('#delivery_date').datepicker({
+        dateFormat: 'dd-mm-yy' // Format sesuai DD-MM-YYYY
+    });
 });
 
 // Modal menampilkan bukti pembayaran

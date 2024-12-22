@@ -49,13 +49,13 @@
                         text-primary rounded-md py-3 text-xs md:text-sm mb-3">Detail menu</p>
                         <h2 class="menu-name text-lg lg:font-medium">{{ $menu->nama_menu }}</h2>
                         <p class="menu-price text-xl font-semibold before:content-['Rp.'] after:content-['/porsi'] after:text-sm after:font-medium after:ms-2 after:tracking-wide"> {{ number_format($menu->harga, 0, ',', '.') }}</p>
-                        <div class="rating-menu flex gap-1 text-lg text-yellow-400 mt-2 after:content-['(4)'] after:text-secondary-300 after:font-medium after:-translate-y-[1px] after:ms-1 after:text-base">
+                        {{-- <div class="rating-menu flex gap-1 text-lg text-yellow-400 mt-2 after:content-['(4)'] after:text-secondary-300 after:font-medium after:-translate-y-[1px] after:ms-1 after:text-base">
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
                             <iconify-icon icon="ri:star-fill"></iconify-icon>
                             <iconify-icon icon="ri:star-fill" class="text-secondary-300"></iconify-icon>
-                        </div>
+                        </div> --}}
                         <div class="description-menu-wrapper flex flex-col gap-1 text-justify text-sm mt-3">
                             <h4 class="title-desc-menu font-medium text-primary/80">Deskripsi Menu :</h4>
                             <p class="menu-description text-secondary font-light leading-6 line-clamp-4 text-sm">{{ $menu->deskripsi }}</p>
@@ -69,12 +69,12 @@
                         </button>
                         @foreach ($variantMenu as $item)
                         <div class="variantSuggested-wrapper hidden md:flex flex-col gap-2 mt-6">
-                            <h2 class="font-medium text-sm">Variant lainnya dari {{ $menu->nama_menu }} :</h2>
+                            <h2 class="font-medium text-sm text-capitalize">Variant lainnya dari {{ $menu->nama_menu }} :</h2>
                             <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}">
                                 <figure class="card-suggestMenu flex gap-4 p-2 rounded-xl bg-tertiary border border-transparent hover:border-slate-300 md:hover:border-transparent hover:shadow-slate-200/40 duration-150">
                                     <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="item max-w-20 aspect-square bg-tertiary rounded-lg">
                                     <figcaption class="py-3 flex flex-col gap-1">
-                                        <h3 class="name-suggestMenu text-sm line-clamp-1">{{ $item->nama_menu }}</h3>
+                                        <h3 class="name-suggestMenu text-capitalize text-sm line-clamp-1">{{ $item->nama_menu }}</h3>
                                         <p class="price-suggestMenu font-semibold before:content-['Rp.']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
                                     </figcaption>
                                 </figure>

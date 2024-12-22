@@ -3,6 +3,29 @@ $(document).ready(function() {
 $('#alert').css('top', '-50px').show().animate({ top: '30px' }, 500).delay(2000).fadeOut(500);
 });
 
+
+$(document).ready(function() {
+    $('#payment_method').on('change', function() {
+        var selectedMethod = $(this).val();
+        if (selectedMethod === 'cash_on_delivery') {
+            $('#payment_instruction').addClass('hidden');
+            $('#bank_bri_instruction').addClass('hidden');
+            $('#dana_instruction').addClass('hidden');
+            $('#alert-wrapper').addClass('hidden').removeClass('flex');
+        } else {
+            $('#payment_instruction').removeClass('hidden');
+                $('#bank_bri_instruction').removeClass('hidden');
+                $('#dana_instruction').removeClass('hidden');
+                $('#alert-wrapper').removeClass('hidden').addClass('flex');
+        }
+    });
+
+    // Inisiasi pemilihan metode pembayaran saat halaman dimuat
+    $('#payment_method').trigger('change');
+});
+
+
+
 var initialTotal = $('#initial_total').val(); // Ambil nilai dari input hidden
 var deliveryFee = 20000; // Contoh ongkir
 

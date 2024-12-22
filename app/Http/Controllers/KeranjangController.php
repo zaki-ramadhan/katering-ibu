@@ -50,8 +50,16 @@ class KeranjangController extends Controller
         $totalHarga = $keranjang->items->sum('total_harga_item');
         $keranjang->update(['total_harga' => $totalHarga]);
 
-        return redirect()->route('customer.keranjang')->with('success', 'Item ditambahkan ke keranjang.');
+        // Tindakan berdasarkan tombol yang diklik
+        if ($request->action == 'order_now') {
+            // Arahkan ke halaman detail pesanan
+            return redirect()->route('customer.pesanan-detail', $keranjang->id)->with('success', 'Pesanan berhasil dilakukan.');
+        } else {
+            // Arahkan ke halaman keranjang
+            return redirect()->route('customer.keranjang')->with('success', 'Item ditambahkan ke keranjang.');
+        }
     }
+
 
     public function destroy($id)
     {

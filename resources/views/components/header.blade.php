@@ -51,30 +51,30 @@
             <nav class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }}">
                 <ul class="hidden lg:flex items-center justify-center {{ auth()->check() ? 'translate-y-2' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
                     <li>
-                        <a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
-                            <iconify-icon icon="mingcute:home-4-fill" class="text-xl {{ Route::currentRouteName() == 'home' ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
+                            <iconify-icon icon="mingcute:home-4-fill" class="text-xl -translate-y-[1px] {{ Route::currentRouteName() == 'home' ? 'inline' : 'hidden' }}"></iconify-icon>
                             <span>
                                 Home
                             </span>
                     </a></li>
                     <li>
-                        <a href=" {{ route('about-us') }} " class="{{ Route::currentRouteName() == 'about-us' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <a href=" {{ route('about-us') }} " class="{{ Route::currentRouteName() == 'about-us' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
                             <iconify-icon icon="mdi:information-variant-circle" class="text-xl {{ Route::currentRouteName() == 'about-us' ? 'inline' : 'hidden' }}"></iconify-icon>
                             <span>Tentang kami</span>
                         </a></li>
                     <li>
-                        <a href=" {{ route('service') }} " class="{{ Route::currentRouteName() == 'service' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <a href=" {{ route('service') }} " class="{{ Route::currentRouteName() == 'service' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
                         <iconify-icon icon="ri:service-fill" class="text-xl {{ Route::currentRouteName() == 'service' ? 'inline' : 'hidden' }}"></iconify-icon>
                         Pelayanan
                     </a></li>
                     <li>
-                        <a href="{{ route('menu') }}" class="{{ (Route::currentRouteName() == 'menu' || Route::currentRouteName() == 'menu.search') ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
-                            <iconify-icon icon="ic:round-fastfood" class="text-xl {{ (Route::currentRouteName() == 'menu' || Route::currentRouteName() == 'menu.search') ? 'inline' : 'hidden' }}"></iconify-icon>
+                        <a href="{{ route('menu') }}" class="{{ (Route::currentRouteName() == 'menu' || Route::currentRouteName() == 'menu.search') ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
+                            <iconify-icon icon="fluent:food-pizza-20-filled" class="text-2xl {{ (Route::currentRouteName() == 'menu' || Route::currentRouteName() == 'menu.search') ? 'inline' : 'hidden' }}"></iconify-icon>
                             <span>Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('contact-us') }}" class="{{ Route::currentRouteName() == 'contact-us' ? 'text-primary font-semibold flex justify-center items-center gap-2' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
+                        <a href="{{ route('contact-us') }}" class="{{ Route::currentRouteName() == 'contact-us' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}" >
                             <iconify-icon icon="tdesign:service-filled" class="text-xl {{ Route::currentRouteName() == 'contact-us' ? 'inline' : 'hidden' }}"></iconify-icon>
                             <span>
                                 Hubungi Kami
