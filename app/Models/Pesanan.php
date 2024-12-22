@@ -11,7 +11,7 @@ class Pesanan extends Model
     protected $table = 'pesanan'; // Penamaan tabel yang benar
 
     protected $fillable = [
-        'user_id', 'payment_method', 'pickup_method', 'delivery_address', 'shipping_cost', 'total_amount', 'payment_proof', 'delivery_date', 'status'
+        'user_id', 'payment_method', 'pickup_method', 'delivery_address', 'shipping_cost', 'total_amount', 'payment_proof', 'status_payment_proof', 'delivery_date', 'status'
     ];
 
     public function user()

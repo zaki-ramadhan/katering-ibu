@@ -40,22 +40,22 @@
                     <p class="text-center text-sm self-center mt-2">Tahap ini adalah langkah Anda berikutnya untuk menyelesaikan data akun Anda.</p>
                     <ul class="steps mt-5 text-base text-white font-medium">
                         <li class="step {{ $user ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ $user ? 'text-primary' : 'text-gray-300 font-normal' }}">
+                            <span class="text-sm mt-2 {{ $user ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Buat/Daftar Akun
                             </span>
                         </li>
                         <li class="step {{ ($user->username && $user->email && $user->password && $user->notelp) ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ ($user->username && $user->email && $user->password && $user->notelp) ? 'text-primary' : 'text-gray-300 font-normal' }}">
+                            <span class="text-sm mt-2 {{ ($user->username && $user->email && $user->password && $user->notelp) ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Lengkapi Data Pribadi
                             </span>
                         </li>
                         <li class="step {{ $orderHistory->isNotEmpty() ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ $orderHistory->isNotEmpty() ? 'text-primary' : 'text-gray-300 font-normal' }}">
+                            <span class="text-sm mt-2 {{ $orderHistory->isNotEmpty() ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Buat Pesanan
                             </span>
                         </li>
                         <li class="step {{ $user->hasReviewed ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ $user->hasReviewed ? 'text-primary' : 'text-gray-300 font-normal' }}">
+                            <span class="text-sm mt-2 {{ $user->hasReviewed ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Buat Ulasan
                             </span>
                         </li>
@@ -99,22 +99,28 @@
                 </a>
             </div>
             @if($orderHistory->isEmpty())
-                <p class="text-center text-sm text-gray-500">Anda belum memiliki riwayat transaksi.</p>
+                <p class="text-center text-sm text-slate-500">Anda belum memiliki riwayat transaksi.</p>
             @else
                 <div class="items-wrapper flex flex-col gap-4">
                     @foreach($orderHistory as $order)
-                        <div class="item p-4 rounded-xl border
-                            {{ $order['status'] == 'Pending' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : ''}}
-                            {{ $order['status'] == 'Progress' ? 'bg-green-50 border-green-200 text-green-500' : '' }}
-                            {{ $order['status'] == 'Completed' ? 'bg-gray-50 border-gray-200 text-gray-500' : '' }}
-                            {{ $order['status'] == 'Canceled' ? 'bg-red-50 border-red-200 text-red-500' : '' }}
+                        <div class="item relative p-4 rounded-xl border {{ $order['status'] == 'Pending' ? 'bg-slate-50 border-slate-200 text-slate-500' : ''}} {{ $order['status'] == 'Processed' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : '' }} {{ $order['status'] == 'Completed' ? ' bg-green-50 border-green-200 text-green-500' : '' }} {{ $order['status'] == 'Cancelled' ? 'bg-red-50 border-red-200 text-red-500' : '' }}
                             flex flex-col gap-1">
                             <p class="order-date text-xs">{{ $order['created_date'] }}</p>
                             <p class="total-bill font-bold text-xl">Rp. {{ number_format($order['total_price'], 0, ',', '.') }}</p>
-                            <p class="order-status text-xs">{{ $order['status'] }}</p>
+                            <p class="order-status text-xs">{{ $order['payment_method'] }}</p>
+                            @if($order['status'] == 'Pending')
+                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2  text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu konfirmasi...</span>
+                            @elseif($order['status'] == 'Processed')
+                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-yellow-400 text-xs font-medium px-3 py-2 rounded-full">Sedang diproses...</span>
+                            @elseif($order['status'] == 'Completed')
+                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400 text-xs font-medium px-3 py-2 rounded-full">Selesai</span>
+                            @elseif($order['status'] == 'Cancelled')
+                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 text-xs font-medium px-3 py-2 rounded-full">Dibatalkan</span>
+                            @endif
                         </div>
                     @endforeach
                 </div>
+            
             @endif
         </div>
     </section>

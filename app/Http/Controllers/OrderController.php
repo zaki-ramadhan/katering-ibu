@@ -49,9 +49,8 @@ class OrderController extends Controller
             return redirect()->route('menu')->with('error', 'Menu tidak ditemukan.');
         }
 
-        $baseMenuName = '';
-
         // Mengatur nama dasar menu dan variasi
+        $baseMenuName = '';
         if (strpos($menu->nama_menu, 'Nasi Liwet') !== false) {
             $baseMenuName = 'Nasi Liwet';
         } elseif (strpos($menu->nama_menu, 'Nasi Kuning') !== false) {
@@ -79,8 +78,12 @@ class OrderController extends Controller
                             ->take(4)
                             ->get();
 
-        return view('order-now', compact('menu', 'variantMenu', 'recommendedMenu'));
+        // Mengambil menu terlaris (top 4)
+        $topMenus = Menu::orderBy('terjual', 'desc')->take(4)->pluck('id')->toArray();
+
+        return view('order-now', compact('menu', 'variantMenu', 'recommendedMenu', 'topMenus'));
     }
+
 
 
 
@@ -150,6 +153,7 @@ class OrderController extends Controller
                 'payment_method' => $order->payment_method,
                 'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
                 'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'status_payment_proof' => $order->status_payment_proof ?? 'Pending', // Asumsi ada kolom status
                 'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
             ];
         });
@@ -177,6 +181,7 @@ class OrderController extends Controller
                 'payment_method' => $order->payment_method,
                 'status' => $order->status ?? 'Pending', // Kolom status
                 'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'status_payment_proof' => $order->status_payment_proof ?? 'Pending', // Kolom status
                 'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
             ];
         });
@@ -282,27 +287,46 @@ class OrderController extends Controller
 
     public function update(Request $request, Pesanan $pesanan)
     {
+        // Validasi umum
         $request->validate([
             'status' => 'required|string',
-            'delivery_date' => 'required|date',
+            'status_payment_proof' => 'required|string',
         ]);
-    
+
+        // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
+        if (in_array($request->input('status'), ['Completed', 'Delivered'])) {
+            $request->validate([
+                'delivery_date' => 'required|date',
+            ]);
+        }
+
+        // Dapatkan status sebelumnya
+        $previousStatus = $pesanan->status;
+
+        // Perbarui pesanan
         $pesanan->update([
             'status' => $request->input('status'),
-            'delivery_date' => Carbon::parse($request->input('delivery_date'))->format('Y-m-d'), // Format untuk MySQL
+            'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
+            'status_payment_proof' => $request->input('status_payment_proof'),
         ]);
-    
+
+        // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
+        if ($previousStatus !== 'Completed' && $pesanan->status === 'Completed') {
+            foreach ($pesanan->items as $item) {
+                $menu = $item->menu;
+                $menu->increment('terjual', $item->quantity);
+            }
+        }
+
         return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
-    
 
 
-    
     public function destroy($id)
     {
         $pesanan = Pesanan::findOrFail($id);
         $pesanan->delete();
 
-        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil dihapus.');
+        return redirect()->back()->with('success', 'Pesanan berhasil dihapus.');
     }
 }

@@ -7,7 +7,7 @@ $('#alert').css('top', '-50px').show().animate({ top: '30px' }, 500).delay(2000)
 $(document).ready(function() {
     $('#payment_method').on('change', function() {
         var selectedMethod = $(this).val();
-        if (selectedMethod === 'cash_on_delivery') {
+        if (selectedMethod === 'Cash') {
             $('#payment_instruction').addClass('hidden');
             $('#bank_bri_instruction').addClass('hidden');
             $('#dana_instruction').addClass('hidden');

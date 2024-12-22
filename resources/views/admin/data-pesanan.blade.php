@@ -3,7 +3,7 @@
 @section('title', 'Data Pesanan - Admin') 
 
 @section('vite') 
-    {{-- @vite('resources/js/admin/data-menu.js') --}}
+    @vite('resources/js/admin/data-pesanan.js')
 @endsection
 
 @if (session('success'))
@@ -80,38 +80,43 @@
                         </td>
                         <td class="px-6 py-4 text-center min-w-44">
                             @if($pesanan['payment_method'] !== 'Cash' && !$pesanan['payment_proof'])
-                                <div class="text-red-300">
+                                <div class="text-red-400">
                                     Bukti pembayaran belum dikirim.
                                 </div>
                             @elseif($pesanan['payment_method'] === 'Cash')
                                 <p>-</p>
                             @else
-                                <div class="flex justify-center">
+                                <div class="flex justify-center items-center">
                                     <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-24 h-24 object-cover rounded-md border">
+                                    @if($pesanan['status_payment_proof'] == 'Accepted')
+                                        <iconify-icon icon="mdi:check-circle" class="text-green-500 text-xl ml-2"></iconify-icon>
+                                    @elseif($pesanan['status_payment_proof'] == 'Rejected')
+                                        <iconify-icon icon="mdi:alert-circle" class="text-red-500 text-xl ml-2"></iconify-icon>
+                                    @endif
                                 </div>
                             @endif
-                        </td>                        
+                        </td>                                                
                         <td class="px-6 py-4 text-center">
                             {{ $pesanan['delivery_date'] ? \Carbon\Carbon::parse($pesanan['delivery_date'])->format('d M Y') : '-' }}
                         </td>                        
                         <td class="px-6 py-4 text-center">
                             @if($pesanan['status'] == 'Pending')
-                            <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
-                                {{ $pesanan['status'] }}
-                            </span>
-                            @elseif($pesanan['status'] == 'Processed')
-                            <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-300">
-                                {{ $pesanan['status'] }}
-                            </span>
-                            @elseif($pesanan['status'] == 'Completed')
-                            <span class="py-2 px-3 rounded-full bg-blue-50 text-blue-300">
-                                {{ $pesanan['status'] }}
-                            </span>
-                            @elseif($pesanan['status'] == 'Cancelled')
-                            <span class="py-2 px-3 rounded-full bg-red-50 text-red-300">
-                                {{ $pesanan['status'] }}
-                            </span>
-                            @endif
+                                    <span class="py-2 px-3 rounded-full bg-slate-100 text-slate-500">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Processed')
+                                    <span class="py-2 px-3 rounded-full bg-yellow-50 text-yellow-500">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Completed')
+                                    <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-500">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @elseif($pesanan['status'] == 'Cancelled')
+                                    <span class="py-2 px-3 rounded-full bg-red-50 text-red-500">
+                                        {{ $pesanan['status'] }}
+                                    </span>
+                                @endif
                         </td>
                         <td class="px-6 py-4">
                             <div class="button-wrapper flex gap-1 items-center">

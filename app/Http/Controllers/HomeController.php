@@ -15,6 +15,7 @@ class HomeController extends Controller
     {
             // Mengambil 4 data menu dari database]
             $menu = Menu::take(4)->get();
+            $bestSellingMenus = Menu::orderBy('terjual', 'desc')->limit(4)->get();
             // Menghitung jumlah data menu
             $jumlahMenu = $menu->count();
 
@@ -26,6 +27,6 @@ class HomeController extends Controller
     
             
             // Mengirim data menu ke view
-            return view('home', compact('menu', 'jumlahMenu', 'ulasan'));
+            return view('home', compact('menu', 'jumlahMenu', 'ulasan', 'bestSellingMenus'));
     }
 }

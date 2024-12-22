@@ -45,43 +45,45 @@
                         <span class="description-foto-menu text-xs leading-[.1rem]">Foto {{ $menu->nama_menu }}. Sumber: Katering Ibu.</span>
                     </div>
                     <figcaption class="flex-auto flex flex-col gap-1">
-                        <p class="head-figure-menu text-center bg-slate-100
-                        text-primary rounded-md py-3 text-xs md:text-sm mb-3">Detail menu</p>
-                        <h2 class="menu-name text-lg lg:font-medium">{{ $menu->nama_menu }}</h2>
-                        <p class="menu-price text-xl font-semibold before:content-['Rp.'] after:content-['/porsi'] after:text-sm after:font-medium after:ms-2 after:tracking-wide"> {{ number_format($menu->harga, 0, ',', '.') }}</p>
-                        {{-- <div class="rating-menu flex gap-1 text-lg text-yellow-400 mt-2 after:content-['(4)'] after:text-secondary-300 after:font-medium after:-translate-y-[1px] after:ms-1 after:text-base">
-                            <iconify-icon icon="ri:star-fill"></iconify-icon>
-                            <iconify-icon icon="ri:star-fill"></iconify-icon>
-                            <iconify-icon icon="ri:star-fill"></iconify-icon>
-                            <iconify-icon icon="ri:star-fill"></iconify-icon>
-                            <iconify-icon icon="ri:star-fill" class="text-secondary-300"></iconify-icon>
-                        </div> --}}
-                        <div class="description-menu-wrapper flex flex-col gap-1 text-justify text-sm mt-3">
-                            <h4 class="title-desc-menu font-medium text-primary/80">Deskripsi Menu :</h4>
-                            <p class="menu-description text-secondary font-light leading-6 line-clamp-4 text-sm">{{ $menu->deskripsi }}</p>
+                        <p class="head-figure-menu text-center bg-slate-50 text-primary rounded-md py-3 text-xs md:text-sm mb-3">Detail menu</p>
+                        <div class="relative">
+                            <h2 class="menu-name text-lg lg:font-medium">{{ $menu->nama_menu }}</h2>
+                            <p class="menu-price text-xl font-semibold before:content-['Rp.'] after:content-['/porsi'] after:text-sm after:font-medium after:ms-2 after:tracking-wide">
+                                {{ number_format($menu->harga, 0, ',', '.') }}
+                            </p>
+                            @if(in_array($menu->id, $topMenus))
+                                <span class="absolute -top-1 right-2 bg-yellow-100/80 text-yellow-500 text-xs font-medium mt-2 px-4 py-2 rounded-full">Menu Terlaris</span>
+                            @endif
+                            <div class="description-menu-wrapper flex flex-col gap-1 text-justify text-sm mt-3">
+                                <h4 class="title-desc-menu font-medium text-primary/80">Deskripsi Menu :</h4>
+                                <p class="menu-description text-secondary font-light leading-6 line-clamp-4 text-sm">{{ $menu->deskripsi }}</p>
+                            </div>
+                            <hr class="border-[1px] mt-3 mb-2 lg:hidden">
+                            <button class="read-more-btn flex lg:hidden items-center justify-center gap-2 text-xs text-primary hover:text-primaryHovered cursor-pointer mt-1">
+                                <span class="text-rm-btn">
+                                    Lihat Selengkapnya
+                                </span>
+                                <iconify-icon icon="fe:arrow-down" class="down-arrow-icon text-base duration-500"></iconify-icon>
+                            </button>
                         </div>
-                        <hr class="border-[1px] mt-3 mb-2 lg:hidden">
-                        <button class="read-more-btn flex lg:hidden items-center justify-center gap-2 text-xs text-primary hover:text-primaryHovered cursor-pointer mt-1">
-                            <span class="text-rm-btn">
-                                Lihat Selengkapnya
-                            </span>
-                            <iconify-icon icon="fe:arrow-down" class="down-arrow-icon text-base duration-500"></iconify-icon>
-                        </button>
                         @foreach ($variantMenu as $item)
                         <div class="variantSuggested-wrapper hidden md:flex flex-col gap-2 mt-6">
                             <h2 class="font-medium text-sm text-capitalize">Variant lainnya dari {{ $menu->nama_menu }} :</h2>
                             <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}">
-                                <figure class="card-suggestMenu flex gap-4 p-2 rounded-xl bg-tertiary border border-transparent hover:border-slate-300 md:hover:border-transparent hover:shadow-slate-200/40 duration-150">
+                                <figure class="card-suggestMenu relative flex gap-4 p-2 rounded-xl bg-tertiary-50 border border-slate-200 hover:border-slate-300 md:hover:border-transparent hover:shadow-slate-200/40 duration-150">
                                     <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="item max-w-20 aspect-square bg-tertiary rounded-lg">
                                     <figcaption class="py-3 flex flex-col gap-1">
                                         <h3 class="name-suggestMenu text-capitalize text-sm line-clamp-1">{{ $item->nama_menu }}</h3>
                                         <p class="price-suggestMenu font-semibold before:content-['Rp.']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
+                                        @if(in_array($item->id, $topMenus))
+                                            <span class="absolute top-1/2 right-3 -translate-y-1/2 bg-yellow-100/80 text-yellow-500 text-xs font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
+                                        @endif
                                     </figcaption>
                                 </figure>
                             </a>
                         </div>
                         @endforeach
-
+                    
                         <div class="form-priceDetail-wrapper bg-tertiary-50 text-primary mt-8 px-4 py-6 rounded-lg flex flex-col gap-6">
                             <h2 class="text-sm font-medium border-b border-b-slate-400 pb-4 pt-1 text-center">Detail total harga menu:</h2>
                             <form action="{{ route('keranjang.store') }}" method="POST" class="flex flex-col gap-7 mt-2">
@@ -117,7 +119,7 @@
                                 <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                             </form>
                         </div>                        
-                    </figcaption>
+                    </figcaption>                    
                 </figure>
             </section>
 

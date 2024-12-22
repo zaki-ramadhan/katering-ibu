@@ -46,7 +46,7 @@
                         <th scope="col" class="px-6 py-3">Tgl memesan</th>
                         <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
                         <th scope="col" class="px-6 py-3">Jumlah Porsi</th>
-                        <th scope="col" class="px-6 py-3 min-w-40">Total Harga (Rp)</th>
+                        <th scope="col" class="px-6 py-3 min-w-40">Total Harga</th>
                         <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
                         <th scope="col" class="px-6 py-3">Alamat</th>
                         <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
@@ -73,23 +73,23 @@
                                 {{ implode(', ', $pesanan['portions']) }}
                             </td>
                             <td class="px-6 py-4 text-center">
-                                {{ number_format($pesanan['total_price'], 0, ',', '.') }}
+                                Rp. {{ number_format($pesanan['total_price'], 0, ',', '.') }}
                             </td>
                             <td class="px-6 py-4 text-center">
-                                @if ($pesanan['pickup_method'] == 'pickup')
-                                    Ambil
-                                @elseif ($pesanan['pickup_method'] == 'delivery')
-                                    Kirim
+                                @if ($pesanan['pickup_method'] == 'Pickup')
+                                    Ambil langsung
+                                @elseif ($pesanan['pickup_method'] == 'Delivery')
+                                    Kirim ke lokasi saya
                                 @else
                                     -
                                 @endif
                             </td>
                             <td class="px-6 py-4 min-w-72">
                                 <div class="line-clamp-2 {{ ($pesanan['address'] == null ? 'text-center' : '') }}">
-                                    {{ $pesanan['pickup_method'] == 'delivery' ? $pesanan['address'] : '-' }}
+                                    {{ $pesanan['pickup_method'] == 'Delivery' ? $pesanan['address'] : '-' }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 text-center">
                                 {{ $pesanan['payment_method'] }}
                             </td>
                             <td class="px-6 py-2 text-center min-w-56">
@@ -98,40 +98,60 @@
                                 @elseif(!$pesanan['payment_proof'])
                                     <div class="text-red-500 text-xs">
                                         Anda belum mengunggah bukti pembayaran.<br>
-                                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-400 hover:underline active:text-blue-500">Unggah Sekarang</a>
+                                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="text-blue-500 hover:underline active:text-blue-600">Unggah Sekarang</a>
                                     </div>
                                 @else
-                                    <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-64 max-h-16 object-cover">
+                                <div class="flex justify-center items-center">
+                                    <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti Pembayaran" class="w-24 h-12 object-cover rounded-md border">
+                                    @if($pesanan['status_payment_proof'] == 'Accepted')
+                                        <iconify-icon icon="mdi:check-circle" class="text-green-500 text-xl ml-2"></iconify-icon>
+                                    @elseif($pesanan['status_payment_proof'] == 'Rejected')
+                                        <iconify-icon icon="mdi:alert-circle" class="text-red-500 text-xl ml-2"></iconify-icon>
+                                    @endif
+                                </div>
                                 @endif
                             </td>                                                                                                                
-                            <td class="px-6 py-4 text-xs">
+                            <td class="px-6 py-4 text-xs min-w-56 text-center">
                                 @if($pesanan['status'] == 'Pending')
-                                    <span class="py-2 px-3 rounded-full bg-amber-50 text-amber-300">
-                                        {{ $pesanan['status'] }}
+                                    <span class="py-2 px-3 rounded-full bg-slate-100 text-slate-500">
+                                        Menunggu konfirmasi
                                     </span>
                                 @elseif($pesanan['status'] == 'Processed')
-                                    <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-300">
-                                        {{ $pesanan['status'] }}
+                                    <span class="py-2 px-3 rounded-full bg-yellow-50 text-yellow-500">
+                                        Sedang diproses
                                     </span>
                                 @elseif($pesanan['status'] == 'Completed')
-                                    <span class="py-2 px-3 rounded-full bg-blue-50 text-blue-300">
-                                        {{ $pesanan['status'] }}
+                                    <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-500">
+                                        Selesai
                                     </span>
                                 @elseif($pesanan['status'] == 'Cancelled')
-                                    <span class="py-2 px-3 rounded-full bg-red-50 text-red-300">
-                                        {{ $pesanan['status'] }}
+                                    <span class="py-2 px-3 rounded-full bg-red-50 text-red-500">
+                                        Dibatalkan
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 text-center flex flex-col items-end justify-end gap-2">
+                            <td class="px-6 py-4 text-center flex items-center justify-center gap-1">
                                 @if ($pesanan['status'] == 'Pending')
-                                    <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-amber-400 hover:bg-amber-300 active:bg-amber-400">Edit</a>
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-5 active:bg-red-500">Hapus</a>
+                                    <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-300 hover:bg-amber-400 active:bg-amber-300">
+                                        <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon> 
+                                    </a>
+                                    <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400" onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">
+                                            <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
+                                        </button>
+                                    </form>
+                                @elseif ($pesanan['status'] == 'Completed' || $pesanan['status'] == 'Cancelled')
+                                    <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400" onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">
+                                            <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
+                                        </button>
+                                    </form>
                                 @endif
-                                @if ($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed')
-                                    <a href="#" class="font-medium px-3 py-2 rounded-lg w-max min-w-20 text-white bg-red-500 hover:bg-5 active:bg-red-500">Hapus</a>
-                                @endif
-                            </td>
+                            </td>                                                                
                         </tr>
                     @endforeach
                 </tbody>

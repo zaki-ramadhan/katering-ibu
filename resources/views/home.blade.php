@@ -72,7 +72,7 @@
     </section>
 
     {{-- top-menu-section --}}
-    {{-- <section id="top-menu-section" class="container px-4">
+    <section id="top-menu-section" class="container px-4">
         <div class="top-menu-wrapper w-full p-6 bg-white md:bg-transparent mt-6 rounded-xl">
             <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
             <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-5">
@@ -80,21 +80,25 @@
                 <p>Berdasarkan banyaknya pemesanan yang dilakukan oleh pelanggan kami.</p>
             </div>
             <div class="card-wrapper group grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-6 text-primary hover:text-secondary ">
-                @foreach ( $topMenus as $menu)
-                <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
+                @foreach ( $bestSellingMenus as $item)
+                <figure class="card relative flex-1 hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300">
                     <div class="img-container aspect-square rounded-lg overflow-hidden">
-                        <img src="{{ $menu['img'] }}" alt="{{ $menu['img'] }}" class="w-full h-full object-cover brightness-100 duration-200">
-                        <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">
+                        <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="w-full h-full object-cover brightness-100 duration-200">
+                        {{-- <div class="rating-menu absolute top-6 left-5 bg-white px-3 py-1 rounded-full flex items-center content-center gap-1 font-medium text-sm">
                             <iconify-icon icon="ri:star-fill" class="text-sm -translate-y-[1px] text-yellow-400"></iconify-icon>
-                            {{ $menu['rating'] }}
-                        </div>
+                            {{ $item['rating'] }}
+                        </div> --}}
                     </div>
                     <figcaption class="card-content mt-4 flex flex-col gap-1">
-                        <h3 class="menu-name font-normal text-md">{{ $menu['name'] }}</h3>
-                        <p class="menu-price font-bold text-lg before:content-['Rp']"> {{ number_format($menu['price'], 0, ',', '.') }} </p>
-                        
+                        <div class="text-wrapper relative w-full flex gap-3 justify-between">
+                            <div class="flex flex-col gap-2 text-primary">
+                                <h3 class="menu-name font-normal line-clamp-1">{{ $item->nama_menu }}</h3>
+                                <p class="menu-price font-bold text-lg before:content-['Rp']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
+                            </div>
+                            <span class="label_terjual min-w-max h-max text-[.7rem] p-2 rounded-full bg-blue-50 text-blue-400">Terjual {{$item->terjual}} porsi</span>
+                        </div>
                         @auth    
-                        <a href="{{ route('order-now') }}" class="w-full">
+                        <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="w-full">
                             <button class="btn-order w-full bg-orderDeactive hover:bg-orderHovered active:bg-orderClicked text-white mt-4 py-3 text-xs lg:text-sm flex items-center justify-center gap-1 rounded-lg duration-150">
                                 <iconify-icon icon="tdesign:shop-filled" class="text-base -translate-y-[1px]"></iconify-icon>
                                 Pesan Sekarang
@@ -113,7 +117,7 @@
                 @endforeach
             </div>
         </div>
-    </section> --}}
+    </section>
     
     {{-- menu-section --}}
     <section id="menu-section" class="container px-4">
