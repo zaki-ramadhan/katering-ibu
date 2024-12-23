@@ -14,9 +14,11 @@
 @endif
 
 @section('content')
-<div class="container mx-auto px-4 sm:px-8">
+<div class="container mx-auto px-4 sm:px-8 flex flex-col">
     {{-- <h1 class="text-2xl font-semibold">Dashboard Penjualan</h1> --}}
+
     <!-- Kartu Laporan Penjualan -->
+    <button id="print-button" class="px-4 py-[.7rem] mt-3 bg-blue-500 text-xs font-medium place-self-end text-white rounded-md hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200/80 transition-shadow duration-150 active:bg-blue-500"> Print Laporan </button>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
         <div class="bg-white shadow-md shadow-slate-200/60 rounded-lg p-6 flex flex-col gap-3">
             <h3 class="text-lg">Penjualan Harian</h3>
@@ -53,8 +55,8 @@
             <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-4">No.</th>
-                    <th scope="col" class="px-6 py-4">Tanggal Memesan</th>
-                    <th scope="col" class="px-6 py-4">Menu yang Dipesan</th>
+                    <th scope="col" class="px-6 py-4">tgl pesan</th>
+                    <th scope="col" class="px-6 py-4">Menu dipesan</th>
                     <th scope="col" class="px-6 py-4">Porsi</th>
                     <th scope="col" class="px-6 py-4">Total Harga</th>
                     <th scope="col" class="px-6 py-4">Metode Pengambilan</th>
@@ -64,31 +66,31 @@
             </thead>
             <tbody>
                 @foreach ($pesananSelesai as $pesanan)
-                    <tr class="bg-white border-b text-sm hover:bg-gray-50">
+                    <tr class="bg-white border-b text-xs hover:bg-gray-50">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900">{{$loop->iteration}}</th>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-5 py-4 whitespace-nowrap">
                             {{ $pesanan->created_at->format('d M Y') }}
                         </td>
-                        <td class="px-6 py-4  min-w-60">
+                        <td class="px-5 py-4 min-w-40">
                             <div class="line-clamp-2">
                                 {{ implode(', ', $pesanan->items->pluck('menu.nama_menu')->toArray()) }}
                             </div> 
                         </td>
-                        <td class="px-6 py-4 min-w-28 text-center">
+                        <td class="px-5 py-4 min-w-28 text-center">
                             {{ implode(', ', $pesanan->items->pluck('quantity')->toArray()) }}
                         </td>
-                        <td class="px-6 py-4 min-w-40 text-center">
+                        <td class="px-5 py-4 min-w-40 text-center">
                             Rp. {{ number_format($pesanan->total_amount, 0, ',', '.') }}
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-5 py-4 text-center">
                             {{$pesanan['pickup_method']}}
                         </td>
-                        <td class="px-6 py-4 min-w-60 {{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
+                        <td class="px-5 py-4 min-w-56 {{ $pesanan->pickup_method == 'Kirim' ? '' : 'text-center' }}">
                             <div class="line-clamp-2 ">
                                 {{ $pesanan->pickup_method == 'Delivery' ? $pesanan->delivery_address : '-' }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-5 py-4 text-center">
                             @if ($pesanan['payment_method'] == 'Transfer')
                                 Transfer
                             @elseif ($pesanan['payment_method'] == 'Cash')
@@ -102,3 +104,4 @@
     </div>
 </div>
 @endsection
+
