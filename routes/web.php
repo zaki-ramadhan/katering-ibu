@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('cart', [KeranjangController::class, 'index'])->name('customer.keranjang');
     Route::post('cart', [KeranjangController::class, 'store'])->name('keranjang.store');
     Route::delete('cart/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+    Route::get('/cart-item-count', [OrderController::class, 'getCartItemCount'])->name('cart.item.count');
     
     Route::resource('order-now', OrderController::class)->name('index', 'order-now');
     Route::post('/order/process', [OrderController::class, 'processOrder'])->name('order.process');

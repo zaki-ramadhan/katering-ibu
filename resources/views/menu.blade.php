@@ -153,7 +153,7 @@
                                     <span class="bg-yellow-100/80 text-yellow-500 text-[.65rem] font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
                                 @endif
                             </div>
-                            <h3 class="menu-name font-medium text-lg line-clamp-1">{{ $item->nama_menu }}</h3>
+                            <h3 class="menu-name font-medium text-lg line-clamp-1 mt-2">{{ $item->nama_menu }}</h3>
                             <h4 class="title-desc-menu text-xs font-medium mt-2 mb-1 text-primary/70">Deskripsi Menu :</h4>
                             <p class="description-menu text-xs text-justify text-secondary/80 leading-5 line-clamp-4">
                                 {{ $item->deskripsi }}

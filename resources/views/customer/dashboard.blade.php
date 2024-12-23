@@ -72,8 +72,8 @@
                     @else
                     <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="customer profile" class="w-36 h-auto aspect-square object-cover object-center rounded-full border-4 self-center my-4">
                     @endif
-                    <div class="customer-data-wrapper flex flex-col gap-1 items-start text-left">
-                        <div class="name flex items-center justify-center gap-2">
+                    <div class="customer-data-wrapper flex flex-col gap-1 items-start text-sm text-left">
+                        <div class="name flex items-center justify-center gap-2 ">
                             <span>Username :</span>
                             <h3 class="customer-name font-medium text-primary">{{ $user->name }}</h3>
                         </div>
@@ -82,7 +82,7 @@
                             <p class="customer-email font-medium text-primary">{{ $user->email }}</p>
                         </div>
                         <a href="{{ route('customer.profile') }}">
-                            <button class="mt-4 py-[.7rem] px-4 rounded-full bg-primary hover:bg-primary-600 active:bg-primary text-white text-sm">Lihat selengkapnya</button>
+                            <button class="mt-4 py-[.7rem] px-4 rounded-full bg-primary hover:bg-primary-600 active:bg-primary text-white text-xs">Lihat selengkapnya</button>
                         </a>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                 <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
             </div>
             @if($orderHistory->isEmpty())
-                <div class="w-full h-56 bg-red-50 border border-red-300 text-red-500  grid place-content-center text-center text-sm rounded-xl">Anda belum memiliki riwayat transaksi. <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a></div>
+                <div class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500  grid place-content-center text-center text-sm rounded-xl">Anda belum memiliki riwayat transaksi. <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a></div>
             @else
                 <a href="{{ route('customer.order-history') }}" class="text-end flex items-center justify-center pe-2 gap-1 text-secondary hover:text-primary hover:underline text-sm">
                     Lihat semua riwayat

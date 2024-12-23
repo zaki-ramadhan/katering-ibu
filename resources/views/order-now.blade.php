@@ -70,7 +70,7 @@
                         <div class="variantSuggested-wrapper hidden md:flex flex-col gap-2 mt-6">
                             <h2 class="font-medium text-sm text-capitalize">Variant lainnya dari {{ $menu->nama_menu }} :</h2>
                             <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}">
-                                <figure class="card-suggestMenu relative flex gap-4 p-2 rounded-xl bg-tertiary-50 border border-slate-200 hover:border-slate-300 md:hover:border-transparent hover:shadow-slate-200/40 duration-150">
+                                <figure class="card-suggestMenu relative flex gap-4 p-2 rounded-xl bg-tertiary-50 border border-slate-200 hover:border-slate-300 md:hover:border-slate-400 hover:shadow-slate-200/40 duration-150">
                                     <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="item max-w-20 aspect-square bg-tertiary rounded-lg">
                                     <figcaption class="py-3 flex flex-col gap-1">
                                         <h3 class="name-suggestMenu text-capitalize text-sm line-clamp-1">{{ $item->nama_menu }}</h3>

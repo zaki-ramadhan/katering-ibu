@@ -157,6 +157,43 @@ class OrderController extends Controller
         return view('customer.order-history', compact('data')); // Pastikan 'data' diteruskan ke view
     }
 
+    public function getCartItemTypesCount()
+{
+    if (Auth::check()) {
+        $itemTypesCount = KeranjangItem::whereHas('keranjang', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->distinct('menu_id')->count('menu_id');
+        return $itemTypesCount;
+    }
+
+    return 0;
+    }
+
+    public function getOrderHistory()
+    {
+        if (Auth::check()) {
+            $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
+
+            $orderHistory = $orders->map(function($order) {
+                return [
+                    'id' => $order->id,
+                    'created_date' => Carbon::parse($order->created_at)->format('d M Y'),
+                    'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
+                    'portions' => $order->items->pluck('quantity')->toArray(),
+                    'total_price' => $order->total_amount,
+                    'pickup_method' => $order->pickup_method,
+                    'address' => $order->delivery_address,
+                    'payment_method' => $order->payment_method,
+                    'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+                    'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                    'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
+                ];
+            });
+            return $orderHistory;
+        }
+        return collect();
+    }
+
     public function dataPesanan()
     {
         $jmlPesanan = Pesanan::count();
