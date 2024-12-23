@@ -88,7 +88,7 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label class="block text-sm font-medium text-primary">Nomor Telepon</label>
-                        <input type="text" name="phone" value="{{ Auth::user()->notelp ?? '-' }}" class="w-full py-2 rounded-md border border-gray-300 text-sm indent-1 focus:text-primary">
+                        <input type="text" name="phone" value="{{ Auth::user()->notelp ?? '-' }}" class="w-full py-2 rounded-md border border-gray-300 text-sm indent-1 focus:text-primary" required>
                         @if (is_null(Auth::user()->notelp))
                             <p class="hidden text-red-500 text-xs mt-1">Lengkapi data nomor telepon Anda terlebih dahulu.</p>
                         @endif
@@ -105,17 +105,17 @@
                             <option value="Transfer" class="text-secondary">Transfer </option>
                             <option value="Cash" class="text-secondary">Bayar Langsung</option>
                         </select>
-                        <div id="payment_instruction" class="hidden mt-2 text-sm text-primary">
+                        <div id="payment_instruction" class="hidden mt-6 text-sm text-primary">
                             <p>Silakan transfer ke salah satu rekening berikut:</p>
                             <div id="bank_bri_instruction" class="hidden mt-3 p-3 rounded-xl border bg-tertiary-50">
-                                <p class="font-medium">Bank BRI</p>
-                                <p class="mt-1 text-secondary">No. Rekening: 4194 01 039789 53 7</p>
-                                <p class="mt-1 text-secondary">Atas Nama: Fiqry Omar Atala</p>
+                                <p class="font-semibold">Bank BRI</p>
+                                <p class="mt-1 text-secondary">No. Rekening : 4194 01 039789 53 7</p>
+                                <p class="mt-1 text-secondary">Atas Nama : <span class="text-primary font-medium">Fiqry Omar Atala</span> </p>
                             </div>
                             <div id="dana_instruction" class="hidden my-3 p-3 rounded-xl border bg-tertiary-50">
-                                <p class="font-medium">DANA</p>
-                                <p class="mt-1 text-secondary">No. Virtual Account (VA): 085723702957</p>
-                                <p class="mt-1 text-secondary">Atas Nama: PT Dana</p>
+                                <p class="font-semibold">DANA</p>
+                                <p class="mt-1 text-secondary">No. Virtual Account (VA) : 085723702957</p>
+                                <p class="mt-1 text-secondary">Atas Nama : <span class="text-primary font-medium">SAUSAN RONNA ULLAYA</span></p>
                             </div>
                             {{-- <p>Unggah bukti pembayaran di bawah ini:</p> --}}
                             {{-- <input type="file" name="payment_proof" id="paymentProofInput" class="block w-max text-sm mt-2 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"> --}}

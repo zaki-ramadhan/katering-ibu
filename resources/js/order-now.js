@@ -36,44 +36,44 @@ $('.btn-scroll-top').on('click',()=> {
 });
 
 
-let price = parseFloat($('#total-menu').data('price'));
+// let price = parseFloat($('#total-menu').data('price'));
 
-$('.increase-btn').on('click', function() {
-    let quantity = parseInt($('#total-menu').val());
-    $('#total-menu').val(quantity + 1);
-    updatePrice(quantity + 1, price);
-});
+// $('.increase-btn').on('click', function() {
+//     let quantity = parseInt($('#total-menu').val());
+//     $('#total-menu').val(quantity + 1);
+//     updatePrice(quantity + 1, price);
+// });
 
-$('.decrease-btn').on('click', function() {
-    let quantity = parseInt($('#total-menu').val());
-    if (quantity > 1) {
-        $('#total-menu').val(quantity - 1);
-        updatePrice(quantity - 1, price);
-    }
-});
+// $('.decrease-btn').on('click', function() {
+//     let quantity = parseInt($('#total-menu').val());
+//     if (quantity > 1) {
+//         $('#total-menu').val(quantity - 1);
+//         updatePrice(quantity - 1, price);
+//     }
+// });
 
-$('#total-menu').on('input', function() {
-    let quantity = parseInt($(this).val());
-    if (!isNaN(quantity) && quantity > 0) {
-        updatePrice(quantity, price);
-    }
-});
+// $('#total-menu').on('input', function() {
+//     let quantity = parseInt($(this).val());
+//     if (!isNaN(quantity) && quantity > 0) {
+//         updatePrice(quantity, price);
+//     }
+// });
 
-function updatePrice(quantity, price) {
-    let totalPrice = quantity * price;
-    $('#total-price').text(totalPrice.toLocaleString('id-ID'));
-}
+// function updatePrice(quantity, price) {
+//     let totalPrice = quantity * price;
+//     $('#total-price').text(totalPrice.toLocaleString('id-ID'));
+// }
 
-$('#total-menu').on('input', function() {
-    let quantity = parseInt($(this).val());
-    if (!isNaN(quantity) && quantity > 0) {
-        updatePrice(quantity, price);
-    } else {
-        // Mengembalikan ke nilai awal jika kosong atau tidak valid
-        $(this).val(1);
-        updatePrice(1, price);
-    }
-});
+// $('#total-menu').on('input', function() {
+//     let quantity = parseInt($(this).val());
+//     if (!isNaN(quantity) && quantity > 0) {
+//         updatePrice(quantity, price);
+//     } else {
+//         // Mengembalikan ke nilai awal jika kosong atau tidak valid
+//         $(this).val(1);
+//         updatePrice(1, price);
+//     }
+// });
 
 
 
@@ -82,3 +82,43 @@ $('#searchToMenuPageBtn').on('click', function() {
     window.location.href = '/menu?search=true';
 });
 
+
+
+$(document).ready(function() {
+    $('.decrease-btn').on('click', function() {
+        updateTotalPrice(-1);
+    });
+
+    $('.increase-btn').on('click', function() {
+        updateTotalPrice(1);
+    });
+
+    $('#jumlah-menu').on('input', function() {
+        updateTotalPrice(0);
+    });
+
+    function updateTotalPrice(change) {
+        var jumlahInput = $('#jumlah-menu');
+        var jumlah = parseInt(jumlahInput.val()) + change;
+        if (jumlah < 1) {
+            jumlah = 1;
+        }
+        jumlahInput.val(jumlah);
+
+        var harga = parseFloat(jumlahInput.data('price'));
+        var totalPrice = jumlah * harga;
+
+        // Perbaiki total harga tanpa tambahan "Rp."
+        $('#total-price').text(totalPrice.toLocaleString('id-ID', { style: 'decimal', minimumFractionDigits: 0 }));
+    }
+
+    $('.btn-order').on('click', function() {
+        var jumlah = $('#jumlah-menu').val();
+        $('#jumlah-order-now').val(jumlah);
+    });
+
+    $('.btn-add-to-cart').on('click', function() {
+        var jumlah = $('#jumlah-menu').val();
+        $('#jumlah-add-to-cart').val(jumlah);
+    });
+});

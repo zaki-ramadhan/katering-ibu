@@ -14,8 +14,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+// Redirect to home
 Route::get('/', function () {
-    return redirect('/home');  // Redirect ke /home
+    return redirect('/home');
 });
 
 Route::get('/home', function () {
@@ -57,87 +58,78 @@ Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search
 // Grouping routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [OrderController::class, 'dashboard'])->name('customer.dashboard');
-    
-    Route::get('profile', [ProfileController::class, 'index'])->name('customer.profile');
-    Route::get('profile/edit-profile-saya', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('customer.profile');
+        Route::get('/edit-profile-saya', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
     Route::delete('/delete-account', [UserController::class, 'deleteAccount'])->name('delete_account');
-    
+
     Route::get('riwayat-pesanan', [OrderController::class, 'orderHistory'])->name('customer.order-history');
-    
-    Route::get('cart', [KeranjangController::class, 'index'])->name('customer.keranjang');
-    Route::post('cart', [KeranjangController::class, 'store'])->name('keranjang.store');
-    Route::delete('cart/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
-    Route::get('/cart-item-count', [OrderController::class, 'getCartItemCount'])->name('cart.item.count');
-    
+
+    Route::prefix('cart')->group(function () {
+        Route::get('/', [KeranjangController::class, 'index'])->name('customer.keranjang');
+        Route::post('/', [KeranjangController::class, 'store'])->name('keranjang.store');
+        Route::delete('/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+        Route::get('/item-count', [OrderController::class, 'getCartItemCount'])->name('cart.item.count');
+    });
+
+    Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/pesanan-detail/{keranjang}',[OrderController::class, 'showOrderDetail'])->name('order.detail');
+
     Route::resource('order-now', OrderController::class)->name('index', 'order-now');
     Route::post('/order/process', [OrderController::class, 'processOrder'])->name('order.process');
     Route::get('/pesanan-detail', [OrderController::class, 'showOrderDetail'])->name('order.detail');
 
-
-    // Route untuk menampilkan halaman detail pembayaran
     Route::get('/pesanan/{id}/detail-pembayaran', [OrderController::class, 'payOrder'])->name('pesanan.payOrder');
-
-    // Route untuk mengunggah bukti pembayaran
     Route::post('/pesanan/{id}/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])->name('pesanan.upload-payment-proof');
 
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-    Route::delete('/notifications/delete-all', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
+    Route::prefix('notifications')->group(function () {
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::delete('/delete-all', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
+    });
 });
 
 require __DIR__.'/auth.php';
 
-// Admin routes (tidak ada yang dihapus atau diacak, hanya dirapihkan)
+// Admin routes
 Route::get('admin/dashboard-admin', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard-admin', function () {
-        return view('admin.dashboard-admin'); // Buat file `resources/views/admin/dashboard.blade.php`
+        return view('admin.dashboard-admin');
     })->name('admin.dashboard-admin');
+
     Route::resource('admin.setting', AdminController::class)->name('show', 'admin.setting');
-    
-    Route::get('/admin/data-pesanan', [OrderController::class, 'dataPesanan'])->name('admin.data-pesanan');
-    
-    Route::resource('/admin/pesanan', OrderController::class);
 
-    // penjualan
-    Route::get('/admin/data-penjualan', [OrderController::class, 'penjualan'])->name('admin.data-penjualan');
-    
-    Route::get('/admin/pesanan/{pesanan}/edit', [OrderController::class, 'edit'])->name('pesanan.edit');
-    Route::put('/admin/pesanan/{pesanan}', [OrderController::class, 'update'])->name('pesanan.update');
-    Route::delete('/pesanan/{id}', [OrderController::class, 'destroy'])->name('pesanan.destroy');
-    
-    
-    Route::resource('admin/data-menu', MenuController::class)->name('index', 'admin.data-menu');
-    Route::resource('admin/create-menu', MenuController::class)->name('create', 'admin.create-menu');
-    
-    // Buat menu baru
-    Route::post('admin/create-menu', [MenuController::class, 'store'])->name('admin.store-menu');
-    
-    // Edit menu
-    Route::get('/admin/data-menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
-    Route::put('/admin/data-menu/{id}', [MenuController::class, 'update'])->name('menu.update');
-    
-    // Hapus menu
-    Route::delete('/admin/data-menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
-    
-    Route::resource('admin/dashboard-admin', DashboardAdminController::class)->name('index', 'admin.dashboard-admin');
-    Route::resource('admin/data-ulasan', UlasanController::class)->name('index', 'admin.data-ulasan');
-    
-    // Hapus ulasan
-    Route::delete('/admin/data-ulasan/{id}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
-    
-    // Data pelanggan
-    Route::resource('/admin/data-pelanggan', UserController::class)->name('index', 'admin.data-pelanggan');
-    Route::get('/admin/data-pelanggan/{id}/edit', [UserController::class, 'edit'])->name('admin.edit-pelanggan');
-    Route::put('/admin/data-pelanggan/{id}', [UserController::class, 'update'])->name('admin.update-pelanggan');
-    Route::delete('/admin/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
-    
-    Route::resource('admin/setting-admin', AdminController::class);
-    
-    // Route::delete('/user/delete', [UserController::class, 'deleteAccount'])->name('user.deleteAccount');
+    Route::prefix('admin')->group(function () {
+        Route::get('/data-pesanan', [OrderController::class, 'dataPesanan'])->name('admin.data-pesanan');
+        Route::resource('/pesanan', OrderController::class);
+
+        Route::get('/data-penjualan', [OrderController::class, 'penjualan'])->name('admin.data-penjualan');
+        Route::get('/pesanan/{pesanan}/edit', [OrderController::class, 'edit'])->name('pesanan.edit');
+        Route::put('/pesanan/{pesanan}', [OrderController::class, 'update'])->name('pesanan.update');
+        Route::delete('/pesanan/{id}', [OrderController::class, 'destroy'])->name('pesanan.destroy');
+
+        Route::resource('/data-menu', MenuController::class)->name('index', 'admin.data-menu');
+        Route::resource('/create-menu', MenuController::class)->name('create', 'admin.create-menu');
+        Route::post('/create-menu', [MenuController::class, 'store'])->name('admin.store-menu');
+        Route::get('/data-menu/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+        Route::put('/data-menu/{id}', [MenuController::class, 'update'])->name('menu.update');
+        Route::delete('/data-menu/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+        Route::resource('/dashboard-admin', DashboardAdminController::class)->name('index', 'admin.dashboard-admin');
+        Route::resource('/data-ulasan', UlasanController::class)->name('index', 'admin.data-ulasan');
+        Route::delete('/data-ulasan/{id}', [UlasanController::class, 'destroy'])->name('ulasan.destroy');
+
+        Route::resource('/data-pelanggan', UserController::class)->name('index', 'admin.data-pelanggan');
+        Route::get('/data-pelanggan/{id}/edit', [UserController::class, 'edit'])->name('admin.edit-pelanggan');
+        Route::put('/data-pelanggan/{id}', [UserController::class, 'update'])->name('admin.update-pelanggan');
+        Route::delete('/data-pelanggan/{id}', [UserController::class, 'destroy'])->name('admin.data-pelanggan.destroy');
+
+        Route::resource('/setting-admin', AdminController::class);
+    });
 });
-
-// Route::get('/admin/data-penjualan', [ChartController::class, 'barChart'])->name('admin.data-penjualan');

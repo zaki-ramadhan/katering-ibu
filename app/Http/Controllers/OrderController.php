@@ -121,6 +121,43 @@ class OrderController extends Controller
 
         return redirect()->route('customer.order-history')->with('success', 'Pesanan berhasil ditambahkan.');
     }
+
+    public function store(Request $request)
+    {
+        $keranjang = Keranjang::firstOrCreate(['user_id' => Auth::id()]);
+
+        $menu = Menu::find($request->menu_id);
+        $jumlah = $request->jumlah;
+
+        // Cari item yang sudah ada di keranjang
+        $keranjangItem = KeranjangItem::where('keranjang_id', $keranjang->id)
+                                    ->where('menu_id', $menu->id)
+                                    ->first();
+
+        if ($keranjangItem) {
+            // Jika item sudah ada, tambahkan jumlah dan perbarui total harga item
+            $keranjangItem->jumlah += $jumlah;
+            $keranjangItem->total_harga_item += $menu->harga * $jumlah;
+            $keranjangItem->save();
+        } else {
+            // Jika item belum ada, buat item baru
+            KeranjangItem::create([
+                'keranjang_id' => $keranjang->id,
+                'menu_id' => $menu->id,
+                'jumlah' => $jumlah,
+                'harga' => $menu->harga,
+                'total_harga_item' => $menu->harga * $jumlah,
+            ]);
+        }
+
+        // Perbarui total harga keranjang
+        $totalHarga = $keranjang->items->sum('total_harga_item');
+        $keranjang->update(['total_harga' => $totalHarga]);
+
+        // Arahkan ke halaman detail pesanan
+        return redirect()->route('order.detail', $keranjang->id)->with('success', 'Pesanan berhasil dilakukan.');
+    }
+
     
     // Menghitung total jumlah pesanan
     private function calculateTotalAmount($keranjang, $shippingCost)

@@ -86,42 +86,51 @@
                     
                         <div class="form-priceDetail-wrapper bg-tertiary-50 text-primary mt-8 px-4 py-6 rounded-lg flex flex-col gap-6">
                             <h2 class="text-sm font-medium border-b border-b-slate-400 pb-4 pt-1 text-center">Detail total harga menu:</h2>
-                            <form action="{{ route('keranjang.store') }}" method="POST" class="flex flex-col gap-7 mt-2">
-                                @csrf
-                                <div class="helper flex flex-col gap-7 md:flex-row md:justify-between md:items-center">
-                                    <div class="input-total-wrapper flex flex-col gap-4">
-                                        <h2 class="text-sm">Jumlah porsi menu:</h2>
-                                        <div class="input-btn-wrapper flex gap-1">
-                                            <button type="button" class="decrease-btn w-9 h-auto border aspect-square bg-secondary-300 hover:bg-secondary active:bg-secondary-300 text-white rounded-md duration-150">
-                                                <iconify-icon icon="raphael:minus" class="translate-y-[1.5px]"></iconify-icon>
-                                            </button>
-                                            <input type="number" name="jumlah" id="total-menu" maxlength="3" min="1" max="999" value="1" autocomplete="off" data-price="{{ $menu->harga }}" class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md">
-                                            <button type="button" class="increase-btn w-9 h-auto aspect-square bg-primary-600 hover:bg-primary active:bg-primary-600 hover:border text-white text-xs rounded-md duration-150">
-                                                <iconify-icon icon="subway:add-1"></iconify-icon>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="price-of-total-wrapper flex flex-col gap-2">
-                                        <h2 class="text-sm">Harga total menu:</h2>
-                                        <p class="font-semibold text-lg before:content-['Rp.']"><span id="total-price">{{ number_format($menu->harga, 0, ',', '.') }}</span></p>
+                            <div class="helper flex flex-col gap-7 md:flex-row md:justify-between md:items-center">
+                                <div class="input-total-wrapper flex flex-col gap-4">
+                                    <h2 class="text-sm">Jumlah porsi menu:</h2>
+                                    <div class="input-btn-wrapper flex gap-1">
+                                        <button type="button" class="decrease-btn w-9 h-auto border aspect-square bg-secondary-300 hover:bg-secondary active:bg-secondary-300 text-white rounded-md duration-150" onclick="updateTotalPrice(-1)">
+                                            <iconify-icon icon="raphael:minus" class="translate-y-[1.5px]"></iconify-icon>
+                                        </button>
+                                        <input type="number" id="jumlah-menu" maxlength="3" min="1" max="999" value="1" autocomplete="off" data-price="{{ $menu->harga }}" class="w-24 text-sm text-primary text-center focus:outline-none focus:ring-0 border border-secondary/60 focus:border-primary rounded-md" oninput="updateTotalPrice(0)">
+                                        <button type="button" class="increase-btn w-9 h-auto aspect-square bg-primary-600 hover:bg-primary active:bg-primary-600 hover:border text-white text-xs rounded-md duration-150" onclick="updateTotalPrice(1)">
+                                            <iconify-icon icon="subway:add-1"></iconify-icon>
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="button-wrapper w-full flex gap-1 -mt-3">
-                                    <button type="submit" class="btn-order grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                <div class="price-of-total-wrapper flex flex-col gap-2">
+                                    <h2 class="text-sm">Harga total menu:</h2>
+                                    <p class="font-semibold text-lg before:content-['Rp.']"><span id="total-price">{{ number_format($menu->harga, 0, ',', '.') }}</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="button-wrapper w-full flex gap-4 -mt-3">
+                                <form id="order-now-form" action="{{ route('order.store') }}" method="POST" class="flex-grow">
+                                    @csrf
+                                    <input type="hidden" name="menu_id" value="{{ $menu->id }}">
+                                    <input type="hidden" name="jumlah" id="jumlah-order-now" value="1">
+                                    <button type="submit" class="btn-order grow bg-orderHovered w-full hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150" onclick="setJumlahOrderNow()">
                                         <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
                                         Pesan Sekarang
                                     </button>
-                                    <button type="submit" class="btn-add-to-cart flex-none w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
+                                </form>
+                            
+                                <form id="add-to-cart-form" action="{{ route('keranjang.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="menu_id" value="{{ $menu->id }}">
+                                    <input type="hidden" name="jumlah" id="jumlah-add-to-cart" value="1">
+                                    <button type="submit" class="btn-add-to-cart flex-none w-12 md:w-24 lg:w-36 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150" onclick="setJumlahAddToCart()">
                                         <iconify-icon icon="f7:cart-fill" class="text-base"></iconify-icon>
                                         <iconify-icon icon="ooui:add" class="text-base -ms-1"></iconify-icon>
                                     </button>
-                                </div>
-                                <input type="hidden" name="menu_id" value="{{ $menu->id }}">
-                            </form>
+                                </form>
+                            </div>                                
                         </div>                        
                     </figcaption>                    
                 </figure>
             </section>
+            
 
             <section id="suggestion-menu-section" class="sticky top-2 self-start mt-6 p-4 h-max rounded-xl bg-white lg:border text-primary flex flex-col gap-6">
                 <h1 class="md:hidden font-medium ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Rekomendasi menu lainnya :</h1>
