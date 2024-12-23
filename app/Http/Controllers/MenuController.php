@@ -12,6 +12,7 @@ class MenuController extends Controller {
     public function index() {
         // Mengambil semua data menu dari database
         $menu = Menu::orderBy('nama_menu', 'asc')->paginate(10);
+
         // Menghitung jumlah data menu
         $jumlahMenu = $menu->count();
         
@@ -32,15 +33,27 @@ class MenuController extends Controller {
     
         // Memformat tanggal menggunakan Carbon
         foreach ($menu as $item) {
-            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d F Y');
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d M Y');
         }
     
         // Menghitung jumlah data menu yang ditemukan
         $jumlahMenu = $menu->count();
     
-        // Mengirim data menu dan query ke view
-        return view('menu', compact('menu', 'jumlahMenu', 'query'));
+        // Mengambil menu terlaris
+        $bestSellingMenus = Menu::orderBy('terjual', 'desc')->limit(4)->get();
+    
+        // Memformat tanggal untuk menu terlaris
+        foreach ($bestSellingMenus as $item) {
+            $item->formatted_date = Carbon::parse($item->created_at)->translatedFormat('d M Y');
+        }
+    
+        // Mengambil ID dari menu terlaris
+        $bestSellingMenuIds = $bestSellingMenus->pluck('id')->toArray();
+    
+        // Mengirim data menu, query, menu terlaris, dan ID menu terlaris ke view
+        return view('menu', compact('menu', 'jumlahMenu', 'query', 'bestSellingMenus', 'bestSellingMenuIds'));
     }
+    
 
     public function showMenuFooter() {
         // Mengambil semua data menu dari database dan mengurutkannya berdasarkan nama_menu

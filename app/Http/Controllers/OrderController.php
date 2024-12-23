@@ -40,7 +40,6 @@ class OrderController extends Controller
     return view('customer.dashboard', compact('orderHistory'));
     }
 
-
     public function show($id)
     {
         $menu = Menu::find($id);
@@ -83,9 +82,6 @@ class OrderController extends Controller
 
         return view('order-now', compact('menu', 'variantMenu', 'recommendedMenu', 'topMenus'));
     }
-
-
-
 
     // Menampilkan halaman pesanan detail
     public function showOrderDetail()
@@ -244,7 +240,6 @@ class OrderController extends Controller
             'penjualanBulanan', 'penjualanBulananSebelumnya', 'perubahanPenjualanBulanan'
         ));
     }
-
     public function payOrder($id) {
         $pesanan = Pesanan::findOrFail($id);
         return view('customer.detail-pembayaran', compact('pesanan'));
@@ -275,8 +270,6 @@ class OrderController extends Controller
 
         return redirect()->route('customer.order-history')->with('error', 'Gagal mengunggah bukti pembayaran.');
     }
-
-
 
     // ? update data pesanan
     public function edit(Pesanan $pesanan)
@@ -320,7 +313,6 @@ class OrderController extends Controller
 
         return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
-
 
     public function destroy($id)
     {

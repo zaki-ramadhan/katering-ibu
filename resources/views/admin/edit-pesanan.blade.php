@@ -79,8 +79,8 @@
                         <h3 class="font-medium text-primary text-sm">Status Pesanan : </h3>
                         <select id="status" name="status" class="mt-1 block w-full px-3 py-2 focus:text-primary border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                             <option value="Pending" {{ $pesanan->status == 'Pending' ? 'selected' : '' }}>Pending <span>(default)</span></option>
-                            <option value="Processed" {{ $pesanan->status == 'Processed' ? 'selected' : '' }}>Processed</option>
-                            <option value="Completed" {{ $pesanan->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="Processed" {{ $pesanan->status == 'Processed' ? 'selected' : '' }} class="hidden">Processed</option>
+                            <option value="Completed" {{ $pesanan->status == 'Completed' ? 'selected' : '' }} class="hidden">Completed</option>
                             <option value="Cancelled" {{ $pesanan->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
                     </div>

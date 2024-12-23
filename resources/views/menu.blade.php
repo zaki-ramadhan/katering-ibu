@@ -58,60 +58,68 @@
                         <iconify-icon icon="akar-icons:search" id="search-label" class=""></iconify-icon>
                     </label>
                     <input type="search" name="find" id="search-menu" placeholder="Cari menu favoritmu disini..." autocomplete="off" value="{{ request()->input('query') }}"    required class="w-72 lg:w-[30rem] truncate rounded-md text-sm py-3 ps-12 pe-9 text-primary focus:outline-none focus:ring-0 border-0 focus:border-transparent">
-                    <iconify-icon icon="ic:outline-clear" id="clear-btn" class="hidden absolute top-1/2 right-32 -translate-y-1/2 text-secondary hover:text-primary cursor-pointer"></iconify-icon>
+                    <iconify-icon icon="ic:outline-clear" id="clear-btn" class="hidden absolute top-[.7rem] p-1 right-[7.5rem] text-secondary hover:text-primary cursor-pointer"></iconify-icon>
                     <button type="submit" class="bg-primary hover:bg-primaryHovered active:bg-primary duration-150 px-6 py-[.93rem] text-xs rounded-md">Cari Menu</button>
                 </form>
             </div>
         </div>
     </section>
 
-    {{-- top-menu-section --}}
-    {{-- <section id="top-menu-section" class="container px-4">
-        <div class="top-menu-wrapper w-full p-6 bg-white mt-6 rounded-xl">
-            <h2 class=" text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
-            <div class="card-wrapper group grid grid-cols-2 gap-4 pt-6 text-primary ">
-                @foreach ( $topMenus as $item)                            
-                    <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
-                        <div class="img-container aspect-square rounded-lg overflow-hidden">
-                            <img src="{{ $item['img'] }}" alt="{{ $item['name'] }}" class="w-full h-full object-cover brightness-100 duration-200">
-                        </div>
-                        <figcaption class="card-content mt-4 flex flex-col gap-1 text-primary">
-                            <p class="time-created font-normal text-[.6rem] text-secondary flex items-center justify-start gap-1 bg-tertiary w-max p-2 rounded-full">
-                                <iconify-icon icon="zondicons:time"></iconify-icon>
-                                November, 10 2024.
-                            </p>
-                            <h3 class="menu-name font-medium text-lg">{{ $item['name'] }}</h3>
-                            <h4 class="title-desc-menu text-xs font-normal mt-1 text-primary/70">Deskripsi Menu :</h4>
-                            <p class="description-menu text-xs font-light text-justify text-secondary/80 leading-4 line-clamp-4">
-                                {{ $item['details'] }}
-                            </p>
-                            <hr class="border my-2">
-                            <footer class="card-footer flex justify-between">
-                                <p class="before:content-['Rp.'] after:content-['/porsi'] font-medium text-sm">{{ $item['price'] }}  </p>
-                                <div class="rating-menu flex gap-1 text-md text-yellow-400">
-                                    @for ($i = 0; $i < $item['rating']; $i++)
-                                        <iconify-icon icon="ri:star-fill"></iconify-icon>
-                                    @endfor
-                                </div>
-                            </footer>
-                            <div class="button-wrapper w-full flex gap-1">
-                                <a href="{{ route('order-now') }}" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                    <button class="btn-order ">
-                                        <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon>
-                                        Pesan Sekarang
-                                    </button>
-                                </a>
-                                <button class="btn-add-to-cart flex-none  w-12 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150">
-                                    <iconify-icon icon="f7:cart-fill" class="text-base "></iconify-icon>
-                                    <iconify-icon icon="ooui:add" class="text-base  -ms-1"></iconify-icon>
-                                </button>
+    <!-- Bagian untuk menampilkan menu terlaris -->
+    <section id="top-menu-section" class="container px-4"> 
+        <div class="top-menu-wrapper w-full p-6 bg-white mt-6 rounded-xl"> 
+            <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2> 
+            <div class="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-8 pt-6 text-primary"> 
+                @foreach ($bestSellingMenus as $item) 
+                    <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-200 hover:shadow-md hover:shadow-slate-200/60"> 
+                        <div class="img-container aspect-square rounded-lg overflow-hidden"> 
+                            <img src="{{ Storage::url($item->foto_menu) }}" alt="{{ $item->nama_menu }}" class="w-full h-full object-cover brightness-100 duration-200"> 
+                        </div> 
+                        <figcaption class="card-content mt-4 flex flex-col gap-1 text-primary"> 
+                            <div class="label-wrapper flex items-center gap-2 relative">
+                                <p class="label time-created font-normal text-[.6rem] text-secondary flex items-center justify-start gap-1 bg-tertiary w-max p-2 rounded-full"> 
+                                    <iconify-icon icon="zondicons:time"></iconify-icon> {{ $item->formatted_date }} 
+                                </p>
+                                @if(in_array($item->id, $bestSellingMenuIds))
+                                    <span class=" bg-yellow-100/80 text-yellow-500 text-[.65rem] font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
+                                @endif 
                             </div>
-                        </figcaption>
-                    </figure>
+                            <h3 class="menu-name font-medium text-lg mt-2 line-clamp-1">{{ $item->nama_menu }}</h3> 
+                            <h4 class="title-desc-menu text-xs font-normal mt-1 text-primary/70">Deskripsi Menu :</h4> 
+                            <p class="description-menu text-xs font-light text-justify text-secondary/80 leading-4 line-clamp-4"> {{ $item->deskripsi }} </p> 
+                            <hr class="border my-2"> 
+                            <footer class="card-footer flex justify-between items-center"> 
+                                <p class="before:content-['Rp.'] after:content-['/porsi'] font-medium text-sm">{{ number_format($item->harga, 0, ',', '.') }}</p> 
+                                <span class=" bg-emerald-50 text-emerald-500 text-[.6rem] px-4 py-2 rounded-full">Terjual : {{$item->terjual}} porsi</span>
+                            </footer> 
+                            <div class="button-wrapper w-full flex gap-1"> 
+                                @auth 
+                                    <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="grow bg-orderHovered hover:bg-orderClicked active:bg-orderClicked-700 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150"> 
+                                        <button class="btn-order"> 
+                                            <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon> 
+                                            Pesan Sekarang 
+                                        </button> 
+                                    </a> 
+                                    <button data-menu-id="{{ $item->id }}" data-menu-name="{{ $item->nama_menu }}" data-menu-photo="{{ Storage::url($item->foto_menu) }}" data-menu-price="{{ $item->harga }}" class="btn-add-to-cart flex-none w-12 text-orderHovered bg-tertiary-50 hover:bg-emerald-100/50 border border-emerald-300 mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150"> 
+                                        <iconify-icon icon="f7:cart-fill" class="text-base"></iconify-icon> 
+                                        <iconify-icon icon="ooui:add" class="text-base -ms-1"></iconify-icon> 
+                                    </button> 
+                                @else 
+                                    <a href="{{ route('login')}}" class="grow bg-secondary-300 text-white mt-4 py-3 text-xs flex items-center justify-center gap-1 rounded-lg duration-150 cursor-default"> 
+                                        <button class="btn-order cursor-default"> 
+                                            <iconify-icon icon="tdesign:shop-filled" class="text-base translate-y-[1px]"></iconify-icon> 
+                                            Pesan Sekarang 
+                                        </button> 
+                                    </a> 
+                                @endauth 
+                            </div> 
+                        </figcaption> 
+                    </figure> 
                 @endforeach
-            </div>
-        </div>
-    </section> --}}
+
+            </div> 
+        </div> 
+    </section>
     
     {{-- menu-section --}}
     <section id="menu-section" class="container px-4">
@@ -131,23 +139,29 @@
         
             <div class="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-8 pt-6 text-primary">
                 @foreach ($menu as $item)                            
-                    <figure class="card relative max-w-72 hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/70">
+                    <figure class="card relative max-w-72 hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-200 hover:shadow-md hover:shadow-slate-200/60">
                         <div class="img-container aspect-square rounded-lg overflow-hidden">
                             <img src="{{ Storage::url($item->foto_menu) }}" alt="Foto {{ $item->nama_menu }}" class="w-full h-full object-cover brightness-100 duration-200">
                         </div>
                         <figcaption class="card-content mt-4 flex flex-col gap-1 text-primary">
-                            <p class="time-created font-normal text-[.6rem] text-secondary flex items-center justify-start gap-1 bg-tertiary w-max p-2 rounded-full">
-                                <iconify-icon icon="zondicons:time"></iconify-icon>
-                                {{ $item->formatted_date }}
-                            </p>
+                            <div class="label-wrapper flex items-center gap-2">
+                                <p class="time-created font-normal text-[.6rem] text-secondary flex items-center justify-start gap-1 bg-tertiary w-max p-2 rounded-full">
+                                    <iconify-icon icon="zondicons:time"></iconify-icon>
+                                    {{ $item->formatted_date }}
+                                </p>
+                                @if(in_array($item->id, $bestSellingMenuIds))
+                                    <span class="bg-yellow-100/80 text-yellow-500 text-[.65rem] font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
+                                @endif
+                            </div>
                             <h3 class="menu-name font-medium text-lg line-clamp-1">{{ $item->nama_menu }}</h3>
                             <h4 class="title-desc-menu text-xs font-medium mt-2 mb-1 text-primary/70">Deskripsi Menu :</h4>
                             <p class="description-menu text-xs text-justify text-secondary/80 leading-5 line-clamp-4">
                                 {{ $item->deskripsi }}
                             </p>
                             <hr class="border my-2">
-                            <footer class="card-footer flex justify-between">
-                                <p class="before:content-['Rp.'] after:content-['/porsi'] font-medium text-sm"> {{ number_format($item->harga, 0, ',', '.') }} </p>
+                            <footer class="card-footer flex justify-between items-center"> 
+                                <p class="before:content-['Rp.'] after:content-['/porsi'] font-medium text-sm">{{ number_format($item->harga, 0, ',', '.') }}</p> 
+                                <span class="bg-emerald-50 text-emerald-500 text-[.6rem] px-4 py-2 rounded-full">Terjual: {{ $item->terjual }} porsi</span>
                             </footer>
                             <div class="button-wrapper w-full flex gap-1">
                                 @auth
@@ -173,7 +187,6 @@
                         </figcaption>
                     </figure>
                 @endforeach
-
 
             </div>
         </div>

@@ -14,12 +14,12 @@
             
             @auth
             <div class="profile-dropdown-wrapper relative">
-                <button title="Akun saya" id="profile-btn" class="text-2xl font-normal text-secondary hover:text-primary translate-y-1">
+                <button title="Akun saya" id="profile-btn" class="text-2xl font-normal text-secondary hover:text-primary">
                     <iconify-icon icon="bxs:user"></iconify-icon>
                 </button>
                 
                 {{-- dropdown button --}}
-                <div class="dropdown-profile-menu hidden absolute -bottom-[7rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
+                <div class="dropdown-profile-menu hidden absolute -bottom-[6.3rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg border-4 border-slate-100 text-primary font-medium text-sm w-max overflow-hidden duration-300">
                     <div class="helper-flex-display text-xs font-medium flex flex-col items-start ">
                         <a href="{{ route('customer.dashboard') }}" class="py-3 ps-4 pe-12 hover:bg-slate-100 rounded-lg">Akun saya</a>
                         <button id="logoutBtn" class="w-full py-3 pe-12 text-red-400 hover:bg-red-500 active:bg-red-600 hover:text-white duration-150 rounded-lg">Logout</button>
@@ -49,7 +49,7 @@
             
             {{-- this will display on large screen --}}
             <nav class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }}">
-                <ul class="hidden lg:flex items-center justify-center {{ auth()->check() ? 'translate-y-2' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
+                <ul class="hidden lg:flex items-center justify-center {{ auth()->check() ? 'translate-y-0' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
                     <li>
                         <a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
                             <iconify-icon icon="mingcute:home-4-fill" class="text-xl -translate-y-[1px] {{ Route::currentRouteName() == 'home' ? 'inline' : 'hidden' }}"></iconify-icon>

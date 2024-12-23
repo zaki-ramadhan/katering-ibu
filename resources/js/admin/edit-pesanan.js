@@ -1,9 +1,9 @@
 $('#set-today').on('click', function() {
-    var today = new Date();
-    var day = String(today.getDate()).padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0'); // Januari adalah 0!
-    var year = today.getFullYear();
-    var formattedDate = day + '-' + month + '-' + year; // Format ke DD-MM-YYYY
+    let today = new Date();
+    let day = String(today.getDate()).padStart(2, '0');
+    let month = String(today.getMonth() + 1).padStart(2, '0'); // Januari adalah 0!
+    let year = today.getFullYear();
+    let formattedDate = day + '-' + month + '-' + year; // Format ke DD-MM-YYYY
     $('#delivery_date').val(formattedDate);
 });
 
@@ -14,9 +14,21 @@ $(function() {
     });
 });
 
+// select option
+$('#status_payment_proof').on('change', function(){
+    let status = $(this).val();
+    if(status == 'Accepted'){
+        $('#status option[value="Processed"]').removeClass('hidden');
+        $('#status option[value="Completed"]').removeClass('hidden');
+    } else {
+        $('#status option[value="Processed"]').addClass('hidden');
+        $('#status option[value="Completed"]').addClass('hidden');
+    }
+})
+
 // Modal menampilkan bukti pembayaran
 $('#paymentProofContainer').on('click', function() {
-    var imageUrl = $('#existingPaymentProof').attr('src');
+    let imageUrl = $('#existingPaymentProof').attr('src');
     $('#modalImage').attr('src', imageUrl);
     $('#imageModal').removeClass('hidden').addClass('flex');
     $('body').addClass('overflow-hidden'); // Menambah kelas overflow-hidden pada body

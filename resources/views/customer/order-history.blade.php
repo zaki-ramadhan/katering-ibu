@@ -24,10 +24,10 @@
 @section('content')
 <div class="relative overflow-x-auto">
     @if($data->isEmpty())
-    <div class="p-6 text-center text-gray-500">
-        <h3 class="text-lg font-medium">Belum ada pesanan</h3>
+    <div class="p-6 w-full h-[75vh] grid place-content-center text-center text-gray-500">
+        <h3 class="text-3xl font-semibold text-primary">Belum ada pesanan</h3>
         <p class="mt-2">Anda belum pernah melakukan pesanan. Ayo lakukan pesanan sekarang!</p>
-        <a href="{{ route('menu') }}" class="mt-4 inline-block px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark">Pesan Sekarang</a>
+        <a href="{{ route('menu') }}" class="mt-5 inline-block px-4 py-3 w-max place-self-center bg-slate-500 hover:bg-primary text-white text-sm rounded-lg hover:bg-primary-dark">Pesan Sekarang</a>
     </div>
     @else
     <section id="hero-section" class="container flex justify-between items-end px-10 py-16">

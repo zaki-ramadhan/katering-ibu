@@ -90,12 +90,12 @@
                         </div> --}}
                     </div>
                     <figcaption class="card-content mt-4 flex flex-col gap-1">
-                        <div class="text-wrapper relative w-full flex gap-3 justify-between">
+                        <div class="text-wrapper relative w-full flex gap-3 items-start justify-between">
                             <div class="flex flex-col gap-2 text-primary">
                                 <h3 class="menu-name font-normal line-clamp-1">{{ $item->nama_menu }}</h3>
                                 <p class="menu-price font-bold text-lg before:content-['Rp']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
                             </div>
-                            <span class="label_terjual min-w-max h-max text-[.7rem] p-2 rounded-full bg-blue-50 text-blue-400">Terjual {{$item->terjual}} porsi</span>
+                            <span class="label_terjual min-w-max h-max text-[.7rem] p-2  -translate-y-1 rounded-full bg-blue-50 text-blue-400">Terjual {{$item->terjual}} porsi</span>
                         </div>
                         @auth    
                         <a href="{{ route('order-now.show', ['order_now' => $item->id]) }}" class="w-full">
