@@ -30,3 +30,4 @@ $(document).on('click', function(e) {
         $(usernameCust).addClass('w-6').removeClass('w-20')
     }
 });
+

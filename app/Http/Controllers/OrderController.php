@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Notification;
 use App\Models\Menu;
 use App\Models\Pesanan;
 use App\Models\Keranjang;
@@ -315,42 +316,107 @@ class OrderController extends Controller
         return view('admin.edit-pesanan', compact('pesanan'));
     }
 
-    public function update(Request $request, Pesanan $pesanan)
-    {
-        // Validasi umum
+public function update(Request $request, Pesanan $pesanan)
+{
+    // Validasi umum
+    $request->validate([
+        'status' => 'required|string',
+        'status_payment_proof' => 'required|string',
+    ]);
+
+    // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
+    if (in_array($request->input('status'), ['Completed'])) {
         $request->validate([
-            'status' => 'required|string',
-            'status_payment_proof' => 'required|string',
+            'delivery_date' => 'required|date',
         ]);
-
-        // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
-        if (in_array($request->input('status'), ['Completed', 'Delivered'])) {
-            $request->validate([
-                'delivery_date' => 'required|date',
-            ]);
-        }
-
-        // Dapatkan status sebelumnya
-        $previousStatus = $pesanan->status;
-
-        // Perbarui pesanan
-        $pesanan->update([
-            'status' => $request->input('status'),
-            'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
-            'status_payment_proof' => $request->input('status_payment_proof'),
-        ]);
-
-        // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
-        if ($previousStatus !== 'Completed' && $pesanan->status === 'Completed') {
-            foreach ($pesanan->items as $item) {
-                $menu = $item->menu;
-                $menu->increment('terjual', $item->quantity);
-            }
-        }
-
-        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
+    // Dapatkan status sebelumnya
+    $previousPaymentStatus = $pesanan->status_payment_proof;
+    $previousOrderStatus = $pesanan->status;
+
+    // Perbarui pesanan
+    $pesanan->update([
+        'status' => $request->input('status'),
+        'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
+        'status_payment_proof' => $request->input('status_payment_proof'),
+    ]);
+
+    // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
+    if ($previousOrderStatus !== 'Completed' && $pesanan->status === 'Completed') {
+        foreach ($pesanan->items as $item) {
+            $menu = $item->menu;
+            $menu->increment('terjual', $item->quantity);
+        }
+    }
+
+    // Buat notifikasi berdasarkan perubahan status bukti pembayaran
+    if ($previousPaymentStatus !== $pesanan->status_payment_proof) {
+        $statusMessage = '';
+    
+        if ($pesanan->status_payment_proof === 'Accepted') {
+            $statusMessage = 'diterima';
+        } elseif ($pesanan->status_payment_proof === 'Rejected') {
+            $statusMessage = 'ditolak';
+        } else {
+            $statusMessage = $pesanan->status_payment_proof; // Jika ada status lain
+        }
+    
+        Notification::create([
+            'user_id' => $pesanan->user_id,
+            'title' => 'Perubahan Status Bukti Pembayaran',
+            'message' => 'Status bukti pembayaran Anda ' . $statusMessage,
+            'type' => 'status_bukti_pembayaran',
+        ]);
+    }
+    
+
+    // Buat notifikasi berdasarkan perubahan status pesanan
+    if ($previousOrderStatus !== $pesanan->status) {
+        $pickupMethod = $pesanan->pickup_method == 'Pickup' ? 'ambil langsung' : 'dikirim ke lokasi';
+        $paymentMethod = $pesanan->payment_method;
+    
+        switch ($request->input('status')) {
+            case 'Processed':
+                $title = 'Pesanan Sedang Dikerjakan';
+                if ($paymentMethod === 'Transfer') {
+                    $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
+                } else {
+                    $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
+                }
+                break;
+            case 'Completed':
+                $title = 'Pesanan Berhasil Diproses';
+                if ($paymentMethod === 'Transfer') {
+                    if($pesanan->pickup_method == 'Pickup') {
+                        $message = 'Pembayaran Anda telah berhasil diverifikasi. Silahkan ambil pesanan Anda';
+                    } else {
+                        $message = 'Pembayaran Anda telah berhasil diverifikasi. Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                    }
+                } else {
+                    $message = 'Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                }
+                break;
+            case 'Cancelled':
+                $title = 'Pesanan Dibatalkan';
+                $message = 'Pesanan Anda telah dibatalkan. Silakan hubungi kami jika ada pertanyaan lebih lanjut.';
+                break;
+            default:
+                $title = 'Status Pesanan Diperbarui';
+                $message = 'Status pesanan Anda telah berubah menjadi ' . $pesanan->status . '.';
+                break;
+        }
+        Notification::create([
+            'user_id' => $pesanan->user_id,
+            'title' => $title,
+            'message' => $message,
+            'type' => 'status_pesanan',
+        ]);
+    }    
+
+    return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
+}
+    
     public function destroy($id)
     {
         $pesanan = Pesanan::findOrFail($id);

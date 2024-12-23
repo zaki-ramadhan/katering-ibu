@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -82,9 +83,8 @@ Route::middleware('auth')->group(function () {
     // Route untuk mengunggah bukti pembayaran
     Route::post('/pesanan/{id}/upload-payment-proof', [OrderController::class, 'uploadPaymentProof'])->name('pesanan.upload-payment-proof');
 
-
-
-    
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::delete('/notifications/delete-all', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
 });
 
 require __DIR__.'/auth.php';

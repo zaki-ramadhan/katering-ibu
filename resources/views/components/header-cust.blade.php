@@ -10,19 +10,15 @@
                     @case('customer.dashboard')
                         Dashboard
                         @break
-
                     @case('customer.profile')
                         Informasi pribadi
                         @break
-
                     @case('customer.keranjang')
                         Keranjang saya
                         @break
-
                     @case('customer.order-history')
                         Riwayat Pesanan
                         @break
-
                     @default
                         @php
                             $url = url()->current();
@@ -42,7 +38,42 @@
         <x-sidebar-cust></x-sidebar-cust>
 
         {{-- profile on the right corner --}}
-        <div class="btn-wrapper flex gap-6">
+        <div class="btn-wrapper flex gap-6 items-center">
+            {{-- notifikasi --}}
+            @auth
+                @php
+                    $notificationData = app(\App\Http\Controllers\NotificationController::class)->index();
+                    $totalNotifications = $notificationData['totalNotifications'];
+                    $notifications = $notificationData['notifications'];
+                @endphp
+                <div class="relative">
+                    <button id="notificationButton" class="relative">
+                        <iconify-icon icon="mdi:bell" class="text-2xl text-primary"></iconify-icon>
+                        @if($totalNotifications > 0)
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">{{ $totalNotifications }}</span>
+                        @endif
+                    </button>
+                    <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-72 max-h-80 overflow-y-auto border bg-white shadow-md shadow-slate-600/10 rounded-lg pt-2 z-20">
+                        @if($totalNotifications > 0)
+                            @foreach($notifications as $notification)
+                                <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                                    <div class="flex flex-col gap-1">
+                                        <h3 class="text-sm font-medium">{{ $notification->title }}</h3>
+                                        <p class="text-xs text-gray-600">{{ $notification->message }}</p>
+                                        <p class="text-[.7rem] text-gray-400">{{ $notification->updated_at->format('d M Y, H:i') }} WIB</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <button id="deleteAllNotifications" class="sticky bottom-0 left-0 text-center text-sm text-gray-700 hover:bg-gray-100 py-3 border-t border-slate-200 w-full bg-white">Hapus Semua</button>
+                        @else
+                            <div class="text-center text-sm font-medium text-gray-600 py-4">
+                                Tidak ada notifikasi
+                            </div>
+                        @endif
+                    </div>
+                </div>                
+            @endauth
+
             <div class="profile-dropdown-wrapper relative">
                 <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-50 hover:shadow-lg hover:shadow-slate-200/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
                     @if(auth()->user()->foto_profile)
@@ -72,3 +103,37 @@
         </div>
     </div>
 </header>
+
+<!-- Include this script at the bottom of your layout -->
+<script>
+    $('#notificationButton').on('click', function () {
+        $('#notificationDropdown').toggleClass('hidden');
+    });
+
+    // Close the dropdown when clicking outside of it
+    $(document).on('click', function(event) {
+        const notificationButton = $('#notificationButton');
+        const dropdown = $('#notificationDropdown');
+
+        if (!notificationButton.is(event.target) && notificationButton.has(event.target).length === 0 && !dropdown.is(event.target) && dropdown.has(event.target).length === 0) {
+            dropdown.addClass('hidden');
+        }
+    });
+
+    // Handle delete all notifications
+    $('#deleteAllNotifications').on('click', function () {
+        $.ajax({
+            url: '{{ route('notifications.destroyAll') }}',
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(result) {
+                // Hide the dropdown after deleting notifications
+                $('#notificationDropdown').addClass('hidden');
+                // Optionally, refresh the page or update the UI to reflect the change
+            }
+        });
+        window.location.reload();
+    });
+</script>

@@ -91,16 +91,19 @@
 
         {{-- Order History Card --}}
         <div class="bg-white p-6">
+            @if($orderHistory->isEmpty())
             <div class="header-order-history flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
             </div>
-            @if($orderHistory->isEmpty())
-                <div class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500  grid place-content-center text-center text-sm rounded-xl">Anda belum memiliki riwayat transaksi. <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a></div>
+            <div class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500  grid place-content-center text-center text-sm rounded-xl">Anda belum memiliki riwayat transaksi. <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a></div>
             @else
+            <div class="header-order-history flex justify-between items-center mb-4">
+                <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
                 <a href="{{ route('customer.order-history') }}" class="text-end flex items-center justify-center pe-2 gap-1 text-secondary hover:text-primary hover:underline text-sm">
                     Lihat semua riwayat
                     <iconify-icon icon="ooui:next-ltr" width="14" height="14"></iconify-icon>
                 </a>
+            </div>
                 <div class="items-wrapper flex flex-col gap-4">
                     @foreach($orderHistory as $order)
                         <div class="item relative p-4 rounded-xl border {{ $order['status'] == 'Pending' ? 'bg-slate-50 border-slate-200 text-slate-500' : ''}} {{ $order['status'] == 'Processed' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : '' }} {{ $order['status'] == 'Completed' ? ' bg-green-50 border-green-200 text-green-500' : '' }} {{ $order['status'] == 'Cancelled' ? 'bg-red-50 border-red-200 text-red-500' : '' }}
