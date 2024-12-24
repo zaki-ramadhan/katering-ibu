@@ -24,7 +24,7 @@
                                 $cartItemTypesCount = app(\App\Http\Controllers\OrderController::class)->getCartItemTypesCount();
                             @endphp
                             @if ($cartItemTypesCount > 0)
-                                <span class="text-xs bg-slate-200 text-slate-800 px-2 py-1 rounded-full ml-2">{{ $cartItemTypesCount }}</span>
+                                <span class="text-xs bg-slate-400 text-white px-2 py-1 rounded-full ml-2">{{ $cartItemTypesCount }}</span>
                             @endif
                         </a>
                     </li>
@@ -35,7 +35,7 @@
                                 $orderHistoryCount = app(\App\Http\Controllers\OrderController::class)->getOrderHistory()->count();
                             @endphp
                             @if ($orderHistoryCount > 0)
-                                <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full ml-2">{{ $orderHistoryCount }}</span>
+                                <span class="text-xs bg-slate-400 text-white px-2 py-1 rounded-full ml-2">{{ $orderHistoryCount }}</span>
                             @endif
                         </a>
                     </li>
