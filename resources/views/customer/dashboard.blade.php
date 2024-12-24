@@ -95,7 +95,10 @@
             <div class="header-order-history flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
             </div>
-            <div class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500  grid place-content-center text-center text-sm rounded-xl">Anda belum memiliki riwayat transaksi. <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a></div>
+            <div class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500 grid place-content-center text-center text-sm rounded-xl">
+                Anda belum memiliki riwayat transaksi. 
+                <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a>
+            </div>
             @else
             <div class="header-order-history flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
@@ -104,27 +107,27 @@
                     <iconify-icon icon="ooui:next-ltr" width="14" height="14"></iconify-icon>
                 </a>
             </div>
-                <div class="items-wrapper flex flex-col gap-4">
-                    @foreach($orderHistory as $order)
-                        <div class="item relative p-4 rounded-xl border {{ $order['status'] == 'Pending' ? 'bg-slate-50 border-slate-200 text-slate-500' : ''}} {{ $order['status'] == 'Processed' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : '' }} {{ $order['status'] == 'Completed' ? ' bg-green-50 border-green-200 text-green-500' : '' }} {{ $order['status'] == 'Cancelled' ? 'bg-red-50 border-red-200 text-red-500' : '' }}
-                            flex flex-col gap-1">
-                            <p class="order-date text-xs">{{ $order['created_date'] }}</p>
-                            <p class="total-bill font-bold text-xl">Rp. {{ number_format($order['total_price'], 0, ',', '.') }}</p>
-                            <p class="order-status text-xs">{{ $order['payment_method'] }}</p>
-                            @if($order['status'] == 'Pending')
-                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2  text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu konfirmasi...</span>
-                            @elseif($order['status'] == 'Processed')
+            <div class="items-wrapper flex flex-col gap-4">
+                @foreach($orderHistory as $pesanan)
+                    <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="no-underline text-current">
+                        <div class="item relative p-4 rounded-xl border {{ $pesanan['status'] == 'Pending' ? 'bg-slate-50 border-slate-200 text-slate-500' : ''}} {{ $pesanan['status'] == 'Processed' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : '' }} {{ $pesanan['status'] == 'Completed' ? 'bg-green-50 border-green-200 text-green-500' : '' }} {{ $pesanan['status'] == 'Cancelled' ? 'bg-red-50 border-red-200 text-red-500' : '' }} flex flex-col gap-1">
+                            <p class="order-date text-xs">{{ $pesanan['created_date'] }}</p>
+                            <p class="total-bill font-bold text-xl">Rp. {{ number_format($pesanan['total_price'], 0, ',', '.') }}</p>
+                            <p class="order-status text-xs">{{ $pesanan['payment_method'] }}</p>
+                            @if($pesanan['status'] == 'Pending')
+                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu konfirmasi...</span>
+                            @elseif($pesanan['status'] == 'Processed')
                                 <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-yellow-400 text-xs font-medium px-3 py-2 rounded-full">Sedang diproses...</span>
-                            @elseif($order['status'] == 'Completed')
+                            @elseif($pesanan['status'] == 'Completed')
                                 <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400 text-xs font-medium px-3 py-2 rounded-full">Selesai</span>
-                            @elseif($order['status'] == 'Cancelled')
+                            @elseif($pesanan['status'] == 'Cancelled')
                                 <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 text-xs font-medium px-3 py-2 rounded-full">Dibatalkan</span>
                             @endif
                         </div>
-                    @endforeach
-                </div>
-            
+                    </a>
+                @endforeach
+            </div>
             @endif
-        </div>
+        </div>        
     </section>
 @endsection
