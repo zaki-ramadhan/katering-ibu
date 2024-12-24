@@ -18,35 +18,38 @@
     {{-- <h1 class="text-2xl font-semibold">Dashboard Penjualan</h1> --}}
 
     <!-- Kartu Laporan Penjualan -->
-    <button id="print-button" class="px-4 py-[.7rem] mt-3 bg-blue-500 text-xs font-medium place-self-end text-white rounded-md hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200/80 transition-shadow duration-150 active:bg-blue-500"> Print Laporan </button>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+    <button id="print-button" class="px-4 py-[.7rem] mt-3 bg-blue-500 text-xs font-medium place-self-end text-white rounded-md hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200/80 transition-shadow duration-150 active:bg-blue-500"> Print Laporan Penjualan </button>
+    <div id="highlight-stats" class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
         <div class="bg-white shadow-md shadow-slate-200/60 rounded-lg p-6 flex flex-col gap-3">
             <h3 class="text-lg">Penjualan Harian</h3>
             <p class="text-gray-600 text-xl font-bold"><span class="text-base font-medium">Rp.</span> {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
-            <p class=" text-primary text-sm">Kemarin: Rp <span class="font-semibold">{{ number_format($penjualanHarianSebelumnya, 0, ',', '.') }}</span></p>
+            <p class="text-primary text-sm">Kemarin: Rp <span class="font-semibold">{{ number_format($penjualanHarianSebelumnya, 0, ',', '.') }}</span></p>
             <span class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-start items-center gap-1">
                 <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanHarian > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
                 {{ abs($perubahanPenjualanHarian) }}%
             </span>
+            <span id="daily-time" class="text-secondary text-xs"></span>
         </div>
         <div class="bg-white shadow-md shadow-slate-200/60 rounded-lg p-6 flex flex-col gap-3">
             <h3 class="text-lg">Penjualan Mingguan</h3>
             <p class="text-gray-600 text-xl font-bold"><span class="text-base font-medium">Rp.</span> {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
-            <p class=" text-primary text-sm">Minggu Lalu: Rp <span class="font-semibold">{{ number_format($penjualanMingguanSebelumnya, 0, ',', '.') }}</span></p>
+            <p class="text-primary text-sm">Minggu Lalu: Rp <span class="font-semibold">{{ number_format($penjualanMingguanSebelumnya, 0, ',', '.') }}</span></p>
             <span class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-start items-center gap-1">
                 <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanMingguan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
                 {{ abs($perubahanPenjualanMingguan) }}%
             </span>
+            <span id="weekly-time" class="text-secondary text-xs"></span>
         </div>
         <div class="bg-white shadow-md shadow-slate-200/60 rounded-lg p-6 flex flex-col gap-3">
             <h3 class="text-lg">Penjualan Bulanan</h3>
             <p class="text-gray-600 text-xl font-bold"><span class="text-base font-medium">Rp.</span> {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
-            <p class=" text-primary text-sm">Bulan Lalu: Rp <span class="font-semibold">{{ number_format($penjualanBulananSebelumnya, 0, ',', '.') }}</span></p>
+            <p class="text-primary text-sm">Bulan Lalu: Rp <span class="font-semibold">{{ number_format($penjualanBulananSebelumnya, 0, ',', '.') }}</span></p>
             <span class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-start items-center gap-1">
                 <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanBulanan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
                 {{ abs($perubahanPenjualanBulanan) }}%
             </span>
-        </div>
+            <span id="monthly-time" class="text-secondary text-xs"></span>
+        </div>                
     </div>
 
     <!-- Tabel Pesanan -->

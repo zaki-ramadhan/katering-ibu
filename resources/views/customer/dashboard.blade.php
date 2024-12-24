@@ -44,8 +44,8 @@
                                 Buat/Daftar Akun
                             </span>
                         </li>
-                        <li class="step {{ ($user->username && $user->email && $user->password && $user->notelp) ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ ($user->username && $user->email && $user->password && $user->notelp) ? 'text-primary' : 'text-slate-300 font-normal' }}">
+                        <li class="step {{ ($user->foto_profile && $user->name && $user->email && $user->password && $user->notelp) ? 'step-primary' : '' }}">
+                            <span class="text-sm mt-2 {{ ($user->foto_profile && $user->name && $user->email && $user->password && $user->notelp) ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Lengkapi Data Pribadi
                             </span>
                         </li>
@@ -54,11 +54,11 @@
                                 Buat Pesanan
                             </span>
                         </li>
-                        <li class="step {{ $user->hasReviewed ? 'step-primary' : '' }}">
+                        {{-- <li class="step {{ $user->hasReviewed ? 'step-primary' : '' }}">
                             <span class="text-sm mt-2 {{ $user->hasReviewed ? 'text-primary' : 'text-slate-300 font-normal' }}">
                                 Buat Ulasan
                             </span>
-                        </li>
+                        </li> --}}
                     </ul>
                 @endif
             </div>

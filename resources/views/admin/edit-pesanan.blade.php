@@ -66,7 +66,7 @@
                     @csrf
                     @method('PUT')
                     @if ($pesanan['payment_method'] !== 'Cash')
-                    <div class="my-4 max-w-72">
+                    <div class="my-4 max-w-72" id="payment-proof-container">
                         <h3 class="font-medium text-primary text-sm">Status Bukti Pembayaran : </h3>
                         <select id="status_payment_proof" name="status_payment_proof" class="mt-1 block w-full px-3 py-2 focus:text-primary border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                             <option value="Pending" {{ $pesanan->status_payment_proof == 'Pending' ? 'selected' : '' }}>Pending (default)</option>
@@ -79,13 +79,13 @@
                         <h3 class="font-medium text-primary text-sm">Status Pesanan : </h3>
                         <select id="status" name="status" class="mt-1 block w-full px-3 py-2 focus:text-primary border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
                             <option value="Pending" {{ $pesanan->status == 'Pending' ? 'selected' : '' }}>Pending (default)</option>
-                            <option value="Processed" {{ $pesanan->status == 'Processed' ? 'selected' : '' }} class="hidden">Processed</option>
-                            <option value="Completed" {{ $pesanan->status == 'Completed' ? 'selected' : '' }} class="hidden">Completed</option>
+                            <option value="Processed" {{ $pesanan->status == 'Processed' ? 'selected' : '' }} >Processed</option>
+                            <option value="Completed" {{ $pesanan->status == 'Completed' ? 'selected' : '' }} >Completed</option>
                             <option value="Cancelled" {{ $pesanan->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
                     </div>
                     <div class="mb-8 max-w-72">
-                        @if ($pesanan['payment_method'] !== 'Cash')
+                        @if ($pesanan['pickup_method'] !== 'Cash')
                         <h3 class="font-medium text-primary text-sm">Tanggal Pengiriman : </h3>
                             <div class="flex items-center gap-4">
                                 <div class="flex items-center gap-4">
@@ -99,7 +99,7 @@
                         <button type="button" onclick="window.history.back();" class="px-6 py-[.7rem] mt-4 text-primary hover:text-primary bg-tertiary-50 hover:border-secondary hover:bg-tertiary border rounded-lg">Batalkan</button>
                         <button type="submit" class="px-[2.1rem] py-[.7rem] mt-4 bg-emerald-400 text-white rounded-lg hover:bg-emerald-500 active:bg-emerald-400">Update Pesanan</button>
                     </div>
-                </form>                
+                </form>                               
             </div>
         </div>
     </div>

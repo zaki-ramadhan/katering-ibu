@@ -34,7 +34,7 @@ $('#pickup_method').change(function() {
     var shippingCost = $('#shipping_cost');
     var totalCost = $('#total_cost');
 
-    if ($(this).val() === 'delivery') {
+    if ($(this).val() === 'Delivery') {
         deliveryAddressSection.show();
         shippingCost.text('Rp. ' + deliveryFee.toLocaleString('id-ID'));
         totalCost.text('Rp. ' + (parseInt(initialTotal) + deliveryFee).toLocaleString('id-ID'));

@@ -101,8 +101,8 @@ class OrderController extends Controller
         $pesanan->user_id = Auth::id();
         $pesanan->payment_method = $request->input('payment_method');
         $pesanan->pickup_method = $request->input('pickup_method');
-        $pesanan->delivery_address = $request->input('pickup_method') === 'delivery' ? $request->input('delivery_address') : null;
-        $pesanan->shipping_cost = $request->input('pickup_method') === 'delivery' ? 10000 : 0;
+        $pesanan->delivery_address = $request->input('pickup_method') === 'Delivery' ? $request->input('delivery_address') : null;
+        $pesanan->shipping_cost = $request->input('pickup_method') === 'Delivery' ? 10000 : 0;
 
         // Hitung total amount sebelum menyimpan pesanan
         $pesanan->total_amount = $this->calculateTotalAmount($keranjang, $pesanan->shipping_cost);
@@ -353,31 +353,37 @@ class OrderController extends Controller
         return view('admin.edit-pesanan', compact('pesanan'));
     }
 
-public function update(Request $request, Pesanan $pesanan)
-{
-    // Validasi umum
-    $request->validate([
-        'status' => 'required|string',
-        'status_payment_proof' => 'required|string',
-    ]);
-
-    // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
-    if (in_array($request->input('status'), ['Completed'])) {
-        $request->validate([
-            'delivery_date' => 'required|date',
+    public function update(Request $request, Pesanan $pesanan)
+    {
+        // Validasi umum
+        $rules = [
+            'status' => 'required|string',
+        ];
+    
+        if ($pesanan->payment_method !== 'Cash') {
+            $rules['status_payment_proof'] = 'required|string';
+        }
+    
+        $request->validate($rules);
+    
+        // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
+        if (in_array($request->input('status'), ['Completed'])) {
+            $request->validate([
+                'delivery_date' => 'required|date',
+            ]);
+        }
+    
+        // Dapatkan status sebelumnya
+        $previousPaymentStatus = $pesanan->status_payment_proof;
+        $previousOrderStatus = $pesanan->status;
+    
+        // Perbarui pesanan
+        $pesanan->update([
+            'status' => $request->input('status'),
+            'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
+            'status_payment_proof' => $pesanan->payment_method !== 'Cash' ? $request->input('status_payment_proof') : 'Pending',
         ]);
-    }
-
-    // Dapatkan status sebelumnya
-    $previousPaymentStatus = $pesanan->status_payment_proof;
-    $previousOrderStatus = $pesanan->status;
-
-    // Perbarui pesanan
-    $pesanan->update([
-        'status' => $request->input('status'),
-        'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
-        'status_payment_proof' => $request->input('status_payment_proof'),
-    ]);
+    
 
     // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
     if ($previousOrderStatus !== 'Completed' && $pesanan->status === 'Completed') {

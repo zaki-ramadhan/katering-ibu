@@ -13,3 +13,4 @@ $('#paymentProofInput').on('change', function() {
         reader.readAsDataURL(file);
     }
 });
+

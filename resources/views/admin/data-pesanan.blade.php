@@ -72,11 +72,7 @@
                             {{ $pesanan['pickup_method'] == 'Delivery' ? $pesanan['address'] : '-' }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($pesanan['payment_method'] == 'Transfer')
-                                Transfer
-                            @elseif ($pesanan['payment_method'] == 'Cash')
-                                Bayar langsung
-                            @endif
+                            {{$pesanan['payment_method']}}
                         </td>
                         <td class="px-6 py-4 text-center min-w-44">
                             @if($pesanan['payment_method'] !== 'Cash' && !$pesanan['payment_proof'])
