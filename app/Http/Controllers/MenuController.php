@@ -27,8 +27,10 @@ class MenuController extends Controller {
         // Jika ada query pencarian, lakukan pencarian, jika tidak ambil semua data
         if ($query) {
             $menu = Menu::where('nama_menu', 'LIKE', "%{$query}%")->get();
+            $bestSellingMenus = Menu::where('nama_menu', 'LIKE', "%{$query}%")->orderBy('terjual', 'desc')->limit(4)->get();
         } else {
             $menu = Menu::orderBy('nama_menu', 'asc')->get();
+            $bestSellingMenus = Menu::orderBy('terjual', 'desc')->limit(4)->get();
         }
     
         // Memformat tanggal menggunakan Carbon
@@ -40,7 +42,7 @@ class MenuController extends Controller {
         $jumlahMenu = $menu->count();
     
         // Mengambil menu terlaris
-        $bestSellingMenus = Menu::orderBy('terjual', 'desc')->limit(4)->get();
+        // $bestSellingMenus = Menu::orderBy('terjual', 'desc')->limit(4)->get();
     
         // Memformat tanggal untuk menu terlaris
         foreach ($bestSellingMenus as $item) {
