@@ -28,14 +28,14 @@
             </div>
             @else
             <a href="{{ route('login') }}">
-                <button id="login-btn" class="px-6 py-3 rounded-lg bg-primaryHovered hover:bg-primary-700 active:bg-primary-600 duration-150 text-white font-medium text-xs lg:text-xs">Ayo Login!</button>
+                <button id="login-btn" class="px-6 py-3 rounded-full bg-primary-700 hover:bg-primaryHovered active:bg-primary-600 duration-150 text-white font-medium text-xs lg:text-xs">Ayo Login!</button>
             </a>
             @endauth
 
             <div class="btn-tooltip-wrapper relative group {{ request()->is('order-now/*') ? 'block' : 'hidden' }}">
 
                 {{-- tooltip --}}
-                <div class="tooltip w-max hidden group-hover:inline group-active:bg-slate-500 duration-200 absolute -bottom-10 left-1/2 -translate-x-1/2 px-3 py-2 rounded-lg bg-primary-600 text-white text-[.7rem]">
+                <div class="tooltip w-max hidden group-hover:inline group-active:bg-slate-500 duration-200 absolute -bottom-10 left-1/2 -translate-x-[25%] px-3 py-2 rounded-lg bg-primary-600 text-white text-[.7rem]">
                     Cari menu
                 </div>
 
@@ -49,7 +49,7 @@
             
             {{-- this will display on large screen --}}
             <nav class="{{ request()->is('order-now/*') ? 'hidden' : 'block' }}">
-                <ul class="hidden lg:flex items-center justify-center {{ auth()->check() ? 'translate-y-0' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
+                <ul class="hidden lg:flex lg:-mt-3 items-center justify-center {{ auth()->check() ? 'translate-y-0' : 'translate-y-3' }} gap-8 text-center font-normal text-sm text-secondary">
                     <li>
                         <a href=" {{ route('home') }} " class="{{ Route::currentRouteName() == 'home' ? 'text-primary font-semibold flex justify-center items-center gap-1' : 'text-secondary hover:text-primary flex justify-center items-center gap-2' }}">
                             <iconify-icon icon="mingcute:home-4-fill" class="text-xl -translate-y-[1px] {{ Route::currentRouteName() == 'home' ? 'inline' : 'hidden' }}"></iconify-icon>

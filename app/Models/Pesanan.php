@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pesanan extends Model
 {
     use HasFactory;
-    protected $table = 'pesanan'; // Penamaan tabel yang benar
+    protected $table = 'pesanan';
 
     protected $fillable = [
         'user_id', 'payment_method', 'pickup_method', 'delivery_address', 'shipping_cost', 'total_amount', 'payment_proof', 'status_payment_proof', 'delivery_date', 'status'
@@ -21,6 +21,6 @@ class Pesanan extends Model
 
     public function items()
     {
-        return $this->hasMany(ItemPesanan::class);
+        return $this->hasMany(ItemPesanan::class, 'pesanan_id');
     }
 }

@@ -8,7 +8,7 @@
 
 {{-- alert berhasil --}}
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -19,10 +19,10 @@
     <section id="hero-section" class="container px-4 relative text-white">
         <div class="img-overlay-group container w-full h-[24rem] lg:h-[36rem] overflow-hidden relative rounded-xl lg:rounded-3xl">
             <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGV2ZW50JTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" alt="hero image" class="w-full">
-            <div class="overlay w-full h-full bg-gradient-to-t from-black/50 to-black/40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="overlay w-full h-full bg-black/30 absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%]">
             </div>
         </div>
-        <div class="text-button-group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center content-center gap-4 text-center">
+        <div class="text-button-group absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] flex flex-col items-center content-center gap-4 text-center">
             <h1 class="text-5xl lg:text-6xl font-semibold w-max">Buat hidangan acaramu<br>jadi lebih berkualitas.</h1>
             <p class="text-sm lg:text-lg -mt-2 lg:mt-2">dengan Katering Ibu - Solusi Kebutuhan Katering Anda.</p>
             @auth
@@ -48,7 +48,7 @@
     {{-- features section --}}
     <section id="features-section" class="container flex items-center justify-center lg:h-[26rem] px-4 mt-6">
         <div class="features-wrapper container bg-white lg:bg-transparent px-6 pt-6 lg:pt-20 rounded-xl cursor-default">
-            <h1 class="text-base text-primary ps-4 lg:hidden relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Kenapa harus <span class="font-bold">Katering Ibu?</span></h1>
+            <h1 class="text-base text-primary ps-4 lg:hidden relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Kenapa harus <span class="font-bold">Katering Ibu?</span></h1>
             <h1 class="text-primary hidden lg:block text-4xl font-semibold text-center mb-4">Kenapa harus Katering Ibu?</h1>
             <div class="content-wrapper text-center lg:text-left text-sm text-primary hover:text-secondary flex gap-2 lg:gap-5 py-10">
                 <div class="feature-item lg:bg-slate-100 lg:p-2 lg:rounded-xl flex flex-col lg:flex-row items-center content-center gap-2 lg:gap-4 flex-1 lg:text-base hover:text-primary hover:-translate-y-1 duration-150 active:translate-y-[1px]">
@@ -74,7 +74,7 @@
     {{-- top-menu-section --}}
     <section id="top-menu-section" class="container px-4">
         <div class="top-menu-wrapper w-full p-6 bg-white md:bg-transparent mt-6 rounded-xl">
-            <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
+            <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2>
             <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-5">
                 <h2 class="text-4xl text-primary font-semibold">Menu favorit pilihan pelanggan</h2>
                 <p>Berdasarkan banyaknya pemesanan yang dilakukan oleh pelanggan kami.</p>
@@ -122,7 +122,7 @@
     {{-- menu-section --}}
     <section id="menu-section" class="container px-4">
         <div class="menu-wrapper w-full px-6 bg-white mt-6 lg:mt-16 py-6 rounded-xl">
-            <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Semua <span class="font-bold">Menu (7)</span></h2>
+            <h2 class="lg:hidden text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Semua <span class="font-bold">Menu (7)</span></h2>
             <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-5">
                 <h2 class="text-4xl text-primary font-semibold">Coba juga menu ini</h2>
                 <p>Jelajahi berbagai menu lainnya, termasuk yang paling sering dipesan.</p>
@@ -169,7 +169,7 @@
         <div class="order-guide-wrapper p-6 mt-6 lg:mt-32 bg-white rounded-xl flex flex-col gap-4">
             <header class="header-order-guide relative flex items-center justify-start bg-tertiary rounded-xl lg:rounded-3xl overflow-hidden">
                 {{-- pattern svg --}}
-                <img src="../../images/pattern-for-header-order-guide.svg" alt="pattern svg"  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full object-cover opacity-5">
+                <img src="../../images/pattern-for-header-order-guide.svg" alt="pattern svg"  class="absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] w-full h-full object-cover opacity-5">
                 <img src="../../images/people-confused.svg" alt="people confused img" class="w-64 lg:w-80 aspect-square translate-y-5 lg:ms-16 -translate-x-5">
                 <div class="text-group flex flex-col justify-center items-start gap-3 -ms-6 text-primary">
                     <h2 class="text-3xl lg:text-4xl">Bagaimana cara saya <span class="font-semibold lg:font-bold">memesan</span> menu?</h2>
@@ -230,7 +230,7 @@
     {{-- rating user section --}}
     <section id="rating-users-section" class="container px-4 lg:mt-60">
         <div class="rating-wrapper w-full overflow-hidden p-6 mt-6 rounded-xl bg-white">
-            <h2 class="lg:hidden text-md text-primary ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Beberapa ulasan dari <span class="font-bold">pelanggan setia</span> kami</h2>
+            <h2 class="lg:hidden text-md text-primary ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Beberapa ulasan dari <span class="font-bold">pelanggan setia</span> kami</h2>
             <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-16">
                 <h2 class="text-4xl text-primary font-semibold">Apa kata mereka?</h2>
                 <p>Kepuasan pelanggan adalah prioritas kami. Berikut beberapa testimoni dari mereka.</p>

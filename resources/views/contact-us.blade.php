@@ -8,7 +8,7 @@
 
 {{-- alert berhasil --}}
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -92,7 +92,7 @@
             @else
             <div class="btn-wrapper relative group w-max">
                 <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
-                <div class="tooltip hidden w-max group-hover:inline-block absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs px-3 py-2 rounded-md bg-primary text-white">
+                <div class="tooltip hidden w-max group-hover:inline-block absolute -bottom-10 left-1/2 -translate-x-[25%] text-xs px-3 py-2 rounded-md bg-primary text-white">
                     Login terlebih dahulu
                 </div>
             </div>

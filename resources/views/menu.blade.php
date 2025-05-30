@@ -8,7 +8,7 @@
 
 {{-- Modal tombol keranjang --}}
 <div id="cartModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
-    <div id="modalContent" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mx-auto p-3 border w-full max-w-md shadow-lg rounded-xl bg-white">
+    <div id="modalContent" class="absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] mx-auto p-3 border w-full max-w-md shadow-lg rounded-xl bg-white">
         <div class="mt-3 text-center">
             <h3 class="text-xl leading-6 font-medium text-gray-900">Tambahkan ke Keranjang</h3>
             <div class="mt-5 px-4 py-3 pb-0">
@@ -47,10 +47,10 @@
     <section id="hero-section" class="container px-4 relative text-white">
         <div class="img-overlay-group container w-full h-[20rem] lg:h-[25rem] overflow-hidden relative rounded-xl lg:rounded-3xl">
             <img src="https://images.unsplash.com/photo-1498579809087-ef1e558fd1da?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fGNhdGVyaW5nJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" alt="hero image" class="w-full">
-            <div class="overlay w-full h-full bg-gradient-to-t from-black/50 to-black/50 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="overlay w-full h-full bg-black/30 absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%]">
             </div>
         </div>
-        <div class="text-input-group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-6 lg:gap-8">
+        <div class="text-input-group absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] flex flex-col items-center justify-center gap-6 lg:gap-8">
             <h1 class="w-[90vw] lg:w-[50vw] text-4xl lg:text-5xl text-center leading-tight font-semibold">Siap menemukan hidangan <span class="italic">favoritmu?</span> temukan disini!</h1>
             <div class="input-wrapper w-max relative flex items-center justify-center">
                 <form action="{{ route('menu.search') }}" method="GET">
@@ -68,7 +68,7 @@
     <!-- Bagian untuk menampilkan menu terlaris -->
     <section id="top-menu-section" class="container px-4"> 
         <div class="top-menu-wrapper w-full p-6 bg-white mt-6 rounded-xl"> 
-            <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2> 
+            <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Menu <span class="font-bold">terlaris</span> saat ini</h2> 
             <div class="card-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-8 pt-6 text-primary"> 
                 @foreach ($bestSellingMenus as $item) 
                     <figure class="card relative hover:text-primary duration-150 border border-transparent p-3 pb-4 rounded-lg hover:border-slate-200 hover:shadow-md hover:shadow-slate-200/60"> 
@@ -133,7 +133,7 @@
                     </div>
                 </div>
             @else
-                <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full"> Semua <span class="font-bold">Menu ({{ $jumlahMenu }})</span> </h2>
+                <h2 class="text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full"> Semua <span class="font-bold">Menu ({{ $jumlahMenu }})</span> </h2>
             @endif
 
         

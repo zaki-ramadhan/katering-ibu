@@ -76,7 +76,7 @@
                                         <h3 class="name-suggestMenu text-capitalize text-sm line-clamp-1">{{ $item->nama_menu }}</h3>
                                         <p class="price-suggestMenu font-semibold before:content-['Rp.']"> {{ number_format($item->harga, 0, ',', '.') }}</p>
                                         @if(in_array($item->id, $topMenus))
-                                            <span class="absolute top-1/2 right-3 -translate-y-1/2 bg-yellow-100/80 text-yellow-500 text-xs font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
+                                            <span class="absolute top-1/2 right-3 -translate-y-[25%] bg-yellow-100/80 text-yellow-500 text-xs font-medium px-4 py-2 rounded-full">Menu Terlaris</span>
                                         @endif
                                     </figcaption>
                                 </figure>
@@ -133,7 +133,7 @@
             
 
             <section id="suggestion-menu-section" class="sticky top-2 self-start mt-6 p-4 h-max rounded-xl bg-white lg:border text-primary flex flex-col gap-6">
-                <h1 class="md:hidden font-medium ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Rekomendasi menu lainnya :</h1>
+                <h1 class="md:hidden font-medium ps-4 mt-2 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Rekomendasi menu lainnya :</h1>
                 <div class="text-wrapper hidden lg:flex flex-col gap-1 -mb-4 py-2">
                     <h1 class="text-xl font-semibold">Mungkin Anda juga menyukainya :</h1>
                     <p class="text-xs text-secondary leading-5">Berikut adalah beberapa saran menu yang bisa Anda pilih</p>

@@ -7,7 +7,7 @@
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -115,13 +115,13 @@
                             <p class="total-bill font-bold text-xl">Rp. {{ number_format($pesanan['total_price'], 0, ',', '.') }}</p>
                             <p class="order-status text-xs">{{ $pesanan['payment_method'] }}</p>
                             @if($pesanan['status'] == 'Pending')
-                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu konfirmasi...</span>
+                                <span class="absolute right-4 top-1/2 transform -translate-y-[25%] text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu konfirmasi...</span>
                             @elseif($pesanan['status'] == 'Processed')
-                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-yellow-400 text-xs font-medium px-3 py-2 rounded-full">Sedang diproses...</span>
+                                <span class="absolute right-4 top-1/2 transform -translate-y-[25%] text-yellow-400 text-xs font-medium px-3 py-2 rounded-full">Sedang diproses...</span>
                             @elseif($pesanan['status'] == 'Completed')
-                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400 text-xs font-medium px-3 py-2 rounded-full">Selesai</span>
+                                <span class="absolute right-4 top-1/2 transform -translate-y-[25%] text-green-400 text-xs font-medium px-3 py-2 rounded-full">Selesai</span>
                             @elseif($pesanan['status'] == 'Cancelled')
-                                <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-red-400 text-xs font-medium px-3 py-2 rounded-full">Dibatalkan</span>
+                                <span class="absolute right-4 top-1/2 transform -translate-y-[25%] text-red-400 text-xs font-medium px-3 py-2 rounded-full">Dibatalkan</span>
                             @endif
                         </div>
                     </a>

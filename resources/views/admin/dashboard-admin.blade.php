@@ -7,7 +7,7 @@
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -73,7 +73,7 @@
 
     <section id="dashboard-stats-section" class="container">
         <div class="card-wrapper grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 ">
-            <div class="card userData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-red-500">
+            <div class="card userData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-red-500">
                 <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-red-500">Data Pelanggan</p>
                 <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlPelanggan }}</h3>
                 <a href="{{route('admin.data-pelanggan')}}" class="w-max hover:text-primary hover:no-underline">
@@ -83,7 +83,7 @@
                     </button>
                 </a>
             </div>
-            <div class="card menuData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-emerald-500">
+            <div class="card menuData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-emerald-500">
                 <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-emerald-500">Data Menu</p>
                 <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlMenu }}</h3>
                 <a href="{{route('admin.data-menu')}}" class="w-max hover:text-primary hover:no-underline">
@@ -93,7 +93,7 @@
                     </button>
                 </a>
             </div>
-            <div class="card orderData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-blue-500">
+            <div class="card orderData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-blue-500">
                 <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-blue-500">Data Pesanan</p>
                 <h3 class="data-count text-2xl font-bold text-primary">{{$jmlPesanan}}</h3>
                 <a href="{{ route('admin.data-pesanan') }}  " class="w-max hover:text-primary hover:no-underline">
@@ -103,7 +103,7 @@
                     </button>
                 </a>
             </div>
-            <div class="card feedbackData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-1/2 before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-amber-400">
+            <div class="card feedbackData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-amber-400">
                 <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-yellow-500">Data Ulasan</p>
                 <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlUlasan }}</h3>
                 <a href="{{ route('admin.data-ulasan') }}" class="w-max hover:text-primary hover:no-underline">
@@ -117,7 +117,7 @@
     </section>
     <section id="latest-data-wrapper" class="container grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
         <div class="pelanggan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2
+            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
              after:aspect-square after:rounded-full after:bg-red-500">Pelanggan terbaru</h1>
             @foreach ($pelangganTerbaru as $pelanggan)
             <a href="{{ route('admin.edit-pelanggan', $pelanggan->id) }}" class="hover:no-underline hover:text-current">
@@ -127,7 +127,7 @@
                         <h2 class="truncate text-primary">{{$pelanggan->name}}</h2>
                         <p class="truncate text-xs">{{$pelanggan->email}}</p>
                     </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-red-50">
+                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-red-50">
                         {{ $pelanggan->formatted_date }}
                     </span>
                 </div>
@@ -135,7 +135,7 @@
             @endforeach
         </div>
         <div class="menu-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2
+            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
              after:aspect-square after:rounded-full after:bg-emerald-500">Menu terbaru</h1>
             @foreach ($menuTerbaru as $menu)
             <a href="{{ route('menu.edit', $menu->id) }}" class="hover:no-underline hover:text-current">
@@ -145,7 +145,7 @@
                         <h2 class="truncate  text-primary">{{$menu->nama_menu}}</h2>
                         <p class="truncate text-xs">{{$menu->deskripsi}}</p>
                     </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-emerald-50">
+                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-emerald-50">
                         {{ $menu->formatted_date }}
                     </span>
                 </div>
@@ -153,7 +153,7 @@
             @endforeach
         </div>
         <div class="pesanan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2 after:aspect-square after:rounded-full after:bg-blue-500">Pesanan terbaru</h1>
+            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2 after:aspect-square after:rounded-full after:bg-blue-500">Pesanan terbaru</h1>
             @foreach ($pesananTerbaru as $pesanan)
             <a href="{{ route('pesanan.edit', $pesanan['id']) }}">
                 <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
@@ -162,7 +162,7 @@
                         <h2 class="truncate text-primary">{{ $pesanan->user->name }}</h2>
                         <p class="truncate text-xs">{{ $pesanan->user->email }}</p>
                     </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
+                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
                         {{ $pesanan->formatted_date }}
                     </span>
                 </div>
@@ -170,7 +170,7 @@
             @endforeach
         </div>                
         <div class="ulasan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-1/2 after:content-[''] after:w-2
+            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
              after:aspect-square after:rounded-full after:bg-amber-400">Ulasan terbaru</h1>
             @foreach ($ulasanTerbaru as $ulasan)
             <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
@@ -179,7 +179,7 @@
                     <h2 class="truncate  text-primary">{{$ulasan->user->name}}</h2>
                     <p class="truncate text-xs">{{$ulasan->pesan}}</p>
                 </div>
-                <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-1/2 text-[.65rem] p-[.3rem] px-2 rounded-full bg-amber-50">
+                <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-amber-50">
                     {{ $ulasan->formatted_date }}
                 </span>
             </div>

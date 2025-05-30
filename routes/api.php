@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiMenuController;
+use App\Http\Controllers\Api\ApiUserController;
+use App\Http\Controllers\Api\ApiOrderController;
+use App\Http\Controllers\Api\ApiUlasanController;
+use App\Http\Controllers\Api\ApiNotificationController;
+
+// Public routes
+Route::post('/login', [ApiUserController::class, 'login']);
+Route::post('/register', [ApiUserController::class, 'register']);
+Route::get('/menus', [ApiMenuController::class, 'index']);
+Route::get('/menus/{id}', [ApiMenuController::class, 'show']);
+
+Route::apiResource('ulasan', ApiUlasanController::class)->only(['index', 'show']);
+
+
+// Protected routes
+Route::middleware('auth:sanctum')->group(function () {
+    // User routes
+    Route::get('/users', [ApiUserController::class, 'index']);
+    Route::post('/logout', [ApiUserController::class, 'logout']);
+    Route::get('/users/profile', [ApiUserController::class, 'profile']);
+    Route::put('/users/update', [ApiUserController::class, 'updateProfile']);
+
+    Route::get('/orders/history', [ApiOrderController::class, 'getOrderHistory']);
+
+    Route::get('/notifications', [ApiNotificationController::class, 'getNotifications']);
+
+
+
+    // Ulasan routes
+    Route::apiResource('ulasan', ApiUlasanController::class)->except(['index', 'show']);
+});

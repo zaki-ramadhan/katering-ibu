@@ -11,7 +11,8 @@
         @yield('vite')
         
         <link rel="icon" href="{{ asset('images/logo_fix.png') }}">
-        
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
         <!-- Load JavaScript libraries -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
@@ -35,9 +36,8 @@
         
     </head>
     
-    <body class="font-inter bg-red-500 sm:bg-tertiary min-h-screen">
-        
-        
+    <body class="font-inter bg-slate-100 min-h-screen">
+            
         <x-header-admin></x-header-admin>
         <x-modal-logout></x-modal-logout>
         

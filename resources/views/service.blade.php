@@ -11,10 +11,10 @@
     <section id="hero-section" class="container px-4 relative text-white">
         <div class="img-overlay-group container w-full h-max overflow-hidden relative rounded-2xl">
             <img src="https://plus.unsplash.com/premium_photo-1661764559869-f6052a14b4c9?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y3VzdG9tZXIlMjBzZXJ2aWNlfGVufDB8fDB8fHww" alt="hero image" class="w-full h-72 lg:h-96  object-cover">
-            <div class="overlay w-full h-full bg-gradient-to-t from-black/60 to-black/40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="overlay w-full h-full bg-black/30 absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%]">
             </div>
         </div>
-        <div class="text-input-group absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center gap-5">
+        <div class="text-input-group absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] flex flex-col items-center justify-center gap-5">
             <h1 class="w-[85vw] lg:w-[50rem] text-4xl lg:text-5xl text-center leading-[1.15] lg:leading-[1.3] font-semibold">Kami menawarkan pelayanan <span class="text-[2rem] lg:text-5xl"><span class="font-semibold italic">terbaik</span> & <span class="font-semibold italic">profesional</span> untuk Anda.</span></h1>
         </div>
     </section>
@@ -26,7 +26,7 @@
         </div>
         <div class="helper lg:grid grid-cols-5">
             <div class="services-wrapper w-full p-6 lg:py-0 lg:col-span-2 bg-white mt-2 rounded-tl-xl rounded-tr-xl">
-                <h2 class="text-md lg:hidden text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full"><span class="font-bold">Pelayanan</span> kami</h2>
+                <h2 class="text-md lg:hidden text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full"><span class="font-bold">Pelayanan</span> kami</h2>
                 <div class="item-wrapper grid grid-cols-3 lg:grid-cols-1 gap-4 mt-5">
                     <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-95 transition-transform duration-100 cursor-pointer" data-index = "delivery">
                         <img src="{{ asset('images/delivery.svg') }}" alt="service img" class="bg-slate-100 lg:group-hover:bg-white lg:w-24 border border-slate-100 group-hover:border-slate-300 group-active:border-primary duration-150 aspect-square rounded-xl object-cover">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="detail-service-wrapper w-full lg:col-span-3 p-6 bg-white flex flex-col gap-4 rounded-bl-xl rounded-br-xl">
-                <h2 class="head-detail text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-1/2 before:bg-primary before:w-1 before:h-full">Layanan Antar Makanan</h2>
+                <h2 class="head-detail text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Layanan Antar Makanan</h2>
                 <figure class="flex flex-col gap-3">
                     <img src="{{ asset('images/delivery.svg') }}" alt="service img" class="service-img aspect-video rounded-xl object-cover">
                     <figcaption class="detail-service text-sm leading-relaxed mt-5 text-justify text-secondary font-light indent-10">

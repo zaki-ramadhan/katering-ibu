@@ -23,7 +23,7 @@ class UserController extends Controller
 
         return view('admin.data-pelanggan', compact('pelanggan', 'jumlahPelanggan'));
     }
-
+    
     public function edit($id)
     {
         $pelanggan = User::findOrFail($id);

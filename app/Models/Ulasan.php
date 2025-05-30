@@ -12,7 +12,7 @@ class Ulasan extends Model
     protected $table = 'ulasan';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id_customer', 'email', 'pesan'];
+    protected $fillable = ['id_customer', 'pesan'];
 
     // Relasi ke model User
     public function user()

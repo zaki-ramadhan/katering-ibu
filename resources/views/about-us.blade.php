@@ -37,7 +37,7 @@
     <section id="history-location-content" class="container px-6 py-6 rounded-lg flex flex-col gap-4 items-start justify-center">
         <div class="img-wrapper relative w-full rounded-3xl overflow-hidden">
             <div class="overlay absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-white/90"></div>
-            <img src="{{ asset('images/search-aboutus.svg') }}" alt="search about-us svg" class="-translate-y-32 lg:translate-x-44 -mb-[12rem] w-full max-w-[48rem]">
+            <img src="{{ asset('images/search-aboutus.svg') }}" alt="search about-us svg" class="-translate-y-7 lg:translate-x-44 -mb-[12rem] w-full max-w-[48rem]">
 
             {{-- s\chat bubble --}}
             <div class="bubblechat-e-wrapper absolute top-[3rem] md:top-[6rem] lg:top-[8rem] left-7 md:left-20 lg:left-48 animate-bounce-up-down">
@@ -75,9 +75,9 @@
                 </div>
             
                 <!-- Tombol Navigasi -->
-                <div class="btn-wrapper w-full absolute top-1/2 left-0 -translate-y-1/2 text-white flex justify-between px-2 box-border z-10">
+                <div class="btn-wrapper w-full absolute top-1/2 left-0 -translate-y-[25%] text-white flex justify-between px-2 box-border z-10">
                     <button id="prevBtn" class="prev-btn w-10 h-auto aspect-square place-self-center hidden text-white bg-black/30 hover:bg-white hover:text-primary duration-150 active:scale-75 rounded-full"><iconify-icon icon="bxs:left-arrow" class="translate-y-[2px]"></iconify-icon></button>
-                    <button id="nextBtn" class="next-btn w-10 h-auto aspect-square place-self-center absolute top-1/2 right-2 -translate-y-1/2 text-white bg-black/30 hover:bg-white/30 hover:text-primary duration-150 active:scale-75 rounded-full"><iconify-icon icon="bxs:right-arrow" class="translate-y-[2px]"></iconify-icon></button>
+                    <button id="nextBtn" class="next-btn w-10 h-auto aspect-square place-self-center absolute top-1/2 right-2 -translate-y-[25%] text-white bg-black/30 hover:bg-white/30 hover:text-primary duration-150 active:scale-75 rounded-full"><iconify-icon icon="bxs:right-arrow" class="translate-y-[2px]"></iconify-icon></button>
                 </div>
             </div>
             

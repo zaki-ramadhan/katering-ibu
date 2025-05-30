@@ -7,7 +7,7 @@
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>

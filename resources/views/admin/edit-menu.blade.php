@@ -8,7 +8,7 @@
 
 @section('content')
     @if (session('success'))
-        <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+        <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
             <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
             {{ session('success') }}
         </div>
@@ -26,7 +26,7 @@
                 <label for="foto_menu" class="form-label text-sm text-primary font-medium mb-3">Foto Menu {{$menu->nama_menu}}</label>
                 <label for="foto_menu" class="form-label text-sm text-primary font-medium relative group">
                     <div class="img-wrapper place-self-center w-60 duration-150">
-                        <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%]">
                             <input type="file" name="foto_menu" id="foto_menu" class="form-control opacity-0 rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none">
                         </div>
                         @if($menu->foto_menu)
@@ -35,7 +35,7 @@
                         <img id="menu-image" src="{{ asset('images/default-menu.png') }}" alt="Foto Menu Default" class="rounded-full aspect-square object-cover group-hover:brightness-90 ring-2 ring-secondary ring-offset-1">
                         @endif
                     </div>
-                    <label for="foto_menu" class="hidden font-normal px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 text-sm -translate-y-1/2 -translate-x-1/2 z-20 group-hover:inline-block hover:bg-black/10 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
+                    <label for="foto_menu" class="hidden font-normal px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 text-sm -translate-y-[25%] -translate-x-[25%] z-20 group-hover:inline-block hover:bg-black/10 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
                 </label>
 
                 <div class="flex flex-col gap-2 my-2">

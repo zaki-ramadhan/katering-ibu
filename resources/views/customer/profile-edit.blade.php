@@ -17,7 +17,7 @@
                     <label for="foto_profile" class="form-label text-sm text-primary font-medium">Foto Profil Anda</label>
                     <label for="foto_profile" class="form-label text-sm text-primary font-medium relative group">
                         <div class="img-wrapper w-60 duration-150 place-self-center">
-                            <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <div class="flex flex-col gap-2 mb-2 absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%]">
                                 <input type="file" name="foto_profile" id="foto_profile" class="form-control opacity-0 rounded-lg text-sm py-3 indent-1 focus:text-primary focus:ring-0 focus:outline-none">
                             </div>
                             @if(auth()->user()->foto_profile)
@@ -26,7 +26,7 @@
                             <img id="profile-image" src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Foto Profil Default" class="rounded-full aspect-square object-cover group-hover:brightness-90 ring-2 ring-secondary ring-offset-1">
                             @endif
                         </div>
-                        <label for="foto_profile" class="hidden font-normal w-max px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 -translate-x-1/2 text-sm -translate-y-1/2 z-20 group-hover:inline-block hover:bg-black/20 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
+                        <label for="foto_profile" class="hidden font-normal w-max px-4 py-2 rounded-md text-white border border-white absolute top-1/2 left-1/2 -translate-x-[25%] text-sm -translate-y-[25%] z-20 group-hover:inline-block hover:bg-black/20 active:scale-95 duration-100 cursor-pointer">Unggah gambar</label>
                     </label>
                 </div>
     

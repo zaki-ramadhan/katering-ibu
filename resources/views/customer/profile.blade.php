@@ -15,7 +15,7 @@
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -24,7 +24,7 @@
 @section('content')
     <div class="profile-cover relative w-full h-52 px-6">
         <div class="cover w-full h-full rounded-2xl"></div>
-        <div class="img-profile-wrapper w-40 absolute top-0 -translate-x-1/2 left-1/2 translate-y-28">
+        <div class="img-profile-wrapper w-40 absolute top-0 -translate-x-[25%] left-1/2 translate-y-28">
             @if(auth()->user()->foto_profile)
                 <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="ring-4 ring-tertiary rounded-full aspect-square object-cover object-[50%_20%]">
             @else
@@ -47,8 +47,8 @@
     <div class="field-data-cust-wrapper container max-h-screen aspect-square mt-8 text-center bg-white px-16 pt-12 rounded-3xl">
         <h1 class="username text-primary text-2xl mb-3 font-semibold">{{ $user->name }}</h1>
         <div class="decoration-wrapper flex justify-center gap-2 text-xs font-normal">
-            <span class="role-user p-2 pe-4 ps-6 rounded-full bg-slate-200 text-slate-500 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-slate-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">Id : {{ $user->id }}</span>
-            <span class="id-user p-2 pe-4 ps-6 rounded-full bg-emerald-100 text-emerald-400 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-emerald-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-1/2">Pelanggan</span>
+            <span class="role-user p-2 pe-4 ps-6 rounded-full bg-slate-200 text-slate-500 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-slate-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-[25%]">Id : {{ $user->id }}</span>
+            <span class="id-user p-2 pe-4 ps-6 rounded-full bg-emerald-100 text-emerald-400 inline relative before:content-[''] before:w-[.5rem] before:aspect-square before:rounded-full before:bg-emerald-400 before:absolute before:top-1/2 before:left-2 before:-translate-y-[25%]">Pelanggan</span>
         </div>
         
         <form action=" "  class="mt-14 w-full mx-auto flex flex-col items-center justify-center gap-7">
@@ -82,7 +82,7 @@
                     <iconify-icon icon="bxs:lock"></iconify-icon>
                 </label>
                 <input readonly disabled type="password" name="password" id="password" value="{{ $user->password}}" class="w-full border-0 focus:ring-0 focus:ring-offset-0 border-b rounded-lg bg-tertiary-50 rounded-es-none rounded-ee-none text-sm p-1 ps-4">
-                <div class="eyes-icon-wrapper text-xl absolute top-1/2 right-5 -translate-y-1/2">
+                <div class="eyes-icon-wrapper text-xl absolute top-1/2 right-5 -translate-y-[25%]">
                     <iconify-icon icon="bi:eye-fill" class="opened-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
                     <iconify-icon icon="mdi:eye-off" class="closed-eye p-1 cursor-pointer hover:text-primary active:scale-75 transition-transform duration-150"></iconify-icon>
                 </div>

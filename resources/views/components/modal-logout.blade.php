@@ -1,4 +1,4 @@
-<div class="overlay-modal-logout hidden w-full h-full bg-black/70 backdrop-blur-sm place-content-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+<div class="overlay-modal-logout hidden w-full h-full bg-black/70 backdrop-blur-sm place-content-center absolute top-1/2 left-1/2 -translate-x-[25%] -translate-y-[25%] z-50">
     <div id="modal-confirm-logout" class="w-[80vw] max-w-[30rem] opacity-0 aspect-video p-6 rounded-lg bg-white text-center shadow-md translate-y-[10rem] duration-700 ease-in-out">
         <div class="content-wrapper relative h-full flex flex-col justify-between items-center font-medium text-primary">
             <button class="close-modal-btn absolute -top-1 -right-1 text-xl text-secondary-300 hover:text-primary-600">
