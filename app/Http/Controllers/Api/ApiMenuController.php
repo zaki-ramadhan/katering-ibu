@@ -2,32 +2,43 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
-use App\Http\Resources\MenuResource;
-use App\Http\Controllers\Controller;
 
 class ApiMenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
+        try {
+            $menus = Menu::all();
 
-        if ($menus->isEmpty()) {
-            return response()->json(['error' => 'Tidak ada data menu ditemukan'], 404);
+            return response()->json([
+                'success' => true,
+                'data' => $menus
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data menu: ' . $e->getMessage()
+            ], 500);
         }
-
-        return MenuResource::collection($menus);
     }
 
     public function show($id)
     {
-        $menu = Menu::find($id);
+        try {
+            $menu = Menu::findOrFail($id);
 
-        if (!$menu) {
-            return response()->json(['error' => 'Menu tidak ditemukan'], 404);
+            return response()->json([
+                'success' => true,
+                'data' => $menu
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Menu tidak ditemukan'
+            ], 404);
         }
-
-        return new MenuResource($menu);
     }
 }

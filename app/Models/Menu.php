@@ -4,35 +4,40 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Menu extends Model
 {
     use HasFactory;
-    
-    protected $table = 'menu';
-    protected $primaryKey = 'id';
-    protected $fillable = ['foto_menu', 'nama_menu', 'deskripsi', 'harga'];
 
-    public function getImageUrlAttribute()
-    {
-        if ($this->foto_menu) {
-            // Menggunakan URL lengkap untuk akses gambar
-            // return url('storage/' . $this->foto_menu);
-            return asset('storage/' . $this->foto_menu);
-        }
-        return null;
-    }
+    protected $table = 'menu';
+    protected $fillable = [
+        'foto_menu',
+        'nama_menu',
+        'deskripsi',
+        'harga',
+        'terjual',
+        'kategori',
+        'status'
+    ];
 
     protected $casts = [
         'harga' => 'float',
+        'terjual' => 'integer',
     ];
 
-    // Override toArray untuk menyertakan URL gambar dalam response JSON
+    // Accessor untuk foto
+    public function getFotoAttribute()
+    {
+        if ($this->foto_menu) {
+            return asset('storage/' . $this->foto_menu);
+        }
+        return '';
+    }
+
     public function toArray()
     {
         $array = parent::toArray();
-        $array['image_url'] = $this->image_url;
+        $array['foto'] = $this->foto; // Tambahkan field foto dengan full URL
         return $array;
     }
 }

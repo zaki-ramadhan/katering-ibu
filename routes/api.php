@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiUserController;
 use App\Http\Controllers\Api\ApiOrderController;
 use App\Http\Controllers\Api\ApiUlasanController;
 use App\Http\Controllers\Api\ApiNotificationController;
+use App\Http\Controllers\Api\ApiKeranjangController; // Pastikan import ini ada
 
 // Public routes
 Route::post('/login', [ApiUserController::class, 'login']);
@@ -25,9 +26,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/users/update', [ApiUserController::class, 'updateProfile']);
 
     Route::get('/orders/history', [ApiOrderController::class, 'getOrderHistory']);
-
     Route::get('/notifications', [ApiNotificationController::class, 'getNotifications']);
 
+    // Keranjang routes - PASTIKAN INI ADA
+    Route::get('/keranjang', [ApiKeranjangController::class, 'index']);
+    Route::post('/keranjang/add', [ApiKeranjangController::class, 'addItem']);
+    Route::put('/keranjang/item/{id}', [ApiKeranjangController::class, 'updateItem']);
+    Route::delete('/keranjang/item/{id}', [ApiKeranjangController::class, 'removeItem']);
+    Route::delete('/keranjang/clear', [ApiKeranjangController::class, 'clearCart']);
 
 
     // Ulasan routes
