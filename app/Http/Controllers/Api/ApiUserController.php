@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ApiUserController extends Controller
 {
@@ -84,7 +86,17 @@ class ApiUserController extends Controller
     {
         $user = $request->user();
 
-        return response()->json([
+        Log::info('=== PROFILE REQUEST ===');
+        Log::info('User ID: ' . $user->id);
+        Log::info('User foto_profile field: ' . $user->foto_profile);
+
+        $fotoProfileUrl = null;
+        if ($user->foto_profile) {
+            $fotoProfileUrl = asset('storage/' . $user->foto_profile);
+            Log::info('Generated foto URL: ' . $fotoProfileUrl);
+        }
+
+        $response = [
             'status' => 'success',
             'message' => 'Data pengguna berhasil diambil',
             'user' => [
@@ -93,9 +105,12 @@ class ApiUserController extends Controller
                 'email' => $user->email,
                 'notelp' => $user->notelp,
                 'role' => $user->role,
-                'foto_profile' => $user->foto_profile ? asset('storage/' . $user->foto_profile) : null
+                'foto_profile' => $fotoProfileUrl
             ]
-        ], 200);
+        ];
+
+        Log::info('Profile response: ', $response);
+        return response()->json($response, 200);
     }
 
     public function register(Request $request)
@@ -132,15 +147,22 @@ class ApiUserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        Log::info('=== UPDATE PROFILE REQUEST ===');
+        Log::info('Request data: ', $request->all());
+        Log::info('Has file: ', ['foto_profile' => $request->hasFile('foto_profile')]);
+
         $user = $request->user();
+        Log::info('User ID: ' . $user->id);
 
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:users,email,' . $user->id,
             'notelp' => 'sometimes|string',
             'password' => 'nullable|min:6',
+            'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        // Update field dasar
         if (isset($validated['name'])) {
             $user->name = $validated['name'];
         }
@@ -153,12 +175,42 @@ class ApiUserController extends Controller
         if (!empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
         }
-        $user->save();
 
-        return response()->json([
+        // ✅ IKUTI LOGIC WEB - Proses foto profile
+        if ($request->hasFile('foto_profile')) {
+            Log::info('Processing file upload...');
+
+            // Hapus foto lama jika ada (ikuti logic web)
+            if ($user->foto_profile && Storage::disk('public')->exists($user->foto_profile)) {
+                Storage::disk('public')->delete($user->foto_profile);
+                Log::info('Deleted old photo: ' . $user->foto_profile);
+            }
+
+            // ✅ SIMPAN FOTO BARU - SAMA SEPERTI WEB
+            $path = $request->file('foto_profile')->store('pfp', 'public');
+            $user->foto_profile = $path;
+
+            Log::info('New photo saved: ' . $path);
+            Log::info('Full URL: ' . asset('storage/' . $path));
+        }
+
+        $user->save();
+        Log::info('User saved to database');
+
+        $response = [
             'status' => 'success',
             'message' => 'Profil berhasil diperbarui',
-            'user' => $user
-        ]);
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'notelp' => $user->notelp,
+                'role' => $user->role,
+                'foto_profile' => $user->foto_profile ? asset('storage/' . $user->foto_profile) : null
+            ]
+        ];
+
+        Log::info('Response: ', $response);
+        return response()->json($response);
     }
 }

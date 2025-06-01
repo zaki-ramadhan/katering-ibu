@@ -56,7 +56,7 @@ class ApiOrderController extends Controller
                 'delivery_address' => $request->delivery_address,
                 'shipping_cost' => $shippingCost,
                 'total_amount' => $total,
-                'status' => 'pending',
+                'status' => 'Pending',
                 'delivery_date' => now()->addDays(1)->format('Y-m-d'),
                 'status_payment_proof' => $request->payment_method === 'cash' ? 'Accepted' : 'Pending',
             ]);
@@ -106,24 +106,88 @@ class ApiOrderController extends Controller
 
     public function getOrderHistory(Request $request)
     {
-        $user = $request->user();
+        try {
+            $user = $request->user();
 
-        $orders = Pesanan::with('items.menu')
-            ->where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+            $orders = Pesanan::with(['items.menu'])
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get()
+                ->map(function ($order) {
+                    return [
+                        'id' => $order->id,
+                        'total_amount' => $order->total_amount,
+                        'status' => $order->status,
+                        'delivery_date' => $order->delivery_date,
+                        'created_at' => $order->created_at->toISOString(),
+                        'items' => $order->items->map(function ($item) {
+                            return [
+                                'id' => $item->id,
+                                'quantity' => $item->quantity,
+                                'price' => $item->price,
+                                'menu' => [
+                                    'id' => $item->menu->id,
+                                    'nama_menu' => $item->menu->nama_menu,
+                                    'harga' => $item->menu->harga,
+                                ]
+                            ];
+                        })
+                    ];
+                });
 
-        if ($orders->isEmpty()) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $orders
+            ], 200);
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Tidak ada riwayat pesanan ditemukan',
-            ], 404);
+                'message' => 'Gagal mengambil riwayat pesanan: ' . $e->getMessage()
+            ], 500);
         }
+    }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Riwayat pesanan berhasil diambil',
-            'orders' => $orders,
-        ], 200);
+    public function deleteOrder(Request $request, $id)
+    {
+        try {
+            $user = $request->user();
+
+            $order = Pesanan::where('id', $id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if (!$order) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Pesanan tidak ditemukan'
+                ], 404);
+            }
+
+            if (!in_array($order->status, ['Completed', 'Rejected', 'Pending'])) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Pesanan dengan status ini tidak dapat dihapus'
+                ], 400);
+            }
+
+            DB::beginTransaction();
+
+            $order->items()->delete();
+            $order->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Pesanan berhasil dihapus'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal menghapus pesanan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

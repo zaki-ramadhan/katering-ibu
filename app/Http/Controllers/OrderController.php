@@ -20,25 +20,25 @@ class OrderController extends Controller
 
     public function dashboard()
     {
-    $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->limit(4)->get();
-    
-    $orderHistory = $orders->map(function($order) {
-        return [
-            'id' => $order->id,
-            'created_date' => Carbon::parse($order->created_at)->format('d M Y'),
-            'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
-            'portions' => $order->items->pluck('quantity')->toArray(),
-            'total_price' => $order->total_amount,
-            'pickup_method' => $order->pickup_method,
-            'address' => $order->delivery_address,
-            'payment_method' => $order->payment_method,
-            'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
-            'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
-            'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
-        ];
-    });
-    
-    return view('customer.dashboard', compact('orderHistory'));
+        $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->limit(4)->get();
+
+        $orderHistory = $orders->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'created_date' => Carbon::parse($order->created_at)->format('d M Y'),
+                'menus' => $order->items->pluck('menu.nama_menu')->toArray(),
+                'portions' => $order->items->pluck('quantity')->toArray(),
+                'total_price' => $order->total_amount,
+                'pickup_method' => $order->pickup_method,
+                'address' => $order->delivery_address,
+                'payment_method' => $order->payment_method,
+                'status' => $order->status ?? 'Pending', // Asumsi ada kolom status
+                'payment_proof' => $order->payment_proof, // Kolom bukti pembayaran
+                'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
+            ];
+        });
+
+        return view('customer.dashboard', compact('orderHistory'));
     }
 
     public function show($id)
@@ -60,23 +60,23 @@ class OrderController extends Controller
         // Mengambil menu varian berdasarkan nama dasar menu
         if ($baseMenuName) {
             $variantMenu = Menu::where('nama_menu', 'like', '%' . $baseMenuName . '%')
-                            ->where('id', '!=', $id)
-                            ->take(4)
-                            ->get();
+                ->where('id', '!=', $id)
+                ->take(4)
+                ->get();
         } else {
             $variantMenu = collect();
         }
 
         // Mengambil menu rekomendasi yang tidak termasuk dalam varian menu
         $recommendedMenu = Menu::where('id', '!=', $id)
-                            ->where('nama_menu', 'like', '%' . $baseMenuName . '%')
-                            ->orWhere(function ($query) use ($baseMenuName) {
-                                if ($baseMenuName) {
-                                    $query->where('nama_menu', 'not like', '%' . $baseMenuName . '%');
-                                }
-                            })
-                            ->take(4)
-                            ->get();
+            ->where('nama_menu', 'like', '%' . $baseMenuName . '%')
+            ->orWhere(function ($query) use ($baseMenuName) {
+                if ($baseMenuName) {
+                    $query->where('nama_menu', 'not like', '%' . $baseMenuName . '%');
+                }
+            })
+            ->take(4)
+            ->get();
 
         // Mengambil menu terlaris (top 4)
         $topMenus = Menu::orderBy('terjual', 'desc')->take(4)->pluck('id')->toArray();
@@ -131,8 +131,8 @@ class OrderController extends Controller
 
         // Cari item yang sudah ada di keranjang
         $keranjangItem = KeranjangItem::where('keranjang_id', $keranjang->id)
-                                    ->where('menu_id', $menu->id)
-                                    ->first();
+            ->where('menu_id', $menu->id)
+            ->first();
 
         if ($keranjangItem) {
             // Jika item sudah ada, tambahkan jumlah dan perbarui total harga item
@@ -158,7 +158,7 @@ class OrderController extends Controller
         return redirect()->route('order.detail', $keranjang->id)->with('success', 'Pesanan berhasil dilakukan.');
     }
 
-    
+
     // Menghitung total jumlah pesanan
     private function calculateTotalAmount($keranjang, $shippingCost)
     {
@@ -174,8 +174,8 @@ class OrderController extends Controller
     public function orderHistory()
     {
         $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
-        
-        $data = $orders->map(function($order) {
+
+        $data = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
                 'created_date' => $order->created_at->format('d M Y'),
@@ -191,20 +191,20 @@ class OrderController extends Controller
                 'delivery_date' => $order->delivery_date, // Kolom tanggal pengiriman
             ];
         });
-        
+
         return view('customer.order-history', compact('data')); // Pastikan 'data' diteruskan ke view
     }
 
     public function getCartItemTypesCount()
-{
-    if (Auth::check()) {
-        $itemTypesCount = KeranjangItem::whereHas('keranjang', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->distinct('menu_id')->count('menu_id');
-        return $itemTypesCount;
-    }
+    {
+        if (Auth::check()) {
+            $itemTypesCount = KeranjangItem::whereHas('keranjang', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->distinct('menu_id')->count('menu_id');
+            return $itemTypesCount;
+        }
 
-    return 0;
+        return 0;
     }
 
     public function getOrderHistory()
@@ -212,7 +212,7 @@ class OrderController extends Controller
         if (Auth::check()) {
             $orders = Pesanan::where('user_id', Auth::id())->with('items.menu')->orderBy('created_at', 'desc')->get();
 
-            $orderHistory = $orders->map(function($order) {
+            $orderHistory = $orders->map(function ($order) {
                 return [
                     'id' => $order->id,
                     'created_date' => Carbon::parse($order->created_at)->format('d M Y'),
@@ -236,8 +236,8 @@ class OrderController extends Controller
     {
         $jmlPesanan = Pesanan::count();
         $orders = Pesanan::with('user', 'items.menu')->orderBy('created_at', 'desc')->get();
-        
-        $pesanan = $orders->map(function($order) {
+
+        $pesanan = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
                 'created_date' => $order->created_at->format('d M Y'),
@@ -278,9 +278,9 @@ class OrderController extends Controller
             ->whereDate('updated_at', today()->subDay())
             ->sum('total_amount');
 
-        $perubahanPenjualanHarian = $penjualanHarianSebelumnya == 0 ? 
-            ($penjualanHarian > 0 ? 100 : 0) : 
-            round((($penjualanHarian - $penjualanHarianSebelumnya) / $penjualanHarianSebelumnya) * 100, 2) ;
+        $perubahanPenjualanHarian = $penjualanHarianSebelumnya == 0 ?
+            ($penjualanHarian > 0 ? 100 : 0) :
+            round((($penjualanHarian - $penjualanHarianSebelumnya) / $penjualanHarianSebelumnya) * 100, 2);
 
         // Laporan penjualan mingguan
         $penjualanMingguan = Pesanan::where('status', 'Completed')
@@ -291,9 +291,9 @@ class OrderController extends Controller
             ->whereBetween('updated_at', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])
             ->sum('total_amount');
 
-        $perubahanPenjualanMingguan = $penjualanMingguanSebelumnya == 0 ? 
-            ($penjualanMingguan > 0 ? 100 : 0) : 
-            round((($penjualanMingguan - $penjualanMingguanSebelumnya) / $penjualanMingguanSebelumnya) * 100, 2) ;
+        $perubahanPenjualanMingguan = $penjualanMingguanSebelumnya == 0 ?
+            ($penjualanMingguan > 0 ? 100 : 0) :
+            round((($penjualanMingguan - $penjualanMingguanSebelumnya) / $penjualanMingguanSebelumnya) * 100, 2);
 
         // Laporan penjualan bulanan
         $penjualanBulanan = Pesanan::where('status', 'Completed')
@@ -304,18 +304,25 @@ class OrderController extends Controller
             ->whereMonth('updated_at', now()->subMonth()->month)
             ->sum('total_amount');
 
-        $perubahanPenjualanBulanan = $penjualanBulananSebelumnya == 0 ? 
-            ($penjualanBulanan > 0 ? 100 : 0) : 
-            round((($penjualanBulanan - $penjualanBulananSebelumnya) / $penjualanBulananSebelumnya) * 100, 2) ;
+        $perubahanPenjualanBulanan = $penjualanBulananSebelumnya == 0 ?
+            ($penjualanBulanan > 0 ? 100 : 0) :
+            round((($penjualanBulanan - $penjualanBulananSebelumnya) / $penjualanBulananSebelumnya) * 100, 2);
 
         return view('admin.data-penjualan', compact(
-            'pesananSelesai', 
-            'penjualanHarian', 'penjualanHarianSebelumnya', 'perubahanPenjualanHarian',
-            'penjualanMingguan', 'penjualanMingguanSebelumnya', 'perubahanPenjualanMingguan',
-            'penjualanBulanan', 'penjualanBulananSebelumnya', 'perubahanPenjualanBulanan'
+            'pesananSelesai',
+            'penjualanHarian',
+            'penjualanHarianSebelumnya',
+            'perubahanPenjualanHarian',
+            'penjualanMingguan',
+            'penjualanMingguanSebelumnya',
+            'perubahanPenjualanMingguan',
+            'penjualanBulanan',
+            'penjualanBulananSebelumnya',
+            'perubahanPenjualanBulanan'
         ));
     }
-    public function payOrder($id) {
+    public function payOrder($id)
+    {
         $pesanan = Pesanan::findOrFail($id);
         return view('customer.detail-pembayaran', compact('pesanan'));
     }
@@ -359,107 +366,107 @@ class OrderController extends Controller
         $rules = [
             'status' => 'required|string',
         ];
-    
+
         if ($pesanan->payment_method !== 'Cash') {
             $rules['status_payment_proof'] = 'required|string';
         }
-    
+
         $request->validate($rules);
-    
+
         // Validasi tambahan hanya jika status pesanan adalah Completed atau Delivered
         if (in_array($request->input('status'), ['Completed'])) {
             $request->validate([
                 'delivery_date' => 'required|date',
             ]);
         }
-    
+
         // Dapatkan status sebelumnya
         $previousPaymentStatus = $pesanan->status_payment_proof;
         $previousOrderStatus = $pesanan->status;
-    
+
         // Perbarui pesanan
         $pesanan->update([
             'status' => $request->input('status'),
             'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
             'status_payment_proof' => $pesanan->payment_method !== 'Cash' ? $request->input('status_payment_proof') : 'Pending',
         ]);
-    
 
-    // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
-    if ($previousOrderStatus !== 'Completed' && $pesanan->status === 'Completed') {
-        foreach ($pesanan->items as $item) {
-            $menu = $item->menu;
-            $menu->increment('terjual', $item->quantity);
+
+        // Jika status berubah menjadi Completed, perbarui terjual pada setiap menu
+        if ($previousOrderStatus !== 'Completed' && $pesanan->status === 'Completed') {
+            foreach ($pesanan->items as $item) {
+                $menu = $item->menu;
+                $menu->increment('terjual', $item->quantity);
+            }
         }
-    }
 
-    // Buat notifikasi berdasarkan perubahan status bukti pembayaran
-    if ($previousPaymentStatus !== $pesanan->status_payment_proof) {
-        $statusMessage = '';
-    
-        if ($pesanan->status_payment_proof === 'Accepted') {
-            $statusMessage = 'diterima';
-        } elseif ($pesanan->status_payment_proof === 'Rejected') {
-            $statusMessage = 'ditolak';
-        } else {
-            $statusMessage = $pesanan->status_payment_proof; // Jika ada status lain
+        // Buat notifikasi berdasarkan perubahan status bukti pembayaran
+        if ($previousPaymentStatus !== $pesanan->status_payment_proof) {
+            $statusMessage = '';
+
+            if ($pesanan->status_payment_proof === 'Accepted') {
+                $statusMessage = 'diterima';
+            } elseif ($pesanan->status_payment_proof === 'Rejected') {
+                $statusMessage = 'ditolak';
+            } else {
+                $statusMessage = $pesanan->status_payment_proof; // Jika ada status lain
+            }
+
+            Notification::create([
+                'user_id' => $pesanan->user_id,
+                'title' => 'Perubahan Status Bukti Pembayaran',
+                'message' => 'Status bukti pembayaran Anda ' . $statusMessage,
+                'type' => 'status_bukti_pembayaran',
+            ]);
         }
-    
-        Notification::create([
-            'user_id' => $pesanan->user_id,
-            'title' => 'Perubahan Status Bukti Pembayaran',
-            'message' => 'Status bukti pembayaran Anda ' . $statusMessage,
-            'type' => 'status_bukti_pembayaran',
-        ]);
-    }
-    
 
-    // Buat notifikasi berdasarkan perubahan status pesanan
-    if ($previousOrderStatus !== $pesanan->status) {
-        $pickupMethod = $pesanan->pickup_method == 'Pickup' ? 'ambil langsung' : 'dikirim ke lokasi';
-        $paymentMethod = $pesanan->payment_method;
-    
-        switch ($request->input('status')) {
-            case 'Processed':
-                $title = 'Pesanan Sedang Dikerjakan';
-                if ($paymentMethod === 'Transfer') {
-                    $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
-                } else {
-                    $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
-                }
-                break;
-            case 'Completed':
-                $title = 'Pesanan Berhasil Diproses';
-                if ($paymentMethod === 'Transfer') {
-                    if($pesanan->pickup_method == 'Pickup') {
-                        $message = 'Pembayaran Anda telah berhasil diverifikasi. Silahkan ambil pesanan Anda';
+
+        // Buat notifikasi berdasarkan perubahan status pesanan
+        if ($previousOrderStatus !== $pesanan->status) {
+            $pickupMethod = $pesanan->pickup_method == 'Pickup' ? 'ambil langsung' : 'dikirim ke lokasi';
+            $paymentMethod = $pesanan->payment_method;
+
+            switch ($request->input('status')) {
+                case 'Processed':
+                    $title = 'Pesanan Sedang Dikerjakan';
+                    if ($paymentMethod === 'Transfer') {
+                        $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
                     } else {
-                        $message = 'Pembayaran Anda telah berhasil diverifikasi. Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                        $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
                     }
-                } else {
-                    $message = 'Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
-                }
-                break;
-            case 'Cancelled':
-                $title = 'Pesanan Dibatalkan';
-                $message = 'Pesanan Anda telah dibatalkan. Silakan hubungi kami jika ada pertanyaan lebih lanjut.';
-                break;
-            default:
-                $title = 'Status Pesanan Diperbarui';
-                $message = 'Status pesanan Anda telah berubah menjadi ' . $pesanan->status . '.';
-                break;
+                    break;
+                case 'Completed':
+                    $title = 'Pesanan Berhasil Diproses';
+                    if ($paymentMethod === 'Transfer') {
+                        if ($pesanan->pickup_method == 'Pickup') {
+                            $message = 'Pembayaran Anda telah berhasil diverifikasi. Silahkan ambil pesanan Anda';
+                        } else {
+                            $message = 'Pembayaran Anda telah berhasil diverifikasi. Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                        }
+                    } else {
+                        $message = 'Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                    }
+                    break;
+                case 'Cancelled':
+                    $title = 'Pesanan Dibatalkan';
+                    $message = 'Pesanan Anda telah dibatalkan. Silakan hubungi kami jika ada pertanyaan lebih lanjut.';
+                    break;
+                default:
+                    $title = 'Status Pesanan Diperbarui';
+                    $message = 'Status pesanan Anda telah berubah menjadi ' . $pesanan->status . '.';
+                    break;
+            }
+            Notification::create([
+                'user_id' => $pesanan->user_id,
+                'title' => $title,
+                'message' => $message,
+                'type' => 'status_pesanan',
+            ]);
         }
-        Notification::create([
-            'user_id' => $pesanan->user_id,
-            'title' => $title,
-            'message' => $message,
-            'type' => 'status_pesanan',
-        ]);
-    }    
 
-    return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
-}
-    
+        return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         $pesanan = Pesanan::findOrFail($id);

@@ -20,7 +20,7 @@ class ApiKeranjangController extends Controller
 
             // Ambil keranjang aktif user dengan relationship menu
             $keranjang = Keranjang::where('user_id', $user->id)
-                ->where('status', 'pending')
+                ->where('status', 'Pending')
                 ->with(['items.menu'])
                 ->first();
 
@@ -80,7 +80,7 @@ class ApiKeranjangController extends Controller
             // Cari atau buat keranjang aktif
             $keranjang = Keranjang::firstOrCreate([
                 'user_id' => $user->id,
-                'status' => 'pending'
+                'status' => 'Pending'
             ], [
                 'total_harga' => 0
             ]);
@@ -135,7 +135,7 @@ class ApiKeranjangController extends Controller
             $user = Auth::user();
 
             $item = KeranjangItem::whereHas('keranjang', function ($query) use ($user) {
-                $query->where('user_id', $user->id)->where('status', 'pending');
+                $query->where('user_id', $user->id)->where('status', 'Pending');
             })->findOrFail($itemId);
 
             DB::beginTransaction();
@@ -168,7 +168,7 @@ class ApiKeranjangController extends Controller
             $user = Auth::user();
 
             $item = KeranjangItem::whereHas('keranjang', function ($query) use ($user) {
-                $query->where('user_id', $user->id)->where('status', 'pending');
+                $query->where('user_id', $user->id)->where('status', 'Pending');
             })->findOrFail($itemId);
 
             DB::beginTransaction();
@@ -206,7 +206,7 @@ class ApiKeranjangController extends Controller
             $user = Auth::user();
 
             $keranjang = Keranjang::where('user_id', $user->id)
-                ->where('status', 'pending')
+                ->where('status', 'Pending')
                 ->first();
 
             if ($keranjang) {

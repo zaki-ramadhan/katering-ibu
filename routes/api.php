@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/orders', [ApiOrderController::class, 'createOrder']);
     Route::get('/orders/history', [ApiOrderController::class, 'getOrderHistory']);
+    Route::delete('/orders/{id}', [ApiOrderController::class, 'deleteOrder']);
     Route::get('/notifications', [ApiNotificationController::class, 'getNotifications']);
 
     Route::get('/keranjang', [ApiKeranjangController::class, 'index']);

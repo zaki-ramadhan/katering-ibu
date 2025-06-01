@@ -12,11 +12,11 @@ class CreateKeranjangTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('total_harga', 10, 2)->default(0.00);
-            $table->string('status')->default('pending');
+            $table->string('status')->default('Pending');
             $table->timestamps();
-        
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });        
+        });
     }
 
     public function down()
@@ -24,4 +24,3 @@ class CreateKeranjangTable extends Migration
         Schema::dropIfExists('keranjang');
     }
 }
-
