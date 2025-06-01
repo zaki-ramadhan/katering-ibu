@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [ApiUserController::class, 'index']);
     Route::post('/logout', [ApiUserController::class, 'logout']);
     Route::get('/users/profile', [ApiUserController::class, 'profile']);
-    Route::put('/users/update', [ApiUserController::class, 'updateProfile']);
+    Route::post('/users/update', [ApiUserController::class, 'updateProfile']);
 
     Route::post('/orders', [ApiOrderController::class, 'createOrder']);
     Route::get('/orders/history', [ApiOrderController::class, 'getOrderHistory']);

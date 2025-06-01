@@ -148,69 +148,75 @@ class ApiUserController extends Controller
     public function updateProfile(Request $request)
     {
         Log::info('=== UPDATE PROFILE REQUEST ===');
-        Log::info('Request data: ', $request->all());
-        Log::info('Has file: ', ['foto_profile' => $request->hasFile('foto_profile')]);
+        Log::info('Request all: ', $request->all());
+        Log::info('Request files: ', $request->allFiles());
 
         $user = $request->user();
         Log::info('User ID: ' . $user->id);
 
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,' . $user->id,
-            'notelp' => 'sometimes|string',
-            'password' => 'nullable|min:6',
-            'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'sometimes|string|max:255',
+                'email' => 'sometimes|email|unique:users,email,' . $user->id,
+                'notelp' => 'sometimes|string|max:20',
+                'password' => 'nullable|min:6',
+                'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        // Update field dasar
-        if (isset($validated['name'])) {
-            $user->name = $validated['name'];
-        }
-        if (isset($validated['email'])) {
-            $user->email = $validated['email'];
-        }
-        if (isset($validated['notelp'])) {
-            $user->notelp = $validated['notelp'];
-        }
-        if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
-        }
-
-        // ✅ IKUTI LOGIC WEB - Proses foto profile
-        if ($request->hasFile('foto_profile')) {
-            Log::info('Processing file upload...');
-
-            // Hapus foto lama jika ada (ikuti logic web)
-            if ($user->foto_profile && Storage::disk('public')->exists($user->foto_profile)) {
-                Storage::disk('public')->delete($user->foto_profile);
-                Log::info('Deleted old photo: ' . $user->foto_profile);
+            if (isset($validated['name'])) {
+                $user->name = $validated['name'];
+            }
+            if (isset($validated['email'])) {
+                $user->email = $validated['email'];
+            }
+            if (isset($validated['notelp'])) {
+                $user->notelp = $validated['notelp'];
+            }
+            if (!empty($validated['password'])) {
+                $user->password = Hash::make($validated['password']);
             }
 
-            // ✅ SIMPAN FOTO BARU - SAMA SEPERTI WEB
-            $path = $request->file('foto_profile')->store('pfp', 'public');
-            $user->foto_profile = $path;
+            if ($request->hasFile('foto_profile')) {
+                Log::info('Processing foto_profile upload...');
 
-            Log::info('New photo saved: ' . $path);
-            Log::info('Full URL: ' . asset('storage/' . $path));
+                if ($user->foto_profile && Storage::disk('public')->exists($user->foto_profile)) {
+                    Storage::disk('public')->delete($user->foto_profile);
+                    Log::info('Deleted old photo: ' . $user->foto_profile);
+                }
+
+                $path = $request->file('foto_profile')->store('pfp', 'public');
+                $user->foto_profile = $path;
+                Log::info('New photo saved: ' . $path);
+            }
+
+            $user->save();
+            Log::info('User updated successfully');
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Profil berhasil diperbarui',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'notelp' => $user->notelp,
+                    'role' => $user->role,
+                    'foto_profile' => $user->foto_profile ? asset('storage/' . $user->foto_profile) : null
+                ]
+            ], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation error: ', $e->errors());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error('Update profile error: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal memperbarui profil: ' . $e->getMessage()
+            ], 500);
         }
-
-        $user->save();
-        Log::info('User saved to database');
-
-        $response = [
-            'status' => 'success',
-            'message' => 'Profil berhasil diperbarui',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'notelp' => $user->notelp,
-                'role' => $user->role,
-                'foto_profile' => $user->foto_profile ? asset('storage/' . $user->foto_profile) : null
-            ]
-        ];
-
-        Log::info('Response: ', $response);
-        return response()->json($response);
     }
 }
