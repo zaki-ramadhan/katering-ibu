@@ -120,6 +120,12 @@ class ApiOrderController extends Controller
                         'status' => $order->status,
                         'delivery_date' => $order->delivery_date,
                         'created_at' => $order->created_at->toISOString(),
+                        'pickup_method' => $order->pickup_method,
+                        'delivery_address' => $order->delivery_address,
+                        'payment_method' => $order->payment_method,
+                        'status_payment_proof' => $order->status_payment_proof,
+                        'payment_proof' => $order->payment_proof,
+                        'shipping_cost' => $order->shipping_cost ?? 0,
                         'items' => $order->items->map(function ($item) {
                             return [
                                 'id' => $item->id,
@@ -129,6 +135,7 @@ class ApiOrderController extends Controller
                                     'id' => $item->menu->id,
                                     'nama_menu' => $item->menu->nama_menu,
                                     'harga' => $item->menu->harga,
+                                    'foto' => $item->menu->foto_menu ? asset('storage/' . $item->menu->foto_menu) : null,
                                 ]
                             ];
                         })
