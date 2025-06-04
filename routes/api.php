@@ -37,5 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     // Ulasan routes
-    Route::apiResource('ulasan', ApiUlasanController::class)->except(['index', 'show']);
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('ulasan/check-order/{orderId}', [App\Http\Controllers\Api\ApiUlasanController::class, 'checkUserReviewForOrder']);
+        Route::apiResource('ulasan', App\Http\Controllers\Api\ApiUlasanController::class);
+    });
 });

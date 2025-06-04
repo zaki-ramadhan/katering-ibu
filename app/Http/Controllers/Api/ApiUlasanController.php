@@ -13,11 +13,11 @@ class ApiUlasanController extends Controller
     {
         $ulasan = Ulasan::with('user')->latest()->get();
 
-        if ($ulasan->isEmpty()) {
-            return response()->json(['error' => 'Tidak ada data ulasan ditemukan'], 404);
-        }
-
-        return UlasanResource::collection($ulasan);
+        return response()->json([
+            'success' => true,
+            'data' => UlasanResource::collection($ulasan),
+            'message' => 'Data ulasan berhasil diambil'
+        ], 200);
     }
 
     public function show($id)
@@ -34,17 +34,44 @@ class ApiUlasanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'pesan' => 'required|string'
+            'order_id' => 'required|integer',
+            'feedback' => 'required|string|max:1000',
         ]);
 
         $ulasan = Ulasan::create([
             'id_customer' => $request->user()->id,
-            'email' => $request->email,
-            'pesan' => $request->pesan
+            'id_pesanan' => $request->order_id,
+            'pesan' => $request->feedback
         ]);
 
-        return new UlasanResource($ulasan);
+        return response()->json([
+            'success' => true,
+            'data' => new UlasanResource($ulasan),
+            'message' => 'Feedback berhasil dikirim'
+        ], 201);
+    }
+
+    public function checkUserReviewForOrder(Request $request, $orderId)
+    {
+        try {
+            $userId = $request->user()->id;
+
+            $ulasan = Ulasan::where('id_customer', $userId)
+                ->where('id_pesanan', $orderId)
+                ->first();
+
+            return response()->json([
+                'success' => true,
+                'has_reviewed' => $ulasan !== null,
+                'review_data' => $ulasan ? new UlasanResource($ulasan) : null,
+                'message' => $ulasan ? 'User sudah memberikan ulasan' : 'User belum memberikan ulasan'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengecek ulasan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function update(Request $request, $id)
@@ -55,21 +82,23 @@ class ApiUlasanController extends Controller
             return response()->json(['error' => 'Ulasan tidak ditemukan'], 404);
         }
 
-        if ($ulasan->user_id !==  $request->user()->id) {
+        if ($ulasan->id_customer !== $request->user()->id) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
         $request->validate([
-            'pesan' => 'required|string',
-            'rating' => 'required|integer|between:1,5',
+            'feedback' => 'required|string|max:1000',
         ]);
 
         $ulasan->update([
-            'pesan' => $request->pesan,
-            'rating' => $request->rating,
+            'pesan' => $request->feedback,
         ]);
 
-        return new UlasanResource($ulasan);
+        return response()->json([
+            'success' => true,
+            'data' => new UlasanResource($ulasan),
+            'message' => 'Ulasan berhasil diupdate'
+        ], 200);
     }
 
     public function destroy(Request $request, $id)
@@ -80,12 +109,15 @@ class ApiUlasanController extends Controller
             return response()->json(['error' => 'Ulasan tidak ditemukan'], 404);
         }
 
-        if ($ulasan->user_id !==  $request->user()->id) {
+        if ($ulasan->id_customer !== $request->user()->id) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
         $ulasan->delete();
 
-        return response()->json(['message' => 'Ulasan berhasil dihapus']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Ulasan berhasil dihapus'
+        ], 200);
     }
 }
