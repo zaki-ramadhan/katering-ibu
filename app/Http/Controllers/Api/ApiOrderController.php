@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use App\Models\Keranjang;
 use App\Models\KeranjangItem;
 use App\Models\ItemPesanan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ApiOrderController extends Controller
 {
@@ -194,6 +196,179 @@ class ApiOrderController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Gagal menghapus pesanan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function uploadPaymentProof(Request $request, $id)
+    {
+        try {
+            Log::info('Upload payment proof started', [
+                'order_id' => $id,
+                'user_id' => Auth::id(),
+                'has_file' => $request->hasFile('payment_proof')
+            ]);
+
+            $request->validate([
+                'payment_proof' => 'required|image|mimes:jpeg,jpg,png|max:5120', // Max 5MB
+            ]);
+
+            $pesanan = Pesanan::where('id', $id)
+                ->where('user_id', Auth::id())
+                ->first();
+
+            if (!$pesanan) {
+                Log::warning('Order not found', ['order_id' => $id, 'user_id' => Auth::id()]);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Pesanan tidak ditemukan atau bukan milik Anda'
+                ], 404);
+            }
+
+            Log::info('Order found', [
+                'order_id' => $pesanan->id,
+                'current_payment_proof' => $pesanan->payment_proof,
+                'current_status' => $pesanan->status_payment_proof
+            ]);
+
+            if ($request->hasFile('payment_proof')) {
+                $file = $request->file('payment_proof');
+
+                Log::info('File details', [
+                    'original_name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'mime_type' => $file->getMimeType()
+                ]);
+
+                // Hapus file lama jika ada
+                if ($pesanan->payment_proof && Storage::disk('public')->exists('payment_proofs/' . $pesanan->payment_proof)) {
+                    Storage::disk('public')->delete('payment_proofs/' . $pesanan->payment_proof);
+                    Log::info('Old payment proof deleted', ['old_file' => $pesanan->payment_proof]);
+                }
+
+                // Upload file baru
+                $fileName = time() . '_' . $pesanan->id . '.' . $file->getClientOriginalExtension();
+                $filePath = $file->storeAs('payment_proofs', $fileName, 'public');
+
+                Log::info('File uploaded', [
+                    'file_name' => $fileName,
+                    'file_path' => $filePath
+                ]);
+
+                // Update database
+                $pesanan->update([
+                    'payment_proof' => $fileName,
+                    'status_payment_proof' => 'Pending',
+                ]);
+
+                Log::info('Database updated', [
+                    'order_id' => $pesanan->id,
+                    'new_payment_proof' => $fileName,
+                    'new_status' => 'Pending'
+                ]);
+
+                // Refresh model untuk memastikan data ter-update
+                $pesanan->refresh();
+
+                $paymentProofUrl = asset('storage/payment_proofs/' . $fileName);
+
+                Log::info('Payment proof URL generated', ['url' => $paymentProofUrl]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Bukti pembayaran berhasil diunggah dan sedang dalam proses verifikasi',
+                    'data' => [
+                        'payment_proof' => $fileName,
+                        'payment_proof_url' => $paymentProofUrl,
+                        'status_payment_proof' => $pesanan->status_payment_proof,
+                        'order_id' => $pesanan->id
+                    ]
+                ], 200);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'File bukti pembayaran tidak ditemukan'
+            ], 400);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation error', ['errors' => $e->errors()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error('Upload payment proof error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'order_id' => $id ?? null,
+                'user_id' => Auth::id() ?? null
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getOrderDetail($id)
+    {
+        try {
+            $pesanan = Pesanan::with(['items.menu', 'user'])
+                ->where('id', $id)
+                ->where('user_id', Auth::id())
+                ->first();
+
+            if (!$pesanan) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Pesanan tidak ditemukan'
+                ], 404);
+            }
+
+            $orderData = [
+                'id' => $pesanan->id,
+                'status' => $pesanan->status,
+                'total_amount' => $pesanan->total_amount,
+                'shipping_cost' => $pesanan->shipping_cost,
+                'payment_method' => $pesanan->payment_method,
+                'pickup_method' => $pesanan->pickup_method,
+                'delivery_address' => $pesanan->delivery_address,
+                'delivery_date' => $pesanan->delivery_date,
+                'payment_proof' => $pesanan->payment_proof
+                    ? asset('storage/payment_proofs/' . $pesanan->payment_proof)
+                    : null,
+                'status_payment_proof' => $pesanan->status_payment_proof,
+                'created_at' => $pesanan->created_at->toISOString(),
+                'items' => $pesanan->items->map(function ($item) {
+                    return [
+                        'quantity' => $item->quantity,
+                        'price' => $item->price,
+                        'menu' => [
+                            'id' => $item->menu->id,
+                            'nama_menu' => $item->menu->nama_menu,
+                            'foto' => $item->menu->foto
+                                ? asset('storage/menu_images/' . $item->menu->foto)
+                                : null,
+                        ]
+                    ];
+                })
+            ];
+
+            return response()->json([
+                'success' => true,
+                'data' => $orderData
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Get order detail error', [
+                'error' => $e->getMessage(),
+                'order_id' => $id
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan server'
             ], 500);
         }
     }

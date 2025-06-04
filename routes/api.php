@@ -41,4 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('ulasan/check-order/{orderId}', [App\Http\Controllers\Api\ApiUlasanController::class, 'checkUserReviewForOrder']);
         Route::apiResource('ulasan', App\Http\Controllers\Api\ApiUlasanController::class);
     });
+
+    // Order routes
+    Route::post('orders/{id}/upload-payment-proof', [ApiOrderController::class, 'uploadPaymentProof']);
+    Route::get('orders/{id}/detail', [ApiOrderController::class, 'getOrderDetail']);
 });
