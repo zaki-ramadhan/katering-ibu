@@ -414,6 +414,7 @@ class OrderController extends Controller
 
             Notification::create([
                 'user_id' => $pesanan->user_id,
+                'order_id' => $pesanan->id,
                 'title' => 'Perubahan Status Bukti Pembayaran',
                 'message' => 'Status bukti pembayaran Anda ' . $statusMessage,
                 'type' => 'status_bukti_pembayaran',
@@ -458,6 +459,7 @@ class OrderController extends Controller
             }
             Notification::create([
                 'user_id' => $pesanan->user_id,
+                'order_id' => $pesanan->id,
                 'title' => $title,
                 'message' => $message,
                 'type' => 'status_pesanan',

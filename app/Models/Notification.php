@@ -10,10 +10,15 @@ class Notification extends Model
     use HasFactory;
 
     protected $table = 'notifications';
-    protected $fillable = ['user_id', 'title', 'message', 'type'];
+    protected $fillable = ['user_id', 'order_id', 'title', 'message', 'type'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Pesanan::class);
     }
 }

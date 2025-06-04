@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Models\Notification; // Pastikan model Notification sudah dibuat
@@ -28,5 +29,30 @@ class ApiNotificationController extends Controller
             'message' => 'Notifikasi berhasil diambil',
             'notifications' => $notifications,
         ], 200);
+    }
+
+    public function createNotification(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|integer',
+            'order_id' => 'nullable|integer',
+            'title' => 'required|string|max:255',
+            'message' => 'required|string',
+            'type' => 'required|string|max:50',
+        ]);
+
+        $notification = Notification::create([
+            'user_id' => $request->user_id,
+            'order_id' => $request->order_id,
+            'title' => $request->title,
+            'message' => $request->message,
+            'type' => $request->type,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Notifikasi berhasil dibuat',
+            'notification' => $notification,
+        ], 201);
     }
 }
