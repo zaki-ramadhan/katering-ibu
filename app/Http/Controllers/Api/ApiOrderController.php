@@ -111,9 +111,10 @@ class ApiOrderController extends Controller
         try {
             $user = $request->user();
 
+            // ✅ PERBAIKAN: Prioritaskan updated_at dan konsisten URL generation
             $orders = Pesanan::with(['items.menu'])
                 ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'desc') 
                 ->get()
                 ->map(function ($order) {
                     return [
@@ -122,11 +123,17 @@ class ApiOrderController extends Controller
                         'status' => $order->status,
                         'delivery_date' => $order->delivery_date,
                         'created_at' => $order->created_at->toISOString(),
+                        'updated_at' => $order->updated_at->toISOString(), // ✅ Tambahkan updated_at
                         'pickup_method' => $order->pickup_method,
                         'delivery_address' => $order->delivery_address,
                         'payment_method' => $order->payment_method,
                         'status_payment_proof' => $order->status_payment_proof,
-                        'payment_proof' => $order->payment_proof,
+
+                        // ✅ PERBAIKAN: Konsisten generate full URL
+                        'payment_proof' => $order->payment_proof
+                            ? asset('storage/payment_proofs/' . $order->payment_proof)
+                            : null,
+
                         'shipping_cost' => $order->shipping_cost ?? 0,
                         'items' => $order->items->map(function ($item) {
                             return [
@@ -137,7 +144,10 @@ class ApiOrderController extends Controller
                                     'id' => $item->menu->id,
                                     'nama_menu' => $item->menu->nama_menu,
                                     'harga' => $item->menu->harga,
-                                    'foto' => $item->menu->foto_menu ? asset('storage/' . $item->menu->foto_menu) : null,
+                                    // ✅ PERBAIKAN: Konsisten generate URL untuk menu foto
+                                    'foto' => $item->menu->foto_menu
+                                        ? asset('storage/' . $item->menu->foto_menu)
+                                        : null,
                                 ]
                             ];
                         })
@@ -276,7 +286,7 @@ class ApiOrderController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Bukti pembayaran berhasil diunggah dan sedang dalam proses verifikasi',
+                    'message' => "Bukti pembayaran pesanan #$pesanan->id berhasil diunggah dan sedang dalam proses verifikasi",
                     'data' => [
                         'payment_proof' => $fileName,
                         'payment_proof_url' => $paymentProofUrl,

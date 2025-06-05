@@ -53,7 +53,7 @@
                         <td class="px-6 py-4 text-center ">
                             <div class="img-wrapper flex items-center justify-center">
                                 <img src="{{ $pesanan['foto_profile'] ? asset('storage/' . $pesanan['foto_profile']) : asset('images/default-pfp-cust-single.png') }}"
-                                    alt="profile img" class="w-10 h-10 object-cover rounded-full mr-3">
+                                    alt="profile img" class="w-10 h-auto aspect-square object-cover rounded-full mr-3">
                                 <span>{{ $pesanan['name'] }}</span>
                             </div>
                         </td>

@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $pelanggan = User::where('role', 'customer')->paginate(10);
+        $pelanggan = User::where('role', 'customer')->orderBy('created_at', 'desc')->paginate(10);
         $jumlahPelanggan = User::where('role', 'customer')->count();
 
         foreach ($pelanggan as $item) {

@@ -402,61 +402,108 @@ class OrderController extends Controller
 
         // Buat notifikasi berdasarkan perubahan status bukti pembayaran
         if ($previousPaymentStatus !== $pesanan->status_payment_proof) {
+            $orderId = $pesanan->id;
+            $userName = $pesanan->user->name;
+
             $statusMessage = '';
+            $title = '';
 
             if ($pesanan->status_payment_proof === 'Accepted') {
-                $statusMessage = 'diterima';
+                $title = "Pesanan #$orderId - Pembayaran Diterima";
+                $statusMessage = "Halo $userName!\n\nPembayaran pesanan #$orderId telah diterima dan diverifikasi.\nPesanan akan segera diproses.";
             } elseif ($pesanan->status_payment_proof === 'Rejected') {
-                $statusMessage = 'ditolak';
+                $title = "Pesanan #$orderId - Pembayaran Ditolak";
+                $statusMessage = "Halo $userName!\n\nBukti pembayaran pesanan #$orderId ditolak.\nSilakan upload ulang bukti pembayaran yang benar.";
             } else {
-                $statusMessage = $pesanan->status_payment_proof; // Jika ada status lain
+                $title = "Pesanan #$orderId - Verifikasi Pembayaran";
+                $statusMessage = "Halo $userName!\n\nBukti pembayaran pesanan #$orderId sedang diverifikasi.\nProses verifikasi: 5-10 menit.";
             }
 
             Notification::create([
                 'user_id' => $pesanan->user_id,
                 'order_id' => $pesanan->id,
-                'title' => 'Perubahan Status Bukti Pembayaran',
-                'message' => 'Status bukti pembayaran Anda ' . $statusMessage,
+                'title' => $title,
+                'message' => $statusMessage,
                 'type' => 'status_bukti_pembayaran',
             ]);
         }
 
-
         // Buat notifikasi berdasarkan perubahan status pesanan
         if ($previousOrderStatus !== $pesanan->status) {
-            $pickupMethod = $pesanan->pickup_method == 'Pickup' ? 'ambil langsung' : 'dikirim ke lokasi';
-            $paymentMethod = $pesanan->payment_method;
+            $orderId = $pesanan->id;
+            $userName = $pesanan->user->name;
+            $pickupMethod = $pesanan->pickup_method == 'Pickup' ? 'diambil' : 'dikirim';
+
+            // Format tanggal pengiriman
+            $deliveryDate = '';
+            if ($pesanan->delivery_date) {
+                $date = Carbon::parse($pesanan->delivery_date);
+
+                $dayNames = [
+                    'Sunday' => 'Minggu',
+                    'Monday' => 'Senin',
+                    'Tuesday' => 'Selasa',
+                    'Wednesday' => 'Rabu',
+                    'Thursday' => 'Kamis',
+                    'Friday' => 'Jumat',
+                    'Saturday' => 'Sabtu'
+                ];
+
+                $monthNames = [
+                    1 => 'Januari',
+                    2 => 'Februari',
+                    3 => 'Maret',
+                    4 => 'April',
+                    5 => 'Mei',
+                    6 => 'Juni',
+                    7 => 'Juli',
+                    8 => 'Agustus',
+                    9 => 'September',
+                    10 => 'Oktober',
+                    11 => 'November',
+                    12 => 'Desember'
+                ];
+
+                $dayName = $dayNames[$date->format('l')];
+                $day = $date->day;
+                $monthName = $monthNames[$date->month];
+                $year = $date->year;
+
+                $deliveryDate = "$dayName, $day $monthName $year";
+            }
 
             switch ($request->input('status')) {
                 case 'Processed':
-                    $title = 'Pesanan Sedang Dikerjakan';
-                    if ($paymentMethod === 'Transfer') {
-                        $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
-                    } else {
-                        $message = 'Pesanan Anda sedang dikerjakan. Kami akan segera memberitahukan Anda ketika pesanan siap ' . $pickupMethod . '.';
-                    }
+                    $title = "Pesanan #$orderId - Sedang Dimasak";
+                    $message = "Halo $userName!\n\nPesanan #$orderId sedang dimasak." .
+                        ($deliveryDate ? "\nJadwal $pickupMethod: $deliveryDate" : "");
                     break;
+
                 case 'Completed':
-                    $title = 'Pesanan Berhasil Diproses';
-                    if ($paymentMethod === 'Transfer') {
-                        if ($pesanan->pickup_method == 'Pickup') {
-                            $message = 'Pembayaran Anda telah berhasil diverifikasi. Silahkan ambil pesanan Anda';
-                        } else {
-                            $message = 'Pembayaran Anda telah berhasil diverifikasi. Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
-                        }
+                    if ($pesanan->pickup_method == 'Pickup') {
+                        $title = "Pesanan #$orderId - Siap Diambil";
+                        $message = "Pesanan #$orderId siap diambil!\n\nSilakan datang ke lokasi Katering Ibu" .
+                            ($deliveryDate ? "\nTanggal: $deliveryDate" : "") .
+                            "\nJam operasional: 08.00 - 20.00 WIB";
                     } else {
-                        $message = 'Pesanan Anda kini sedang dalam proses untuk ' . $pickupMethod . '.';
+                        $title = "Pesanan #$orderId - Siap Dikirim";
+                        $message = "Pesanan #$orderId siap dikirim!\n\nKurir sedang dalam perjalanan" .
+                            ($deliveryDate ? "\nTanggal: $deliveryDate" : "") .
+                            "\nPastikan nomor HP dapat dihubungi";
                     }
                     break;
+
                 case 'Cancelled':
-                    $title = 'Pesanan Dibatalkan';
-                    $message = 'Pesanan Anda telah dibatalkan. Silakan hubungi kami jika ada pertanyaan lebih lanjut.';
+                    $title = "Pesanan #$orderId - Dibatalkan";
+                    $message = "Pesanan #$orderId telah dibatalkan.\n\nHubungi kami untuk info lebih lanjut:\n0812-3456-7890";
                     break;
+
                 default:
-                    $title = 'Status Pesanan Diperbarui';
-                    $message = 'Status pesanan Anda telah berubah menjadi ' . $pesanan->status . '.';
+                    $title = "Pesanan #$orderId - Update Status";
+                    $message = "Status pesanan #$orderId: " . $pesanan->status;
                     break;
             }
+
             Notification::create([
                 'user_id' => $pesanan->user_id,
                 'order_id' => $pesanan->id,
@@ -494,34 +541,87 @@ class OrderController extends Controller
 
     private function createOrderStatusNotification($pesanan, $oldStatus, $newStatus)
     {
+        $userName = $pesanan->user->name;
+
+        // Format tanggal pengiriman yang user-friendly
+        $deliveryDate = '';
+        if ($pesanan->delivery_date) {
+            $date = Carbon::parse($pesanan->delivery_date);
+
+            // Nama hari dalam bahasa Indonesia
+            $dayNames = [
+                'Sunday' => 'Minggu',
+                'Monday' => 'Senin',
+                'Tuesday' => 'Selasa',
+                'Wednesday' => 'Rabu',
+                'Thursday' => 'Kamis',
+                'Friday' => 'Jumat',
+                'Saturday' => 'Sabtu'
+            ];
+
+            // Nama bulan dalam bahasa Indonesia
+            $monthNames = [
+                1 => 'Januari',
+                2 => 'Februari',
+                3 => 'Maret',
+                4 => 'April',
+                5 => 'Mei',
+                6 => 'Juni',
+                7 => 'Juli',
+                8 => 'Agustus',
+                9 => 'September',
+                10 => 'Oktober',
+                11 => 'November',
+                12 => 'Desember'
+            ];
+
+            $dayName = $dayNames[$date->format('l')];
+            $day = $date->day;
+            $monthName = $monthNames[$date->month];
+            $year = $date->year;
+
+            // Format: "Senin, 5 Juni 2025"
+            $deliveryDate = "$dayName, $day $monthName $year";
+        }
+
         $statusMessages = [
-            'Pending' => 'Pesanan Anda sedang menunggu konfirmasi',
-            'Processed' => 'Pesanan Anda sedang diproses dan akan segera siap',
-            'Completed' => 'Pesanan Anda telah selesai dan siap untuk diambil/diantar',
-            'Cancelled' => 'Pesanan Anda telah dibatalkan oleh admin',
+            'Pending' => "Halo $userName! 👋\n\n🕒 Pesanan Anda telah kami terima dan sedang menunggu konfirmasi.\n\n📞 Tim kami akan segera menghubungi Anda untuk konfirmasi!",
+
+            'Processed' => "Kabar gembira $userName! 🎉\n\n👨‍🍳 Pesanan Anda sedang dimasak dengan bahan-bahan segar pilihan.\n\n⏰" .
+                ($deliveryDate ? "\n📅 Dijadwalkan untuk: $deliveryDate" : ""),
+
+            'Completed' => $pesanan->pickup_method === 'delivery' ?
+                "Pesanan siap dikirim $userName! 🚚✨\n\n📦 Makanan lezat Anda sudah jadi dan akan segera diantar!\n📅 Pengiriman: $deliveryDate\n\n🛵 Kurir kami sedang dalam perjalanan menuju lokasi Anda\n📞 Mohon pastikan nomor telepon dapat dihubungi\n\n🙏 Terima kasih telah mempercayai Katering Ibu!" :
+                "Pesanan siap $userName! 🍽️✨\n\n🎊 Makanan lezat Anda sudah jadi dan siap diambil!\n📅 Siap diambil: $deliveryDate\n📍 Silakan datang ke lokasi kami\n\n🙏 Terima kasih telah mempercayai Katering Ibu!",
+
+            'Cancelled' => "Maaf $userName 😔\n\n❌ Pesanan #$pesanan->id dibatalkan\n💬 Hubungi kami di WhatsApp untuk info lebih lanjut\n\n🔄 Kami siap melayani pesanan Anda kapan saja!"
         ];
 
         $statusTitles = [
-            'Pending' => 'Menunggu Konfirmasi',
-            'Processed' => 'Pesanan Sedang Diproses',
-            'Completed' => 'Pesanan Selesai',
-            'Cancelled' => 'Pesanan Dibatalkan',
+            'Pending' => "🕒 Pesanan #$pesanan->id - Menunggu Konfirmasi",
+            'Processed' => "👨‍🍳 Pesanan #$pesanan->id - Sedang Dimasak",
+            'Completed' => $pesanan->pickup_method === 'delivery' ?
+                "🚚 Pesanan #$pesanan->id - Siap Dikirim!" :
+                "🍽️ Pesanan #$pesanan->id - Siap Diambil!",
+            'Cancelled' => "❌ Pesanan #$pesanan->id - Dibatalkan",
         ];
 
         if (isset($statusMessages[$newStatus]) && isset($statusTitles[$newStatus])) {
             Notification::create([
                 'user_id' => $pesanan->user_id,
                 'order_id' => $pesanan->id,
-                'title' => $statusTitles[$newStatus] . ' - Pesanan #' . $pesanan->id,
+                'title' => $statusTitles[$newStatus] . " - Pesanan #$pesanan->id",
                 'message' => $statusMessages[$newStatus],
                 'type' => 'status_pesanan',
             ]);
 
-            Log::info('Order status notification created', [
+            Log::info('Order status notification created with delivery date', [
                 'order_id' => $pesanan->id,
                 'user_id' => $pesanan->user_id,
                 'old_status' => $oldStatus,
                 'new_status' => $newStatus,
+                'delivery_date' => $deliveryDate,
+                'pickup_method' => $pesanan->pickup_method
             ]);
         }
     }
