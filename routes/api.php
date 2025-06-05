@@ -27,7 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/orders', [ApiOrderController::class, 'createOrder']);
     Route::get('/orders/history', [ApiOrderController::class, 'getOrderHistory']);
     Route::delete('/orders/{id}', [ApiOrderController::class, 'deleteOrder']);
-    Route::get('/notifications', [ApiNotificationController::class, 'getNotifications']);
 
     Route::get('/keranjang', [ApiKeranjangController::class, 'index']);
     Route::post('/keranjang/add', [ApiKeranjangController::class, 'addItem']);
@@ -45,4 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Order routes
     Route::post('orders/{id}/upload-payment-proof', [ApiOrderController::class, 'uploadPaymentProof']);
     Route::get('orders/{id}/detail', [ApiOrderController::class, 'getOrderDetail']);
+
+    // Notification routes
+    Route::get('/notifications', [ApiNotificationController::class, 'getNotifications']);
+    Route::post('/notifications', [ApiNotificationController::class, 'createNotification']);
 });

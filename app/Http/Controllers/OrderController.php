@@ -466,6 +466,21 @@ class OrderController extends Controller
             ]);
         }
 
+        // SIMPAN STATUS LAMA
+        $previousOrderStatus = $pesanan->status;
+
+        // UPDATE PESANAN
+        $pesanan->update([
+            'status' => $request->input('status'),
+            'delivery_date' => $request->input('delivery_date') ? Carbon::parse($request->input('delivery_date'))->format('Y-m-d') : null,
+            'status_payment_proof' => $pesanan->payment_method !== 'Cash' ? $request->input('status_payment_proof') : 'Pending',
+        ]);
+
+        // BUAT NOTIFIKASI JIKA STATUS BERUBAH
+        if ($previousOrderStatus !== $pesanan->status) {
+            $this->createOrderStatusNotification($pesanan, $previousOrderStatus, $pesanan->status);
+        }
+
         return redirect()->route('admin.data-pesanan')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
@@ -475,5 +490,71 @@ class OrderController extends Controller
         $pesanan->delete();
 
         return redirect()->back()->with('success', 'Pesanan berhasil dihapus.');
+    }
+
+    private function createOrderStatusNotification($pesanan, $oldStatus, $newStatus)
+    {
+        $statusMessages = [
+            'Pending' => 'Pesanan Anda sedang menunggu konfirmasi',
+            'Processed' => 'Pesanan Anda sedang diproses dan akan segera siap',
+            'Completed' => 'Pesanan Anda telah selesai dan siap untuk diambil/diantar',
+            'Cancelled' => 'Pesanan Anda telah dibatalkan oleh admin',
+        ];
+
+        $statusTitles = [
+            'Pending' => 'Menunggu Konfirmasi',
+            'Processed' => 'Pesanan Sedang Diproses',
+            'Completed' => 'Pesanan Selesai',
+            'Cancelled' => 'Pesanan Dibatalkan',
+        ];
+
+        if (isset($statusMessages[$newStatus]) && isset($statusTitles[$newStatus])) {
+            Notification::create([
+                'user_id' => $pesanan->user_id,
+                'order_id' => $pesanan->id,
+                'title' => $statusTitles[$newStatus] . ' - Pesanan #' . $pesanan->id,
+                'message' => $statusMessages[$newStatus],
+                'type' => 'status_pesanan',
+            ]);
+
+            Log::info('Order status notification created', [
+                'order_id' => $pesanan->id,
+                'user_id' => $pesanan->user_id,
+                'old_status' => $oldStatus,
+                'new_status' => $newStatus,
+            ]);
+        }
+    }
+
+    private function createPaymentStatusNotification($pesanan, $oldStatus, $newStatus)
+    {
+        $statusMessages = [
+            'Pending' => 'Bukti pembayaran Anda sedang dalam proses verifikasi',
+            'Accepted' => 'Bukti pembayaran Anda telah diterima dan diverifikasi. Pesanan akan segera diproses.',
+            'Rejected' => 'Bukti pembayaran Anda ditolak. Silakan upload ulang bukti pembayaran yang valid.',
+        ];
+
+        $statusTitles = [
+            'Pending' => 'Verifikasi Pembayaran',
+            'Accepted' => 'Pembayaran Diterima',
+            'Rejected' => 'Pembayaran Ditolak',
+        ];
+
+        if (isset($statusMessages[$newStatus]) && isset($statusTitles[$newStatus])) {
+            Notification::create([
+                'user_id' => $pesanan->user_id,
+                'order_id' => $pesanan->id,
+                'title' => $statusTitles[$newStatus] . ' - Pesanan #' . $pesanan->id,
+                'message' => $statusMessages[$newStatus],
+                'type' => 'status_bukti_pembayaran',
+            ]);
+
+            Log::info('Payment status notification created', [
+                'order_id' => $pesanan->id,
+                'user_id' => $pesanan->user_id,
+                'old_status' => $oldStatus,
+                'new_status' => $newStatus,
+            ]);
+        }
     }
 }

@@ -17,17 +17,9 @@ class ApiNotificationController extends Controller
             ->orderBy('created_at', 'desc') // Urutkan berdasarkan waktu dibuat
             ->get();
 
-        if ($notifications->isEmpty()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Tidak ada notifikasi ditemukan',
-            ], 404);
-        }
-
         return response()->json([
-            'status' => 'success',
-            'message' => 'Notifikasi berhasil diambil',
-            'notifications' => $notifications,
+            'success' => true,
+            'data' => $notifications,
         ], 200);
     }
 
