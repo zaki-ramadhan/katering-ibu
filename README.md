@@ -19,7 +19,6 @@ To provide an intuitive and efficient platform for ordering catering services on
 ### 👥 Development Team:
 - **Dwi Rizki Fathurohman** (2303090)
 - **Fiqry Omar Atala** (2303092)
-- **Rosanti** (2303103)
 - **Zaki Ramadhan** (2303108)
 
 ### 🛠 Technologies Used:
