@@ -35,7 +35,7 @@ Katering Ibu is the partner for this project, which is part of a course assignme
 ### 🏢 Partner Details:
 - **Business Name:** Katering Ibu
 - **Contact Person:** (?)
-- **📞 Phone:** +62 857-2370-2957
+- **📞 Phone:** +62 8**-****-**57
 - **📍 Location:** Perumahan Margalaksana 1, Jalan Gunung Ciremai No.25, RT.4/RW.8, Margadadi, Indramayu, Indonesia
 - **✉️ Email:** [pujiarti302@gmail.com](mailto:pujiarti302@gmail.com)
 - **🌍 Website:** -
