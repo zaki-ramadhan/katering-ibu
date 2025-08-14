@@ -28,19 +28,19 @@
             <div class="services-wrapper w-full p-6 lg:py-0 lg:col-span-2 bg-white mt-2 rounded-tl-xl rounded-tr-xl">
                 <h2 class="text-md lg:hidden text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full"><span class="font-bold">Pelayanan</span> kami</h2>
                 <div class="item-wrapper grid grid-cols-3 lg:grid-cols-1 gap-4 mt-5">
-                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-95 transition-transform duration-100 cursor-pointer" data-index = "delivery">
+                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-[98%] transition-transform duration-100 cursor-pointer" data-index = "delivery">
                         <img src="{{ asset('images/delivery.svg') }}" alt="service img" class="bg-slate-100 lg:group-hover:bg-white lg:w-24 border border-slate-100 group-hover:border-slate-300 group-active:border-primary duration-150 aspect-square rounded-xl object-cover">
                         <figcaption class="text-sm">
                             <h2>Layanan Antar Makanan</h2>
                         </figcaption>
                     </figure>
-                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-95 transition-transform duration-100 cursor-pointer" data-index = "event">
+                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-[98%] transition-transform duration-100 cursor-pointer" data-index = "event">
                         <img src="{{ asset('images/event-2.svg') }}" alt="service img" class="bg-slate-100 lg:group-hover:bg-white lg:w-24 border border-slate-100 group-hover:border-slate-300 group-active:border-primary duration-150 aspect-square rounded-xl object-cover">
                         <figcaption class="text-sm">
                             <h2>Paket Katering untuk Acara Khusus </h2>
                         </figcaption>
                     </figure>
-                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-95 transition-transform duration-100 cursor-pointer" data-index = "order">
+                    <figure class="service-item flex lg:items-center justify-start lg:gap-4 group lg:bg-tertiary-50 lg:hover:bg-tertiary lg:p-3 lg:rounded-xl flex-col lg:flex-row gap-3 active:scale-[98%] transition-transform duration-100 cursor-pointer" data-index = "order">
                         <img src="{{ asset('images/order.svg') }}" alt="service img" class="bg-slate-100 lg:group-hover:bg-white lg:w-24 border border-slate-100 group-hover:border-slate-300 group-active:border-primary duration-150 aspect-square rounded-xl object-cover">
                         <figcaption class="text-sm">
                             <h2>Pesanan Sesuka Hati</h2>
@@ -52,7 +52,7 @@
                 <h2 class="head-detail text-md text-primary ps-4 relative before:content-[''] before:absolute before:top-1/2 before:left-0 before:-translate-y-[25%] before:bg-primary before:w-1 before:h-full">Layanan Antar Makanan</h2>
                 <figure class="flex flex-col gap-3">
                     <img src="{{ asset('images/delivery.svg') }}" alt="service img" class="service-img aspect-video rounded-xl object-cover">
-                    <figcaption class="detail-service text-sm leading-relaxed mt-5 text-justify text-secondary font-light indent-10">
+                    <figcaption class="detail-service leading-relaxed mt-5 text-justify text-primary indent-10">
                         Kami menyediakan layanan antar makanan yang cepat dan tepat waktu untuk memastikan hidangan Anda sampai dalam kondisi terbaik. Baik untuk acara kecil maupun besar, kami siap mengantar pesanan langsung ke tempat Anda, memastikan makanan tetap segar dan hangat.
                     </figcaption>
                 </figure>
@@ -66,7 +66,7 @@
     <div class="faq-wrapper p-6 rounded-lg bg-white">
         <h2 class="head-faq text-sm lg:hidden text-white ps-4 mb-5 relative  bg-primary py-5 rounded-xl">Pelanggan juga bertanya hal serupa :</h2>                
         <div class="head-content hidden lg:flex text-center flex-col gap-4 mb-10 lg:mt-24">
-            <h2 class="text-4xl text-primary font-semibold"><span class="text-secondary text-3xl">Panduan pelanggan :</span><br>Pertanyaan dan Jawaban</h2>
+            <h2 class="text-4xl text-primary font-semibold"><span class="text-primary text-3xl">Panduan pelanggan :</span><br>Pertanyaan dan Jawaban</h2>
             <p class="text-secondary">Kami menyediakan jawaban untuk mempermudah proses pemesanan dan layanan Anda.</p>
         </div>
         <div class="items flex flex-col">

@@ -20,17 +20,12 @@
         class="container px-4 py-12 relative text-primary flex flex-col-reverse justify-between items-center font-light">
         <div class="text-btn-wrapper flex flex-col gap-6 pe-8 items-center text-center">
             {{-- <h2 class="font-medium text-primary-600">Punya pertanyaan terkait Katering Ibu?</h2> --}}
-            <p class="label py-2 px-4 lg:px-5 bg-tertiary text-secondary text-xs lg:text-sm rounded-full">Tentang Kami</p>
-            <h1 class="w-[30rem] lg:w-4/5 font-bold text-5xl lg:text-6xl leading-[1.2] -mt-2">
-                Ketahui <span
-                    class="bg-clip-text bg-gradient-to-r from-slate-300 to-slate-700 to-80% text-transparent">inf<span><iconify-icon
-                            icon="mingcute:search-ai-fill"
-                            class="text-primary translate-y-3"></iconify-icon></span>rmasi</span> lengkap mengenai
-                K<span class="font-medium italic">ate</span>ring Ibu.
+            <p class="label py-1.5 px-3 bg-tertiary text-secondary text-xs font-medium lg:text-sm rounded-full">Tentang Kami</p>
+            <h1 class="w-[30rem] lg:w-4/5 font-bold text-5xl lg:text-6xl -mt-2">
+                Ketahui informasi lengkap mengenai K<span class="font-medium italic">ate</span>ring Ibu.
             </h1>
-            <p class="w-[70vw] lg:w-full text-sm lg:text-base text-secondary leading-6">
-                ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan terpercaya untuk
-                layanan katering profesional.
+            <p class="w-[70vw] lg:w-1/2 text-sm lg:text-base text-secondary font-normal">
+                Ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan untuk layanan katering profesional.
             </p>
             <div class="btn-wrapper flex gap-3 lg:gap-4 text-xs lg:text-sm font-medium">
                 <button id="historyBtn"

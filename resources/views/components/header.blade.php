@@ -28,7 +28,7 @@
             </div>
             @else
             <a href="{{ route('login') }}">
-                <button id="login-btn" class="px-6 py-3 rounded-full bg-primary-700 hover:bg-primaryHovered active:bg-primary-600 duration-150 text-white font-medium text-xs lg:text-xs">Ayo Login!</button>
+                <button id="login-btn" class="px-4 py-3 rounded-full bg-primary-700 hover:bg-primaryHovered active:bg-primary-600 duration-150 text-white font-medium text-xs lg:text-xs">Ayo Login!</button>
             </a>
             @endauth
 

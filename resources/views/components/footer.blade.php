@@ -2,14 +2,6 @@
     @guest               
     <section id="ads-section" class="container px-4 absolute -top-20 left-1/2 -translate-x-[25%]">
         <div class="ads-wrapper relative w-full lg:h-48 bg-white lg:border-t lg:border-t-slate-300 px-6 py-8 rounded-lg lg:rounded-2xl flex text-primary shadow-xl shadow-slate-700/30 overflow-hidden">
-            <div class="img-ads-wrapper rightside w-max absolute -bottom-10 right-10 rotate-90 scale-150">
-                <img src="{{ asset('images/pattern-ads.svg') }}" alt="pattern img" class="w-32 opacity-50">
-                <div class="absolute top-0 left-0 inset-0 bg-gradient-to-tr from-white from-10% to-white/90 to-50%"></div>
-            </div> 
-            <div class="img-ads-wrapper leftside w-max absolute -top-10 left-10 rotate-90 scale-150">
-                <img src="{{ asset('images/pattern-ads.svg') }}" alt="pattern img" class="w-32 opacity-50">
-                <div class="absolute top-0 left-0 inset-0 bg-gradient-to-b from-white from-10% to-white/90 to-20%"></div>
-            </div> 
             <img src="../../images/sign-up.svg" alt="sign up ads img" class="order-guide-img w-52 lg:w-80 mt-6 absolute -bottom-16 lg:-bottom-28 -left-4 lg:-left-26">
             <div class="head-button-wrapper ms-32 lg:ms-60 xl:ms-80 lg:mt-4 z-10 flex flex-col gap-3 lg:gap-5">
                 <h1 class="lg:text-xl"><span class="font-semibold">Masuk / Daftarkan Akun</span> Anda terlebih dahulu untuk melakukan pemesanan.</h1>

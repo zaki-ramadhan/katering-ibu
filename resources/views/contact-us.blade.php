@@ -26,12 +26,12 @@
                 Kami akan dengan senang hati menjawab pertanyaan Anda.</p>
             @auth
             <a href="#contact-form" class="scroll-to">
-                <button class="w-max py-4 px-5 mt-3 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-xs lg:text-sm">Kirimkan pertanyaan Anda</button>
+                <button class="w-max py-4 px-5 mt-3 rounded-xl bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-sm">Kirimkan pertanyaan Anda</button>
             </a>
                 
             @else
             <a href="login" class="scroll-to">
-                <button class="w-max py-4 px-5 mt-3 rounded-lg bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-xs">Kirimkan pertanyaan Anda</button>
+                <button class="w-max py-4 px-5 mt-3 rounded-xl bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white text-sm">Kirimkan pertanyaan Anda</button>
             </a>
             @endauth
         </div>
@@ -44,28 +44,28 @@
             <ul class="flex flex-col gap-8 mt-8">
                 <li>
                     <div class="item-wrapper flex gap-6 pe-16">
-                        <iconify-icon icon="ion:location-sharp" class="w-12 h-12 aspect-square bg-primary rounded-md text-white text-2xl grid place-content-center"></iconify-icon>
+                        <iconify-icon icon="ion:location-sharp" class="w-12 h-12 aspect-square bg-primary rounded-xl text-white text-2xl grid place-content-center"></iconify-icon>
                         <div class=" flex flex-col gap-1">
                             <h3 class="font-medium text-base">Alamat</h3>
-                            <p class="text-secondary text-sm font-light">Perumahan Margalaksana 1, Jalan Gunung Ciremai No.25, RT.4/RW.8, Margadadi,  Indramayu</p>
+                            <p class="text-primary text-sm">Perumahan Margalaksana 1, Jalan Gunung Ciremai No.25, RT.4/RW.8, Margadadi,  Indramayu</p>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="item-wrapper flex gap-6">
-                        <iconify-icon icon="fontisto:email" class="w-12 aspect-square bg-primary rounded-md text-white text-2xl grid place-content-center"></iconify-icon>
+                        <iconify-icon icon="fontisto:email" class="w-12 aspect-square bg-primary rounded-xl text-white text-2xl grid place-content-center"></iconify-icon>
                         <div class=" flex flex-col gap-1">
                             <h3 class="font-medium text-base">Email</h3>
-                            <p class="text-secondary text-sm font-light">pujiarti302@gmail.com</p>
+                            <p class="text-primary text-sm">pujiarti302@gmail.com</p>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="item-wrapper flex gap-6">
-                        <iconify-icon icon="fontisto:phone" class="w-12 h-max aspect-square bg-primary rounded-md text-white text-lg grid place-content-center"></iconify-icon>
+                        <iconify-icon icon="fontisto:phone" class="w-12 h-max aspect-square bg-primary rounded-xl text-white text-lg grid place-content-center"></iconify-icon>
                         <div class=" flex flex-col gap-1">
                             <h3 class="font-medium text-base">No. telepon</h3>
-                            <p class="text-secondary text-sm font-light">0899-0899-0899</p>
+                            <p class="text-primary text-sm">0899-0899-0899</p>
                         </div>
                     </div>
                 </li>
@@ -77,21 +77,21 @@
             <input type="hidden" name="id_customer" value="{{ auth()->user() ? auth()->user()->id : '' }}"> <!-- Tambahkan ID pengguna -->
             <div class="nameInput-wrapper flex flex-col gap-2">
                 <label for="name" class="text-sm ">Nama Anda<span class="text-red-400 ms-[2px]">*</span></label>
-                <input type="text" name="nama_pelanggan" id="name" autocomplete="off" value="{{ auth()->user() ? auth()->user()->name : '' }}" required class="rounded-md focus:ring-0 text-sm">
+                <input type="text" name="nama_pelanggan" id="name" autocomplete="off" value="{{ auth()->user() ? auth()->user()->name : '' }}" required class="rounded-lg py-2.5 border-secondary hover:ring-0 focus:ring-inset focus:ring-0 focus:border-primary text-sm">
             </div>
             <div class="emailInput-wrapper flex flex-col gap-2">
                 <label for="email" class="text-sm ">Email Anda<span class="text-red-400 ms-[2px]">*</span></label>
-                <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" readonly class="text-secondary rounded-md hover:ring-0 focus:ring-inset focus:ring-0 focus:border-primary text-sm cursor-default">
+                <input type="email" name="email" id="email" autocomplete="off" value="{{ auth()->user() ? auth()->user()->email : '' }}" class="rounded-lg py-2.5 border-secondary hover:ring-0 focus:ring-inset focus:ring-0 focus:border-primary text-sm">
             </div>
             <div class="messageInput-wrapper flex flex-col gap-2">
                 <label for="message" class="text-sm ">Isi Pesan<span class="text-red-400 ms-[2px]">*</span></label>
-                <textarea name="pesan" id="message" autocomplete="off" required cols="30" rows="5" class="resize-none rounded-md focus:ring-0 text-sm"></textarea>
+                <textarea name="pesan" id="message" autocomplete="off" required cols="30" rows="5" class="resize-none rounded-xl py-2.5 border-secondary focus:ring-0 text-sm focus:border-primary"></textarea>
             </div>
             @auth
-            <button type="submit" class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+            <button type="submit" class="w-max bg-primary hover:bg-primary-600 active:bg-primary duration-150 text-white px-5 py-3 rounded-lg text-sm font-normal">Kirim Pesan</button>
             @else
             <div class="btn-wrapper relative group w-max">
-                <button disabled class="w-max bg-secondary text-white px-8 py-4 rounded-lg text-xs font-normal">Kirim Pesan</button>
+                <button disabled class="w-max bg-secondary text-white px-5 py-3 rounded-lg text-sm font-normal">Kirim Pesan</button>
                 <div class="tooltip hidden w-max group-hover:inline-block absolute -bottom-10 left-1/2 -translate-x-[25%] text-xs px-3 py-2 rounded-md bg-primary text-white">
                     Login terlebih dahulu
                 </div>
