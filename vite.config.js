@@ -7,7 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/sales-chart.js', // Tambahkan ini
+                // 'resources/js/sales-chart.js', // Tambahkan ini
             ],
             refresh: true,
         }),

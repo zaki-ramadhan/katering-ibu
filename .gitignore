@@ -36,3 +36,5 @@ bootstrap/cache
 
 # Ignoring other cache files
 /.phpunit.result.cache
+
+.vercel
