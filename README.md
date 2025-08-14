@@ -12,7 +12,7 @@
 This project is developed as part of a **university coursework assignment**, in collaboration with a **local business partner**, to create an **intuitive, efficient, and user-friendly platform**.
 
 In addition to functioning as a **website**, this system also serves as the **backend** for the **Katering Ibu Mobile App**, built with **Flutter** for **Android devices**.  
-📱 **Visit the mobile app repository:** [Katering Ibu Mobile App](https://github.com/zaki-ramadhan/katering-ibu-mobile-app?tab=readme-ov-file#katering-ibu-mobile-app)
+📱 **Visit the mobile app repository:** [Katering Ibu Mobile App](https://github.com/zaki-ramadhan/katering-ibu-mobile-app?tab=readme-ov-file#readme-ov-file)
 
 > ⚠️ **Important Notice**  
 > This source code is published for documentation and showcase purposes **only**.  
