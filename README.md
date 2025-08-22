@@ -2,7 +2,9 @@
 
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)  ![Laravel](https://img.shields.io/badge/Built%20with-Laravel-red.svg)  ![MySQL](https://img.shields.io/badge/Database-MySQL-blue.svg)  ![TailwindCSS](https://img.shields.io/badge/Styled%20with-TailwindCSS-blue.svg) ![JavaScript](https://img.shields.io/badge/Frontend-JavaScript-yellow.svg)  
 
-<img src="https://i.postimg.cc/3x8SNMVB/Showcase-Katering-Ibu-Website.png" alt="Katering Ibu Showcase" width="100%">
+<a href="#">
+    <img src="public/images/Poster Katering Ibu Website.webp" alt="Katering Ibu's POster" width="100%">
+</a>
 
 ---
 
