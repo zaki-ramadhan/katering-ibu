@@ -20,12 +20,14 @@
         class="container px-4 py-12 relative text-primary flex flex-col-reverse justify-between items-center font-light">
         <div class="text-btn-wrapper flex flex-col gap-6 pe-8 items-center text-center">
             {{-- <h2 class="font-medium text-primary-600">Punya pertanyaan terkait Katering Ibu?</h2> --}}
-            <p class="label py-1.5 px-3 bg-tertiary text-secondary text-xs font-medium lg:text-sm rounded-full">Tentang Kami</p>
-            <h1 class="w-[30rem] lg:w-4/5 font-bold text-5xl lg:text-6xl -mt-2">
+            <p class="label py-1.5 px-3 bg-tertiary text-secondary text-xs font-medium lg:text-sm rounded-full">Tentang Kami
+            </p>
+            <h1 class="w-full md:w-[30rem] lg:w-4/5 font-bold text-5xl lg:text-6xl -mt-2">
                 Ketahui informasi lengkap mengenai K<span class="font-medium italic">ate</span>ring Ibu.
             </h1>
-            <p class="w-[70vw] lg:w-1/2 text-sm lg:text-base text-secondary font-normal">
-                Ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan untuk layanan katering profesional.
+            <p class="w-full md:w-[70vw] lg:w-1/2 text-base lg:text-lg text-secondary font-normal">
+                Ketahui lebih dalam tentang perjalanan kami, dari awal berdiri hingga menjadi pilihan untuk layanan katering
+                profesional.
             </p>
             <div class="btn-wrapper flex gap-3 lg:gap-4 text-xs lg:text-sm font-medium">
                 <button id="historyBtn"
@@ -40,15 +42,15 @@
     <section id="history-location-content"
         class="container px-6 py-6 rounded-lg flex flex-col gap-4 items-start justify-center">
         <div class="img-wrapper relative w-full rounded-3xl overflow-hidden">
-            <div class="overlay absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-white/90"></div>
+            <div class="overlay absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-white/90 z-0"></div>
             <img src="{{ asset('images/search-aboutus.svg') }}" alt="search about-us svg"
-                class="-translate-y-7 lg:translate-x-44 -mb-[12rem] w-full max-w-[48rem]">
+                class="relative z-10 mx-auto -mt-8 -mb-24 md:-mb-48 lg:-mb-64 lg:translate-x-32 w-full max-w-[32rem] md:max-w-[40rem] lg:max-w-[48rem]">
 
             {{-- s\chat bubble --}}
             <div
-                class="bubblechat-e-wrapper absolute top-[3rem] md:top-[6rem] lg:top-[8rem] left-7 md:left-20 lg:left-48 animate-bounce-up-down">
+                class="bubblechat-e-wrapper absolute z-10 top-4 md:top-16 lg:top-32 left-4 md:left-16 lg:left-32 animate-bounce-up-down">
                 <div class="chat chat-end">
-                    <div class="chat-bubble text-tertiary text-sm lg:text-lg text-wrap pe-1 pb-4">
+                    <div class="chat-bubble text-tertiary text-xs md:text-sm lg:text-lg text-wrap pe-1 pb-4 shadow-sm">
                         <p class="translate-y-1">
                             What an incredible story!
                         </p>
@@ -56,10 +58,10 @@
                 </div>
             </div>
             <div
-                class="bubblechat-s-wrapper absolute top-28 md:top-48 right-3 md:right-6 lg:right-7 lg:top-52 xl:right-60 animate-bounce-up-down-delay">
+                class="bubblechat-s-wrapper absolute z-10 top-24 md:top-40 lg:top-52 right-4 md:right-12 lg:right-48 animate-bounce-up-down-delay">
                 <div class="chat chat-start">
                     <div
-                        class="chat-bubble bg-slate-200 text-primaryHovered font-medium text-sm lg:text-lg text-wrap pe-1 pb-4">
+                        class="chat-bubble bg-slate-200 text-primaryHovered font-medium text-xs md:text-sm lg:text-lg text-wrap pe-1 pb-4 shadow-sm">
                         <p class="translate-y-1">
                             Wait, there’s more to this?
                         </p>
@@ -96,20 +98,49 @@
                     </div>
                 </div>
 
-                <p class="paragraph text-sm font-light leading-relaxed indent-10 line-clamp-4 text-justify">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, perferendis aliquam nisi quo
-                    placeat, beatae harum rem aut quibusdam molestias quisquam eius numquam, vitae aperiam! Unde, ipsum
-                    deleniti atque nam neque delectus nihil tempore necessitatibus explicabo perspiciatis vel vitae ab
-                    asperiores, cupiditate ipsa exercitationem veniam odio placeat eius aspernatur eum quas maxime!
-                    Distinctio enim eos officia repudiandae, a nobis autem tempore illo, libero maiores neque inventore
-                    perspiciatis, expedita ut quis?
-                </p>
-                <hr>
-                <span
-                    class="read-more-btn flex justify-center items-center gap-2 text-sm text-center mt-1 bg-white box-border text-blue-500 hover:text-blue-700 active:text-purple-700 cursor-pointer">
-                    <p class="text">Baca selengkapnya</p> <iconify-icon icon="fe:arrow-down"
-                        class="arrow-icon  translate-y-[1px] duration-150"></iconify-icon>
-                </span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                    <!-- Card 1: Awal Mula -->
+                    <div
+                        class="flex flex-col gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md duration-200">
+                        <div class="flex items-center gap-2 text-primary">
+                            <iconify-icon icon="mdi:home-heart" class="text-2xl"></iconify-icon>
+                            <h3 class="font-semibold text-lg">Awal Mula</h3>
+                        </div>
+                        <p class="text-base font-light leading-relaxed text-justify text-secondary">
+                            Katering Ibu bermula dari inisiatif sederhana seorang ibu rumah tangga di Indramayu yang ingin
+                            menghadirkan masakan rumahan berkualitas. Berawal dari dapur rumah yang hangat, kami menyajikan
+                            hidangan dengan cita rasa otentik yang dimasak penuh cinta.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: Transformasi Digital -->
+                    <div
+                        class="flex flex-col gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md duration-200">
+                        <div class="flex items-center gap-2 text-primary">
+                            <iconify-icon icon="mdi:rocket-launch" class="text-2xl"></iconify-icon>
+                            <h3 class="font-semibold text-lg">Transformasi Digital</h3>
+                        </div>
+                        <p class="text-base font-light leading-relaxed text-justify text-secondary">
+                            Menghadapi tantangan jangkauan promosi yang terbatas, kami melakukan transformasi digital. Ini
+                            adalah langkah kami untuk bersaing dan menjangkau lebih banyak pelanggan yang merindukan masakan
+                            rumah higienis, melampaui batasan promosi dari mulut ke mulut.
+                        </p>
+                    </div>
+
+                    <!-- Card 3: Komitmen Kami -->
+                    <div
+                        class="flex flex-col gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md duration-200">
+                        <div class="flex items-center gap-2 text-primary">
+                            <iconify-icon icon="mdi:hand-heart" class="text-2xl"></iconify-icon>
+                            <h3 class="font-semibold text-lg">Komitmen Kami</h3>
+                        </div>
+                        <p class="text-base font-light leading-relaxed text-justify text-secondary">
+                            Kini, Katering Ibu siap melayani berbagai acara dengan menu variatif. Meski telah merambah dunia
+                            digital, kami tidak melupakan akar kami: usaha yang dijalankan dari hati, langsung dari rumah
+                            kami di Indramayu untuk kebahagiaan Anda.
+                        </p>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -122,11 +153,13 @@
                 </h2>
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3965.5218453726347!2d108.33145882499122!3d-6.326351843663184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sPerumahan%20Margalaksana%201%2C%20Jalan%20Gunung%20Ciremai%20No.25%2C%20RT.4%2FRW.8%2C%20Margadadi%2C%20%20Indramayu!5e0!3m2!1sid!2sid!4v1732640832030!5m2!1sid!2sid"
-                    width="580" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade" class="rounded-2xl overflow-hidden"></iframe>
-                <p class="paragraph text-sm font-light leading-relaxed indent-10 line-clamp-4 text-justify">
-                    Katering Ibu berlokasi di Perumahan Margalaksana 1, Jalan Gunung Ciremai No.25, RT.4/RW.8, Margadadi,
-                    Indramayu
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" class="rounded-2xl overflow-hidden w-full"></iframe>
+                <p class="paragraph text-base font-light leading-relaxed indent-10 line-clamp-4 text-justify">
+                    Operasional kami berpusat di kediaman pribadi di Perumahan Margalaksana 1, Jalan Gunung Ciremai No.25,
+                    RT.4/RW.8, Margadadi, Indramayu. Untuk menjaga kualitas dan kesegaran makanan saat diterima, layanan
+                    pengantaran kami saat ini difokuskan khusus untuk wilayah Indramayu dengan jangkauan radius maksimal 10
+                    kilometer dari lokasi dapur kami.
                 </p>
             </div>
         </div>

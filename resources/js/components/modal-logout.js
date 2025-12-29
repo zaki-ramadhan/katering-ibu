@@ -1,6 +1,6 @@
 // dropdown link logout
 const $profileBtn = $('#profile-btn');
-const $logoutBtn = $('#logoutBtn');
+const $logoutBtn = $('#logoutBtn, .mobile-logout-btn');
 const $dropdown = $('.dropdown-profile-menu');
 
 $profileBtn.on('click', function (e) {

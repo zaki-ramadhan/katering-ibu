@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Ulasan - Admin') 
+@section('title', 'Data Ulasan - Admin')
 
-@section('vite') 
+@section('vite')
     @vite('resources/js/customer/dashboard.js')
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert"
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white shadow-xl text-sm px-6 py-3 rounded-xl z-[100] flex items-center justify-center gap-2 animate-fade-in-down">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -17,49 +18,55 @@
     <div class="head-btn-wrapper flex justify-between items-end px-3 mt-8">
         <h1 class="font-medium text-base text-primary">Total data ulasan saat ini: {{ $jumlahUlasan }}</h1>
     </div>
-    <div class="relative overflow-x-auto shadow-lg {{ $ulasan->isEmpty() ? 'shadow-none' : 'shadow-slate-200/60'}} border rounded-2xl">
+    <div class="relative overflow-x-auto shadow-sm border border-slate-100 rounded-2xl bg-white">
         @if($ulasan->isEmpty())
-        <div class="py-5 px-6 flex items-center justify-start gap-2 bg-yellow-200 text-primary rounded-sm text-sm">
-            <iconify-icon icon="mingcute:warning-line" class="text-2xl"></iconify-icon>
-            <span>Tidak ada data ulasan yang tersedia.</span>
-          </div>
+            <div class="py-10 px-6 flex flex-col items-center justify-center gap-4 text-slate-500">
+                <iconify-icon icon="lucide:message-square" class="text-6xl text-slate-200"></iconify-icon>
+                <span class="text-sm font-medium">Tidak ada data ulasan yang tersedia.</span>
+            </div>
         @else
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <table class="w-full text-sm text-left text-slate-600">
+                <thead class="text-xs text-slate-400 uppercase bg-slate-50/50 border-b border-slate-100">
                     <tr>
-                        <th scope="col" class="px-3 py-6 border-b text-center">No</th> <!-- Kolom Nomor Urut -->
-                        <th scope="col" class="px-6 py-6 border-b">Pengulas</th>
-                        <th scope="col" class="px-6 py-6 border-b">Email</th>
-                        <th scope="col" class="px-6 py-6 border-b">Isi Pesan</th>
-                        <th scope="col" class="px-6 py-6 border-b">Tanggal</th>
-                        <th scope="col" class="px-6 py-6 gap-2">Aksi</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">No</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider">Pengulas</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider">Email</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider">Isi Pesan</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider">Tanggal</th>
+                        <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y divide-slate-50">
                     @foreach ($ulasan as $item)
-                    <tr class="bg-white border-b hover:bg-gray-50">
-                        <td class="px-3 py-4 text-center">{{ $loop -> iteration }}</td> <!-- Menampilkan Nomor Urut -->
-                        <td class="px-6 py-4 flex items-center justify-start">
-                            <img src="{{ $item->user->foto_profile ? asset('storage/' . $item->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="w-10 h-10 object-cover rounded-full mr-3">
-                            {{ $item->user->name }}
-                        </td>                        
-                        <td class="px-6 py-4">{{ $item->user->email }}</td>
-                        <td class="px-6 py-4">{{ $item->pesan }}</td>
-                        <td class="px-6 py-4">{{ $item->formatted_date }}</td>
-                        <td class="px-6 py-4 gap-2">
-                            <form action="{{ route('ulasan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ulasan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="delete-btn min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400">
-                                <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                        <tr class="hover:bg-slate-50/50 transition-colors group">
+                            <td class="px-6 py-4 text-center font-bold text-slate-400">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $item->user->foto_profile ? asset('storage/' . $item->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}"
+                                        alt="profile" class="w-8 h-8 rounded-full object-cover border border-slate-100 shadow-sm">
+                                    <span class="font-bold text-slate-800 whitespace-nowrap">{{ $item->user->name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-slate-500">{{ $item->user->email }}</td>
+                            <td class="px-6 py-4 text-slate-500 max-w-md leading-relaxed">{{ $item->pesan }}</td>
+                            <td class="px-6 py-4 text-slate-500 text-xs whitespace-nowrap">{{ $item->formatted_date }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex justify-center items-center">
+                                    <form action="{{ route('ulasan.destroy', $item->id) }}" method="POST"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus ulasan ini?');" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="w-9 h-9 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-500 hover:text-white transition-all">
+                                            <iconify-icon icon="lucide:trash-2" class="text-lg"></iconify-icon>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         @endif
     </div>
 @endsection
-

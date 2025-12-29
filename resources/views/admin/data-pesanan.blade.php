@@ -8,7 +8,7 @@
 
 @if (session('success'))
     <div id="alert"
-        class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white shadow-xl text-sm px-6 py-3 rounded-xl z-[100] flex items-center justify-center gap-2 animate-fade-in-down">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -22,127 +22,124 @@
             <button>Tambah Menu</button>
         </a> --}}
     </div>
-    <div class="relative overflow-x-auto shadow-md shadow-slate-200/60 bg-white border rounded-2xl">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50">
+    <div class="relative overflow-x-auto shadow-sm border border-slate-100 rounded-2xl bg-white">
+        <table class="w-full text-sm text-left text-slate-600">
+            <thead class="text-xs text-slate-400 uppercase bg-slate-50/50 border-b border-slate-100">
                 <tr>
-                    <th scope="col" class="px-6 py-3">No</th>
-                    <th scope="col" class="px-6 py-3">Tanggal Memesan</th>
-                    <th scope="col" class="px-6 py-3">Nama Pelanggan</th>
-                    <th scope="col" class="px-6 py-3">Menu yang Dipesan</th>
-                    <th scope="col" class="px-6 py-3">Porsi</th>
-                    <th scope="col" class="px-6 py-3">Total Harga</th>
-                    <th scope="col" class="px-6 py-3">Metode Pengambilan</th>
-                    <th scope="col" class="px-6 py-3">Alamat</th>
-                    <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
-                    <th scope="col" class="px-6 py-3">Bukti Pembayaran</th>
-                    <th scope="col" class="px-6 py-3">Tanggal Pengiriman</th>
-                    <th scope="col" class="px-6 py-3">Status</th>
-                    <th scope="col" class="px-6 py-3">Aksi</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">No</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Tanggal Pesan</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Pelanggan</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Menu</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">Porsi</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Total</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Pengambilan</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Alamat</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Pembayaran</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">Bukti</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider">Tgl Kirim</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">Status</th>
+                    <th scope="col" class="px-6 py-5 font-bold tracking-wider text-center">Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-slate-50">
                 @foreach ($pesanan as $pesanan)
-                    <tr class="bg-white border-b hover:bg-gray-50 text-xs">
-                        <td class="px-6 py-4 text-center">
-                            {{ $loop->iteration }}
-                        </td>
-                        <td class="px-6 py-4 font-medium whitespace-nowrap">
-                            {{ $pesanan['created_date'] }}
-                        </td>
-                        <td class="px-6 py-4 text-center ">
-                            <div class="img-wrapper flex items-center justify-center">
-                                <img src="{{ $pesanan['foto_profile'] ? asset('storage/' . $pesanan['foto_profile']) : asset('images/default-pfp-cust-single.png') }}"
-                                    alt="profile img" class="w-10 h-auto aspect-square object-cover rounded-full mr-3">
-                                <span>{{ $pesanan['name'] }}</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 text-left  text-xs min-w-60">
-                            <div class="line-clamp-2">
-                                {{ implode(', ', $pesanan['menus']) }}
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            {{ implode(', ', $pesanan['portions']) }}
-                        </td>
-                        <td class="px-6 py-4 text-center min-w-40">
-                            Rp. {{ number_format($pesanan['total_price'], 0, ',', '.') }}
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            {{$pesanan['pickup_method']}}
-                        </td>
-                        <td
-                            class="px-6 py-4 {{ $pesanan['pickup_method'] == 'Delivery' ? 'text-left' : 'text-center'}} min-w-80">
-                            {{ $pesanan['pickup_method'] == 'Delivery' ? $pesanan['address'] : '-' }}
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            {{$pesanan['payment_method']}}
-                        </td>
-                        <td class="px-6 py-4 text-center min-w-44">
-                            @if($pesanan['payment_method'] !== 'Cash' && !$pesanan['payment_proof'])
-                                <div class="text-red-400">
-                                    Bukti pembayaran belum dikirim.
-                                </div>
-                            @elseif($pesanan['payment_method'] === 'Cash')
-                                <p>-</p>
-                            @else
-                                <div class="flex justify-center items-center">
-                                    <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}"
-                                        alt="Bukti Pembayaran" class="w-24 h-24 object-cover rounded-md border">
-                                    @if($pesanan['status_payment_proof'] == 'Accepted')
-                                        <iconify-icon icon="mdi:check-circle" class="text-green-500 text-xl ml-2"></iconify-icon>
-                                    @elseif($pesanan['status_payment_proof'] == 'Rejected')
-                                        <iconify-icon icon="mdi:alert-circle" class="text-red-500 text-xl ml-2"></iconify-icon>
+                            <tr class="hover:bg-slate-50/50 transition-colors group text-xs md:text-sm">
+                                <td class="px-6 py-4 text-center font-bold text-slate-400">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-500">
+                                    {{ $pesanan['created_date'] }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="{{ $pesanan['foto_profile'] ? asset('storage/' . $pesanan['foto_profile']) : asset('images/default-pfp-cust-single.png') }}"
+                                            alt="profile" class="w-8 h-8 rounded-full object-cover border border-slate-100 shadow-sm">
+                                        <span class="font-bold text-slate-800 whitespace-nowrap">{{ $pesanan['name'] }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 min-w-[15rem]">
+                                    <p class="line-clamp-2 text-slate-500 leading-relaxed">
+                                        {{ implode(', ', $pesanan['menus']) }}
+                                    </p>
+                                </td>
+                                <td class="px-6 py-4 text-center font-bold text-slate-800">
+                                    {{ implode(', ', $pesanan['portions']) }}
+                                </td>
+                                <td class="px-6 py-4 font-black text-primary whitespace-nowrap">
+                                    <span
+                                        class="text-[10px] font-bold mr-0.5">Rp</span>{{ number_format($pesanan['total_price'], 0, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $pesanan['pickup_method'] == 'Delivery' ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-600' }}">
+                                        {{$pesanan['pickup_method']}}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 min-w-[20rem]">
+                                    <p class="line-clamp-2 text-slate-500 text-xs">
+                                        {{ $pesanan['pickup_method'] == 'Delivery' ? $pesanan['address'] : '-' }}
+                                    </p>
+                                </td>
+                                <td class="px-6 py-4 font-medium text-slate-600">
+                                    {{$pesanan['payment_method']}}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    @if($pesanan['payment_method'] !== 'Cash' && !$pesanan['payment_proof'])
+                                        <span class="text-[10px] font-bold text-red-400 uppercase">Belum Kirim</span>
+                                    @elseif($pesanan['payment_method'] === 'Cash')
+                                        <span class="text-slate-300">-</span>
+                                    @else
+                                        <div class="relative inline-block group/img">
+                                            <img src="{{ Storage::url('payment_proofs/' . $pesanan['payment_proof']) }}" alt="Bukti"
+                                                class="w-10 h-10 object-cover rounded-lg border border-slate-100 shadow-sm transition-transform group-hover/img:scale-150 group-hover/img:z-10">
+                                            @if($pesanan['status_payment_proof'] == 'Accepted')
+                                                <div class="absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full p-0.5 shadow-sm">
+                                                    <iconify-icon icon="lucide:check" class="text-[10px]"></iconify-icon>
+                                                </div>
+                                            @elseif($pesanan['status_payment_proof'] == 'Rejected')
+                                                <div class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-0.5 shadow-sm">
+                                                    <iconify-icon icon="lucide:x" class="text-[10px]"></iconify-icon>
+                                                </div>
+                                            @endif
+                                        </div>
                                     @endif
-                                </div>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            {{ $pesanan['delivery_date'] ? \Carbon\Carbon::parse($pesanan['delivery_date'])->format('d M Y') : '-' }}
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            @if($pesanan['status'] == 'Pending')
-                                <span class="py-2 px-3 rounded-full bg-slate-100 text-slate-500">
-                                    {{ $pesanan['status'] }}
-                                </span>
-                            @elseif($pesanan['status'] == 'Processed')
-                                <span class="py-2 px-3 rounded-full bg-yellow-50 text-yellow-500">
-                                    {{ $pesanan['status'] }}
-                                </span>
-                            @elseif($pesanan['status'] == 'Completed')
-                                <span class="py-2 px-3 rounded-full bg-emerald-50 text-emerald-500">
-                                    {{ $pesanan['status'] }}
-                                </span>
-                            @elseif($pesanan['status'] == 'Cancelled')
-                                <span class="py-2 px-3 rounded-full bg-red-50 text-red-500">
-                                    {{ $pesanan['status'] }}
-                                </span>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="button-wrapper flex gap-1 items-center">
-                                {{-- @if(!($pesanan['status'] == 'Canceled' || $pesanan['status'] == 'Completed' ||
-                                $pesanan['status'] == 'Processed')) --}}
-                                <a href="{{ route('pesanan.edit', $pesanan['id']) }}"
-                                    class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-amber-300 hover:bg-amber-400 active:bg-amber-300">
-                                    <iconify-icon icon="lucide:edit" width="20" height="20"></iconify-icon>
-                                </a>
-                                {{-- @endif --}}
-
-                                {{-- @if(!($pesanan['status'] == 'Pending' || $pesanan['status'] == 'Processed')) --}}
-                                <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST"
-                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan dengan id = {{$pesanan['id']}} ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                        class="font-medium min-w-9 aspect-square grid place-content-center rounded-md text-white bg-red-400 hover:bg-red-500 active:bg-red-400">
-                                        <iconify-icon icon="weui:delete-filled" width="22" height="22"></iconify-icon>
-                                    </button>
-                                </form>
-                            </div>
-                            {{-- @endif --}}
-                        </td>
-                    </tr>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-slate-500">
+                                    {{ $pesanan['delivery_date'] ? \Carbon\Carbon::parse($pesanan['delivery_date'])->format('d M Y') : '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    @php
+                                        $statusClasses = [
+                                            'Pending' => 'bg-slate-100 text-slate-500',
+                                            'Processed' => 'bg-amber-50 text-amber-600',
+                                            'Completed' => 'bg-emerald-50 text-emerald-600',
+                                            'Cancelled' => 'bg-red-50 text-red-600',
+                                        ];
+                                        $currentStatus = $pesanan['status'] ?? 'Pending';
+                                    @endphp
+                     <span
+                                        class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusClasses[$currentStatus] ?? $statusClasses['Pending'] }}">
+                                        {{ $currentStatus }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex justify-center items-center gap-2">
+                                        <a href="{{ route('pesanan.edit', $pesanan['id']) }}"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all">
+                                            <iconify-icon icon="lucide:edit-3" class="text-base"></iconify-icon>
+                                        </a>
+                                        <form action="{{ route('pesanan.destroy', $pesanan['id']) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?');" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="w-8 h-8 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-500 hover:text-white transition-all">
+                                                <iconify-icon icon="lucide:trash-2" class="text-base"></iconify-icon>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                 @endforeach
             </tbody>
         </table>

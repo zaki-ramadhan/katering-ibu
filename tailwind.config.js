@@ -29,7 +29,7 @@ export default {
                 'bounce-up-down-delay': 'bounceUpDown 1s ease-in-out 0.5s infinite', // Menambahkan delay 0.5 detik
                 'waving-hello': 'waving 1s ease-in-out infinite',
             },
-            
+
             keyframes: {
                 bounceUpDown: {
                     '0%, 100%': { transform: 'translateY(0)' },
@@ -71,16 +71,16 @@ export default {
 
                 // button menu order
                 orderDeactive: {
-                    DEFAULT: "#34d399",
+                    DEFAULT: "#10b981", // emerald-500 (was 400)
                 },
                 orderHovered: {
-                    DEFAULT: "#10b981",
+                    DEFAULT: "#059669", // emerald-600 (was 500)
                 },
-                orderClicked:{
-                    DEFAULT: "#059669",
-                    700: "#047857",
+                orderClicked: {
+                    DEFAULT: "#047857", // emerald-700 (was 600)
+                    700: "#065f46",     // emerald-800 (was 700)
                 },
-                
+
                 // untuk link
                 active: {
                     DEFAULT: '#334155',
@@ -88,15 +88,15 @@ export default {
             },
 
             ringWidth: {
-                thin : '2px',
+                thin: '2px',
             },
-            ringOffsetWidth : {
-                thin : '2px',
+            ringOffsetWidth: {
+                thin: '2px',
             },
 
             corePlugins: {
                 ring: false, // Menonaktifkan ring bawaan
-              },
+            },
         },
     },
 

@@ -8,147 +8,280 @@
 
 @if (session('success'))
     <div id="alert"
-        class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
-        <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
-        {{ session('success') }}
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white shadow-xl text-sm px-6 py-3 rounded-full z-50 flex items-center justify-center gap-2 animate-bounce">
+        <iconify-icon icon="lucide:check-circle" class="text-xl"></iconify-icon>
+        <span class="font-medium">{{ session('success') }}</span>
     </div>
 @endif
 
 @section('content')
-    {{-- Hero Section --}}
-    <section id="hero-section"
-        class="container mx-auto px-6 py-6 flex justify-center items-center gap-8 rounded-xl bg-white">
-        <img src="{{ asset('images/hello-cust.svg') }}" alt="" class="w-80">
-        <div class="text-wrapper flex flex-col gap-4 items-start justify-start">
-            <h1 class="font-bold text-4xl text-primary">Lihat dan pantau perkembangan akun Anda</h1>
-            <p class="leading-6">Periksa informasi akun, notifikasi pesanan, dan pemberitahuan lainnya terkait akun Anda
-                disini.</p>
-        </div>
-    </section>
-
-    {{-- Main Dashboard --}}
-    <section id="dashboard-section" class="container mx-auto px-10 box-border grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        {{-- Progress dan Profile Card --}}
-        <div class="flex flex-col gap-6">
-            {{-- Step Progress --}}
-            <div class="card step-progress bg-white p-6 rounded-xl ">
-                <h2 class="text-center text-primary font-semibold text-2xl">Anda semakin dekat!</h2>
-                @php
-                    $user = auth()->user();
-                    $stepsCompleted = $user && $user->username && $user->email && $user->password && $user->notelp && $orderHistory->isNotEmpty() && $user->hasReviewed;
-                @endphp
-                @if ($stepsCompleted)
-                    <p class="text-center text-sm self-center mt-2">Selamat! Anda telah menyelesaikan semua langkah.</p>
-                @else
-                    <p class="text-center text-sm self-center mt-2">Tahap ini adalah langkah Anda berikutnya untuk menyelesaikan
-                        data akun Anda.</p>
-                    <ul class="steps mt-5 text-base text-white font-medium">
-                        <li class="step {{ $user ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ $user ? 'text-primary' : 'text-slate-300 font-normal' }}">
-                                Buat/Daftar Akun
-                            </span>
-                        </li>
-                        <li
-                            class="step {{ ($user->foto_profile && $user->name && $user->email && $user->password && $user->notelp) ? 'step-primary' : '' }}">
-                            <span
-                                class="text-sm mt-2 {{ ($user->foto_profile && $user->name && $user->email && $user->password && $user->notelp) ? 'text-primary' : 'text-slate-300 font-normal' }}">
-                                Lengkapi Data Pribadi
-                            </span>
-                        </li>
-                        <li class="step {{ $orderHistory->isNotEmpty() ? 'step-primary' : '' }}">
-                            <span
-                                class="text-sm mt-2 {{ $orderHistory->isNotEmpty() ? 'text-primary' : 'text-slate-300 font-normal' }}">
-                                Buat Pesanan
-                            </span>
-                        </li>
-                        {{-- <li class="step {{ $user->hasReviewed ? 'step-primary' : '' }}">
-                            <span class="text-sm mt-2 {{ $user->hasReviewed ? 'text-primary' : 'text-slate-300 font-normal' }}">
-                                Buat Ulasan
-                            </span>
-                        </li> --}}
-                    </ul>
-                @endif
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+        {{-- Hero Section --}}
+        <section id="hero-section"
+            class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-emerald-50 via-white to-primary-50 border border-emerald-100/50 shadow-xl shadow-emerald-500/5">
+            {{-- Decorative Background Elements --}}
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-[80px]"></div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]">
             </div>
 
-            {{-- Profile Card --}}
-            <div class="card profile-card flex-col items-center bg-white p-6 rounded-xl">
-                <h2 class="font-semibold text-primary text-xl mb-4">Informasi data pribadi saya</h2>
-                <div class="flex items-center py-6 px-2 justify-center gap-6  w-full">
-                    @if($user->foto_profile)
-                        <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="customer profile"
-                            class="w-36 h-auto aspect-square object-cover object-center rounded-full border-4 self-center my-4">
-                    @else
-                        <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="customer profile"
-                            class="w-36 h-auto aspect-square object-cover object-center rounded-full border-4 self-center my-4">
-                    @endif
-                    <div class="customer-data-wrapper flex flex-col gap-1 items-start text-sm text-left">
-                        <div class="name flex items-center justify-center gap-2 ">
-                            <span>Username :</span>
-                            <h3 class="customer-name font-medium text-primary">{{ $user->name }}</h3>
-                        </div>
-                        <div class="email flex items-center justify-center gap-2">
-                            <span>Email :</span>
-                            <p class="customer-email font-medium text-primary">{{ $user->email }}</p>
-                        </div>
-                        <a href="{{ route('customer.profile') }}">
-                            <button
-                                class="mt-4 py-[.7rem] px-4 rounded-full bg-primary hover:bg-primary-600 active:bg-primary text-white text-xs">Lihat
-                                selengkapnya</button>
+            <div class="relative z-10 px-8 py-12 lg:px-16 lg:py-16 flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 text-center lg:text-left space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Selamat Datang
+                            Kembali</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h1 class="font-black text-4xl md:text-6xl text-slate-800 leading-[1.1]">
+                            Halo, <span class="text-primary">{{ explode(' ', auth()->user()->name)[0] }}!</span> 👋
+                        </h1>
+                        <p class="text-slate-500 text-base md:text-xl max-w-xl leading-relaxed font-medium">
+                            Siap untuk hidangan lezat hari ini? Pantau pesanan Anda atau jelajahi menu spesial kami.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                        <a href="{{ route('menu') }}"
+                            class="group px-8 py-4 bg-primary text-white font-bold rounded-2xl hover:bg-primary-700 transition-all shadow-xl shadow-primary/20 active:scale-95 flex items-center gap-2">
+                            Pesan Sekarang
+                            <iconify-icon icon="lucide:arrow-right"
+                                class="text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
+                        </a>
+                        <a href="{{ route('customer.profile') }}"
+                            class="px-8 py-4 bg-white text-slate-600 font-bold rounded-2xl border border-slate-200 hover:border-primary hover:text-primary transition-all shadow-sm flex items-center gap-2">
+                            <iconify-icon icon="lucide:user" class="text-xl"></iconify-icon>
+                            Profil Saya
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        {{-- Order History Card --}}
-        <div class="bg-white p-6">
-            @if($orderHistory->isEmpty())
-                <div class="header-order-history flex justify-between items-center mb-4">
-                    <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
+                <div class="relative flex-shrink-0">
+                    <div class="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+                    <img src="{{ asset('images/hello-cust.svg') }}" alt="Welcome"
+                        class="w-72 md:w-96 relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)] animate-float">
                 </div>
-                <div
-                    class="w-full h-56 bg-red-50/70 border border-red-300 text-red-500 grid place-content-center text-center text-sm rounded-xl">
-                    Anda belum memiliki riwayat transaksi.
-                    <a href="{{route('menu')}}" class="text-blue-600 hover:underline mt-1">Buat pesanan</a>
+            </div>
+        </section>
+
+        {{-- Main Dashboard Grid --}}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {{-- Left Column: Progress & Profile --}}
+            <div class="lg:col-span-2 flex flex-col gap-8">
+                {{-- Step Progress Card --}}
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-xl font-bold text-slate-800">Progress Akun</h2>
+                        <span
+                            class="px-4 py-1 bg-emerald-50 text-emerald-600 text-xs font-bold rounded-full uppercase tracking-wider">
+                            On Track
+                        </span>
+                    </div>
+
+                    @php
+                        $user = auth()->user();
+                        $stepsCompleted = $user && $user->name && $user->email && $user->notelp && $orderHistory->isNotEmpty();
+                    @endphp
+
+                    <div class="relative">
+                        <div
+                            class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
+                            {{-- Step 1 --}}
+                            <div class="flex flex-row md:flex-col items-center gap-4 flex-1">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200">
+                                    <iconify-icon icon="lucide:user-plus" class="text-xl"></iconify-icon>
+                                </div>
+                                <div class="text-left md:text-center">
+                                    <p class="font-bold text-slate-800 text-sm">Daftar Aku</p>
+                                    <p class="text-xs text-emerald-500 font-medium">Selesai</p>
+                                </div>
+                            </div>
+
+                            {{-- Step 2 --}}
+                            <div class="flex flex-row md:flex-col items-center gap-4 flex-1">
+                                <div
+                                    class="w-12 h-12 rounded-2xl {{ ($user->foto_profile && $user->name && $user->email && $user->notelp) ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-slate-100 text-slate-400' }} flex items-center justify-center transition-all">
+                                    <iconify-icon icon="lucide:user-check" class="text-xl"></iconify-icon>
+                                </div>
+                                <div class="text-left md:text-center">
+                                    <p class="font-bold text-slate-800 text-sm">Lengkapi Data</p>
+                                    <p
+                                        class="text-xs {{ ($user->foto_profile && $user->name && $user->email && $user->notelp) ? 'text-emerald-500' : 'text-slate-400' }} font-medium">
+                                        {{ ($user->foto_profile && $user->name && $user->email && $user->notelp) ? 'Selesai' : 'Belum Lengkap' }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Step 3 --}}
+                            <div class="flex flex-row md:flex-col items-center gap-4 flex-1">
+                                <div
+                                    class="w-12 h-12 rounded-2xl {{ $orderHistory->isNotEmpty() ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-200' : 'bg-slate-100 text-slate-400' }} flex items-center justify-center transition-all">
+                                    <iconify-icon icon="lucide:shopping-bag" class="text-xl"></iconify-icon>
+                                </div>
+                                <div class="text-left md:text-center">
+                                    <p class="font-bold text-slate-800 text-sm">Buat Pesanan</p>
+                                    <p
+                                        class="text-xs {{ $orderHistory->isNotEmpty() ? 'text-emerald-500' : 'text-slate-400' }} font-medium">
+                                        {{ $orderHistory->isNotEmpty() ? 'Selesai' : 'Belum Ada' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Connector Line (Desktop) --}}
+                        <div class="hidden md:block absolute top-6 left-0 w-full h-0.5 bg-slate-100 -z-0"></div>
+                    </div>
                 </div>
-            @else
-                <div class="header-order-history flex justify-between items-center mb-4">
-                    <h2 class="font-semibold text-primary text-xl">Riwayat transaksi terbaru</h2>
-                    <a href="{{ route('customer.order-history') }}"
-                        class="text-end flex items-center justify-center pe-2 gap-1 text-secondary hover:text-primary hover:underline text-sm">
-                        Lihat semua riwayat
-                        <iconify-icon icon="ooui:next-ltr" width="14" height="14"></iconify-icon>
-                    </a>
-                </div>
-                <div class="items-wrapper flex flex-col gap-4">
-                    @foreach($orderHistory as $pesanan)
-                        <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="no-underline text-current">
-                            <div
-                                class="item relative p-4 rounded-xl border {{ $pesanan['status'] == 'Pending' ? 'bg-slate-50 border-slate-200 text-slate-500' : ''}} {{ $pesanan['status'] == 'Processed' ? 'bg-yellow-50 border-yellow-200 text-yellow-500' : '' }} {{ $pesanan['status'] == 'Completed' ? 'bg-green-50 border-green-200 text-green-500' : '' }} {{ $pesanan['status'] == 'Cancelled' ? 'bg-red-50 border-red-200 text-red-500' : '' }} flex flex-col gap-1">
-                                <p class="order-date text-xs">{{ $pesanan['created_date'] }}</p>
-                                <p class="total-bill font-bold text-xl">Rp.
-                                    {{ number_format($pesanan['total_price'], 0, ',', '.') }}</p>
-                                <p class="order-status text-xs">{{ $pesanan['payment_method'] }}</p>
-                                @if($pesanan['status'] == 'Pending')
-                                    <span
-                                        class="absolute right-4 top-1/2 transform -translate-y-[25%] text-slate-500 text-xs font-medium px-3 py-2 rounded-full">Menunggu
-                                        konfirmasi...</span>
-                                @elseif($pesanan['status'] == 'Processed')
-                                    <span
-                                        class="absolute right-4 top-1/2 transform -translate-y-[25%] text-yellow-400 text-xs font-medium px-3 py-2 rounded-full">Sedang
-                                        diproses...</span>
-                                @elseif($pesanan['status'] == 'Completed')
-                                    <span
-                                        class="absolute right-4 top-1/2 transform -translate-y-[25%] text-green-400 text-xs font-medium px-3 py-2 rounded-full">Selesai</span>
-                                @elseif($pesanan['status'] == 'Cancelled')
-                                    <span
-                                        class="absolute right-4 top-1/2 transform -translate-y-[25%] text-red-400 text-xs font-medium px-3 py-2 rounded-full">Dibatalkan</span>
+
+                {{-- Profile Info Card --}}
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-xl font-bold text-slate-800">Informasi Pribadi</h2>
+                        <a href="{{ route('customer.profile') }}"
+                            class="text-primary hover:text-primary-700 font-bold text-sm flex items-center gap-1 transition-colors">
+                            Edit Profil <iconify-icon icon="lucide:arrow-right" class="text-base"></iconify-icon>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center gap-10">
+                        <div class="relative group">
+                            <div class="w-32 h-32 rounded-full ring-4 ring-emerald-50 overflow-hidden shadow-xl">
+                                @if($user->foto_profile)
+                                    <img src="{{ asset('storage/' . $user->foto_profile) }}" alt="Profile"
+                                        class="w-full h-full object-cover">
+                                @else
+                                    <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="Profile"
+                                        class="w-full h-full object-cover">
                                 @endif
                             </div>
-                        </a>
-                    @endforeach
+                            <div
+                                class="absolute -bottom-2 -right-2 w-10 h-10 bg-emerald-500 text-white rounded-full border-4 border-white flex items-center justify-center shadow-lg">
+                                <iconify-icon icon="lucide:camera" class="text-base"></iconify-icon>
+                            </div>
+                        </div>
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                            <div class="space-y-1">
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-wider">Username</p>
+                                <p class="text-slate-800 font-semibold">{{ $user->name }}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-wider">Email</p>
+                                <p class="text-slate-800 font-semibold">{{ $user->email }}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-wider">Nomor Telepon</p>
+                                <p class="text-slate-800 font-semibold">{{ $user->notelp ?? '-' }}</p>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-sm font-bold text-slate-400 uppercase tracking-wider">Status Akun</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    <p class="text-emerald-600 font-bold">Aktif</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            @endif
+            </div>
+
+            {{-- Right Column: Recent Transactions --}}
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 flex flex-col">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-bold text-slate-800">Transaksi Terakhir</h2>
+                    <a href="{{ route('customer.order-history') }}"
+                        class="w-8 h-8 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm">
+                        <iconify-icon icon="lucide:list" class="text-lg"></iconify-icon>
+                    </a>
+                </div>
+
+                @if($orderHistory->isEmpty())
+                    <div class="flex-1 flex flex-col items-center justify-center text-center p-8 space-y-4">
+                        <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center">
+                            <iconify-icon icon="lucide:shopping-cart" class="text-4xl text-slate-200"></iconify-icon>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="font-bold text-slate-800">Belum ada transaksi</p>
+                            <p class="text-sm text-slate-400">Ayo mulai pemesanan pertama Anda hari ini!</p>
+                        </div>
+                        <a href="{{ route('menu') }}" class="text-primary font-bold text-sm hover:underline">
+                            Lihat Menu
+                        </a>
+                    </div>
+                @else
+                    <div class="space-y-4">
+                        @foreach($orderHistory->take(5) as $pesanan)
+                            <a href="{{ route('pesanan.payOrder', $pesanan['id']) }}" class="block group">
+                                <div
+                                    class="p-4 rounded-2xl border border-slate-50 bg-slate-50/30 group-hover:bg-white group-hover:border-emerald-100 group-hover:shadow-lg group-hover:shadow-emerald-500/5 transition-all duration-300">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span
+                                            class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ $pesanan['created_date'] }}</span>
+                                        @php
+                                            $statusClasses = [
+                                                'Pending' => 'bg-amber-50 text-amber-600 border-amber-100',
+                                                'Processed' => 'bg-blue-50 text-blue-600 border-blue-100',
+                                                'Completed' => 'bg-emerald-50 text-emerald-600 border-emerald-100',
+                                                'Cancelled' => 'bg-red-50 text-red-600 border-red-100',
+                                            ];
+                                            $statusLabels = [
+                                                'Pending' => 'Menunggu',
+                                                'Processed' => 'Diproses',
+                                                'Completed' => 'Selesai',
+                                                'Cancelled' => 'Batal',
+                                            ];
+                                            $currentStatus = $pesanan['status'] ?? 'Pending';
+                                        @endphp
+                                        <span
+                                            class="px-3 py-1 rounded-full text-xs font-bold border {{ $statusClasses[$currentStatus] ?? $statusClasses['Pending'] }}">
+                                            {{ $statusLabels[$currentStatus] ?? $statusLabels['Pending'] }}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="space-y-1">
+                                            <p class="text-sm font-bold text-slate-800 line-clamp-1">Pesanan
+                                                #{{ substr($pesanan['id'], 0, 8) }}</p>
+                                            <p class="text-xs text-slate-400">{{ $pesanan['payment_method'] }}</p>
+                                        </div>
+                                        <p class="text-base font-black text-primary">
+                                            Rp{{ number_format($pesanan['total_price'], 0, ',', '.') }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                    <div class="mt-8">
+                        <a href="{{ route('customer.order-history') }}"
+                            class="w-full py-3 bg-slate-50 text-slate-600 font-bold text-sm rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 transition-all">
+                            Lihat Semua Transaksi
+                        </a>
+                    </div>
+                @endif
+            </div>
         </div>
-    </section>
+    </div>
+
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
 @endsection

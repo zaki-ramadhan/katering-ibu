@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard Admin') 
+@section('title', 'Dashboard Admin')
 
-@section('vite') 
+@section('vite')
     @vite('resources/js/admin/dashboard-admin.js')
 @endsection
 
 @if (session('success'))
-    <div id="alert" class="fixed top-0 left-1/2 transform -translate-x-[25%] bg-green-500 text-white shadow-md text-sm px-4 py-3 rounded-lg z-50 flex items-center justify-center gap-1">
+    <div id="alert"
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white shadow-xl text-sm px-6 py-3 rounded-xl z-[100] flex items-center justify-center gap-2 animate-fade-in-down">
         <iconify-icon icon="lets-icons:check-fill" class="text-xl"></iconify-icon>
         {{ session('success') }}
     </div>
@@ -18,15 +19,18 @@
         <h1 class="text-base text-white">Selamat datang kembali Admin</h1>
     </div> --}}
     {{-- hero section --}}
-    <section id="hero-section" class="container px-10 py-6 flex items-center justify-center gap-20 rounded-2xl bg-white shadow-md shadow-slate-200/60">
-        <img src="{{ asset('images/admin.svg') }}" alt="admin svg" class="w-72">
-        <div class="text-wrapper flex flex-col gap-3 items-start justify-start">
+    <section id="hero-section"
+        class="container px-6 md:px-10 py-8 md:py-10 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-20 rounded-3xl bg-white shadow-sm border border-slate-100">
+        <img src="{{ asset('images/admin.svg') }}" alt="admin svg" class="w-48 md:w-64 lg:w-72">
+        <div class="text-wrapper flex flex-col gap-3 items-center lg:items-start text-center lg:text-left">
             <div class="text-wrapper flex items-center gap-2">
                 <span class="text-2xl animate-waving-hello">👋🏼</span>
-                <p class="text-base lg:text-xl">Selamat datang kembali Admin</p>
+                <p class="text-base md:text-lg font-medium text-slate-500">Selamat datang kembali, Admin</p>
             </div>
-            <h1 class="font-bold sm:text-3xl md:text-4xl grow text-primary">Pantau dan kelola semua data dan pengaturan.</h1>
-            <p class="text-sm lg:text-base leading-6 mt-2">Kelola status pesanan, pelanggan, dan operasional bisnis Anda dalam satu dashboard.</p>
+            <h1 class="font-black text-2xl md:text-3xl lg:text-4xl text-slate-800 leading-tight">Pantau dan Kelola Semua
+                Data & Pengaturan.</h1>
+            <p class="text-sm md:text-base text-slate-500 leading-relaxed max-w-xl">Kelola status pesanan, pelanggan, dan
+                operasional bisnis Anda dalam satu dashboard yang terintegrasi.</p>
         </div>
     </section>
 
@@ -36,154 +40,213 @@
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Harian</h3>
-                <span class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
-                    <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanHarian > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon> {{ abs($perubahanPenjualanHarian) }}%
+                <span
+                    class="{{ $perubahanPenjualanHarian > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanHarian > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}"
+                        width="20" height="20"
+                        class="{{ $perubahanPenjualanHarian > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
+                    {{ abs($perubahanPenjualanHarian) }}%
                 </span>
             </div>
-            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
-            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span>
+                {{ number_format($penjualanHarian, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat
+                Selengkapnya</a>
         </div>
 
         <!-- Penjualan Mingguan -->
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Mingguan</h3>
-                <span class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1">
-                    <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanMingguan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
+                <span
+                    class="{{ $perubahanPenjualanMingguan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1">
+                    <iconify-icon icon="{{ $perubahanPenjualanMingguan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}"
+                        width="20" height="20"
+                        class="{{ $perubahanPenjualanMingguan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
                     {{ abs($perubahanPenjualanMingguan) }}%
                 </span>
             </div>
-            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
-            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span>
+                {{ number_format($penjualanMingguan, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat
+                Selengkapnya</a>
         </div>
 
         <!-- Penjualan Bulanan -->
         <div class="bg-white shadow-md shadow-slate-200/70 rounded-xl p-6 flex flex-col gap-3">
             <div class="head-card w-full flex justify-between">
                 <h3 class="text-base">Penjualan Bulanan</h3>
-                <span class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
-                    <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}" width="20" height="20" class="{{ $perubahanPenjualanBulanan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon> {{ abs($perubahanPenjualanBulanan) }}%
+                <span
+                    class="{{ $perubahanPenjualanBulanan > 0 ? 'text-green-500' : 'text-red-500' }} font-medium flex justify-center items-center gap-1 ">
+                    <iconify-icon icon="{{ $perubahanPenjualanBulanan > 0 ? 'entypo:arrow-up' : 'entypo:arrow-down' }}"
+                        width="20" height="20"
+                        class="{{ $perubahanPenjualanBulanan > 0 ? 'animate-little-bounce-up-down' : 'animate-little-bounce-up-down-delay' }}"></iconify-icon>
+                    {{ abs($perubahanPenjualanBulanan) }}%
                 </span>
             </div>
-            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span> {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
-            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat Selengkapnya</a>
+            <p class="text-gray-600 font-semibold text-2xl"><span class="text-base">Rp.</span>
+                {{ number_format($penjualanBulanan, 0, ',', '.') }}</p>
+            <a href="{{ route('admin.data-penjualan') }}" class="w-max text-blue-500 hover:underline text-xs">Lihat
+                Selengkapnya</a>
         </div>
     </div>
 
 
     <section id="dashboard-stats-section" class="container">
-        <div class="card-wrapper grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 ">
-            <div class="card userData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-red-500">
-                <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-red-500">Data Pelanggan</p>
-                <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlPelanggan }}</h3>
-                <a href="{{route('admin.data-pelanggan')}}" class="w-max hover:text-primary hover:no-underline">
-                    <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
-                        Lihat selengkapnya
-                        <iconify-icon icon="weui:arrow-filled" class="text-lg"></iconify-icon>
-                    </button>
+        <div class="card-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div
+                class="card userData-card flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+                <div class="flex justify-between items-start">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Data Pelanggan</p>
+                    <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                </div>
+                <h3 class="text-3xl font-black text-slate-800">{{ $jmlPelanggan }}</h3>
+                <a href="{{route('admin.data-pelanggan')}}"
+                    class="text-sm font-bold text-primary flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Lihat selengkapnya
+                    <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </a>
             </div>
-            <div class="card menuData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-emerald-500">
-                <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-emerald-500">Data Menu</p>
-                <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlMenu }}</h3>
-                <a href="{{route('admin.data-menu')}}" class="w-max hover:text-primary hover:no-underline">
-                    <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
-                        Lihat selengkapnya
-                        <iconify-icon icon="weui:arrow-filled" class="text-lg"></iconify-icon>
-                    </button>
+            <div
+                class="card menuData-card flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+                <div class="flex justify-between items-start">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Data Menu</p>
+                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                </div>
+                <h3 class="text-3xl font-black text-slate-800">{{ $jmlMenu }}</h3>
+                <a href="{{route('admin.data-menu')}}"
+                    class="text-sm font-bold text-primary flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Lihat selengkapnya
+                    <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </a>
             </div>
-            <div class="card orderData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-blue-500">
-                <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-blue-500">Data Pesanan</p>
-                <h3 class="data-count text-2xl font-bold text-primary">{{$jmlPesanan}}</h3>
-                <a href="{{ route('admin.data-pesanan') }}  " class="w-max hover:text-primary hover:no-underline">
-                    <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
-                        Lihat selengkapnya
-                        <iconify-icon icon="weui:arrow-filled" class="text-lg"></iconify-icon>
-                    </button>
+            <div
+                class="card orderData-card flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+                <div class="flex justify-between items-start">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Data Pesanan</p>
+                    <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+                </div>
+                <h3 class="text-3xl font-black text-slate-800">{{$jmlPesanan}}</h3>
+                <a href="{{ route('admin.data-pesanan') }}"
+                    class="text-sm font-bold text-primary flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Lihat selengkapnya
+                    <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </a>
             </div>
-            <div class="card feedbackData-card flex flex-col gap-3 p-5 rounded-xl bg-white shadow-md shadow-slate-200/60 relative before:content-[''] before:absolute before:top-1/2 before:-left-2 before:-translate-y-[25%] before:w-2 before:h-[80%] before:rounded-ss-full before:rounded-es-full before:bg-amber-400">
-                <p class="data-title relative after:absolute after:top-2 after:right-0 after:content-[''] after:w-[.6rem] after:aspect-square after:rounded-full after:bg-yellow-500">Data Ulasan</p>
-                <h3 class="data-count text-2xl font-bold text-primary">{{ $jmlUlasan }}</h3>
-                <a href="{{ route('admin.data-ulasan') }}" class="w-max hover:text-primary hover:no-underline">
-                    <button class="text-sm flex items-center justify-center gap-2 hover:text-primary">
-                        Lihat selengkapnya
-                        <iconify-icon icon="weui:arrow-filled" class="text-lg"></iconify-icon>
-                    </button>
+            <div
+                class="card feedbackData-card flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-all">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-400"></div>
+                <div class="flex justify-between items-start">
+                    <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Data Ulasan</p>
+                    <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                </div>
+                <h3 class="text-3xl font-black text-slate-800">{{ $jmlUlasan }}</h3>
+                <a href="{{ route('admin.data-ulasan') }}"
+                    class="text-sm font-bold text-primary flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Lihat selengkapnya
+                    <iconify-icon icon="lucide:arrow-right" class="text-lg"></iconify-icon>
                 </a>
             </div>
         </div>
     </section>
-    <section id="latest-data-wrapper" class="container grid grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
-        <div class="pelanggan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
-             after:aspect-square after:rounded-full after:bg-red-500">Pelanggan terbaru</h1>
-            @foreach ($pelangganTerbaru as $pelanggan)
-            <a href="{{ route('admin.edit-pelanggan', $pelanggan->id) }}" class="hover:no-underline hover:text-current">
-                <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                    <img src="{{ $pelanggan->foto_profile ? asset('storage/' . $pelanggan->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                    <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                        <h2 class="truncate text-primary">{{$pelanggan->name}}</h2>
-                        <p class="truncate text-xs">{{$pelanggan->email}}</p>
-                    </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-red-50">
-                        {{ $pelanggan->formatted_date }}
-                    </span>
-                </div>
-            </a>
-            @endforeach
-        </div>
-        <div class="menu-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
-             after:aspect-square after:rounded-full after:bg-emerald-500">Menu terbaru</h1>
-            @foreach ($menuTerbaru as $menu)
-            <a href="{{ route('menu.edit', $menu->id) }}" class="hover:no-underline hover:text-current">
-                <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                    <img src="{{ Storage::url($menu->foto_menu) }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                    <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                        <h2 class="truncate  text-primary">{{$menu->nama_menu}}</h2>
-                        <p class="truncate text-xs">{{$menu->deskripsi}}</p>
-                    </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-emerald-50">
-                        {{ $menu->formatted_date }}
-                    </span>
-                </div>
-            </a>
-            @endforeach
-        </div>
-        <div class="pesanan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2 after:aspect-square after:rounded-full after:bg-blue-500">Pesanan terbaru</h1>
-            @foreach ($pesananTerbaru as $pesanan)
-            <a href="{{ route('pesanan.edit', $pesanan['id']) }}">
-                <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                    <img src="{{ $pesanan->user->foto_profile ? asset('storage/' . $pesanan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                    <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                        <h2 class="truncate text-primary">{{ $pesanan->user->name }}</h2>
-                        <p class="truncate text-xs">{{ $pesanan->user->email }}</p>
-                    </div>
-                    <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-blue-50">
-                        {{ $pesanan->formatted_date }}
-                    </span>
-                </div>
-            </a>
-            @endforeach
-        </div>                
-        <div class="ulasan-terbaru-wrapper bg-white px-6 pt-6 pb-8 flex flex-col gap-4 shadow-md shadow-slate-200/60 rounded-xl">
-            <h1 class="mb-3 ms-[.1rem] font-medium text-primary relative after:absolute after:top-1/2 after:right-0 after:-translate-y-[25%] after:content-[''] after:w-2
-             after:aspect-square after:rounded-full after:bg-amber-400">Ulasan terbaru</h1>
-            @foreach ($ulasanTerbaru as $ulasan)
-            <div class="card flex flex-row justify-start items-center gap-4 mt-2 pe-12 relative">
-                <img src="{{ $ulasan->user->foto_profile ? asset('storage/' . $ulasan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}" alt="profile img" class="max-w-14 aspect-square object-cover rounded-full">
-                <div class="text-wrapper text-sm flex flex-col gap-2 overflow-hidden">
-                    <h2 class="truncate  text-primary">{{$ulasan->user->name}}</h2>
-                    <p class="truncate text-xs">{{$ulasan->pesan}}</p>
-                </div>
-                <span class="timestamp-label w-max text-nowrap overflow-hidden absolute top-1/2 -right-3 -translate-y-[25%] text-[.65rem] p-[.3rem] px-2 rounded-full bg-amber-50">
-                    {{ $ulasan->formatted_date }}
-                </span>
+    <section id="latest-data-wrapper" class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+        {{-- Pelanggan Terbaru --}}
+        <div class="bg-white p-6 flex flex-col gap-4 shadow-sm border border-slate-100 rounded-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-slate-800">Pelanggan Terbaru</h2>
+                <div class="w-2 h-2 rounded-full bg-red-500"></div>
             </div>
-            @endforeach
+            <div class="space-y-4">
+                @foreach ($pelangganTerbaru as $pelanggan)
+                    <a href="{{ route('admin.edit-pelanggan', $pelanggan->id) }}" class="flex items-center gap-3 group">
+                        <img src="{{ $pelanggan->foto_profile ? asset('storage/' . $pelanggan->foto_profile) : asset('images/default-pfp-cust-single.png') }}"
+                            alt="profile" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-slate-800 truncate group-hover:text-primary transition-colors">
+                                {{$pelanggan->name}}</p>
+                            <p class="text-xs text-slate-500 truncate">{{$pelanggan->email}}</p>
+                        </div>
+                        <span class="text-[10px] font-bold bg-red-50 text-red-500 px-2 py-1 rounded-full whitespace-nowrap">
+                            {{ $pelanggan->formatted_date }}
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Menu Terbaru --}}
+        <div class="bg-white p-6 flex flex-col gap-4 shadow-sm border border-slate-100 rounded-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-slate-800">Menu Terbaru</h2>
+                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+            </div>
+            <div class="space-y-4">
+                @foreach ($menuTerbaru as $menu)
+                    <a href="{{ route('menu.edit', $menu->id) }}" class="flex items-center gap-3 group">
+                        <img src="{{ Storage::url($menu->foto_menu) }}" alt="menu"
+                            class="w-10 h-10 rounded-lg object-cover border border-slate-100">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-slate-800 truncate group-hover:text-primary transition-colors">
+                                {{$menu->nama_menu}}</p>
+                            <p class="text-xs text-slate-500 truncate">{{$menu->deskripsi}}</p>
+                        </div>
+                        <span
+                            class="text-[10px] font-bold bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full whitespace-nowrap">
+                            {{ $menu->formatted_date }}
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Pesanan Terbaru --}}
+        <div class="bg-white p-6 flex flex-col gap-4 shadow-sm border border-slate-100 rounded-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-slate-800">Pesanan Terbaru</h2>
+                <div class="w-2 h-2 rounded-full bg-blue-500"></div>
+            </div>
+            <div class="space-y-4">
+                @foreach ($pesananTerbaru as $pesanan)
+                    <a href="{{ route('pesanan.edit', $pesanan['id']) }}" class="flex items-center gap-3 group">
+                        <img src="{{ $pesanan->user->foto_profile ? asset('storage/' . $pesanan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}"
+                            alt="profile" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-slate-800 truncate group-hover:text-primary transition-colors">
+                                {{ $pesanan->user->name }}</p>
+                            <p class="text-xs text-slate-500 truncate">{{ $pesanan->user->email }}</p>
+                        </div>
+                        <span class="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded-full whitespace-nowrap">
+                            {{ $pesanan->formatted_date }}
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Ulasan Terbaru --}}
+        <div class="bg-white p-6 flex flex-col gap-4 shadow-sm border border-slate-100 rounded-2xl">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-slate-800">Ulasan Terbaru</h2>
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+            </div>
+            <div class="space-y-4">
+                @foreach ($ulasanTerbaru as $ulasan)
+                    <div class="flex items-center gap-3">
+                        <img src="{{ $ulasan->user->foto_profile ? asset('storage/' . $ulasan->user->foto_profile) : asset('images/default-pfp-cust-single.png') }}"
+                            alt="profile" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-bold text-slate-800 truncate">{{$ulasan->user->name}}</p>
+                            <p class="text-xs text-slate-500 truncate">{{$ulasan->pesan}}</p>
+                        </div>
+                        <span class="text-[10px] font-bold bg-amber-50 text-amber-600 px-2 py-1 rounded-full whitespace-nowrap">
+                            {{ $ulasan->formatted_date }}
+                        </span>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
 @endsection

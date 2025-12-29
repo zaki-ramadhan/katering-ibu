@@ -75,19 +75,19 @@
             @endauth
 
             <div class="profile-dropdown-wrapper relative">
-                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-xs hover:bg-slate-50 hover:shadow-lg hover:shadow-slate-200/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
+                <div class="profile-btn flex items-center justify-center gap-2 font-normal text-sm hover:bg-slate-50 hover:shadow-lg hover:shadow-slate-200/70 text-primary p-[.4rem] pe-3 rounded-full duration-200 cursor-pointer">
                     @if(auth()->user()->foto_profile)
                     <img src="{{ asset('storage/' . auth()->user()->foto_profile) }}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
                     @else
                     <img src="{{ asset('images/default-pfp-cust-single.png') }}" alt="customer profile" class="rounded-full w-8 aspect-square object-cover object-[50%_20%]">
                     @endif
-                    <p class="cust-name w-6 truncate duration-200">{{ auth()->user()->name }}</p>
+                    <p class="cust-name w-10 truncate duration-200">{{ auth()->user()->name }}</p>
                     <iconify-icon icon="bxs:down-arrow" class="down-arrow-icon scale-90"></iconify-icon>
                     <iconify-icon icon="bxs:up-arrow" class="up-arrow-icon hidden scale-90"></iconify-icon>
                 </div>
 
                 {{-- dropdown after clicked profile --}}
-                <div class="dropdown-logout absolute hidden -bottom-[7.3rem] right-0 z-10 bg-white rounded-xl rounded-se-none shadow-lg shadow-slate-600/10 border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
+                <div class="dropdown-logout absolute hidden -bottom-[7.3rem] right-0 z-50 bg-white rounded-xl rounded-se-none shadow-lg shadow-slate-600/10 border-4 border-white text-primary font-medium text-sm w-max overflow-hidden duration-300">
                     <div class="helper-flex-display text-xs font-medium flex flex-col justify-start items-start ">
                         <button id="logoutBtn" class="w-full flex items-center justify-between gap-2 py-3 pe-3 ps-4 font-medium text-red-400 hover:bg-slate-100 active:bg-slate-50 duration-150">
                             Logout
